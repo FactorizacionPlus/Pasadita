@@ -11,12 +11,20 @@ public class User {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "identifier")
     private String identifier;
+    @Column(name = "identifier_type")
+    @Enumerated(EnumType.STRING)
+    private IdentifierType identifierType;
+
+    @Column(name = "status")
+    private Integer status;
 
     @Column(name = "password")
     private String password;
