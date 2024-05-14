@@ -1,36 +1,33 @@
 package ni.factorizacion.server.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Entity
 @Data
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @Column(name = "first_name")
+    @NotNull
     private String firstName;
-    @Column(name = "last_name")
+    @NotNull
     private String lastName;
 
-    @Column(name = "identifier")
     private String identifier;
-    @Column(name = "identifier_type")
     @Enumerated(EnumType.STRING)
     private IdentifierType identifierType;
 
-    @Column(name = "status")
     private Integer status;
 
-    @Column(name = "password")
     private String password;
 
     // Eager va a ser el ManyToOne
     // El OneToMany permite la comunicación de uno a muchos, no hace la unión y por tanto se recomienda que sea Lazy
     // Usa @JsonIgnore para omitir valores OneToMany y evitar circular dependencies
-    //
 }
