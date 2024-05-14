@@ -1,6 +1,7 @@
 package ni.factorizacion.server;
 
 import ni.factorizacion.server.dtos.GeneralResponse;
+import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.ErrorTools;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,11 @@ import java.util.Map;
 
 @ControllerAdvice
 public class RestExceptionHandler {
+
+    @ExceptionHandler(ControlException.class)
+    protected ResponseEntity<GeneralResponse<Object>> handleControlException(ControlException ex) {
+        return GeneralResponse.getResponse(ex.getStatus(), ex.getMessage(), null);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<GeneralResponse<Map<String, List<String>>>> handleMethodArgumentsNotValid(MethodArgumentNotValidException ex) {
