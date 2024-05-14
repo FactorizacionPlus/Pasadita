@@ -1,0 +1,18 @@
+# spring.application.name=server
+
+spring:
+  application:
+    name: server
+  mustache:
+    suffix: .html
+  datasource:
+    url: jdbc:postgresql://localhost:5432/library
+    username: postgres
+    password: Usuario123.
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
