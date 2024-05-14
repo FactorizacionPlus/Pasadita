@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
         user.setIdentifier(saveUserDto.getIdentifier());
         user.setFirstName(saveUserDto.getFirstName());
         user.setLastName(saveUserDto.getLastName());
-        user.setPassword(saveUserDto.getPassword());
 
         repository.save(user);
     }
@@ -55,7 +54,6 @@ public class UserServiceImpl implements UserService {
         user.setIdentifier(saveUserDto.getIdentifier());
         user.setFirstName(saveUserDto.getFirstName());
         user.setLastName(saveUserDto.getLastName());
-        user.setPassword(saveUserDto.getPassword());
 
         repository.save(user);
     }
