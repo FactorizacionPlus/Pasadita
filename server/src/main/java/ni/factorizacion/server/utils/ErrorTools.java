@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ErrorTools {
-    static public Map<String, List<String>> mapError(List<FieldError> errors) {
+    static public Map<String, List<String>> mapErrors(List<FieldError> errors) {
         Map<String, List<String>> errorMap = new HashMap<>();
 
         errors.forEach(error -> {
