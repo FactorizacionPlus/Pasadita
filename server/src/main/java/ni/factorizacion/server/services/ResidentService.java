@@ -1,6 +1,7 @@
 package ni.factorizacion.server.services;
 
 import ni.factorizacion.server.dtos.ResidentSimpleDto;
+import ni.factorizacion.server.dtos.SaveResidentDto;
 import ni.factorizacion.server.dtos.SaveUserDto;
 import ni.factorizacion.server.types.ControlException;
 
@@ -12,9 +13,9 @@ public interface ResidentService {
 
     Optional<ResidentSimpleDto> findByIdentifier(String identifier);
 
-    void saveUser(SaveUserDto saveUserDto) throws ControlException;
+    void saveUser(SaveResidentDto dto) throws ControlException;
 
-    void updateUser(SaveUserDto saveUserDto) throws ControlException;
+    void updateUser(SaveResidentDto dto) throws ControlException;
 
     void removeUser(String identifier) throws ControlException;
 }

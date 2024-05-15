@@ -23,16 +23,16 @@ public class UserRestController {
     public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllUsers() {
         var users = service.getAll();
         if (users.isEmpty()) {
-            return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "No users found", users);
+            return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "No anonymous users found", users);
         }
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found users", users);
+        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found anonymous users", users);
     }
 
     @GetMapping(value = "/api/users/{identifier}")
     public ResponseEntity<GeneralResponse<User>> getUser(@PathVariable String identifier) {
         var user = service.findByIdentifier(identifier);
         if (user.isEmpty()) {
-            return GeneralResponse.getResponse(HttpStatus.NOT_FOUND, "User not found", null);
+            return GeneralResponse.getResponse(HttpStatus.NOT_FOUND, "Anonymous user not found", null);
         }
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Accepted", user.get());
     }
@@ -40,18 +40,18 @@ public class UserRestController {
     @PostMapping(value = "/api/users/", consumes = "application/json")
     public ResponseEntity<GeneralResponse<User>> saveUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
         service.saveUser(userDto);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "User saved", null);
+        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Anonymous user saved", null);
     }
 
     @PatchMapping(value = "/api/users/", consumes = "application/json")
     public ResponseEntity<GeneralResponse<User>> updateUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
         service.updateUser(userDto);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "User updated", null);
+        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Anonymous user updated", null);
     }
 
     @DeleteMapping(value = "/api/users/{identifier}")
     public ResponseEntity<GeneralResponse<User>> removeUser(@PathVariable String identifier) throws Exception {
         service.removeUser(identifier);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "User deleted", null);
+        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Anonymous user deleted", null);
     }
 }

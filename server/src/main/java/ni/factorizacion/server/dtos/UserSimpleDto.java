@@ -13,8 +13,15 @@ public class UserSimpleDto {
     private String firstName;
     private String lastName;
     private String identifier;
+    private String identifierType;
 
     static public UserSimpleDto from(User user) {
-        return new UserSimpleDto(user.getUuid(), user.getFirstName(), user.getLastName(), user.getIdentifier());
+        return new UserSimpleDto(
+                user.getUuid(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getIdentifier(),
+                user.getIdentifierType().name()
+        );
     }
 }

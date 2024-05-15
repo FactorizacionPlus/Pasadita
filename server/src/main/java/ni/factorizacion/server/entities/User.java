@@ -9,8 +9,6 @@ import java.util.UUID;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "TYPE")
-@DiscriminatorValue("Anonymous")
 public class User {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)

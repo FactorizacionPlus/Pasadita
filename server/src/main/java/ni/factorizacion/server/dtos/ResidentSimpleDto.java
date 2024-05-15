@@ -14,6 +14,7 @@ public class ResidentSimpleDto {
     private String firstName;
     private String lastName;
     private String identifier;
+    private String identifierType;
     private String email;
     private String imageUrl;
     private Integer role;
@@ -25,6 +26,7 @@ public class ResidentSimpleDto {
                 resident.getFirstName(),
                 resident.getLastName(),
                 resident.getIdentifier(),
+                resident.getIdentifierType().name(),
                 resident.getEmail(),
                 resident.getImageUrl(),
                 resident.getRole(),
