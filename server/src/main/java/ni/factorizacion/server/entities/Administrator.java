@@ -8,10 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "TYPE")
-@DiscriminatorValue("Anonymous")
-public class User {
+public class Administrator {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
@@ -30,7 +27,8 @@ public class User {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
-    // Eager va a ser el ManyToOne
-    // El OneToMany permite la comunicación de uno a muchos, no hace la unión y por tanto se recomienda que sea Lazy
-    // Usa @JsonIgnore para omitir valores OneToMany y evitar circular dependencies
+
+    @NotNull
+    private String email;
+    private String imageUrl;
 }
