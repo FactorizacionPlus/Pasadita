@@ -1,13 +1,13 @@
 package ni.factorizacion.server.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 import ni.factorizacion.server.entities.User;
 
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
+@SuperBuilder
 public class UserSimpleDto {
     private UUID uuid;
     private String firstName;
@@ -16,12 +16,12 @@ public class UserSimpleDto {
     private String identifierType;
 
     static public UserSimpleDto from(User user) {
-        return new UserSimpleDto(
-                user.getUuid(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getIdentifier(),
-                user.getIdentifierType().name()
-        );
+        return UserSimpleDto.builder()
+                .uuid(user.getUuid())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .identifier(user.getIdentifier())
+                .identifierType(user.getIdentifierType().name())
+                .build();
     }
 }

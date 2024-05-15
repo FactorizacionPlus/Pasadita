@@ -1,36 +1,31 @@
 package ni.factorizacion.server.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 import ni.factorizacion.server.entities.Residence;
 import ni.factorizacion.server.entities.Resident;
 
-import java.util.UUID;
-
+@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-public class ResidentSimpleDto {
-    private UUID uuid;
-    private String firstName;
-    private String lastName;
-    private String identifier;
-    private String identifierType;
-    private String email;
-    private String imageUrl;
+@SuperBuilder
+public class ResidentSimpleDto extends InvitedUserSimpleDto {
     private Integer role;
     private Residence residence;
 
     static public ResidentSimpleDto from(Resident resident) {
-        return new ResidentSimpleDto(
-                resident.getUuid(),
-                resident.getFirstName(),
-                resident.getLastName(),
-                resident.getIdentifier(),
-                resident.getIdentifierType().name(),
-                resident.getEmail(),
-                resident.getImageUrl(),
-                resident.getRole(),
-                resident.getResidence()
-        );
+        return ResidentSimpleDto.builder()
+                .uuid(resident.getUuid())
+                .firstName(resident.getFirstName())
+                .lastName(resident.getLastName())
+                .identifier(resident.getIdentifier())
+                .identifierType(resident.getIdentifierType().name())
+
+                .email(resident.getEmail())
+                .imageUrl(resident.getImageUrl())
+
+                .role(resident.getRole())
+                .residence(resident.getResidence())
+                .build();
     }
 }
