@@ -6,9 +6,9 @@ spring:
   mustache:
     suffix: .html
   datasource:
-    url: jdbc:postgresql://localhost:5432/library
-    username: postgres
-    password: Usuario123.
+    url: ${DATABASE_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
 
   jpa:
     hibernate:
