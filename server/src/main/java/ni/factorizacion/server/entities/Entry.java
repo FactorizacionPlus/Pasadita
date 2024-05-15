@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -15,12 +15,14 @@ public class Entry {
     private UUID uuid;
 
     @NotNull
-    private Date accessDate;
+    private LocalDateTime accessDate;
     @NotNull
     private String description;
 
+    @NotNull
     @ManyToOne
     private User user;
+    @NotNull
     @ManyToOne
     private Terminal terminal;
 }

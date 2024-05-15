@@ -3,8 +3,9 @@ package ni.factorizacion.server.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -15,11 +16,12 @@ public class Permission {
     private UUID uuid;
 
     @NotNull
-    private Date creationDate;
+    @CreationTimestamp
+    private LocalDateTime creationDate;
     @NotNull
-    private Date startDate;
+    private LocalDateTime startDate;
     @NotNull
-    private Date endDate;
+    private LocalDateTime endDate;
     private Boolean authorized;
 
     @ManyToOne

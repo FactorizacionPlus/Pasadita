@@ -19,11 +19,15 @@ public class User {
     @NotNull
     private String lastName;
 
+    @NotNull
     private String identifier;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private IdentifierType identifierType;
 
-    private Integer status;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status;
     // Eager va a ser el ManyToOne
     // El OneToMany permite la comunicación de uno a muchos, no hace la unión y por tanto se recomienda que sea Lazy
     // Usa @JsonIgnore para omitir valores OneToMany y evitar circular dependencies
