@@ -1,12 +1,12 @@
 package ni.factorizacion.server.controllers;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import ni.factorizacion.server.dtos.GeneralResponse;
 import ni.factorizacion.server.dtos.SaveUserDto;
 import ni.factorizacion.server.dtos.UserSimpleDto;
 import ni.factorizacion.server.entities.User;
 import ni.factorizacion.server.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,43 +14,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(produces = "application/json")
+@RequiredArgsConstructor
 public class UserRestController {
-    @Autowired
-    UserService userService;
+    private final UserService service;
 
-    @GetMapping(value = "/api/users/", produces = "application/json")
+    @GetMapping(value = "/api/users/")
     public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllUsers() {
-        var users = userService.getAll();
+        var users = service.getAll();
         if (users.isEmpty()) {
             return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "No users found", users);
         }
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found users", users);
     }
 
-    @GetMapping(value = "/api/users/{identifier}", produces = "application/json")
+    @GetMapping(value = "/api/users/{identifier}")
     public ResponseEntity<GeneralResponse<User>> getUser(@PathVariable String identifier) {
-        var user = userService.findByIdentifier(identifier);
+        var user = service.findByIdentifier(identifier);
         if (user.isEmpty()) {
             return GeneralResponse.getResponse(HttpStatus.NOT_FOUND, "User not found", null);
         }
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Accepted", user.get());
     }
 
-    @PostMapping(value = "/api/users/", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/api/users/", consumes = "application/json")
     public ResponseEntity<GeneralResponse<User>> saveUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
-        userService.saveUser(userDto);
+        service.saveUser(userDto);
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "User saved", null);
     }
 
-    @PatchMapping(value = "/api/users/", produces = "application/json", consumes = "application/json")
+    @PatchMapping(value = "/api/users/", consumes = "application/json")
     public ResponseEntity<GeneralResponse<User>> updateUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
-        userService.updateUser(userDto);
+        service.updateUser(userDto);
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "User updated", null);
     }
 
-    @DeleteMapping(value = "/api/users/{identifier}", produces = "application/json")
+    @DeleteMapping(value = "/api/users/{identifier}")
     public ResponseEntity<GeneralResponse<User>> removeUser(@PathVariable String identifier) throws Exception {
-        userService.removeUser(identifier);
+        service.removeUser(identifier);
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "User deleted", null);
     }
 }
