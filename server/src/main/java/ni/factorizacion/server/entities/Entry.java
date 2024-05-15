@@ -1,29 +1,28 @@
 package ni.factorizacion.server.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Set;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Data
-public class Residence {
+public class Entry {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
     @NotNull
-    private Integer maxHabitants;
+    private LocalDateTime accessDate;
     @NotNull
     private String description;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
-    @OneToMany
-    @JsonIgnore
-    private Set<Resident> residents;
+    @NotNull
+    @ManyToOne
+    private User user;
+    @NotNull
+    @ManyToOne
+    private Terminal terminal;
 }

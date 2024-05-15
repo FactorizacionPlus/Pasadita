@@ -10,20 +10,19 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class Residence {
+public class Terminal {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @NotNull
-    private Integer maxHabitants;
-    @NotNull
-    private String description;
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(unique = true)
+    @NotNull
+    private TerminalType type;
+    @NotNull
+    private String password;
 
     @OneToMany
     @JsonIgnore
-    private Set<Resident> residents;
+    private Set<Entry> entries;
 }

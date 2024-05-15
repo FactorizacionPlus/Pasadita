@@ -2,6 +2,7 @@ package ni.factorizacion.server.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,6 +10,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 public class Resident extends InvitedUser {
+    @NotNull
     private Integer role;
 
     @ManyToOne

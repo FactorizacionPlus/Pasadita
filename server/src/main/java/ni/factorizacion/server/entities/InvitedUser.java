@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 public class InvitedUser extends User {
-    private String email;
     @NotNull
+    private String email;
     private String imageUrl;
 }

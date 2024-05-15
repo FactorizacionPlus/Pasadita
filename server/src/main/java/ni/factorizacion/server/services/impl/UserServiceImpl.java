@@ -2,6 +2,7 @@ package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.dtos.SaveUserDto;
 import ni.factorizacion.server.dtos.UserSimpleDto;
+import ni.factorizacion.server.entities.Status;
 import ni.factorizacion.server.entities.User;
 import ni.factorizacion.server.repositories.UserRepository;
 import ni.factorizacion.server.services.UserService;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserSimpleDto> getAll() {
-        return repository.findAll().stream().map(UserSimpleDto::from).toList();
+        return repository.findAllAnonymous().stream().map(UserSimpleDto::from).toList();
     }
 
     @Override
@@ -36,10 +37,13 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User();
 
-        user.setIdentifier(saveUserDto.getIdentifier());
         user.setFirstName(saveUserDto.getFirstName());
         user.setLastName(saveUserDto.getLastName());
-        user.setPassword(saveUserDto.getPassword());
+
+        user.setIdentifier(saveUserDto.getIdentifier());
+        user.setIdentifierType(saveUserDto.getIdentifierType());
+
+        user.setStatus(Status.ACTIVE);
 
         repository.save(user);
     }
@@ -55,7 +59,6 @@ public class UserServiceImpl implements UserService {
         user.setIdentifier(saveUserDto.getIdentifier());
         user.setFirstName(saveUserDto.getFirstName());
         user.setLastName(saveUserDto.getLastName());
-        user.setPassword(saveUserDto.getPassword());
 
         repository.save(user);
     }
