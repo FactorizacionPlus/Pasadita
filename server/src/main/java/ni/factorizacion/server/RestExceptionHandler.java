@@ -1,7 +1,7 @@
 package ni.factorizacion.server;
 
 import jakarta.validation.ConstraintViolationException;
-import ni.factorizacion.server.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.ErrorTools;
 import org.springframework.http.HttpStatus;

@@ -2,10 +2,10 @@ package ni.factorizacion.server.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import ni.factorizacion.server.dtos.GeneralResponse;
-import ni.factorizacion.server.dtos.SaveUserDto;
-import ni.factorizacion.server.dtos.UserSimpleDto;
-import ni.factorizacion.server.entities.User;
+import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.SaveUserDto;
+import ni.factorizacion.server.domain.dtos.UserSimpleDto;
+import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

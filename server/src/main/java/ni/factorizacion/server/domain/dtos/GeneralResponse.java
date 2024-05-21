@@ -1,4 +1,4 @@
-package ni.factorizacion.server.dtos;
+package ni.factorizacion.server.domain.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

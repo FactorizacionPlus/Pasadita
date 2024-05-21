@@ -1,10 +1,10 @@
-package ni.factorizacion.server.dtos;
+package ni.factorizacion.server.domain.dtos;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
-import ni.factorizacion.server.entities.Residence;
-import ni.factorizacion.server.entities.Resident;
+import ni.factorizacion.server.domain.entities.Residence;
+import ni.factorizacion.server.domain.entities.Resident;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

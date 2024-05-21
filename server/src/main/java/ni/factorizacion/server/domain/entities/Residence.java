@@ -1,4 +1,4 @@
-package ni.factorizacion.server.entities;
+package ni.factorizacion.server.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -10,19 +10,20 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class Terminal {
+public class Residence {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
+    @NotNull
+    private Integer maxHabitants;
+    @NotNull
+    private String description;
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(unique = true)
-    @NotNull
-    private TerminalType type;
-    @NotNull
-    private String password;
+    private Status status;
 
     @OneToMany
     @JsonIgnore
-    private Set<Entry> entries;
+    private Set<Resident> residents;
 }

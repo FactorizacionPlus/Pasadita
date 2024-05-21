@@ -1,4 +1,4 @@
-package ni.factorizacion.server.entities;
+package ni.factorizacion.server.domain.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,8 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class Administrator {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
@@ -27,8 +28,7 @@ public class Administrator {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @NotNull
-    private String email;
-    private String imageUrl;
+    // Eager va a ser el ManyToOne
+    // El OneToMany permite la comunicación de uno a muchos, no hace la unión y por tanto se recomienda que sea Lazy
+    // Usa @JsonIgnore para omitir valores OneToMany y evitar circular dependencies
 }

@@ -1,11 +1,11 @@
-package ni.factorizacion.server.dtos;
+package ni.factorizacion.server.domain.dtos;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import ni.factorizacion.server.entities.IdentifierType;
+import ni.factorizacion.server.domain.entities.IdentifierType;
 
 @Data
 public class SaveUserDto {

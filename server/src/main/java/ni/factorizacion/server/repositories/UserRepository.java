@@ -1,6 +1,6 @@
 package ni.factorizacion.server.repositories;
 
-import ni.factorizacion.server.entities.User;
+import ni.factorizacion.server.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

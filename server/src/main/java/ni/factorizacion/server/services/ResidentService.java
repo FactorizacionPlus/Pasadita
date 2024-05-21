@@ -1,8 +1,7 @@
 package ni.factorizacion.server.services;
 
-import ni.factorizacion.server.dtos.ResidentSimpleDto;
-import ni.factorizacion.server.dtos.SaveResidentDto;
-import ni.factorizacion.server.dtos.SaveUserDto;
+import ni.factorizacion.server.domain.dtos.ResidentSimpleDto;
+import ni.factorizacion.server.domain.dtos.SaveResidentDto;
 import ni.factorizacion.server.types.ControlException;
 
 import java.util.List;

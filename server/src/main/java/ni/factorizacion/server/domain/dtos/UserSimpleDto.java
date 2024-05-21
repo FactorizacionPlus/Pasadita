@@ -1,8 +1,8 @@
-package ni.factorizacion.server.dtos;
+package ni.factorizacion.server.domain.dtos;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
-import ni.factorizacion.server.entities.User;
+import ni.factorizacion.server.domain.entities.User;
 
 import java.util.UUID;
 

@@ -2,18 +2,16 @@ package ni.factorizacion.server.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import ni.factorizacion.server.dtos.GeneralResponse;
-import ni.factorizacion.server.dtos.ResidentSimpleDto;
-import ni.factorizacion.server.dtos.SaveResidentDto;
-import ni.factorizacion.server.dtos.SaveUserDto;
-import ni.factorizacion.server.entities.User;
+import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.ResidentSimpleDto;
+import ni.factorizacion.server.domain.dtos.SaveResidentDto;
+import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.ResidentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/residents/", produces = "application/json")

@@ -1,7 +1,6 @@
-package ni.factorizacion.server.entities;
+package ni.factorizacion.server.domain.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,10 +8,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Resident extends InvitedUser {
+public class InvitedUser extends User {
     @NotNull
-    private Integer role;
-
-    @ManyToOne
-    private Residence residence;
+    private String email;
+    private String imageUrl;
 }

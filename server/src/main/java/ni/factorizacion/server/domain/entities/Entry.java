@@ -1,4 +1,4 @@
-package ni.factorizacion.server.entities;
+package ni.factorizacion.server.domain.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

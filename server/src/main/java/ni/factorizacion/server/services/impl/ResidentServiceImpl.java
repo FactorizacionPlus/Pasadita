@@ -1,10 +1,9 @@
 package ni.factorizacion.server.services.impl;
 
-import ni.factorizacion.server.dtos.ResidentSimpleDto;
-import ni.factorizacion.server.dtos.SaveResidentDto;
-import ni.factorizacion.server.dtos.SaveUserDto;
-import ni.factorizacion.server.entities.Resident;
-import ni.factorizacion.server.entities.Status;
+import ni.factorizacion.server.domain.dtos.ResidentSimpleDto;
+import ni.factorizacion.server.domain.dtos.SaveResidentDto;
+import ni.factorizacion.server.domain.entities.Resident;
+import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidentService;
 import ni.factorizacion.server.types.ControlException;
