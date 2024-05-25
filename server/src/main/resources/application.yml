@@ -10,6 +10,10 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
 
+  security:
+    user:
+      name: user
+      password: password
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,3 +22,7 @@ spring:
     properties:
       hibernate:
         globally_quoted_identifiers: true
+
+github:
+  client_id: ${GITHUB_CLIENT_ID}
+  client_secret: ${GITHUB_CLIENT_SECRET}
