@@ -10,6 +10,10 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
 
+  session:
+    jdbc:
+      initialize-schema: always
+
   security:
     user:
       name: user
@@ -26,3 +30,6 @@ spring:
 github:
   client_id: ${GITHUB_CLIENT_ID}
   client_secret: ${GITHUB_CLIENT_SECRET}
+google:
+  client_id: ${GOOGLE_CLIENT_ID}
+  client_secret: ${GOOGLE_CLIENT_SECRET}

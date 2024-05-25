@@ -18,7 +18,13 @@ public class AuthRestController {
 
     @RequestMapping("/login/github")
     public ResponseEntity<GeneralResponse<Object>> loginGithub(@RequestParam("code") String code) {
-        String token = service.getAuthToken(code);
+        String token = service.getGithubToken(code);
+        return GeneralResponse.getResponse(HttpStatus.OK, "Data", token);
+    }
+
+    @RequestMapping("/login/google")
+    public ResponseEntity<GeneralResponse<Object>> loginGoogle(@RequestParam("code") String code) {
+        String token = service.getGoogleToken(code);
         return GeneralResponse.getResponse(HttpStatus.OK, "Data", token);
     }
 }
