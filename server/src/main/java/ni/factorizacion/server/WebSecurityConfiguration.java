@@ -1,9 +1,8 @@
 package ni.factorizacion.server;
 
-import jakarta.servlet.http.HttpServletResponse;
-import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +10,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.Optional;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -34,28 +32,29 @@ public class WebSecurityConfiguration {
             return encodedPassword.equals(rawPassword.toString());
         }
     };
-
+    @Autowired
+    @Qualifier("delegatedAuthenticationEntryPoint")
+    AuthenticationEntryPoint authEntryPoint;
     @Autowired
     private UserService userService;
-
-//    @Autowired
-//    private JWTTokenFilter filter;
+    @Autowired
+    private JWTTokenFilter filter;
 
     @Bean
     AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder managerBuilder
                 = http.getSharedObject(AuthenticationManagerBuilder.class);
 
-        managerBuilder
-                .userDetailsService(identifier -> {
-                    Optional<User> user = userService.findByIdentifier(identifier);
-
-                    if (user.isEmpty())
-                        throw new UsernameNotFoundException("User: " + identifier + ", not found!");
-
-                    return user.get();
-                })
-                .passwordEncoder(passwordEncoder);
+//        managerBuilder
+//                .userDetailsService(identifier -> {
+//                    Optional<User> user = userService.findByIdentifier(identifier);
+//
+//                    if (user.isEmpty())
+//                        throw new UsernameNotFoundException("User: " + identifier + ", not found!");
+//
+//                    return user.get();
+//                })
+//                .passwordEncoder(passwordEncoder);
 
         return managerBuilder.build();
     }
@@ -69,6 +68,7 @@ public class WebSecurityConfiguration {
         http.authorizeHttpRequests(auth ->
                 auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated()
         );
 
@@ -76,15 +76,9 @@ public class WebSecurityConfiguration {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         //UnAunthorized handler
-        http.exceptionHandling(handling -> handling.authenticationEntryPoint((req, res, ex) -> {
-            res.sendError(
-                    HttpServletResponse.SC_UNAUTHORIZED,
-                    "Auth fail!"
-            );
-        }));
-
+        http.exceptionHandling(handling -> handling.authenticationEntryPoint(authEntryPoint));
         //JWT filter
-//        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
