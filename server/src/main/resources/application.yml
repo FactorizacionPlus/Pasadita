@@ -10,6 +10,14 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
 
+  session:
+    jdbc:
+      initialize-schema: always
+
+  security:
+    user:
+      name: user
+      password: password
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,3 +26,17 @@ spring:
     properties:
       hibernate:
         globally_quoted_identifiers: true
+
+github:
+  endpoint_token: https://github.com/login/oauth/access_token
+  client_id: ${GITHUB_CLIENT_ID}
+  client_secret: ${GITHUB_CLIENT_SECRET}
+google:
+  endpoint_token: https://oauth2.googleapis.com/token
+  endpoint_userinfo: https://www.googleapis.com/oauth2/v1/userinfo
+  client_id: ${GOOGLE_CLIENT_ID}
+  client_secret: ${GOOGLE_CLIENT_SECRET}
+
+jwt:
+  secret: "57a1d08de87943568b154380f0af7070337d3392b184eb02e5fa03d246911fd2"
+  exptime: 1296000000

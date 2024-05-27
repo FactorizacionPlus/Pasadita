@@ -1,34 +1,25 @@
 package ni.factorizacion.server.domain.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.UUID;
+import java.util.Collection;
+import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Administrator {
-    @Id()
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+public class Administrator extends RegisteredUser {
 
-    @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
+    @Override
+    @ElementCollection
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN")
+        );
+    }
 
-    @NotNull
-    private String identifier;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private IdentifierType identifierType;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @NotNull
-    private String email;
-    private String imageUrl;
 }

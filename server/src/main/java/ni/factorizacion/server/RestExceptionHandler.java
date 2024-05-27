@@ -6,6 +6,7 @@ import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.ErrorTools;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,11 @@ public class RestExceptionHandler {
     @ExceptionHandler(ControlException.class)
     protected ResponseEntity<GeneralResponse<Object>> handleControlException(ControlException ex) {
         return GeneralResponse.getResponse(ex.getStatus(), ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<GeneralResponse<Object>> handleAuthException(AuthenticationException ex) {
+        return GeneralResponse.getResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
