@@ -9,6 +9,7 @@ import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class UserRestController {
     private final UserService service;
 
     @GetMapping(value = "/api/users/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllUsers() {
         var users = service.getAll();
         if (users.isEmpty()) {
