@@ -13,6 +13,7 @@ import ni.factorizacion.server.utils.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -49,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private TokenRepository tokenRepository;
 
     @Override
-    public String getGithubToken(String code) {
+    public String getGithubToken(String code) throws ControlException {
         WebClient client = WebClient.builder()
                 .baseUrl(githubEndpointToken)
                 .defaultUriVariables(Map.ofEntries(
@@ -61,6 +62,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         ResponseSpec response = client.post().retrieve();
         GithubAccessToken token = response.bodyToFlux(GithubAccessToken.class).blockLast();
 
+        if (token == null) {
+            throw new ControlException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not retrieve GitHub Access Token");
+        }
         return token.getAccess_token();
     }
 
@@ -83,12 +87,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         GoogleAccessToken googleToken = response.bodyToFlux(GoogleAccessToken.class).blockLast();
 
+        if (googleToken == null) {
+            throw new ControlException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not retrieve Google Access Token");
+        }
         return googleToken.getAccess_token();
     }
 
     @Override
     @Transactional(rollbackOn = ControlException.class)
-    public Token registerToken(RegisteredUser user) throws ControlException {
+    public Token registerToken(RegisteredUser user) {
         cleanTokens(user);
 
         String tokenString = jwtTools.generateToken(user);
@@ -117,8 +124,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    @Transactional(rollbackOn = ControlException.class)
-    public void cleanTokens(RegisteredUser user) throws ControlException {
+    @Transactional
+    public void cleanTokens(RegisteredUser user) {
         List<Token> tokens = tokenRepository.findByUserAndActive(user, true);
 
         tokens.forEach(token -> {

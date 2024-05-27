@@ -10,8 +10,12 @@ import java.util.Optional;
 
 public interface UserService {
     List<UserSimpleDto> getAll();
+
     Optional<User> findByIdentifier(String identifier);
+
     void saveUser(SaveUserDto saveUserDto) throws ControlException;
+
     void updateUser(SaveUserDto saveUserDto) throws ControlException;
+
     void removeUser(String identifier) throws ControlException;
 }

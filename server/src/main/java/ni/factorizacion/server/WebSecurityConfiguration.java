@@ -11,8 +11,8 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -24,17 +24,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class WebSecurityConfiguration {
 
-    private final PasswordEncoder passwordEncoder = new PasswordEncoder() {
-        @Override
-        public String encode(CharSequence rawPassword) {
-            return rawPassword.toString();
-        }
-
-        @Override
-        public boolean matches(CharSequence rawPassword, String encodedPassword) {
-            return encodedPassword.equals(rawPassword.toString());
-        }
-    };
     @Autowired
     @Qualifier("delegatedAuthenticationEntryPoint")
     AuthenticationEntryPoint authEntryPoint;
@@ -63,7 +52,7 @@ public class WebSecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //Http login and cors disabled
-        http.httpBasic(withDefaults()).csrf(csrf -> csrf.disable());
+        http.httpBasic(withDefaults()).csrf(AbstractHttpConfigurer::disable);
 
         //Route filter
         http.authorizeHttpRequests(auth ->
@@ -76,7 +65,7 @@ public class WebSecurityConfiguration {
         //Statelessness
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        //UnAunthorized handler
+        //Unauthorized handler
         http.exceptionHandling(handling -> handling.authenticationEntryPoint(authEntryPoint));
         //JWT filter
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);

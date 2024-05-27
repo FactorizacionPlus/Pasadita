@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class ControlException extends Exception {
-    private HttpStatus status;
+    private final HttpStatus status;
 
     public ControlException(HttpStatus status, String message) {
         super(message);

@@ -1,12 +1,11 @@
 package ni.factorizacion.server;
 
+import io.micrometer.common.lang.NonNullApi;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
-import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.services.RegisteredUserService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.JWTTools;
@@ -23,14 +22,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.util.Optional;
 
 @Component
+@NonNullApi
 public class JWTTokenFilter extends OncePerRequestFilter {
-
     private final RequestMatcher uriMatcher = new AntPathRequestMatcher("/auth/login/**");
+
     @Autowired
     RegisteredUserService userService;
-
-    @Autowired
-    AuthenticationService authService;
 
     @Autowired
     JWTTools jwtTools;
@@ -73,7 +70,7 @@ public class JWTTokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         return uriMatcher.matches(request);
     }
 }

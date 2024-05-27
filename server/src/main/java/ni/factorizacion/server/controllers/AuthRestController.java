@@ -27,7 +27,7 @@ public class AuthRestController {
     RegisteredUserService userService;
 
     @RequestMapping("/login/github")
-    public ResponseEntity<GeneralResponse<Object>> loginGithub(@RequestParam("code") String code) {
+    public ResponseEntity<GeneralResponse<Object>> loginGithub(@RequestParam("code") String code) throws ControlException {
         String token = authService.getGithubToken(code);
         return GeneralResponse.getResponse(HttpStatus.OK, "Data", token);
     }
