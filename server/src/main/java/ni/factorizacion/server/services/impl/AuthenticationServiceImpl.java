@@ -44,6 +44,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Value("${google.endpoint_userinfo}")
     private String googleEndpointUserInfo;
 
+    @Value("${server.public_domain}/auth/login/google")
+    private String googleRedirectionUri;
+
     @Autowired
     private JWTTools jwtTools;
     @Autowired
@@ -82,7 +85,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .with("client_secret", googleClientSecret)
                 .with("code", code)
                 .with("grant_type", "authorization_code")
-                .with("redirect_uri", "http://localhost:8080/auth/login/google")
+                .with("redirect_uri", googleRedirectionUri)
         ).retrieve();
 
         GoogleAccessToken googleToken = response.bodyToFlux(GoogleAccessToken.class).blockLast();
