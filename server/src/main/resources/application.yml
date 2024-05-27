@@ -19,6 +19,7 @@ spring:
       name: user
       password: password
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
       naming:
@@ -26,6 +27,9 @@ spring:
     properties:
       hibernate:
         globally_quoted_identifiers: true
+  sql:
+    init:
+      mode: always
 
 github:
   endpoint_token: https://github.com/login/oauth/access_token
@@ -40,3 +44,6 @@ google:
 jwt:
   secret: "57a1d08de87943568b154380f0af7070337d3392b184eb02e5fa03d246911fd2"
   exptime: 1296000000
+
+server:
+  public_domain: ${PUBLIC_DOMAIN}
