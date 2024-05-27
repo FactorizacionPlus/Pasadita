@@ -5,9 +5,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import ni.factorizacion.server.domain.entities.InvitedUser;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.services.AuthenticationService;
-import ni.factorizacion.server.services.InvitedUserService;
+import ni.factorizacion.server.services.RegisteredUserService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class JWTTokenFilter extends OncePerRequestFilter {
 
     private final RequestMatcher uriMatcher = new AntPathRequestMatcher("/auth/login/**");
     @Autowired
-    InvitedUserService userService;
+    RegisteredUserService userService;
 
     @Autowired
     AuthenticationService authService;
@@ -50,7 +50,7 @@ public class JWTTokenFilter extends OncePerRequestFilter {
             throw new ControlException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
 
-        Optional<InvitedUser> user = userService.findByEmail(email);
+        Optional<RegisteredUser> user = userService.findByEmail(email);
         if (user.isEmpty()) {
             throw new ControlException(HttpStatus.UNAUTHORIZED, "No user found");
         }
@@ -58,7 +58,8 @@ public class JWTTokenFilter extends OncePerRequestFilter {
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     user.get(),
-                    null
+                    null,
+                    user.get().getAuthorities()
             );
 
             authToken.setDetails(

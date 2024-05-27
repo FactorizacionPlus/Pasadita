@@ -1,10 +1,10 @@
 package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
-import ni.factorizacion.server.domain.entities.InvitedUser;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.services.AuthenticationService;
-import ni.factorizacion.server.services.InvitedUserService;
+import ni.factorizacion.server.services.RegisteredUserService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,7 @@ public class AuthRestController {
     AuthenticationService authService;
 
     @Autowired
-    InvitedUserService userService;
-
+    RegisteredUserService userService;
 
     @RequestMapping("/login/github")
     public ResponseEntity<GeneralResponse<Object>> loginGithub(@RequestParam("code") String code) {
@@ -42,7 +41,7 @@ public class AuthRestController {
             throw new ControlException(HttpStatus.UNAUTHORIZED, "No user information found");
         }
 
-        Optional<InvitedUser> user = userService.findByEmail(userInfo.get().getEmail());
+        Optional<RegisteredUser> user = userService.findByEmail(userInfo.get().getEmail());
         if (user.isEmpty()) {
             throw new ControlException(HttpStatus.UNAUTHORIZED, "No user found");
         }

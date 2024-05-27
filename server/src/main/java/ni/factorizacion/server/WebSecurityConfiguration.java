@@ -1,12 +1,14 @@
 package ni.factorizacion.server;
 
-import ni.factorizacion.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,6 +21,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurityConfiguration {
 
     private final PasswordEncoder passwordEncoder = new PasswordEncoder() {
@@ -35,28 +38,26 @@ public class WebSecurityConfiguration {
     @Autowired
     @Qualifier("delegatedAuthenticationEntryPoint")
     AuthenticationEntryPoint authEntryPoint;
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private JWTTokenFilter filter;
 
     @Bean
-    AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder managerBuilder
-                = http.getSharedObject(AuthenticationManagerBuilder.class);
+    static MethodSecurityExpressionHandler methodSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
+        DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
+        handler.setRoleHierarchy(roleHierarchy);
+        return handler;
+    }
 
-//        managerBuilder
-//                .userDetailsService(identifier -> {
-//                    Optional<User> user = userService.findByIdentifier(identifier);
-//
-//                    if (user.isEmpty())
-//                        throw new UsernameNotFoundException("User: " + identifier + ", not found!");
-//
-//                    return user.get();
-//                })
-//                .passwordEncoder(passwordEncoder);
+    @Bean
+    public RoleHierarchy roleHierarchy() {
 
-        return managerBuilder.build();
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("""
+                ROLE_ADMIN > ROLE_RESIDENT
+                ROLE_RESIDENT > ROLE_INVITED
+                """);
+        return roleHierarchy;
     }
 
     @Bean

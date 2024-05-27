@@ -1,6 +1,6 @@
 package ni.factorizacion.server.services;
 
-import ni.factorizacion.server.domain.entities.InvitedUser;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleUserInfo;
@@ -15,9 +15,11 @@ public interface AuthenticationService {
 
     Optional<GoogleUserInfo> getUserInfoFromToken(String token);
 
-    Token registerToken(InvitedUser user) throws ControlException;
-    Boolean isTokenValid(InvitedUser user, String token);
-    void cleanTokens(InvitedUser user) throws ControlException;
+    Token registerToken(RegisteredUser user) throws ControlException;
+
+    Boolean isTokenValid(RegisteredUser user, String token);
+
+    void cleanTokens(RegisteredUser user) throws ControlException;
 
 //    public static Authentication getAuthentication(HttpServletRequest request) {
 //        String apiKey = request.getHeader(AUTH_TOKEN_HEADER_NAME);

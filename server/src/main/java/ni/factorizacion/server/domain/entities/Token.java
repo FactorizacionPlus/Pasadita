@@ -26,9 +26,9 @@ public class Token {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
-    private InvitedUser user;
+    private RegisteredUser user;
 
-    public Token(String content, InvitedUser user) {
+    public Token(String content, RegisteredUser user) {
         super();
         this.content = content;
         this.user = user;

@@ -1,7 +1,7 @@
 package ni.factorizacion.server.services.impl;
 
 import jakarta.transaction.Transactional;
-import ni.factorizacion.server.domain.entities.InvitedUser;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.repositories.TokenRepository;
 import ni.factorizacion.server.services.AuthenticationService;
@@ -88,7 +88,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional(rollbackOn = ControlException.class)
-    public Token registerToken(InvitedUser user) throws ControlException {
+    public Token registerToken(RegisteredUser user) throws ControlException {
         cleanTokens(user);
 
         String tokenString = jwtTools.generateToken(user);
@@ -100,7 +100,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Boolean isTokenValid(InvitedUser user, String token) {
+    public Boolean isTokenValid(RegisteredUser user, String token) {
         try {
             cleanTokens(user);
             List<Token> tokens = tokenRepository.findByUserAndActive(user, true);
@@ -118,7 +118,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional(rollbackOn = ControlException.class)
-    public void cleanTokens(InvitedUser user) throws ControlException {
+    public void cleanTokens(RegisteredUser user) throws ControlException {
         List<Token> tokens = tokenRepository.findByUserAndActive(user, true);
 
         tokens.forEach(token -> {
