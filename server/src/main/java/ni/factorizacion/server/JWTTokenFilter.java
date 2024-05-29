@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
+import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.services.RegisteredUserService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.JWTTools;
@@ -30,6 +31,9 @@ public class JWTTokenFilter extends OncePerRequestFilter {
     RegisteredUserService userService;
 
     @Autowired
+    AuthenticationService authService;
+
+    @Autowired
     JWTTools jwtTools;
 
     @SneakyThrows
@@ -50,6 +54,12 @@ public class JWTTokenFilter extends OncePerRequestFilter {
         Optional<RegisteredUser> user = userService.findByEmail(email);
         if (user.isEmpty()) {
             throw new ControlException(HttpStatus.UNAUTHORIZED, "No user found");
+        }
+
+        boolean tokenValidity = authService.isTokenValid(user.get(), token);
+
+        if (!tokenValidity) {
+            throw new ControlException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
