@@ -19,9 +19,7 @@ public class User {
     @NotNull
     private String lastName;
 
-    @NotNull
     private String identifier;
-    @NotNull
     @Enumerated(EnumType.STRING)
     private IdentifierType identifierType;
 
