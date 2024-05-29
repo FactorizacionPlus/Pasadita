@@ -47,3 +47,7 @@ jwt:
 
 server:
   public_domain: ${PUBLIC_DOMAIN}
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true
