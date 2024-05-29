@@ -45,7 +45,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private String googleEndpointUserInfo;
 
     @Value("${server.public_domain}/auth/login/google")
-    private String googleRedirectionUri;
+    private String googleRedirectLogin;
+    @Value("${server.public_domain}/auth/register/google")
+    private String googleRedirectRegister;
 
     @Autowired
     private JWTTools jwtTools;
@@ -72,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public String getGoogleToken(String code) throws ControlException {
+    public String getGoogleToken(String code, boolean isLogin) throws ControlException {
         // TODO: Validate errors
 
         WebClient client = WebClient.builder()
@@ -85,7 +87,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .with("client_secret", googleClientSecret)
                 .with("code", code)
                 .with("grant_type", "authorization_code")
-                .with("redirect_uri", googleRedirectionUri)
+                .with("redirect_uri", isLogin ? googleRedirectLogin : googleRedirectRegister)
         ).retrieve();
 
         GoogleAccessToken googleToken = response.bodyToFlux(GoogleAccessToken.class).blockLast();
@@ -101,7 +103,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public Token registerToken(RegisteredUser user) {
         cleanTokens(user);
 
-        String tokenString = jwtTools.generateToken(user);
+        String tokenString = jwtTools.generateToken(user.getEmail());
         Token token = new Token(tokenString, user);
 
         tokenRepository.save(token);

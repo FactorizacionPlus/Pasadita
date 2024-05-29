@@ -3,7 +3,6 @@ package ni.factorizacion.server.utils;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import ni.factorizacion.server.domain.entities.RegisteredUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +18,12 @@ public class JWTTools {
     @Value("${jwt.exptime}")
     private Integer exp;
 
-    public String generateToken(RegisteredUser user) {
+    public String generateToken(String content) {
         Map<String, Object> claims = new HashMap<>();
 
         return Jwts.builder()
                 .claims(claims)
-                .subject(user.getEmail())
+                .subject(content)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + exp))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))

@@ -34,7 +34,7 @@ public class AuthRestController {
 
     @RequestMapping("/login/google")
     public ResponseEntity<GeneralResponse<String>> loginGoogle(@RequestParam("code") String code) throws ControlException {
-        String googleToken = authService.getGoogleToken(code);
+        String googleToken = authService.getGoogleToken(code, true);
 
         Optional<GoogleUserInfo> userInfo = authService.getUserInfoFromToken(googleToken);
         if (userInfo.isEmpty()) {

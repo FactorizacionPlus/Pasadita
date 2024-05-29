@@ -11,7 +11,7 @@ public interface AuthenticationService {
 
     String getGithubToken(String code) throws ControlException;
 
-    String getGoogleToken(String code) throws ControlException;
+    String getGoogleToken(String code, boolean isLogin) throws ControlException;
 
     Optional<GoogleUserInfo> getUserInfoFromToken(String token);
 
