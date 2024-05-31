@@ -31,10 +31,6 @@ spring:
     init:
       mode: always
 
-github:
-  endpoint_token: https://github.com/login/oauth/access_token
-  client_id: ${GITHUB_CLIENT_ID}
-  client_secret: ${GITHUB_CLIENT_SECRET}
 google:
   endpoint_token: https://oauth2.googleapis.com/token
   endpoint_userinfo: https://www.googleapis.com/oauth2/v1/userinfo

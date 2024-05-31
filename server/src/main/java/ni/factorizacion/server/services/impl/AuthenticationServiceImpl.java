@@ -6,7 +6,6 @@ import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.repositories.TokenRepository;
 import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.types.ControlException;
-import ni.factorizacion.server.types.GithubAccessToken;
 import ni.factorizacion.server.types.GoogleAccessToken;
 import ni.factorizacion.server.types.GoogleUserInfo;
 import ni.factorizacion.server.utils.JWTTools;
@@ -20,20 +19,11 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
-import java.util.AbstractMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-
-    @Value("${github.client_id}")
-    private String githubClientId;
-    @Value("${github.client_secret}")
-    private String githubClientSecret;
-    @Value("${github.endpoint_token}")
-    private String githubEndpointToken;
 
     @Value("${google.client_id}")
     private String googleClientId;
@@ -53,25 +43,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private JWTTools jwtTools;
     @Autowired
     private TokenRepository tokenRepository;
-
-    @Override
-    public String getGithubToken(String code) throws ControlException {
-        WebClient client = WebClient.builder()
-                .baseUrl(githubEndpointToken)
-                .defaultUriVariables(Map.ofEntries(
-                        new AbstractMap.SimpleEntry<>("client_id", githubClientId),
-                        new AbstractMap.SimpleEntry<>("client_secret", githubClientSecret),
-                        new AbstractMap.SimpleEntry<>("code", code))
-                ).build();
-
-        ResponseSpec response = client.post().retrieve();
-        GithubAccessToken token = response.bodyToFlux(GithubAccessToken.class).blockLast();
-
-        if (token == null) {
-            throw new ControlException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not retrieve GitHub Access Token");
-        }
-        return token.getAccess_token();
-    }
 
     @Override
     public String getGoogleToken(String code, boolean isLogin) throws ControlException {

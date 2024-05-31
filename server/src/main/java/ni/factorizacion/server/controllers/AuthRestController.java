@@ -30,12 +30,6 @@ public class AuthRestController {
     @Autowired
     InvitedUserService invitedUserService;
 
-    @RequestMapping("/login/github")
-    public ResponseEntity<GeneralResponse<Object>> loginGithub(@RequestParam("code") String code) throws ControlException {
-        String token = authService.getGithubToken(code);
-        return GeneralResponse.getResponse(HttpStatus.OK, "Data", token);
-    }
-
     @RequestMapping("/login/google")
     public ResponseEntity<GeneralResponse<String>> loginGoogle(@RequestParam("code") String code) throws ControlException {
         String googleToken = authService.getGoogleToken(code, true);
