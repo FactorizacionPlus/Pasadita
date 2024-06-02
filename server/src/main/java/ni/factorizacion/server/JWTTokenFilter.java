@@ -26,7 +26,7 @@ import java.util.Optional;
 @NonNullApi
 public class JWTTokenFilter extends OncePerRequestFilter {
     private final RequestMatcher authMatcher = new AntPathRequestMatcher("/auth/**");
-    private final RequestMatcher qrMatcher = new AntPathRequestMatcher("/api/access/validate/", "POST");
+    private final RequestMatcher qrMatcher = new AntPathRequestMatcher("/api/access/validate/");
 
     @Autowired
     RegisteredUserService userService;
