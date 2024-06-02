@@ -30,6 +30,22 @@ public class JWTTools {
                 .compact();
     }
 
+
+    public String generateTokenWithExpTime(String content, Integer time) {
+        Map<String, Object> claims = new HashMap<>();
+
+        this.exp = time;
+
+        return Jwts.builder()
+                .claims(claims)
+                .subject(content)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + exp))
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .compact();
+    }
+
+
     public Boolean verifyToken(String token) {
         try {
             JwtParser parser = Jwts.parser()

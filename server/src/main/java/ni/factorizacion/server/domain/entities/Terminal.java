@@ -22,7 +22,7 @@ public class Terminal {
     @NotNull
     private String password;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Entry> entries;
 }
