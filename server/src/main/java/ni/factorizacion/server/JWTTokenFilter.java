@@ -26,6 +26,7 @@ import java.util.Optional;
 @NonNullApi
 public class JWTTokenFilter extends OncePerRequestFilter {
     private final RequestMatcher authMatcher = new AntPathRequestMatcher("/auth/**");
+    private final RequestMatcher optionsMatcher = new AntPathRequestMatcher("**", "OPTIONS");
     private final RequestMatcher qrMatcher = new AntPathRequestMatcher("/api/access/validate/");
 
     @Autowired
@@ -82,6 +83,6 @@ public class JWTTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return authMatcher.matches(request) || qrMatcher.matches(request);
+        return authMatcher.matches(request) || qrMatcher.matches(request) || optionsMatcher.matches(request);
     }
 }
