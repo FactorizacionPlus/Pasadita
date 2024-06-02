@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -110,6 +112,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 tokenRepository.save(token);
             }
         });
+    }
+
+    @Override
+    public Optional<RegisteredUser> getCurrentAuthenticatedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+
+        if (!(principal instanceof RegisteredUser)) {
+            return Optional.empty();
+        }
+        RegisteredUser user = (RegisteredUser) auth.getPrincipal();
+        return Optional.ofNullable(user);
     }
 
     @Override

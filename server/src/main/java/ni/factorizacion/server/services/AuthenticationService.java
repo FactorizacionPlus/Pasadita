@@ -18,4 +18,6 @@ public interface AuthenticationService {
     Boolean isTokenValid(RegisteredUser user, String token);
 
     void cleanTokens(RegisteredUser user) throws ControlException;
+
+    Optional<RegisteredUser> getCurrentAuthenticatedUser();
 }
