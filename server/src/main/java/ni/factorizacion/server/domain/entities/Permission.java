@@ -1,5 +1,6 @@
 package ni.factorizacion.server.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -25,9 +26,12 @@ public class Permission {
     private Boolean authorized;
 
     @ManyToOne
+    @JsonIgnore
     private InvitedUser invitedUser;
     @ManyToOne
+    @JsonIgnore
     private Resident resident;
     @ManyToOne
+    @JsonIgnore
     private Residence residence;
 }
