@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/residence")
+@RequestMapping(path = "/api/residence/")
 public class ResidenceRestController {
     @Autowired
     private ResidenceService service;
@@ -26,7 +26,7 @@ public class ResidenceRestController {
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found residences", residences);
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<GeneralResponse<Residence>> saveResidence(@Valid @RequestBody SaveResidenceDto residenceDto) throws Exception {
         service.saveResidence(residenceDto);
         return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Residence saved", null);
