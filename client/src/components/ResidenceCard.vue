@@ -11,7 +11,7 @@
                         Residencia
                     </p>
                     <p class="text-base text-gray-500 truncate dark:text-gray-400">
-                        Text
+                        {{residence.maxHabitants}}
                     </p>
                 </div>
             </div>
@@ -19,7 +19,7 @@
         <!--Description-->
         <div class="flex flex-row bg-red-700">
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Text
+                {{residence.description}}
             </p>
         </div>
         <!--CRUD-->
@@ -53,4 +53,12 @@
             </button>
         </div>
     </div>
+    
 </template>
+
+<script setup lang="ts">
+    import { defineProps } from 'vue';
+    import type Residence from '../types/Residence';
+
+const props = defineProps<{ residence: Residence }>();
+</script>
