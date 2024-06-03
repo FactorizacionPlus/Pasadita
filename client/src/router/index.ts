@@ -22,6 +22,11 @@ const router = createRouter({
       name: "terminal",
       component: () => import("../views/TerminalView.vue"),
     },
+    {
+      path: "/residences/create",
+      name: "Create Residences",
+      component: () => import("../views/CreateView.vue"),
+    },
   ],
 });
 
