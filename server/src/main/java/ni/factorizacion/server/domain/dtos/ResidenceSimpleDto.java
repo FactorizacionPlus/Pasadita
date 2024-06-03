@@ -8,12 +8,12 @@ import ni.factorizacion.server.domain.entities.Residence;
 @SuperBuilder
 public class ResidenceSimpleDto {
     private String description;
-    private Integer maxHabitans;
+    private Integer maxHabitants;
 
     static public ResidenceSimpleDto from(Residence residence){
         return ResidenceSimpleDto.builder()
                 .description(residence.getDescription())
-                .maxHabitans(residence.getMaxHabitants())
+                .maxHabitants(residence.getMaxHabitants())
                 .build();
     }
 }

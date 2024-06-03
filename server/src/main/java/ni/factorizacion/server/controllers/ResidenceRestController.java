@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/residence/ ")
+@RequestMapping(path = "/api/residence")
 public class ResidenceRestController {
     @Autowired
     private ResidenceService service;
