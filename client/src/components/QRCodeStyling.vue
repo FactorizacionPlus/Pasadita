@@ -1,0 +1,40 @@
+<template>
+  <div id="canvas"></div>
+</template>
+
+<script setup lang="ts">
+import QRCodeStyling from "qr-code-styling";
+import { onMounted } from "vue";
+
+const props = defineProps<{
+  data: string;
+}>();
+
+const qrCode = new QRCodeStyling({
+  width: 300,
+  height: 300,
+  type: "svg",
+  data: props.data,
+  dotsOptions: {
+    color: "#004f82",
+    type: "dots",
+  },
+  cornersSquareOptions: {
+    type: "dot",
+  },
+  cornersDotOptions: {
+    type: "dot",
+  },
+  backgroundOptions: {
+    color: "#fff",
+  },
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: 20,
+  },
+});
+
+onMounted(() => {
+  qrCode.append(document.getElementById("canvas"));
+});
+</script>
