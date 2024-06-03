@@ -6,22 +6,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import QRCodeStyling from "../components/QRCodeStyling.vue";
 
 const userAuthToken =
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXZlcmFzb3RvLm1hcmNlbG8uYmFja3VwQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMyMjY1NSwiZXhwIjoxNzE4NjE4NjU1fQ.M6ogKuKQ70Ri_KA52LWSWAX763ljaO-ErsryZwZCEG_s0YQxaTGyqRWCxbNQ4Y3JKHRD6KuUM03BdL7BIxZ8Tg";
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXZlcmFzb3RvLm1hcmNlbG8uYmFja3VwQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM5MzE5NCwiZXhwIjoxNzE4Njg5MTk0fQ.IfwJL5pjKPfJ4MqzX4wcgxkqUYCwrWVoPZgW28pbYHdVTR1ylGQrxi0jVqTAtNien8AUPck9FdCH_AlV7E1eiw";
 
 const token = ref("");
 
-const response = await fetch("http://localhost:8080/api/access/generate/", {
-  headers: { Authorization: "Bearer " + userAuthToken },
-});
+onMounted(async () => {
+  const response = await fetch("http://localhost:8080/api/access/generate/", {
+    headers: { Authorization: "Bearer " + userAuthToken },
+  });
 
-if (response.ok) {
-  const json = await response.json();
-  token.value = json.data;
-}
+  if (response.ok) {
+    const json = await response.json();
+    token.value = json.data;
+  }
+});
 </script>
 <style>
 #app {
