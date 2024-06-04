@@ -31,8 +31,8 @@ public class AuthRestController {
     InvitedUserService invitedUserService;
 
     @RequestMapping("/login/google")
-    public ResponseEntity<GeneralResponse<String>> loginGoogle(@RequestParam("code") String code) throws ControlException {
-        String googleToken = authService.getGoogleToken(code, true);
+    public ResponseEntity<GeneralResponse<String>> loginGoogle(@RequestParam("code") String code, @RequestParam("redirect_uri") String redirectUri) throws ControlException {
+        String googleToken = authService.getGoogleToken(code, redirectUri);
 
         Optional<GoogleUserInfo> userInfo = authService.getUserInfoFromToken(googleToken);
         if (userInfo.isEmpty()) {
@@ -50,8 +50,8 @@ public class AuthRestController {
     }
 
     @RequestMapping("/register/google")
-    public ResponseEntity<GeneralResponse<String>> registerGoogle(@RequestParam("code") String code) throws ControlException {
-        String googleToken = authService.getGoogleToken(code, false);
+    public ResponseEntity<GeneralResponse<String>> registerGoogle(@RequestParam("code") String code, @RequestParam("redirect_uri") String redirectUri) throws ControlException {
+        String googleToken = authService.getGoogleToken(code, redirectUri);
 
         Optional<GoogleUserInfo> userInfo = authService.getUserInfoFromToken(googleToken);
         if (userInfo.isEmpty()) {

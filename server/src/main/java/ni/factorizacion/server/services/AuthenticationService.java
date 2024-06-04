@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface AuthenticationService {
 
-    String getGoogleToken(String code, boolean isLogin) throws ControlException;
+    String getGoogleToken(String code, String redirectUri) throws ControlException;
 
     Optional<GoogleUserInfo> getUserInfoFromToken(String token);
 
