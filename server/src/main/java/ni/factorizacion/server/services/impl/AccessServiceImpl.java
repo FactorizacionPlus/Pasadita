@@ -3,6 +3,7 @@ package ni.factorizacion.server.services.impl;
 import jakarta.transaction.Transactional;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
+import ni.factorizacion.server.domain.entities.TokenType;
 import ni.factorizacion.server.repositories.TokenRepository;
 import ni.factorizacion.server.services.AccessService;
 import ni.factorizacion.server.utils.JWTTools;
@@ -23,7 +24,7 @@ public class AccessServiceImpl implements AccessService {
         cleanTokens(user);
 
         String tokenString = jwtTools.generateTokenWithExpTime(user.getEmail(), 10 * 60 * 1000);
-        Token token = new Token(tokenString, user);
+        Token token = new Token(tokenString, user, TokenType.QR);
         tokenRepository.save(token);
         return token;
     }

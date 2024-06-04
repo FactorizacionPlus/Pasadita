@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import QRCodeStyling from "qr-code-styling";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 
 const props = defineProps<{
   data: string;
@@ -34,6 +34,13 @@ const qrCode = new QRCodeStyling({
   },
 });
 
+watch(
+  () => props.data,
+  (value) => {
+    qrCode.update({ data: value });
+    console.log(value);
+  }
+);
 onMounted(() => {
   qrCode.append(document.getElementById("canvas"));
 });

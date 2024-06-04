@@ -1,7 +1,11 @@
 <template>
-  <h1>QR Code generation</h1>
-  <div v-if="token">
-    <QRCodeStyling :data="token" />
+  <div class="flex flex-col w-full h-full bg-green-500 gap-5">
+    <div class="mx-auto" v-if="token">
+      <QRCodeStyling :data="token" />
+    </div>
+    <button class="mx-auto bg-sky-300 p-3 rounded-lg text-sky-900" @click="getQRToken">
+      Generate QR
+    </button>
   </div>
 </template>
 
@@ -14,7 +18,7 @@ const userAuthToken =
 
 const token = ref("");
 
-onMounted(async () => {
+async function getQRToken() {
   const response = await fetch("http://localhost:8080/api/access/generate/", {
     headers: { Authorization: "Bearer " + userAuthToken },
   });
@@ -23,7 +27,7 @@ onMounted(async () => {
     const json = await response.json();
     token.value = json.data;
   }
-});
+}
 </script>
 <style>
 #app {

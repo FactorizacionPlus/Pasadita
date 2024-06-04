@@ -24,15 +24,18 @@ public class Token {
 
     private Boolean active;
 
+    private TokenType type;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private RegisteredUser user;
 
-    public Token(String content, RegisteredUser user) {
+    public Token(String content, RegisteredUser user, TokenType type) {
         super();
         this.content = content;
         this.user = user;
         this.timestamp = Date.from(Instant.now());
         this.active = true;
+        this.type = type;
     }
 }
