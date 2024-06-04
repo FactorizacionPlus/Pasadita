@@ -10,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,11 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ControlException.class)
     protected ResponseEntity<GeneralResponse<Object>> handleControlException(ControlException ex) {
+        return GeneralResponse.getResponse(ex.getStatus(), ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    protected ResponseEntity<GeneralResponse<Object>> handleNotFound(ControlException ex) {
         return GeneralResponse.getResponse(ex.getStatus(), ex.getMessage(), null);
     }
 

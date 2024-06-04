@@ -1180,6 +1180,7 @@ __metadata:
     pinia: "npm:^2.1.7"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
+    qr-code-styling: "npm:^1.6.0-rc.1"
     tailwindcss: "npm:^3.4.3"
     typescript: "npm:~5.4.0"
     vite: "npm:^5.2.8"
@@ -2837,6 +2838,22 @@ __metadata:
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: 10c0/14f76a8206bc3464f794fb2e3d3cc665ae416c01893ad7a02b23766eb07159144ee612ad67af5e84fa4479ccfe67678c4feb126b0485651b302babf66f04f9e9
+  languageName: node
+  linkType: hard
+
+"qr-code-styling@npm:^1.6.0-rc.1":
+  version: 1.6.0-rc.1
+  resolution: "qr-code-styling@npm:1.6.0-rc.1"
+  dependencies:
+    qrcode-generator: "npm:^1.4.3"
+  checksum: 10c0/d62f63ba800dbf7aa645816fca81c9be33d8561deac3686a00b93ce9f68f1784e2f65e59fdc7b1af22e20f37a47f35f8a0c2827043403bfc058b659a14fe02dd
+  languageName: node
+  linkType: hard
+
+"qrcode-generator@npm:^1.4.3":
+  version: 1.4.4
+  resolution: "qrcode-generator@npm:1.4.4"
+  checksum: 10c0/3249fcff98cb9fa17c21329d3dfd895e294a2d6ea48161f7b377010779d41f0cd88668b7fb3478a659725061bb0a770b40a227c2f4853e8c4a6b947a9e8bf17a
   languageName: node
   linkType: hard
 

@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import QRCodeReader from "@/components/QRCodeReader.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
-const message = ref("Muestra la llave QR");
+enum Message {
+  WAITING = "Esperando QR...",
+  VALIDATING = "Validando QR...",
+  ERROR = "Hubo un error al validar el token",
+  CORRECT = "Lláve válida, acceso permitido",
+  INCORRECT = "Lláve inválida, acceso denegado",
+}
 
-async function validateToken(token: string) {
-  message.value = "Validando token...";
+const message = ref<Message>(Message.WAITING);
+const token = ref("");
+
+async function validateToken(tokenContent: string) {
+  message.value = Message.VALIDATING;
 
   let response = null;
   try {
@@ -17,26 +26,38 @@ async function validateToken(token: string) {
       body: JSON.stringify({
         terminalType: "DOOR",
         password: "Usuario123.",
-        tokenContent: token,
+        tokenContent: tokenContent,
       }),
     });
   } catch (err) {
     console.error(err);
-    message.value = "Hubo un error al validar el token";
-    return;
+    message.value = Message.ERROR;
   }
 
-  if (response.ok) {
-    message.value = "Llave válida, acceso permitido";
-  } else {
-    message.value = "Llave inválida, acceso denegado";
+  if (response) {
+    if (response.ok) {
+      message.value = Message.CORRECT;
+    } else {
+      message.value = Message.INCORRECT;
+    }
   }
+
+  setTimeout(() => {
+    message.value = Message.WAITING;
+    token.value = "";
+  }, 5000);
 }
+
+watch(token, (value) => {
+  if (message.value == Message.WAITING) {
+    validateToken(value);
+  }
+});
 </script>
 
 <template>
-  <main>
-    <span>{{ message }}</span>
-    <QRCodeReader @update="(v) => validateToken(v)" />
+  <main class="flex flex-col items-center justify-center w-full h-full gap-28">
+    <QRCodeReader @update="(v) => (token = v)" />
+    <h1 class="lg:text-6xl font-medium">{{ message }}</h1>
   </main>
 </template>
