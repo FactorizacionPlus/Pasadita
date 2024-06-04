@@ -4,7 +4,7 @@
       Agregar Residencia
     </div>
     <div>
-      <form @submit.prevent="submitForm">
+      <form>
         <!--Habitants-->
         <div class="mt-3 px-3">
           <label :class="[isHabitantesFocused ? 'text-pasadita-blue-3' : 'text-gray-900']" for="text"
@@ -60,7 +60,9 @@ const habitantes = ref<number>(0);
 const descripcion = ref<string>('');
 const isHabitantesFocused = ref<boolean>(false);
 const isInputFocused = ref<boolean>(false);
+/*
 const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
+ @submit.prevent="submitForm"
 
 const submitForm = async () => {
   const formData = {
@@ -88,7 +90,7 @@ const submitForm = async () => {
     console.error("Ha ocurrido un error al crear la residencia.");
   }
 };
-
+*/
 const cancelForm = () => {
   // Limpiar los campos o realizar cualquier otra acción necesaria al cancelar el formulario
   habitantes.value = 0;

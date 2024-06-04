@@ -37,6 +37,35 @@ import ResidenceCard from "../components/ResidenceCard.vue"
 import type Residence from "../types/Residence"
 import VueFeather from 'vue-feather';
 
+const residenceList : Residence[] = [
+  {
+  maxHabitants: 1,
+  description: "Lorem Ipsum"
+  },
+  {
+  maxHabitants: 2,
+  description: "Lorem Ipsum"
+  },
+  {
+  maxHabitants: 3,
+  description: "Lorem Ipsum"
+  },
+  {
+  maxHabitants: 4,
+  description: "Lorem Ipsum"
+  },
+  {
+  maxHabitants: 5,
+  description: "Lorem Ipsum"
+  },
+  {
+  maxHabitants: 6,
+  description: "Lorem Ipsum"
+  },
+  
+]
+
+/*
 const residenceList = ref<Residence[]>([])
 const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
 
@@ -53,5 +82,5 @@ onMounted(async () => {
     console.log(json)
   }
 })
-
+*/
 </script>
