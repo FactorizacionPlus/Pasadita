@@ -22,7 +22,9 @@ export const useAuth = defineStore("auth", () => {
     localStorage.removeItem("authToken");
     tokenRef.value = null;
 
-    router.push("/login");
+    if (router) {
+      router.push("/login");
+    }
   }
 
   return { token, setToken, logout };
