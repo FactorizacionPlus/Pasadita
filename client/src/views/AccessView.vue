@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-col w-full h-full bg-green-500 gap-5">
+  <main class="flex flex-col items-center justify-center w-full h-full gap-28">
     <div class="mx-auto" v-if="token">
       <QRCodeStyling :data="token" />
     </div>
     <button class="mx-auto bg-sky-300 p-3 rounded-lg text-sky-900" @click="getQRToken">
       Generate QR
     </button>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

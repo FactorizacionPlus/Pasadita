@@ -42,6 +42,6 @@ watch(
   }
 );
 onMounted(() => {
-  qrCode.append(document.getElementById("canvas"));
+  qrCode.append(document.getElementById("canvas") ?? undefined);
 });
 </script>
