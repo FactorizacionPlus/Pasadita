@@ -1,32 +1,65 @@
 <template>
-    <div class="bg-red-950">
-        <form class="max-w-sm mx-auto" @submit.prevent="submitForm">
-            <div class="mb-5">
-                <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad de
-                    habitantes</label>
-                <input v-model="habitantes" type="number" id="habitantes"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Ingrese la cantidad de Habitantes" required />
-            </div>
-            <div class="mb-5">
-                <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
-                <input v-model="descripcion" type="text" id="large-input"
-                    class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
-            <button type="button" @click="cancelForm" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancelar</button>
-        </form>
+  <div class="max-w-sm mx-auto border border-pasadita-shade-2 rounded-lg">
+    <div class="text-pasadita-blue-1 border-b border-pasadita-shade-2 bg-pasadita-shade-3 p-2 rounded-t-lg">
+      Agregar Residencia
+    </div>
+    <div>
+      <form @submit.prevent="submitForm">
+        <!--Habitants-->
+        <div class="mt-3 px-3">
+          <label :class="[isHabitantesFocused ? 'text-pasadita-blue-3' : 'text-gray-900']" for="text"
+            class="block mb-2 text-sm font-medium">Cantidad de
+            habitantes</label>
+          <input v-model="habitantes" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"
+            id="habitantes" @focus="isHabitantesFocused = true" @blur="isHabitantesFocused = false"
+            class="bg-white border border-pasadita-shade-2 text-pasadita-shade-0 focus:ring-2 focus:outline-none focus:ring-pasadita-blue-3 text-sm rounded-lg block w-full p-2.5 peer"
+            placeholder="Ingrese la cantidad de Habitantes" required />
+        </div>
+
+        <!--Description-->
+        <div class="mt-3 mb-5 px-3">
+          <label :class="[isInputFocused ? 'text-pasadita-blue-3' : 'text-gray-900']" for="input"
+            class="block mb-2 text-sm font-medium">Input
+            Label</label>
+          <textarea v-model="descripcion" rows="4" @focus="isInputFocused = true" @blur="isInputFocused = false"
+            class="block p-2.5 w-full text-sm border border-pasadita-shade-2 text-pasadita-shade-0 focus:ring-2 focus:outline-none focus:ring-pasadita-blue-3 rounded-lg peer"
+            placeholder="Descripcion" required></textarea>
+        </div>
+
+        <!--Buttons-->
+        <div class="flex flex-row justify-end border-t border-pasadita-shade-2 px-3 py-3 rounded-b-lg">
+          <button type="submit"
+            class="bg-pasadita-red-2 font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 text-pasadita-red-0 hover:bg-pasadita-red-1 active:scale-95 hover:rounded-xl transition-all">
+            <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
+            <span>Agregar Residencias</span>
+          </button>
+          <button type="submit" @click="cancelForm"
+            class="bg-pasadita-blue-4 font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 text-pasadita-blue-2 hover:bg-pasadita-blue-3 hover:text-white active:scale-95 hover:rounded-xl transition-all">
+            <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
+            <span>Cancelar</span>
+          </button>
+        </div>
+
+        <!--
+      <button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
+      <button type="button" @click="cancelForm"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancelar</button>
+      -->
+      </form>
 
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type Residence from "../types/Residence"
+import VueFeather from 'vue-feather';
 
 const habitantes = ref<number>(0);
 const descripcion = ref<string>('');
-
+const isHabitantesFocused = ref<boolean>(false);
+const isInputFocused = ref<boolean>(false);
 const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
 
 const submitForm = async () => {
@@ -37,15 +70,15 @@ const submitForm = async () => {
 
   const response = await fetch("http://localhost:8080/api/residence/", {
     method: "POST",
-    headers:{
+    headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + userToken, 
+      Authorization: "Bearer " + userToken,
     },
     body: JSON.stringify(formData),
   });
 
   const responseData = await response.json(); // o response.text() dependiendo del formato de respuesta
-    console.log(responseData);
+  console.log(responseData);
 
   if (response.ok) {
     // Manejar respuesta exitosa
