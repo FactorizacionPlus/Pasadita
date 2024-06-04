@@ -11,8 +11,8 @@ const props = defineProps<{
 }>();
 
 const qrCode = new QRCodeStyling({
-  width: 300,
-  height: 300,
+  width: 500,
+  height: 500,
   type: "svg",
   data: props.data,
   dotsOptions: {
