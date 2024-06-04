@@ -1,42 +1,79 @@
 <script setup lang="ts">
-import { Html5Qrcode, type Html5QrcodeResult } from "html5-qrcode";
-import { onMounted, ref, watch } from "vue";
+import { usePrefferedCamera } from "@/stores/prefferedCamera";
+import {
+  Html5Qrcode,
+  Html5QrcodeSupportedFormats,
+  type CameraDevice,
+  type Html5QrcodeResult,
+} from "html5-qrcode";
+import { onMounted, onUnmounted, ref } from "vue";
 
-const token = ref<string>("");
+const camerasOptions = ref<CameraDevice[]>([]);
+
+const prefferedCamera = usePrefferedCamera();
+
+let html5QrCode: Html5Qrcode;
 
 const emit = defineEmits<{
   (e: "update", token: string): void;
 }>();
 
-watch(token, (value) => {
-  emit("update", value);
+prefferedCamera.$subscribe(async (_, state) => {
+  await html5QrCode.stop();
+  html5QrCode.clear();
+  await startHtmlQrCode(state.id);
 });
 
 function onScanSuccess(decodedText: string, _decodedResult: Html5QrcodeResult) {
-  token.value = decodedText;
+  emit("update", decodedText);
 }
 
-function onScanFailure(error: string) {}
-
-onMounted(async () => {
-  const cameras = await Html5Qrcode.getCameras();
-  console.log(cameras);
-  const html5QrCode = new Html5Qrcode("reader");
-  html5QrCode.start(
-    { facingMode: "environment" },
+function startHtmlQrCode(deviceId: string | undefined) {
+  return html5QrCode.start(
+    deviceId ?? {},
     {
       fps: 1,
       aspectRatio: 1,
       videoConstraints: {
+        deviceId: deviceId ?? "",
         aspectRatio: 1,
       },
     },
     onScanSuccess,
-    onScanFailure
+    undefined
   );
+}
+
+onMounted(async () => {
+  const cameras = await Html5Qrcode.getCameras();
+  camerasOptions.value = cameras;
+
+  html5QrCode = new Html5Qrcode("reader", {
+    verbose: false,
+    formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+  });
+  startHtmlQrCode(prefferedCamera.id);
+});
+
+onUnmounted(() => {
+  if (html5QrCode) {
+    html5QrCode.stop();
+  }
 });
 </script>
 
 <template>
-  <div id="reader" class="size-1/2"></div>
+  <div class="flex flex-col gap-3">
+    <!-- <select @change="(v) => prefferedCamera.setId((v.target as HTMLSelectElement).value)"> -->
+    <!--   <option -->
+    <!--     v-for="camera in camerasOptions" -->
+    <!--     :key="camera.id" -->
+    <!--     :value="camera.id" -->
+    <!--     :selected="camera.id == prefferedCamera.id" -->
+    <!--   > -->
+    <!--     {{ camera.label }} -->
+    <!--   </option> -->
+    <!-- </select> -->
+    <div id="reader" class="xl:size-[500px]"></div>
+  </div>
 </template>
