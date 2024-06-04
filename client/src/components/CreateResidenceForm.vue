@@ -27,7 +27,7 @@
         </div>
 
         <!--Buttons-->
-        <div class="flex flex-row justify-end border-t border-pasadita-shade-2 px-3 py-3 rounded-b-lg">
+        <div class="flex flex-row justify-end border-t border-pasadita-shade-2 px-2 py-2 rounded-b-lg">
           <button type="submit"
             class="bg-pasadita-red-2 font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 text-pasadita-red-0 hover:bg-pasadita-red-1 active:scale-95 hover:rounded-xl transition-all">
             <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
