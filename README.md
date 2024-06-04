@@ -13,6 +13,17 @@ POSTGRES_USER=postgres
 PUBLIC_DOMAIN=http://localhost:8080
 ```
 
+## Microcontrolador
+
+Hecho para el microcontrolador RP2040 en un Raspberry Pi Pico W, con MicroPython. Una vez instalado el MicroPython para el Pico W, con `rshell` se copia el archivo de `pasadita.py` al Pico W.
+
+```sh
+rshell -p /dev/ttyACM0 --buffer-size 512 cp pasadita.py /pyboard/main.py
+```
+
+> [!NOTE]
+> El dispositivo puede variar en nombre según sistema operativo, puede ser `/dev/tty.usbmodem11101`
+
 ## Contribuciones
 
 Cuando se esté avanzando en un feature, debe colocarse el feature que está en la tabla del proyecto como In Progress. Una vez completado, debe pasarse a Review y crearse el Pull Request.
