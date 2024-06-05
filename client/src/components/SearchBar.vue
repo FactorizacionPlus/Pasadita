@@ -54,10 +54,10 @@ onBeforeUnmount(() => {
     <div class="flex flex-row gap-2">
         <div class="relative inline-block text-left">
             <button id="dropdownDefaultButton1" @click="toggleDropdown1"
-                class="flex-row gap-2 text-pasadita-shade-2 bg-white border border-pasadita-shade-2 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:ring-1 focus:outline-none focus:ring-pasadita-shade-2 font-sm rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                class="flex-row gap-2 text-pasadita-shade-1 bg-white border border-pasadita-shade-2 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:ring-1 focus:outline-none focus:ring-pasadita-shade-2 font-sm rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                 type="button">
-                Buscar por nombre
-                <VueFeather type="chevron-up" size="16"></VueFeather>
+                Ordenar por:
+                <VueFeather type="chevron-down" size="16"></VueFeather>
             </button>
 
             <!-- Menú Dropdown 1 con transición -->
@@ -66,16 +66,13 @@ onBeforeUnmount(() => {
                     class="absolute left-0 z-10 mt-2 w-44 bg-white rounded-lg shadow">
                     <ul class="py-2 text-sm text-pasadita-shade-0" aria-labelledby="dropdownDefaultButton1">
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Leo</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Fecha</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Alejandro</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Nombre</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Franciso</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Zelaya</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Descripción</a>
                         </li>
                     </ul>
                 </div>
@@ -83,7 +80,6 @@ onBeforeUnmount(() => {
         </div>
 
         <form class="flex-1">
-            <label for="simple-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <VueFeather type="search" stroke="#d7d7d7" stroke-width="2.5" size="16"></VueFeather>
@@ -96,28 +92,25 @@ onBeforeUnmount(() => {
 
         <div class="relative inline-block text-left">
             <button id="dropdownDefaultButton2" @click="toggleDropdown2"
-                class="flex-row gap-2 text-pasadita-shade-2 bg-white border border-pasadita-shade-2 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:ring-1 focus:outline-none focus:ring-pasadita-shade-2 font-sm rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                class="flex-row gap-2 text-pasadita-shade-1 bg-pasadita-blue-4 border border-pasadita-shade-2 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:ring-1 focus:outline-none focus:ring-pasadita-shade-2 font-sm rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                 type="button">
-                Buscar por fecha
-                <VueFeather type="chevron-up" size="16"></VueFeather>
+                Buscar por:
+                <VueFeather type="chevron-down" size="16"></VueFeather>
             </button>
 
             <!-- Menú Dropdown 2 con transición -->
             <transition name="fade">
                 <div id="dropdown2" v-show="isDropdownVisible2"
-                    class="absolute left-0 z-10 mt-2 w-44 bg-white rounded-lg shadow">
+                    class="absolute left-0 z-10 mt-2 w-44 bg-pasadita-blue-4 rounded-lg shadow">
                     <ul class="py-2 text-sm text-pasadita-shade-0" aria-labelledby="dropdownDefaultButton2">
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">17 de Julio</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Nombre</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">1 de Septiembre</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Entradas</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">5 de Mayo</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">6 de Junio</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Descripción</a>
                         </li>
                     </ul>
                 </div>
