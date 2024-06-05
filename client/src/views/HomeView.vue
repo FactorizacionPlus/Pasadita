@@ -29,11 +29,21 @@
       <ResidenceCard :residence="residence" />
     </div>
   </div>
+
+  <div class="grid grid-cols-5 gap-5 p-8">
+    <div v-for="user in userList" :key="user.rol">
+      <UserCard :user="user" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import ResidenceCard from "../components/ResidenceCard.vue"
 import type Residence from "../types/Residence"
+
+import UserCard from "../components/UserCard.vue"
+import type User from "../types/User"
+
 import VueFeather from 'vue-feather';
 
 const residenceList : Residence[] = [
@@ -60,6 +70,31 @@ const residenceList : Residence[] = [
   {
   maxHabitants: 6,
   description: "Lorem Ipsum"
+  },
+  
+]
+
+
+const userList : User[] = [
+  {
+    rol: "Admin",
+    name: "Juan",
+    lastName: "Alberto"
+  },
+  {
+    rol: "Residente",
+    name: "Mario",
+    lastName: "Chavez"
+  },
+  {
+    rol: "Anonimo",
+    name: "Maria",
+    lastName: "Lopez"
+  },
+  {
+    rol: "Residente",
+    name: "Eduardo",
+    lastName: "Rodriguez"
   },
   
 ]
