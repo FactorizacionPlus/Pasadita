@@ -29,7 +29,7 @@
       <ResidenceCard :residence="residence" />
     </div>
     <AccessRequestCard :accessRequest="accessExample" />
-    <CreateResidenceForm />
+    <InvitedResidentCard :invitedResident="invitedResidentExample" />
   </div>
   <!--
   <div class="py-20">divider</div>
@@ -61,7 +61,9 @@ import ResidenceCard from "../components/ResidenceCard.vue"
 import AccessRequestCard from "../components/AccessRequestCard.vue"
 import type Residence from "../types/Residence"
 import type AccessRequest from "../types/AccessRequest.ts"
+import type InvitedResident from "../types/InvitedResident.ts"
 import VueFeather from 'vue-feather';
+import InvitedResidentCard from '../components/InvitedResidentCard.vue'
 
 const residenceList: Residence[] = [
   {
@@ -99,6 +101,12 @@ const accessExample: AccessRequest = {
 }
 
 
+const invitedResidentExample: InvitedResident = {
+  name: "Marcelo",
+  secondName: "Rivera",
+  identification: "010102021",
+  entries: 10,
+}
 
 /*
 const residenceList = ref<Residence[]>([])
