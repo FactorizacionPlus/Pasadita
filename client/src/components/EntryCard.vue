@@ -16,7 +16,7 @@ import UserCardEntry from "../components/UserCardEntry.vue"
             <UserCardEntry />
 
             <div class="flex row px-2 gap-3 items-center">
-                <div class="flex flex-col text-pasadita-blue-1">
+                <div class="flex flex-col text-pasadita-blue-1 ">
                     <p class="font-semibold">Fecha y hora de entrada</p>
                     <p>29 de agosto 2023 - 12:36hrs</p>
                 </div>

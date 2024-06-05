@@ -42,7 +42,11 @@
    
   </div>
  
-
+  <div class="grid grid-cols-5 gap-5 p-8">
+    <div v-for="toast in toastAlertList" :key="toast.icon">
+      <ToastAlert :toast="toast" />
+    </div>
+  </div>
 
 
   
@@ -55,12 +59,15 @@ import type Residence from "../types/Residence"
 import UserCard from "../components/UserCard.vue"
 import type User from "../types/User"
 
-import UserCardEntry from "../components/UserCardEntry.vue"
 import type UserEntry from "../types/UserEntry"
 
 import EntryCard from "../components/EntryCard.vue"
 
+import ToastAlert from "../components/ToastAlert.vue"
+import type Toast from "../types/Toast"
+
 import VueFeather from 'vue-feather';
+
 
 const residenceList : Residence[] = [
   {
@@ -109,6 +116,42 @@ const userEntryList : UserEntry[] = [
   },
   
 ]
+
+const toastAlertList : Toast[] = [
+  {
+    icon: "info",
+    description: "Guardando cambios...",
+    bgColor: "bg-pasadita-blue-4",
+    textColor:"text-pasadita-blue-2",
+    strokeColor: "#17a4fe"
+  },
+
+  {
+    icon: "x-circle",
+    description: "Error",
+    bgColor: "bg-pasadita-red-1",
+    textColor:"text-pasadita-red-0",
+    strokeColor: "#895151"
+  },
+
+  {
+    icon: "check",
+    description: "Exitoso",
+    bgColor: "bg-pasadita-green-3",
+    textColor:"text-pasadita-green-1",
+    strokeColor: "#608951"
+  },
+
+  {
+    icon: "alert-triangle",
+    description: "Datos faltantes...",
+    bgColor: "bg-pasadita-yellow-1",
+    textColor:"text-pasadita-yellow-0",
+    strokeColor: "#B38A58"
+  },
+  
+]
+
 
 /*
 const residenceList = ref<Residence[]>([])
