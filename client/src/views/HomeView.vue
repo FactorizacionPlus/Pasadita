@@ -29,7 +29,13 @@
       <ResidenceCard :residence="residence" />
     </div>
     <AccessRequestCard :accessRequest="accessExample" />
-    <CreateResidenceForm />
+    <InvitedResidentCard :invitedResident="invitedResidentExample" />
+  </div>
+
+  <div class="grid grid-cols-5 gap-5 p-8">
+    <div v-for="user in userList" :key="user.rol">
+      <UserCard :user="user" />
+    </div>
   </div>
   
   <div class="py-20">divider</div>
@@ -62,7 +68,12 @@
 import ResidenceCard from "../components/ResidenceCard.vue"
 import AccessRequestCard from "../components/AccessRequestCard.vue"
 import type Residence from "../types/Residence"
+
+import UserCard from "../components/UserCard.vue"
+import type User from "../types/User"
+
 import type AccessRequest from "../types/AccessRequest.ts"
+import type InvitedResident from "../types/InvitedResident.ts"
 import VueFeather from 'vue-feather';
 import InputForm from "@/components/Forms/InputForm.vue";
 import { ref } from "vue";
@@ -116,6 +127,7 @@ const handleSwitchUpdate = (value: boolean) => {
   switchValue.value = value;
 };
 
+import InvitedResidentCard from '../components/InvitedResidentCard.vue'
 const residenceList: Residence[] = [
   {
     maxHabitants: 1,
@@ -152,16 +164,42 @@ const accessExample: AccessRequest = {
 }
 
 
+const invitedResidentExample: InvitedResident = {
+  name: "Marcelo",
+  secondName: "Rivera",
+  identification: "010102021",
+  entries: 10,
+}
+
+
+const userList : User[] = [
+  {
+    rol: "Admin",
+    name: "Juan",
+    lastName: "Alberto"
+  },
+  {
+    rol: "Residente",
+    name: "Mario",
+    lastName: "Chavez"
+  },
+  {
+    rol: "Anonimo",
+    name: "Maria",
+    lastName: "Lopez"
+  },
+  {
+    rol: "Residente",
+    name: "Eduardo",
+    lastName: "Rodriguez"
+  },
+  
+]
 
 /*
 const residenceList = ref<Residence[]>([])
 const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
-=======
 
-
->>>>>>> master
-
-<<<<<<< HEAD
   if (response.ok) {
     const json = await response.json();
     residenceList.value = json.data
