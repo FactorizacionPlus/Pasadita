@@ -22,6 +22,8 @@ function capitalizeFirstChar(word: string): string {
   return firstChar + restWord;
 }
 
+const isPending = props.accessRequest.status == "PENDING";
+console.log(isPending);
 </script>
 
 <template>
@@ -70,15 +72,16 @@ function capitalizeFirstChar(word: string): string {
     </div>
     <!--CRUD-->
     <div class="flex flex-row border border-pasadita-shade-2 px-2 py-2 rounded-b-lg gap-2">
-      <button type="button"
-        class="justify-center bg-pasadita-yellow-0 w-full font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center text-pasadita-yellow-2 hover:bg-pasadita-yellow-1 active:scale-95 hover:rounded-xl transition-all">
+      <button type="button" :data-state="props.accessRequest.status" :disabled="!isPending" :hover="isPending"
+        :active="isPending" for="text"
+        class="data-[state=ACCEPTED]:bg-pasadita-green-2 data-[state=ACCEPTED]:text-pasadita-green-1 data-[state=ACCEPTED]:opacity-60 data-[state=REJECTED]:bg-pasadita-red-1 data-[state=REJECTED]:text-pasadita-red-0 data-[state=REJECTED]:opacity-60 justify-center bg-pasadita-yellow-0 w-full font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center text-pasadita-yellow-2 hover:bg-pasadita-yellow-1 active:scale-95 hover:rounded-xl transition-all disabled:bg-pasadita-yellow-0/30 disabled:scale-100 disabled:rounded-lg">
         <p>Estado: {{ capitalizeFirstChar(props.accessRequest.status.toLowerCase()) }}</p>
       </button>
-      <button type="button"
+      <button v-if="isPending" type="button"
         class="bg-pasadita-red-2 w-[2.625rem] font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center text-pasadita-red-0 hover:bg-pasadita-red-1 active:scale-95 hover:rounded-xl transition-all">
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <button type="button"
+      <button v-if="isPending" type="button"
         class="bg-pasadita-blue-4 w-[2.625rem] font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center text-pasadita-blue-2 hover:bg-pasadita-blue-3 hover:text-white active:scale-95 hover:rounded-xl transition-all">
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>

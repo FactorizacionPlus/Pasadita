@@ -3,5 +3,5 @@ export default interface AccessRequest {
   residentName: string;
   startDate: Date;
   endDate: Date;
-  status: "APROVED" | "REJECTED" | "PENDING";
+  status: "ACCEPTED" | "REJECTED" | "PENDING";
 }

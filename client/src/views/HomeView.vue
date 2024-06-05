@@ -29,6 +29,7 @@
       <ResidenceCard :residence="residence" />
     </div>
     <AccessRequestCard :accessRequest="accessExample" />
+    <CreateResidenceForm />
   </div>
 </template>
 
@@ -71,7 +72,7 @@ const accessExample: AccessRequest = {
   residentName: "Marshall",
   startDate: new Date("2024-06-04"),
   endDate: new Date("2024-06-06"),
-  status: "PENDING",
+  status: "REJECTED",
 }
 
 
