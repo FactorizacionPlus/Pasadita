@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import QRCodeStyling from "../components/QRCodeStyling.vue";
+import type QRCodeStyling from "@/components/QRCodeStyling.vue";
+import { ref } from "vue";
 
 const userAuthToken =
   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXZlcmFzb3RvLm1hcmNlbG8uYmFja3VwQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM5MzE5NCwiZXhwIjoxNzE4Njg5MTk0fQ.IfwJL5pjKPfJ4MqzX4wcgxkqUYCwrWVoPZgW28pbYHdVTR1ylGQrxi0jVqTAtNien8AUPck9FdCH_AlV7E1eiw";
