@@ -2,7 +2,9 @@
 import VueFeather from 'vue-feather';
 import type Residence from '../types/Residence';
 
-const props = defineProps<{ residence: Residence }>();
+const props = defineProps<{
+  residence: Residence
+}>();
 </script>
 
 <template>
