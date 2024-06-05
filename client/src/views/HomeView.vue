@@ -32,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
 import ResidenceCard from "../components/ResidenceCard.vue"
 import type Residence from "../types/Residence"
 import VueFeather from 'vue-feather';
