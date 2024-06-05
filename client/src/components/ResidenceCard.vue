@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import VueFeather from 'vue-feather';
 import type Residence from '../types/Residence';
 
-const props = defineProps<{ residence: Residence }>();
+const props = defineProps<{ 
+    residence:Residence
+ }>();
 </script>
 
 <template>
@@ -18,14 +19,14 @@ const props = defineProps<{ residence: Residence }>();
                     Residencia
                 </p>
                 <p class="text-base font-normal text-pasadita-blue-1">
-                    Habitantes: {{ residence.maxHabitants }}
+                    Habitantes: {{ props.residence.maxHabitants }}
                 </p>
             </div>
         </div>
         <!--Description-->
         <div class="flex flex-row h-[4.5rem] border-x border-pasadita-shade-2 px-2 py-2">
             <p class="font-normal line-clamp-2 text-pasadita-blue-1">
-                {{ residence.description }}
+                {{ props.residence.description }}
             </p>
         </div>
         <!--CRUD-->
