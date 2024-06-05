@@ -73,7 +73,7 @@ import UserCard from "../components/UserCard.vue"
 import type User from "../types/User"
 
 import type AccessRequest from "../types/AccessRequest.ts"
-import type InvitedResident from "../types/InvitedResident.ts"
+import type InvitedResident from "@/types/InvitedResident"
 import VueFeather from 'vue-feather';
 import InputForm from "@/components/Forms/InputForm.vue";
 import { ref } from "vue";
