@@ -45,7 +45,11 @@
 
     <InputForm value="149123" type="date" title="hola" placeholder="odio los negros" />
     <InputForm value="149123" type="number" title="hola" placeholder="odio los negros" />
+    
+    <HeaderModal title="Residencia" icon="file-text" action="add" />
+    <CreateResidenceForm />
 
+    <ManageResidence />
   </section>
 </template>
 
@@ -58,6 +62,9 @@ import { ref } from "vue";
 import type Option from "@/types/Option";
 import SelectForm from "@/components/Forms/SelectForm.vue";
 import SwitchForm from "@/components/Forms/SwitchForm.vue";
+import HeaderModal from "@/components/Modal/HeaderModal.vue";
+import CreateResidenceForm from "@/components/CreateResidenceForm.vue";
+import ManageResidence from "@/components/Forms/Residence/ManageResidence.vue";
 
 const inputValue = ref("");
 const SelectValue = ref<Option>();
