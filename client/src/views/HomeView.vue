@@ -29,57 +29,87 @@
       <ResidenceCard :residence="residence" />
     </div>
   </div>
+
+  <div class="py-20">divider</div>
+
+  <section class="flex flex-col p-5 gap-y-10">
+    <InputForm value="149123" @update:value="handleValueUpdate" title="hola" placeholder="odio los negros" />
+    <p class="bg-blue-200 p-4">Val: {{ inputValue }}</p>
+
+    <SelectForm  :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
+      @update:value="handleSelectUpdate" />
+    <p class="bg-red-200 p-4">Val: {{ SelectValue }}</p>
+
+    <SwitchForm @update:value="handleSwitchUpdate" />
+    <p class="bg-green-200 p-4">Val: {{ switchValue }}</p>
+
+    <InputForm value="149123" type="date" title="hola" placeholder="odio los negros" />
+    <InputForm value="149123" type="number" title="hola" placeholder="odio los negros" />
+
+  </section>
 </template>
 
 <script setup lang="ts">
-import ResidenceCard from "../components/ResidenceCard.vue"
-import type Residence from "../types/Residence"
-import VueFeather from 'vue-feather';
+import InputForm from "@/components/Forms/InputForm.vue";
+import ResidenceCard from "../components/ResidenceCard.vue";
+import type Residence from "../types/Residence";
+import VueFeather from "vue-feather";
+import { ref } from "vue";
+import type Option from "@/types/Option";
+import SelectForm from "@/components/Forms/SelectForm.vue";
+import SwitchForm from "@/components/Forms/SwitchForm.vue";
 
-const residenceList : Residence[] = [
-  {
-  maxHabitants: 1,
-  description: "Lorem Ipsum"
-  },
-  {
-  maxHabitants: 2,
-  description: "Lorem Ipsum"
-  },
-  {
-  maxHabitants: 3,
-  description: "Lorem Ipsum"
-  },
-  {
-  maxHabitants: 4,
-  description: "Lorem Ipsum"
-  },
-  {
-  maxHabitants: 5,
-  description: "Lorem Ipsum"
-  },
-  {
-  maxHabitants: 6,
-  description: "Lorem Ipsum"
-  },
-  
-]
+const inputValue = ref("");
+const SelectValue = ref<Option>();
+const switchValue = ref<boolean>();
 
-/*
-const residenceList = ref<Residence[]>([])
-const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
+const handleValueUpdate = (value: string) => {
+  inputValue.value = value;
+};
 
-onMounted(async () => {
-  const response = await fetch("http://localhost:8080/api/residence/", {
-    headers: {
-      Authorization: "Bearer " + userToken,
-    }
-  });
+const handleSelectUpdate = (option: Option) => {
+  SelectValue.value = option;
+};
 
-  if (response.ok) {
-    const json = await response.json();
-    residenceList.value = json.data
-    console.log(json)
-  }
-})
-*/
+const handleSwitchUpdate = (value: boolean) => {
+  switchValue.value = value;
+};
+
+const options: Option[] = [
+  {
+    text: "Cat",
+    value: "SFLKSKLDF",
+  },
+  {
+    text: "Dog",
+    value: "as;klflkjgskljsdfh",
+  },
+];
+
+const residenceList: Residence[] = [
+  {
+    maxHabitants: 1,
+    description: "Lorem Ipsum",
+  },
+  {
+    maxHabitants: 2,
+    description: "Lorem Ipsum",
+  },
+  {
+    maxHabitants: 3,
+    description: "Lorem Ipsum",
+  },
+  {
+    maxHabitants: 4,
+    description: "Lorem Ipsum",
+  },
+  {
+    maxHabitants: 5,
+    description: "Lorem Ipsum",
+  },
+  {
+    maxHabitants: 6,
+    description: "Lorem Ipsum",
+  },
+];
 </script>
