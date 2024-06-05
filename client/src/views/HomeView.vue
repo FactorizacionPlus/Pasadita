@@ -28,6 +28,8 @@
     <div v-for="residence in residenceList" :key="residence.description">
       <ResidenceCard :residence="residence" />
     </div>
+    <AccessRequestCard :accessRequest="accessExample" />
+    <InvitedResidentCard :invitedResident="invitedResidentExample" />
   </div>
 
   <div class="grid grid-cols-5 gap-5 p-8">
@@ -35,44 +37,86 @@
       <UserCard :user="user" />
     </div>
   </div>
+  <!--
+  <div class="py-20">divider</div>
+
+  <section class="flex flex-col p-5 gap-y-10">
+    <InputForm value="149123" @update:value="handleValueUpdate" title="hola" placeholder="odio los negros" />
+    <p class="bg-blue-200 p-4">Val: {{ inputValue }}</p>
+
+    <SelectForm :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
+      @update:value="handleSelectUpdate" />
+    <p class="bg-red-200 p-4">Val: {{ SelectValue }}</p>
+
+    <SwitchForm @update:value="handleSwitchUpdate" />
+    <p class="bg-green-200 p-4">Val: {{ switchValue }}</p>
+
+    <InputForm value="149123" type="date" title="hola" placeholder="odio los negros" />
+    <InputForm value="149123" type="number" title="hola" placeholder="odio los negros" />
+
+    <HeaderModal title="Residencia" icon="file-text" action="add" />
+    <CreateResidenceForm />
+
+    <ManageResidence />
+  </section>
+-->
 </template>
 
 <script setup lang="ts">
 import ResidenceCard from "../components/ResidenceCard.vue"
+import AccessRequestCard from "../components/AccessRequestCard.vue"
 import type Residence from "../types/Residence"
 
 import UserCard from "../components/UserCard.vue"
 import type User from "../types/User"
 
+import type AccessRequest from "../types/AccessRequest.ts"
+import type InvitedResident from "../types/InvitedResident.ts"
 import VueFeather from 'vue-feather';
+import InvitedResidentCard from '../components/InvitedResidentCard.vue'
 
-const residenceList : Residence[] = [
+const residenceList: Residence[] = [
   {
-  maxHabitants: 1,
-  description: "Lorem Ipsum"
+    maxHabitants: 1,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 2,
-  description: "Lorem Ipsum"
+    maxHabitants: 2,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 3,
-  description: "Lorem Ipsum"
+    maxHabitants: 3,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 4,
-  description: "Lorem Ipsum"
+    maxHabitants: 4,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 5,
-  description: "Lorem Ipsum"
+    maxHabitants: 5,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 6,
-  description: "Lorem Ipsum"
+    maxHabitants: 6,
+    description: "Lorem Ipsum"
   },
-  
 ]
+
+const accessExample: AccessRequest = {
+  residentId: "12121221",
+  residentName: "Marshall",
+  startDate: new Date("2024-06-04"),
+  endDate: new Date("2024-06-06"),
+  status: "REJECTED",
+}
+
+
+const invitedResidentExample: InvitedResident = {
+  name: "Marcelo",
+  secondName: "Rivera",
+  identification: "010102021",
+  entries: 10,
+}
 
 
 const userList : User[] = [
@@ -102,14 +146,33 @@ const userList : User[] = [
 /*
 const residenceList = ref<Residence[]>([])
 const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
+=======
+import InputForm from "@/components/Forms/InputForm.vue";
+import ResidenceCard from "../components/ResidenceCard.vue";
+import type Residence from "../types/Residence";
+import VueFeather from "vue-feather";
+import { ref } from "vue";
+import type Option from "@/types/Option";
+import SelectForm from "@/components/Forms/SelectForm.vue";
+import SwitchForm from "@/components/Forms/SwitchForm.vue";
+import HeaderModal from "@/components/Modal/HeaderModal.vue";
+import CreateResidenceForm from "@/components/CreateResidenceForm.vue";
+import ManageResidence from "@/components/Forms/Residence/ManageResidence.vue";
 
-onMounted(async () => {
-  const response = await fetch("http://localhost:8080/api/residence/", {
-    headers: {
-      Authorization: "Bearer " + userToken,
-    }
-  });
+const inputValue = ref("");
+const SelectValue = ref<Option>();
+const switchValue = ref<boolean>();
 
+const handleValueUpdate = (value: string) => {
+  inputValue.value = value;
+};
+>>>>>>> master
+
+const handleSelectUpdate = (option: Option) => {
+  SelectValue.value = option;
+};
+
+<<<<<<< HEAD
   if (response.ok) {
     const json = await response.json();
     residenceList.value = json.data
