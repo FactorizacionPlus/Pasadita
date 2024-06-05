@@ -35,6 +35,17 @@
       <UserCard :user="user" />
     </div>
   </div>
+
+  <div class="grid grid-cols-5 gap-5 p-8">
+  
+      <EntryCard />
+   
+  </div>
+ 
+
+
+
+  
 </template>
 
 <script setup lang="ts">
@@ -43,6 +54,11 @@ import type Residence from "../types/Residence"
 
 import UserCard from "../components/UserCard.vue"
 import type User from "../types/User"
+
+import UserCardEntry from "../components/UserCardEntry.vue"
+import type UserEntry from "../types/UserEntry"
+
+import EntryCard from "../components/EntryCard.vue"
 
 import VueFeather from 'vue-feather';
 
@@ -81,20 +97,15 @@ const userList : User[] = [
     name: "Juan",
     lastName: "Alberto"
   },
+  
+]
+
+const userEntryList : UserEntry[] = [
   {
-    rol: "Residente",
+    id: 1532,
+    rol: "Admin",
     name: "Mario",
-    lastName: "Chavez"
-  },
-  {
-    rol: "Anonimo",
-    name: "Maria",
     lastName: "Lopez"
-  },
-  {
-    rol: "Residente",
-    name: "Eduardo",
-    lastName: "Rodriguez"
   },
   
 ]
