@@ -2,8 +2,8 @@
   <header>
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/access">Access</RouterLink>
+      <RouterLink to="/guest/about">About</RouterLink>
+      <RouterLink to="/guest/access">Access</RouterLink>
     </nav>
   </header>
   <main>
