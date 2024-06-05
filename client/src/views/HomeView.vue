@@ -28,41 +28,53 @@
     <div v-for="residence in residenceList" :key="residence.description">
       <ResidenceCard :residence="residence" />
     </div>
+    <AccessRequestCard :accessRequest="accessExample" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ResidenceCard from "../components/ResidenceCard.vue"
+import AccessRequestCard from "../components/AccessRequestCard.vue"
 import type Residence from "../types/Residence"
+import type AccessRequest from "../types/AccessRequest.ts"
 import VueFeather from 'vue-feather';
 
-const residenceList : Residence[] = [
+const residenceList: Residence[] = [
   {
-  maxHabitants: 1,
-  description: "Lorem Ipsum"
+    maxHabitants: 1,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 2,
-  description: "Lorem Ipsum"
+    maxHabitants: 2,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 3,
-  description: "Lorem Ipsum"
+    maxHabitants: 3,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 4,
-  description: "Lorem Ipsum"
+    maxHabitants: 4,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 5,
-  description: "Lorem Ipsum"
+    maxHabitants: 5,
+    description: "Lorem Ipsum"
   },
   {
-  maxHabitants: 6,
-  description: "Lorem Ipsum"
+    maxHabitants: 6,
+    description: "Lorem Ipsum"
   },
-  
 ]
+
+const accessExample: AccessRequest = {
+  residentId: "12121221",
+  residentName: "Marshall",
+  startDate: new Date("2024-06-04"),
+  endDate: new Date("2024-06-06"),
+  status: "PENDING",
+}
+
+
 
 /*
 const residenceList = ref<Residence[]>([])
