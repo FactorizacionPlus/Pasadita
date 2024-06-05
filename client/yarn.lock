@@ -26,7 +26,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.24.4":
+"@babel/parser@npm:^7.23.5, @babel/parser@npm:^7.24.4":
   version: 7.24.6
   resolution: "@babel/parser@npm:7.24.6"
   bin:
@@ -526,12 +526,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/feather-icons@npm:^4":
+  version: 4.29.4
+  resolution: "@types/feather-icons@npm:4.29.4"
+  checksum: 10c0/756e33dd395a57fb6b6e55a72834e3eb47cf4ce97bca2c8f7d8b44845c38b0cd397555824b09e562567191aa1d578779d8cde28f52b89fa7a00b7b9298e159b8
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^20.12.5":
   version: 20.12.13
   resolution: "@types/node@npm:20.12.13"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/2ac92bb631dbddfb560eb3ba4eedbb1c688044a0130bc1ef032f5c0f20148ac7c9aa3c5aaa5a9787b6c4c6299847d754b96ee8c9def951481ba6628c46b683f5
+  languageName: node
+  linkType: hard
+
+"@types/vue-feather-icons@npm:^5":
+  version: 5.0.8
+  resolution: "@types/vue-feather-icons@npm:5.0.8"
+  dependencies:
+    vue: "npm:^2.0.0"
+  checksum: 10c0/14d94b129589062b6ffd536934c1c33491c4cc4e8d07fbd234e286aafe24b3b4784d28f56c6e86acd802ad2019c393d6127d46afbe046d9abe7ac0277f38440c
   languageName: node
   linkType: hard
 
@@ -727,6 +743,21 @@ __metadata:
     "@vue/compiler-core": "npm:3.4.27"
     "@vue/shared": "npm:3.4.27"
   checksum: 10c0/ceb8aef314b6b7df1ab6cd3c7c1290e5b60363a6092bbffc3ee6aca42f6f5247a070b0dcbe71530751e840d01beec00a6268e3663abcf4a6ac297a32bfb90e49
+  languageName: node
+  linkType: hard
+
+"@vue/compiler-sfc@npm:2.7.16":
+  version: 2.7.16
+  resolution: "@vue/compiler-sfc@npm:2.7.16"
+  dependencies:
+    "@babel/parser": "npm:^7.23.5"
+    postcss: "npm:^8.4.14"
+    prettier: "npm:^1.18.2 || ^2.0.0"
+    source-map: "npm:^0.6.1"
+  dependenciesMeta:
+    prettier:
+      optional: true
+  checksum: 10c0/eaeeef054c939e6cd7591199e2b998ae33d0afd65dc1b5675b54361f0c657c08ae82945791a1a8ca76762e1c1f8e69a00595daf280b854cbc3370ed5c5a34bcd
   languageName: node
   linkType: hard
 
@@ -1013,6 +1044,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-helper-vue-jsx-merge-props@npm:^2.0.2":
+  version: 2.0.3
+  resolution: "babel-helper-vue-jsx-merge-props@npm:2.0.3"
+  checksum: 10c0/8eaf8bf707b2a4274677ebde4b2c5139e718b1b171f07be16e0429c63a69a021a6ad5716e1e3d42c2fd002ff1d692347554329b7b9cafa5cc4c3150cc6850305
+  languageName: node
+  linkType: hard
+
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -1153,6 +1191,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2.2.5":
+  version: 2.5.1
+  resolution: "classnames@npm:2.5.1"
+  checksum: 10c0/afff4f77e62cea2d79c39962980bf316bacb0d7c49e13a21adaadb9221e1c6b9d3cdb829d8bb1b23c406f4e740507f37e1dcf506f7e3b7113d17c5bab787aa69
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -1166,7 +1211,9 @@ __metadata:
   dependencies:
     "@rushstack/eslint-patch": "npm:^1.8.0"
     "@tsconfig/node20": "npm:^20.1.4"
+    "@types/feather-icons": "npm:^4"
     "@types/node": "npm:^20.12.5"
+    "@types/vue-feather-icons": "npm:^5"
     "@vitejs/plugin-basic-ssl": "npm:^1.1.0"
     "@vitejs/plugin-vue": "npm:^5.0.4"
     "@vue/eslint-config-prettier": "npm:^9.0.0"
@@ -1175,6 +1222,7 @@ __metadata:
     autoprefixer: "npm:^10.4.19"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.23.0"
+    feather-icons: "npm:4"
     html5-qrcode: "npm:^2.3.8"
     npm-run-all2: "npm:^6.1.2"
     pinia: "npm:^2.1.7"
@@ -1184,7 +1232,9 @@ __metadata:
     tailwindcss: "npm:^3.4.3"
     typescript: "npm:~5.4.0"
     vite: "npm:^5.2.8"
-    vue: "npm:^3.4.21"
+    vue: "npm:3"
+    vue-feather: "npm:2"
+    vue-feather-icons: "npm:^5.1.0"
     vue-router: "npm:^4.3.0"
     vue-tsc: "npm:^2.0.11"
   languageName: unknown
@@ -1227,6 +1277,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.1.3":
+  version: 3.37.1
+  resolution: "core-js@npm:3.37.1"
+  checksum: 10c0/440eb51a7a39128a320225fe349f870a3641b96c9ecd26470227db730ef8c161ea298eaea621db66ec0ff622a85299efb4e23afebf889c0a1748616102307675
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -1247,7 +1304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.1.3":
+"csstype@npm:^3.1.0, csstype@npm:^3.1.3":
   version: 3.1.3
   resolution: "csstype@npm:3.1.3"
   checksum: 10c0/80c089d6f7e0c5b2bd83cf0539ab41474198579584fa10d86d0cafe0642202343cbc119e076a0b1aece191989477081415d66c9fefbf3c957fc2fc4b7009f248
@@ -1682,6 +1739,16 @@ __metadata:
   dependencies:
     reusify: "npm:^1.0.4"
   checksum: 10c0/1095f16cea45fb3beff558bb3afa74ca7a9250f5a670b65db7ed585f92b4b48381445cd328b3d87323da81e43232b5d5978a8201bde84e0cd514310f1ea6da34
+  languageName: node
+  linkType: hard
+
+"feather-icons@npm:4":
+  version: 4.29.2
+  resolution: "feather-icons@npm:4.29.2"
+  dependencies:
+    classnames: "npm:^2.2.5"
+    core-js: "npm:^3.1.3"
+  checksum: 10c0/a23f8fbb6e96c901290308bb96267660ddd32c367074411e6a641c030448eff8041072c46e82cbf3bb3c4b2440df107e8defed09ff068e55117db6b867ca7b32
   languageName: node
   linkType: hard
 
@@ -2774,7 +2841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.38":
+"postcss@npm:^8.4.14, postcss@npm:^8.4.23, postcss@npm:^8.4.38":
   version: 8.4.38
   resolution: "postcss@npm:8.4.38"
   dependencies:
@@ -2798,6 +2865,15 @@ __metadata:
   dependencies:
     fast-diff: "npm:^1.1.2"
   checksum: 10c0/81e0027d731b7b3697ccd2129470ed9913ecb111e4ec175a12f0fcfab0096516373bf0af2fef132af50cafb0a905b74ff57996d615f59512bb9ac7378fcc64ab
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^1.18.2 || ^2.0.0":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 10c0/463ea8f9a0946cd5b828d8cf27bd8b567345cf02f56562d5ecde198b91f47a76b7ac9eae0facd247ace70e927143af6135e8cf411986b8cb8478784a4d6d724a
   languageName: node
   linkType: hard
 
@@ -3107,6 +3183,13 @@ __metadata:
   version: 1.2.0
   resolution: "source-map-js@npm:1.2.0"
   checksum: 10c0/7e5f896ac10a3a50fe2898e5009c58ff0dc102dcb056ed27a354623a0ece8954d4b2649e1a1b2b52ef2e161d26f8859c7710350930751640e71e374fe2d321a4
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "source-map@npm:0.6.1"
+  checksum: 10c0/ab55398007c5e5532957cb0beee2368529618ac0ab372d789806f5718123cc4367d57de3904b4e6a4170eb5a0b0f41373066d02ca0735a0c4d75c7d328d3e011
   languageName: node
   linkType: hard
 
@@ -3492,6 +3575,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-feather-icons@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "vue-feather-icons@npm:5.1.0"
+  dependencies:
+    babel-helper-vue-jsx-merge-props: "npm:^2.0.2"
+  checksum: 10c0/2df914776c1a6da0b4bf0a0e263160bc709a46c392d00796da09307f03f0c8bb7ddc569aec7d3f5a94ad3f5103467f1bc8d4e7e7ae2fb8726237eecf0b112740
+  languageName: node
+  linkType: hard
+
+"vue-feather@npm:2":
+  version: 2.0.0
+  resolution: "vue-feather@npm:2.0.0"
+  peerDependencies:
+    feather-icons: ^4.28.0
+    vue: ^3.0.0
+  checksum: 10c0/e6dffec45bc24f44c0c8e236942c9e1551043baf0e8b86098e453101b3c03f01d96fd81cbd9d4cd18d7916db02423250b05db553654cef83461dee0df9c3f65a
+  languageName: node
+  linkType: hard
+
 "vue-router@npm:^4.3.0":
   version: 4.3.2
   resolution: "vue-router@npm:4.3.2"
@@ -3528,7 +3630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.4.21":
+"vue@npm:3":
   version: 3.4.27
   resolution: "vue@npm:3.4.27"
   dependencies:
@@ -3543,6 +3645,16 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/73349e05cf554891d5e0076be10083150c92831c1cffdeee1e25c2222a8a4d8291630825a897049add753c4925e1c916c3614fe8d9c0392d9ff0186e553fe24b
+  languageName: node
+  linkType: hard
+
+"vue@npm:^2.0.0":
+  version: 2.7.16
+  resolution: "vue@npm:2.7.16"
+  dependencies:
+    "@vue/compiler-sfc": "npm:2.7.16"
+    csstype: "npm:^3.1.0"
+  checksum: 10c0/15bf536c131a863d03c42386a4bbc82316262129421ef70e88d1758bcf951446ef51edeff42e3b27d026015330fe73d90155fca270eb5eadd30b0290735f2c3e
   languageName: node
   linkType: hard
 
