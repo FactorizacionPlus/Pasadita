@@ -31,7 +31,7 @@
     <AccessRequestCard :accessRequest="accessExample" />
     <CreateResidenceForm />
   </div>
-
+  <!--
   <div class="py-20">divider</div>
 
   <section class="flex flex-col p-5 gap-y-10">
@@ -53,6 +53,7 @@
 
     <ManageResidence />
   </section>
+-->
 </template>
 
 <script setup lang="ts">
