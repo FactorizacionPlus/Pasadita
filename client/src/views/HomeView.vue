@@ -28,15 +28,17 @@
     <div v-for="residence in residenceList" :key="residence.description">
       <ResidenceCard :residence="residence" />
     </div>
+    <AccessRequestCard :accessRequest="accessExample" />
+    <CreateResidenceForm />
   </div>
-
+  <!--
   <div class="py-20">divider</div>
 
   <section class="flex flex-col p-5 gap-y-10">
     <InputForm value="149123" @update:value="handleValueUpdate" title="hola" placeholder="odio los negros" />
     <p class="bg-blue-200 p-4">Val: {{ inputValue }}</p>
 
-    <SelectForm  :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
+    <SelectForm :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
       @update:value="handleSelectUpdate" />
     <p class="bg-red-200 p-4">Val: {{ SelectValue }}</p>
 
@@ -45,15 +47,63 @@
 
     <InputForm value="149123" type="date" title="hola" placeholder="odio los negros" />
     <InputForm value="149123" type="number" title="hola" placeholder="odio los negros" />
-    
+
     <HeaderModal title="Residencia" icon="file-text" action="add" />
     <CreateResidenceForm />
 
     <ManageResidence />
   </section>
+-->
 </template>
 
 <script setup lang="ts">
+import ResidenceCard from "../components/ResidenceCard.vue"
+import AccessRequestCard from "../components/AccessRequestCard.vue"
+import type Residence from "../types/Residence"
+import type AccessRequest from "../types/AccessRequest.ts"
+import VueFeather from 'vue-feather';
+
+const residenceList: Residence[] = [
+  {
+    maxHabitants: 1,
+    description: "Lorem Ipsum"
+  },
+  {
+    maxHabitants: 2,
+    description: "Lorem Ipsum"
+  },
+  {
+    maxHabitants: 3,
+    description: "Lorem Ipsum"
+  },
+  {
+    maxHabitants: 4,
+    description: "Lorem Ipsum"
+  },
+  {
+    maxHabitants: 5,
+    description: "Lorem Ipsum"
+  },
+  {
+    maxHabitants: 6,
+    description: "Lorem Ipsum"
+  },
+]
+
+const accessExample: AccessRequest = {
+  residentId: "12121221",
+  residentName: "Marshall",
+  startDate: new Date("2024-06-04"),
+  endDate: new Date("2024-06-06"),
+  status: "REJECTED",
+}
+
+
+
+/*
+const residenceList = ref<Residence[]>([])
+const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
+=======
 import InputForm from "@/components/Forms/InputForm.vue";
 import ResidenceCard from "../components/ResidenceCard.vue";
 import type Residence from "../types/Residence";
@@ -73,50 +123,18 @@ const switchValue = ref<boolean>();
 const handleValueUpdate = (value: string) => {
   inputValue.value = value;
 };
+>>>>>>> master
 
 const handleSelectUpdate = (option: Option) => {
   SelectValue.value = option;
 };
 
-const handleSwitchUpdate = (value: boolean) => {
-  switchValue.value = value;
-};
-
-const options: Option[] = [
-  {
-    text: "Cat",
-    value: "SFLKSKLDF",
-  },
-  {
-    text: "Dog",
-    value: "as;klflkjgskljsdfh",
-  },
-];
-
-const residenceList: Residence[] = [
-  {
-    maxHabitants: 1,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 2,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 3,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 4,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 5,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 6,
-    description: "Lorem Ipsum",
-  },
-];
+<<<<<<< HEAD
+  if (response.ok) {
+    const json = await response.json();
+    residenceList.value = json.data
+    console.log(json)
+  }
+})
+*/
 </script>
