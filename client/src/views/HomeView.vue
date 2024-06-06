@@ -1,5 +1,5 @@
 <template>
-  <div class="grid px-8 gap-y-4">
+  <div class="grid gap-y-4">
     <!--Add User-->
     <div class="flex flex-row justify-end">
       <button
@@ -30,7 +30,7 @@
     </div>
   </div>
   <!--Cards Grid-->
-  <div class="grid grid-cols-5 gap-5 p-8">
+  <div class="grid grid-cols-5 gap-5 py-8">
     <div v-for="residence in residenceList" :key="residence.description">
       <ResidenceCard :residence="residence" />
     </div>
