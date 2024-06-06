@@ -1,30 +1,35 @@
-<script>
+<script setup lang="ts"> 
 import { defineProps } from 'vue';
 import VueFeather from 'vue-feather';
-import type EntryCard from '../types/EntryCard';
+import type EntryCard from '@/types/EntryCard';
 
-const props = defineProps<{ entrycard: EntryCard }>();
+interface Props {
+    entrycard: EntryCard   
+}
+
+const props = defineProps<Props>();
+
 </script>
 
 <template>
     <div>
         <div class="user">
-            <p>{{entrycard.userType}}</p>
+            <p>{{ props.entrycard.userType}}</p>
             <div>
                 <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
-                <p>{{entrycard.id}}</p>
-                <p>{{entrycard.userName}}</p>
+                <p>{{props.entrycard.id}}</p>
+                <p>{{props.entrycard.username }}</p>
             </div>
         </div>
 
         <div class="dateTime">
             <p>Fecha y hora de entrada</p>
-            <p>{{entrycard.dateTime}}</p>
+            <p>{{props.entrycard.dateTime}}</p>
         </div>
 
         <div class="direction">
             <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
-            <p>{{entrycard.direction}}</p>
+            <p>{{props.entrycard.direction}}</p>
         </div>
     </div>
 </template>

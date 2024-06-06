@@ -7,6 +7,7 @@ interface Props {
   options: Option[];
   currentIndex?: number;
   disabled?: boolean;
+  name: string;
 }
 
 const props = defineProps<Props>();
@@ -31,7 +32,8 @@ onMounted(() => {
 
 <template>
   <select
-    class="peer accent-pasadita-blue-3 bg-wh h-10 rounded-[4px] hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 transition-all text-pasadita-blue-0 placeholder-transparent ring-1 px-2 ring-pasadita-shade-1 focus:ring-pasadita-blue-3 focus:outline-none disabled:opacity-40"
+    :name="props.name"
+    class="peer accent-pasadita-blue-3 bg-transparent h-10 w-72 rounded-[4px] hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 transition-all text-pasadita-blue-0 placeholder-transparent ring-1 px-2 ring-pasadita-shade-1 focus:ring-pasadita-blue-3 focus:outline-none disabled:opacity-40"
     @change="handleChange"
     :disabled="props.disabled"
   >

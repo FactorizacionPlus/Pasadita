@@ -7,6 +7,7 @@ const props = withDefaults(
     title: string;
     placeholder?: string;
     disabled?: boolean;
+    name: string
     value?: string;
   }>(),
   {
@@ -34,7 +35,7 @@ onMounted(() => {
     <div class="relative bg-inherit">
       <textarea
         :id="titleSlug"
-        :name="titleSlug"
+        :name="props.name"
         class="peer pt-2 bg-transparent h-24 w-full rounded-[4px] hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 transition-all text-pasadita-blue-0 placeholder-transparent ring-1 px-2 ring-pasadita-shade-1 focus:ring-pasadita-blue-3 focus:outline-none disabled:opacity-40"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
