@@ -19,7 +19,11 @@ export default {
             2: "#deffd0",
             3: "#eff5ea",
           },
-          yellow: "#826800",
+          yellow: {
+            0: "#fff5d0",
+            1: "#FFE67B",
+            2: "#826800",
+          },
           red: {
             0: "#895151",
             1: "#ffd0d0",
