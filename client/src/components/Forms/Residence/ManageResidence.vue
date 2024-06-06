@@ -6,6 +6,8 @@ import SelectForm from '../SelectForm.vue';
 import type Option from '@/types/Option';
 import VueFeather from 'vue-feather';
 import TextAreaForm from '../TextAreaForm.vue';
+import BoxContainerForm from '../BoxContainerForm.vue';
+import type BoxContainerItem from '@/types/BoxContainerItem';
 
 const people: Option[] = [
     {
@@ -22,6 +24,19 @@ const people: Option[] = [
     },
 ];
 
+const boxItems : BoxContainerItem[] = [
+  {
+    text: "Rita",
+    icon: true,
+    value: "hello"
+  },
+  {
+    text: "Wilson",
+    icon: true,
+    value: "hello"
+  }
+]
+
 const dialogRef = ref<HTMLDialogElement | null>(null);
 
 const closeModal = () => {
@@ -36,10 +51,11 @@ const closeModal = () => {
         <form class="bg-white rounded-md overflow-hidden">
             <HeaderModal title="Residencia" icon="file-text" action="add" />
             <div class="flex flex-col gap-6 px-4 py-6 max-h-[80vh]">
-                <InputForm title="Cantidad de habitantes" type="number" placeholder="Inserte la cantidad de habitantes" />
-                <TextAreaForm title="Descripcion de la residencia" placeholder="Inserte la cantidad de habitantes" />
+                <InputForm name="quantity" title="Cantidad de habitantes" type="number" placeholder="Inserte la cantidad de habitantes" />
+                <TextAreaForm name="description" title="Descripcion de la residencia" placeholder="Inserte la cantidad de habitantes" />
+                <BoxContainerForm :items="boxItems" title="Residentes Encargados" />
                 <div class="flex gap-2">
-                    <SelectForm defaultOption="Seleccione al Residente Encargado" title="Residentes Encargados" :options="people" />
+                    <SelectForm name="resident-admin" defaultOption="Seleccione al Residente Encargado" title="Residentes Encargados" :options="people" />
                     <button class="bg-pasadita-blue-4 font-normal rounded-lg text-sm p-2 text-center inline-flex items-center text-pasadita-blue-2 hover:bg-pasadita-blue-3 hover:text-white active:scale-95 hover:rounded-xl transition-all">
                         <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
                         <span>Agregar</span>

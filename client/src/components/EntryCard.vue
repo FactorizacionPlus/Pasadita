@@ -26,4 +26,3 @@ import UserCardEntry from "../components/UserCardEntry.vue";
     </div>
   </div>
 </template>
-
