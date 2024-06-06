@@ -3,7 +3,6 @@ import VueFeather from 'vue-feather';
 import type InvitedResident from '../types/InvitedResident';
 
 const props = defineProps<{
-  invitedResident: InvitedResident,
   icon: "grid" | "user" | "tablet" | "file-text" | "house",
   title: string,
 }>();
