@@ -29,8 +29,11 @@
       <ResidenceCard :residence="residence" />
     </div>
     <AccessRequestCard :accessRequest="accessExample" />
-    <InvitedResidentCard :invitedResident="invitedResidentExample" />
   </div>
+  <CardsContainer :invitedResident="invitedResidentExample2" title="Residents" icon="tablet">
+    <p>David </p>
+  </CardsContainer>
+  <InvitedResidentCard :invitedResident="invitedResidentExample" />
   <!--
   <div class="py-20">divider</div>
 
@@ -64,6 +67,7 @@ import type AccessRequest from "../types/AccessRequest.ts"
 import type InvitedResident from "../types/InvitedResident.ts"
 import VueFeather from 'vue-feather';
 import InvitedResidentCard from '../components/InvitedResidentCard.vue'
+import CardsContainer from "../components/CardsContainer.vue"
 
 const residenceList: Residence[] = [
   {
@@ -108,6 +112,12 @@ const invitedResidentExample: InvitedResident = {
   entries: 10,
 }
 
+const invitedResidentExample2: InvitedResident = {
+  name: "Marcelo",
+  secondName: "Rivera",
+  identification: "010102021",
+  entries: 10,
+}
 /*
 const residenceList = ref<Residence[]>([])
 const userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDU0MjcyNEB1Y2EuZWR1LnN2IiwiaWF0IjoxNzE3MzE0NjQzLCJleHAiOjE3MTg2MTA2NDN9.5RUWkAv1p0D8D6zHNyPUw8k0BiyIeLbOv5kk2tQJt5fRPvaFGRQ0F1LKi73awXaqjyE5ZK1zVAO1x9ejnaQLig"
