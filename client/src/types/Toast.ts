@@ -1,7 +1,11 @@
-export default interface Toast {
-    icon: string;
-    description: string;
-    bgColor: string;
-    textColor: string;
-    strokeColor: string;
+export enum ToastType {
+  INFO,
+  ERROR,
+  SUCCESS,
+  WARNING,
 }
+export default interface Toast {
+  message: string;
+  type: ToastType;
+}
+
