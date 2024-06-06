@@ -47,11 +47,11 @@
   <div class="grid grid-cols-5 gap-5 p-8">
     <EntryCard />
   </div>
-  <!--
   <div class="py-20">divider</div>
 
   <section class="flex flex-col p-5 gap-y-10">
-    <InputForm name="text" value="149123" @update:value="handleValueUpdate" title="hola" placeholder="odio los negros" />
+    <InputForm name="text" value="149123" @update:value="handleValueUpdate" title="hola"
+      placeholder="odio los negros" />
     <p class="bg-blue-200 p-4">Val: {{ inputValue }}</p>
 
     <SelectForm name="select" :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
@@ -65,13 +65,16 @@
     <InputForm name="number" value="149123" type="number" title="hola" placeholder="odio los negros" />
 
     <HeaderModal title="Residencia" icon="file-text" action="add" />
-    
+
     <BoxContainerForm :items="boxItems" title="hola" />
 
     <CreateResidenceForm />
     <ManageResidence />
+    <CardsContainer icon="tablet" title="Home">
+      <p>holahola</p>
+    </CardsContainer>
   </section>
---></template>
+</template>
 
 <script setup lang="ts">
 import ResidenceCard from "../components/ResidenceCard.vue";
@@ -91,6 +94,7 @@ import VueFeather from "vue-feather";
 import { ref } from "vue";
 import type Option from "@/types/Option";
 import type BoxContainerItem from "@/types/BoxContainerItem";
+import CardsContainer from "../components/CardsContainer.vue"
 
 const inputValue = ref("");
 const selectValue = ref<Option>();
@@ -175,6 +179,7 @@ const invitedResidentExample: InvitedResident = {
   entries: 10,
 };
 
+
 const userList: User[] = [
   {
     rol: "Admin",
@@ -190,7 +195,14 @@ const userEntryList: UserEntry[] = [
     name: "Mario",
     lastName: "Lopez",
   },
-];
+  {
+    id: 21312,
+    rol: "Residente",
+    name: "Eduardo",
+    lastName: "Rodriguez"
+  },
+
+]
 
 /*
 const residenceList = ref<Residence[]>([])
