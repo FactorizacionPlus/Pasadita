@@ -1,6 +1,6 @@
 <template>
 
-    <div class="flex flex-col justify-between h-dvh w-52 ">
+    <div class="flex flex-col justify-between h-dvh min-w-52 p-4 bg-pasadita-shade-3 border-r border-r-pasadita-shade-2">
         <div>
             <div class="flex justify-center">
                 <img class="h-12 w-[80%] object-fit" src="../assets/pasaditaLogo.svg">
