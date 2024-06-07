@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import QRCodeReader from "@/components/QRCodeReader.vue";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 enum Message {
   WAITING = "Esperando QR...",
@@ -18,7 +18,7 @@ async function validateToken(tokenContent: string) {
 
   let response = null;
   try {
-    response = await fetch("http://localhost:8080/api/access/validate/", {
+    response = await fetch(import.meta.env.PUBLIC_DOMAIN + "/api/access/validate/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +52,10 @@ watch(token, (value) => {
   if (message.value == Message.WAITING) {
     validateToken(value);
   }
+});
+
+onMounted(() => {
+  console.log(import.meta.env);
 });
 </script>
 
