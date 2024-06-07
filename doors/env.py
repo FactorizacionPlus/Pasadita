@@ -1,7 +1,7 @@
-SSID = "iPhone de Jezer"
-PASSWORD = "123456789"
-SERVER_ADDRESS = "192.168.1.13"
-SERVER_PORT = 8080
+SSID = "CLARO2_81DEA0"
+PASSWORD = "G61S8ONKBC"
+SERVER_ADDRESS = "https://pasadita-production.up.railway.app/"
+SERVER_PORT = 80
 
 # Terminal UUID
 # TODO: Maybe try to get this UUID from the server?
