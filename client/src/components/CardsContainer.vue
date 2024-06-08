@@ -20,7 +20,7 @@ const props = defineProps<{
       </div>
     </div>
     <!--Description-->
-    <div class="flex flex-row border border-t-0 border-pasadita-shade-2 w-full">
+    <div class="flex flex-col border border-t-0 border-pasadita-shade-2 w-full">
         <slot />
     </div>
     <!--CRUD-->
