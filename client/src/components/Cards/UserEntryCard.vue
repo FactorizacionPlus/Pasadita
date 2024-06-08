@@ -1,6 +1,11 @@
 <script setup lang="ts">
 
 import VueFeather from 'vue-feather';
+import type UserEntry from "@/types/UserEntry"
+
+const props = defineProps<{
+    userEntry: UserEntry
+}>();
 
 </script>
 
@@ -8,7 +13,7 @@ import VueFeather from 'vue-feather';
     <li class="flex flex-col max-w-sm">
         <div class="ml-3">
             <p class="text-base font-semibold text-pasadita-blue-1">
-                Administrador
+                {{ props.userEntry.rol}}
             </p>
         </div>
         <div class="flex items-center px-2 py-2 rounded-t-lg gap-2">
@@ -19,10 +24,10 @@ import VueFeather from 'vue-feather';
 
             <div class="flex-1">
                 <p class="text-base font-semibold text-pasadita-blue-1">
-                    414413432
+                    {{ props.userEntry.id }}
                 </p>
                 <p class="text-base font-normal text-pasadita-blue-1">
-                    Juan Valdez
+                    {{ props.userEntry.name }} {{ props.userEntry.lastName }}
                 </p>
             </div>
         </div>
