@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VueFeather from 'vue-feather';
-import type Residence from '../types/Residence';
+import type Residence from '../../types/Residence';
 
 const props = defineProps<{
   residence: Residence

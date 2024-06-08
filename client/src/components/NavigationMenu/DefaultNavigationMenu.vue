@@ -1,5 +1,5 @@
 <template>
-    <header class="flex flex-col justify-between h-dvh py-2 bg-pasadita-shade-3 border-b border-b-pasadita-shade-2">
+    <header class="flex flex-col justify-between py-2 bg-pasadita-shade-3 border-b border-b-pasadita-shade-2">
         <div class="flex items-center justify-between px-4 max-w-screen-2xl mx-auto w-full">
             <img class="h-8 w-auto object-fit" src="/identity/pasaditaLogo.svg">
             <div class="flex items-center gap-1">

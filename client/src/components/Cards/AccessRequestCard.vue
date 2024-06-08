@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VueFeather from 'vue-feather';
-import type AccessRequest from '../types/AccessRequest.ts';
+import type AccessRequest from '../../types/AccessRequest.ts';
 
 const props = defineProps<{ accessRequest: AccessRequest }>();
 
@@ -27,9 +27,9 @@ console.log(isPending);
 </script>
 
 <template>
-  <div class="flex flex-col max-w-sm bg-white">
+  <li class="flex flex-col bg-white">
     <!--Information-->
-    <div class="flex flex-col border bg-pasadita-shade-3 gap-1 border-pasadita-shade-2 pb-0 px-2 pt-2 rounded-t-lg ">
+    <div class="flex flex-col border bg-pasadita-shade-3 gap-1 border-pasadita-shade-2 p-2 rounded-t-lg ">
       <p class="text-pasadita-blue-1 font-semibold text-xl">Solicitud de acceso</p>
       <div class="flex gap-2 items-center">
         <div
@@ -86,6 +86,5 @@ console.log(isPending);
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
-  </div>
-
+  </li>
 </template>
