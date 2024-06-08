@@ -3,7 +3,7 @@ import { defineProps } from "vue";
 import VueFeather from 'vue-feather';
 
 interface Props {
-    icon: "grid" | "user" | "tablet" | "file-text" | "house"
+    icon: "grid" | "user" | "tablet" | "file-text" | "home" | "folder" | "file"
     title: string
 }
 

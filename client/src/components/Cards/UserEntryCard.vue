@@ -5,8 +5,7 @@ import VueFeather from 'vue-feather';
 </script>
 
 <template>
-
-    <div class="flex flex-col max-w-sm">
+    <li class="flex flex-col max-w-sm">
         <div class="ml-3">
             <p class="text-base font-semibold text-pasadita-blue-1">
                 Administrador
@@ -27,5 +26,5 @@ import VueFeather from 'vue-feather';
                 </p>
             </div>
         </div>
-    </div>
+    </li>
 </template>

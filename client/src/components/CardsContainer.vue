@@ -1,9 +1,9 @@
 value: "hello",
-  },<script setup lang="ts">
+<script setup lang="ts">
 import VueFeather from 'vue-feather';
 
 const props = defineProps<{
-  icon: "grid" | "user" | "tablet" | "file-text" | "house",
+  icon: "grid" | "user" | "tablet" | "file-text" | "house" | "home" | "user",
   title: string,
 }>();
 </script>

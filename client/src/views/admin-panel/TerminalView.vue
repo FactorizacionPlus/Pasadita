@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AdminTerminal from "@/components/Cards/TerminalCard.vue"
 import SearchBar from "@/components/SearchBar.vue"
-import Pagination from "@/components/Pagination.vue"
+import CurrentPageInfo from "@/components/CurrentPageInfo.vue"
 import type Terminal from "@/types/AdminTerminal"
 import type TestPagination from "@/types/TestPagination";
 
@@ -21,7 +21,7 @@ const terminalList: Terminal[] = [
 
 ]
 
-const paginationList: TestPagination[] = [
+/*const paginationList: TestPagination[] = [
   {
     page: 1
   },
@@ -35,19 +35,13 @@ const paginationList: TestPagination[] = [
     page: 4
   }
 ]
-
+*/
 </script>
 
 <template>
-  <div class="px-8">
-    <SearchBar/>
-  </div>
-  <div class="grid grid-cols-5 gap-5 p-8">
-    <div v-for="terminal in terminalList" :key="terminal.type">
-      <AdminTerminal :terminal="terminal" />
-    </div>
-  </div>
-  <div class="px-8">
-    <Pagination :pagination="paginationList" />
-  </div>
+  <CurrentPageInfo title="Terminales" icon="tablet"/>
+  <SearchBar class="py-4"/>
+  <ul class="grid grid-cols-4 gap-4">
+    <AdminTerminal :terminal="terminal" v-for="terminal in terminalList" :key="terminal.type"/>
+  </ul>
 </template>

@@ -9,7 +9,7 @@ const props = defineProps<{ user: User }>();
 </script>
 
 <template>
-    <div class="flex flex-col max-w-sm bg-white">
+    <li class="flex flex-col max-w-sm bg-white">
 
         <div class="flex items-center px-2 py-2 rounded-t-lg gap-2">
             <div
@@ -25,5 +25,5 @@ const props = defineProps<{ user: User }>();
                 </p>
             </div>
         </div>
-    </div>
+    </li>
 </template>

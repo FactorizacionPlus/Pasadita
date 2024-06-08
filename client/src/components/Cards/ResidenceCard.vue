@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col max-w-sm bg-white">
+  <li class="flex flex-col bg-white">
     <!--Information-->
     <div class="flex items-center border bg-pasadita-shade-3 border-pasadita-shade-2 px-2 py-2 rounded-t-lg gap-2">
       <div class="flex-shrink-0">
@@ -45,6 +45,6 @@ const props = defineProps<{
         <VueFeather type="eye" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
-  </div>
+  </li>
 
 </template>

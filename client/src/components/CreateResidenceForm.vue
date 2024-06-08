@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm mx-auto border border-pasadita-shade-2 rounded-lg">
+  <li class="mx-auto border border-pasadita-shade-2 rounded-lg">
     <div class="text-pasadita-blue-1 border-b border-pasadita-shade-2 bg-pasadita-shade-3 p-2 rounded-t-lg">
       Agregar Residencia
     </div>
@@ -49,7 +49,7 @@
       </form>
 
     </div>
-  </div>
+  </li>
 </template>
 
 <script setup lang="ts">
