@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AdminTerminal from "../../components/Administrador/AdminTerminal.vue"
-import SearchBar from "../../components/SearchBar.vue"
-import Pagination from "../../components/Pagination-Comp.vue"
-import type Terminal from "../../types/AdminTerminal"
+import AdminTerminal from "@/components/Cards/TerminalCard.vue"
+import SearchBar from "@/components/SearchBar.vue"
+import Pagination from "@/components/Pagination.vue"
+import type Terminal from "@/types/AdminTerminal"
 import type TestPagination from "@/types/TestPagination";
 
 const terminalList: Terminal[] = [
