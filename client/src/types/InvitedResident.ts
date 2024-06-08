@@ -3,5 +3,4 @@ export default interface InvitedResident {
   secondName: string;
   identification: string;
   entries: number;
-
 }

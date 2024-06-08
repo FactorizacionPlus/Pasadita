@@ -5,7 +5,7 @@ import type EntryCard from "@/types/EntryCard"
 import type UserEntryT  from "@/types/UserEntry";
 
 const props = defineProps<{
-  entryCard: EntryCard
+  entry: EntryCard
 }>();
 
 const userEntryTList: UserEntryT[] = [
@@ -19,7 +19,7 @@ const userEntryTList: UserEntryT[] = [
 </script>
 
 <template>
-  <div class="w-[550px] border bg-pasadita-shade-3 border-pasadita-shade-2 rounded-lg p-4">
+  <div class="border bg-pasadita-shade-3 border-pasadita-shade-2 rounded-lg p-2">
     <div class="flex flex-row justify-between">
       <div v-for="userEntry in userEntryTList" :key="userEntry.id">
         <UserEntry :userEntry="userEntry" />
@@ -27,7 +27,7 @@ const userEntryTList: UserEntryT[] = [
       <div class="flex row px-2 gap-3 items-center">
         <div class="flex flex-col text-pasadita-blue-1">
           <p class="font-semibold">Fecha y hora de entrada</p>
-          <p>{{ props.entryCard.dateTime }}</p>
+          <p>{{ props.entry.dateTime }}</p>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@ const userEntryTList: UserEntryT[] = [
         <VueFeather type="home" size="24" stroke="#01193F" stroke-width="1.5"></VueFeather>
       </div>
 
-      <p>{{ props.entryCard.direction }}</p>
+      <p>{{ props.entry.direction }}</p>
     </div>
   </div>
 </template>

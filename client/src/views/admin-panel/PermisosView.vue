@@ -4,34 +4,13 @@ import CardsContainer from "@/components/CardsContainer.vue";
 import type AccessRequest from "@/types/AccessRequest";
 import type Residence from "@/types/Residence";
 import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue"
-import Pagination from "@/components/Pagination.vue";
+import Pagination from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
 
 interface PermissionHistoryProps {
     residence: Residence;
     requests: AccessRequest[];
 }
-
-const pagination = [
-    {
-        page: 1
-    },
-    {
-        page: 2
-    },
-    {
-        page: 3
-    },
-    {
-        page: 4
-    },
-    {
-        page: 5
-    },
-    {
-        page: 6
-    },
-]
 
 const permissionHistory: PermissionHistoryProps[] = [
     {
@@ -103,6 +82,6 @@ const permissionHistory: PermissionHistoryProps[] = [
         <ul class="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-4 w-full">
             <AccessRequestCard :access-request="item" :key="index" v-for="item, index in history.requests" />
         </ul>
-        <Pagination class="py-4" :pagination="pagination"  />
+        <Pagination class="py-4" :total-pages="6"  />
     </CardsContainer>
 </template>

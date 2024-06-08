@@ -3,7 +3,6 @@ import AdminTerminal from "@/components/Cards/TerminalCard.vue"
 import SearchBar from "@/components/SearchBar.vue"
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue"
 import type Terminal from "@/types/AdminTerminal"
-import type TestPagination from "@/types/TestPagination";
 
 const terminalList: Terminal[] = [
   {
@@ -21,21 +20,6 @@ const terminalList: Terminal[] = [
 
 ]
 
-/*const paginationList: TestPagination[] = [
-  {
-    page: 1
-  },
-  {
-    page: 2
-  },
-  {
-    page: 3
-  },
-  {
-    page: 4
-  }
-]
-*/
 </script>
 
 <template>

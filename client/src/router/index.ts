@@ -38,8 +38,8 @@ const router = createRouter({
         },
         {
           path: "entradas",
-          name: "admin-entrada",
-          component: () => import("../views/admin-panel/EntradaView.vue"),
+          name: "admin-entradas",
+          component: () => import("../views/admin-panel/EntradasView.vue"),
         },
         {
           path: "permisos",
@@ -48,23 +48,23 @@ const router = createRouter({
         },
         {
           path: "terminales",
-          name: "admin-terminal",
-          component: () => import("../views/admin-panel/TerminalView.vue"),
+          name: "admin-terminales",
+          component: () => import("../views/admin-panel/TerminalesView.vue"),
         },
         {
           path: "residencias",
-          name: "admin-residencia",
-          component: () => import("../views/admin-panel/ResidenciaView.vue"),
+          name: "admin-residencias",
+          component: () => import("../views/admin-panel/ResidenciasView.vue"),
         },
         {
           path: "residentes",
-          name: "admin-residente",
-          component: () => import("../views/admin-panel/ResidenteView.vue"),
+          name: "admin-residentes",
+          component: () => import("../views/admin-panel/ResidentesView.vue"),
         },
         {
           path: "invitados",
-          name: "admin-invitado",
-          component: () => import("../views/admin-panel/InvitadoView.vue"),
+          name: "admin-invitados",
+          component: () => import("../views/admin-panel/InvitadosView.vue"),
         },
       ],
     },
