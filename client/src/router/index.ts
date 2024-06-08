@@ -37,9 +37,34 @@ const router = createRouter({
           component: () => import("../views/guest/AccessView.vue"),
         },
         {
-          path: "terminal",
+          path: "entradas",
+          name: "admin-entrada",
+          component: () => import("../views/admin-panel/EntradaView.vue"),
+        },
+        {
+          path: "permisos",
+          name: "admin-historial",
+          component: () => import("../views/admin-panel/PermisosView.vue"),
+        },
+        {
+          path: "terminales",
           name: "admin-terminal",
           component: () => import("../views/admin-panel/TerminalView.vue"),
+        },
+        {
+          path: "residencias",
+          name: "admin-residencia",
+          component: () => import("../views/admin-panel/ResidenciaView.vue"),
+        },
+        {
+          path: "residentes",
+          name: "admin-residente",
+          component: () => import("../views/admin-panel/ResidenteView.vue"),
+        },
+        {
+          path: "invitados",
+          name: "admin-invitado",
+          component: () => import("../views/admin-panel/InvitadoView.vue"),
         },
       ],
     },
