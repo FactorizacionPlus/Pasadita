@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VueFeather from 'vue-feather';
-import type InvitedResident from '../types/InvitedResident';
+import type InvitedResident from '@/types/InvitedResident';
 
 const props = defineProps<{ invitedResident: InvitedResident }>();
 </script>

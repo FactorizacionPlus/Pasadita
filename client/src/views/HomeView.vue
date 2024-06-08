@@ -1,100 +1,41 @@
 <template>
-  <div class="grid gap-y-4">
-    <!--Add User-->
-    <div class="flex flex-row justify-end">
-      <button
-        type="button"
-        class="bg-pasadita-blue-4 font-normal rounded-lg text-sm p-2.5 text-center inline-flex items-center text-pasadita-blue-2 hover:bg-pasadita-blue-3 hover:text-white active:scale-95 hover:rounded-xl transition-all"
-      >
-        <VueFeather type="plus" stroke-width="2.5" size="16" class="mr-2"></VueFeather>
-        <span>Agregar Residencias</span>
-      </button>
-    </div>
-    <!--Search Bar-->
-    <div class="w-full">
-      <form>
-        <label for="simple-search" class="sr-only">Search</label>
-        <div class="relative w-full">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <VueFeather type="search" stroke="#d7d7d7" stroke-width="2.5" size="16"></VueFeather>
-          </div>
-          <input
-            type="text"
-            id="simple-search"
-            class="bg-white border border-pasadita-shade-2 text-pasadita-shade-0 focus:ring-1 focus:outline-none focus:ring-pasadita-shade-2 text-sm rounded-lg block w-full ps-10 p-2.5"
-            placeholder="Buscar por descripcion..."
-            required
-          />
-        </div>
-      </form>
-    </div>
-  </div>
-  <!--Cards Grid-->
-  <div class="grid grid-cols-5 gap-5 py-8">
-    <div v-for="residence in residenceList" :key="residence.description">
-      <ResidenceCard :residence="residence" />
-    </div>
-    <AccessRequestCard :accessRequest="accessExample" />
-    <InvitedResidentCard :invitedResident="invitedResidentExample" />
-  </div>
-
-  <div class="grid grid-cols-5 gap-5 p-8">
-    <div v-for="user in userList" :key="user.rol">
-      <UserCard :user="user" />
-    </div>
-  </div>
-
-  <div class="grid grid-cols-5 gap-5 p-8">
-    <EntryCard />
-  </div>
-  <div class="py-20">divider</div>
-
-  <section class="flex flex-col p-5 gap-y-10">
-    <InputForm name="text" value="149123" @update:value="handleValueUpdate" title="hola"
-      placeholder="odio los negros" />
-    <p class="bg-blue-200 p-4">Val: {{ inputValue }}</p>
-
-    <SelectForm name="select" :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
-      @update:value="handleSelectUpdate" />
-    <p class="bg-red-200 p-4">Val: {{ selectValue }}</p>
-
-    <SwitchForm name="switch" @update:value="handleSwitchUpdate" />
-    <p class="bg-green-200 p-4">Val: {{ switchValue }}</p>
-
-    <InputForm name="date" value="149123" type="date" title="hola" placeholder="odio los negros" />
-    <InputForm name="number" value="149123" type="number" title="hola" placeholder="odio los negros" />
-
-    <HeaderModal title="Residencia" icon="file-text" action="add" />
-
-    <BoxContainerForm :items="boxItems" title="hola" />
-
-    <CreateResidenceForm />
-    <ManageResidence />
-    <CardsContainer icon="tablet" title="Home">
-      <p>holahola</p>
+    <CardsContainer icon="grid" title="Access Request Card">
+      <ul class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 w-full">
+        <AccessRequestCard :access-request="item" :key="index" v-for="item, index in accessRequestItems" />
+      </ul>
     </CardsContainer>
-  </section>
 </template>
 
 <script setup lang="ts">
-import ResidenceCard from "../components/ResidenceCard.vue";
-import AccessRequestCard from "../components/AccessRequestCard.vue";
-import type Residence from "../types/Residence";
+import AccessRequestCard from '@/components/Cards/AccessRequestCard.vue';
+import CardsContainer from '@/components/CardsContainer.vue';
+import type AccessRequest from '@/types/AccessRequest';
 
-import UserCard from "../components/UserCard.vue";
-import type User from "../types/User";
+const accessRequestItems : AccessRequest[] = [
+  {
+    status: 'ACCEPTED',
+    startDate: new Date('10-04-2004'),
+    endDate: new Date('10-04-2024'),
+    residentId: '0011904041016S',
+    residentName: 'Juan Daniel Gaturron',
+  },
+  {
+    status: 'PENDING',
+    startDate: new Date('10-04-2004'),
+    endDate: new Date('10-04-2024'),
+    residentId: '0011904041016S',
+    residentName: 'Juan Daniel Gaturron',
+  },
+  {
+    status: 'REJECTED',
+    startDate: new Date('10-04-2004'),
+    endDate: new Date('10-04-2024'),
+    residentId: '0011904041016S',
+    residentName: 'Juan Daniel Gaturron',
+  }
+]
 
-import type UserEntry from "../types/UserEntry";
-
-import EntryCard from "../components/EntryCard.vue";
-
-import type AccessRequest from "../types/AccessRequest.ts";
-import type InvitedResident from "@/types/InvitedResident";
-import VueFeather from "vue-feather";
-import { ref } from "vue";
-import type Option from "@/types/Option";
-import type BoxContainerItem from "@/types/BoxContainerItem";
-import CardsContainer from "../components/CardsContainer.vue"
+/*
 
 const inputValue = ref("");
 const selectValue = ref<Option>();
@@ -123,7 +64,6 @@ const options: Option[] = [
     value: "cattt",
   },
 ];
-
 const handleValueUpdate = (value: string) => {
   inputValue.value = value;
 };
@@ -136,73 +76,31 @@ const handleSwitchUpdate = (value: boolean) => {
   switchValue.value = value;
 };
 
-import InvitedResidentCard from "../components/InvitedResidentCard.vue";
-const residenceList: Residence[] = [
-  {
-    maxHabitants: 1,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 2,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 3,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 4,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 5,
-    description: "Lorem Ipsum",
-  },
-  {
-    maxHabitants: 6,
-    description: "Lorem Ipsum",
-  },
-];
+<section class="flex flex-col p-5 gap-y-10">
+    <InputForm name="text" value="149123" @update:value="handleValueUpdate" title="hola"
+      placeholder="odio los negros" />
+    <p class="bg-blue-200 p-4">Val: {{ inputValue }}</p>
 
-const accessExample: AccessRequest = {
-  residentId: "12121221",
-  residentName: "Marshall",
-  startDate: new Date("2024-06-04"),
-  endDate: new Date("2024-06-06"),
-  status: "REJECTED",
-};
+    <SelectForm name="select" :options="options" :disabled="true" :current-index="1" default-option="Select the Animal"
+      @update:value="handleSelectUpdate" />
+    <p class="bg-red-200 p-4">Val: {{ selectValue }}</p>
 
-const invitedResidentExample: InvitedResident = {
-  name: "Marcelo",
-  secondName: "Rivera",
-  identification: "010102021",
-  entries: 10,
-};
+    <SwitchForm name="switch" @update:value="handleSwitchUpdate" />
+    <p class="bg-green-200 p-4">Val: {{ switchValue }}</p>
 
+    <InputForm name="date" value="149123" type="date" title="hola" placeholder="odio los negros" />
+    <InputForm name="number" value="149123" type="number" title="hola" placeholder="odio los negros" />
+    <HeaderModal title="Residencia" icon="file-text" action="add" />
+    <BoxContainerForm :items="boxItems" title="hola" />
 
-const userList: User[] = [
-  {
-    rol: "Admin",
-    name: "Juan",
-    lastName: "Alberto",
-  },
-];
+    <CreateResidenceForm />
+    <ManageResidence />
+    <CardsContainer icon="tablet" title="Home">
+      <p>holahola</p>
+    </CardsContainer>
+  </section>
 
-const userEntryList: UserEntry[] = [
-  {
-    id: 1532,
-    rol: "Admin",
-    name: "Mario",
-    lastName: "Lopez",
-  },
-  {
-    id: 21312,
-    rol: "Residente",
-    name: "Eduardo",
-    lastName: "Rodriguez"
-  },
-
-]
+*/
 
 /*
 const residenceList = ref<Residence[]>([])

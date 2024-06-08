@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 
-import UserCardEntry from "../components/UserCardEntry.vue";
+import UserCardEntry from "./Cards/UserCardEntry.vue";
 </script>
 
 <template>

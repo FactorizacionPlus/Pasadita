@@ -1,6 +1,6 @@
-<script setup lang="ts">
+value: "hello",
+  },<script setup lang="ts">
 import VueFeather from 'vue-feather';
-import type InvitedResident from '../types/InvitedResident';
 
 const props = defineProps<{
   icon: "grid" | "user" | "tablet" | "file-text" | "house",
@@ -20,10 +20,8 @@ const props = defineProps<{
       </div>
     </div>
     <!--Description-->
-    <div class="flex flex-row border border-t-0 border-pasadita-shade-2 px-2 py-2 w-full">
-      <div class="flex flex-col justify-center w-full gap-1">
+    <div class="flex flex-row border border-t-0 border-pasadita-shade-2 w-full">
         <slot />
-      </div>
     </div>
     <!--CRUD-->
   </section>

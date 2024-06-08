@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import VueFeather from 'vue-feather';
-import type User from '../types/User';
+import type User from '../../types/User';
 
 
 const props = defineProps<{ user: User }>();
@@ -18,10 +18,10 @@ const props = defineProps<{ user: User }>();
             </div>
             <div class="flex-1">
                 <p class="text-base font-semibold text-pasadita-blue-1">
-                    {{ user.rol }}
+                    {{ props.user.rol }}
                 </p>
                 <p class="text-base font-normal text-pasadita-blue-1">
-                    {{ user.name }} {{ user.lastName }}
+                    {{ props.user.name }} {{ props.user.lastName }}
                 </p>
             </div>
         </div>
