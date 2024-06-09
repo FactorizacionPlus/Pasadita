@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type TheWelcome from '@/components/TheWelcome.vue';
-
+import type TheWelcome from "@/components/TheWelcome.vue";
 </script>
 
 <template>

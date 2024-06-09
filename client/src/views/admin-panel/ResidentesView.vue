@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import CurrentPageInfo from "@/components/CurrentPageInfo.vue"
-import ResidentCard from "@/components/Cards/ResidentCard.vue"
+import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
+import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import type Resident from "@/types/InvitedResident";
 
 const residentList: Resident[] = [
@@ -9,21 +9,28 @@ const residentList: Resident[] = [
     secondName: "Zelaya",
     identification: "C3049392",
     entries: 0,
-    image: ""
-  }]
-
+    image: "",
+  },
+];
 </script>
 
 <template>
-
   <div class="flex flex-col gap-10">
     <div>
       <CurrentPageInfo title="Residentes" icon="user" />
-      <ResidentCard :resident="resident" v-for="resident in residentList" :key="resident.identification" />
+      <ResidentCard
+        :resident="resident"
+        v-for="resident in residentList"
+        :key="resident.identification"
+      />
     </div>
     <div>
       <CurrentPageInfo title="Residentes" icon="user" />
-      <ResidentCard :resident="resident" v-for="resident in residentList" :key="resident.identification" />
+      <ResidentCard
+        :resident="resident"
+        v-for="resident in residentList"
+        :key="resident.identification"
+      />
     </div>
   </div>
 </template>

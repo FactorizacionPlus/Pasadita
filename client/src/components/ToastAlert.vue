@@ -44,11 +44,11 @@ const props = defineProps<{ toast: Toast }>();
 
 <template>
   <div
-    class="flex flex-row items-center justify-between gap-2 rounded-md border-2 my-2"
+    class="my-2 flex flex-row items-center justify-between gap-2 rounded-md border-2"
     :class="[toastBackground[toast.type], toastBorder[toast.type]]"
   >
     <div class="flex flex-row items-center p-2" :class="toastColor[toast.type]">
-      <div class="flex justify-center items-center flex-shrink-0 w-10 h-10">
+      <div class="flex size-10 shrink-0 items-center justify-center">
         <VueFeather :type="toastIcons[toast.type]" size="25" stroke-width="1.5"></VueFeather>
       </div>
 
@@ -56,20 +56,19 @@ const props = defineProps<{ toast: Toast }>();
     </div>
 
     <button
-      class="flex flex-row items-center justify-center border-l-2 px-3 group relative"
+      class="group relative flex flex-row items-center justify-center border-l-2 px-3"
       :class="[toastColor[toast.type], toastBorder[toast.type]]"
     >
       <div
-        class="absolute rounded-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-8 transition-colors"
+        class="absolute left-1/2 top-1/2 size-8 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors"
         :class="toastBackgroundDark[toast.type]"
       ></div>
       <VueFeather
         type="x"
         size="16"
         stroke-width="3.5"
-        class="group-hover:text-white z-10 ml-[1.5px] transition-colors"
+        class="z-10 ml-[1.5px] transition-colors group-hover:text-white"
       ></VueFeather>
     </button>
   </div>
 </template>
-

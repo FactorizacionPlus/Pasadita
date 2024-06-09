@@ -2,9 +2,9 @@
 import { defineEmits, defineProps, onMounted } from "vue";
 
 interface Props {
-    value?: boolean;
-    disabled?: boolean;
-    name: string
+  value?: boolean;
+  disabled?: boolean;
+  name: string;
 }
 
 const props = defineProps<Props>();
@@ -19,15 +19,20 @@ const handleChange = (event: Event) => {
 onMounted(() => {
   emitValue("update:value", props.value);
 });
-
 </script>
 
 <template>
-    <label class="inline-flex items-center cursor-pointer">
-        <input :name="props.name" :disabled="props.disabled" @change="handleChange" type="checkbox"
-            :value="props.value" class="sr-only peer" />
-        <div
-            class="peer-disabled:opacity-40 transition-colors relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pasadita-blue-3">
-        </div>
-    </label>
+  <label class="inline-flex cursor-pointer items-center">
+    <input
+      :name="props.name"
+      :disabled="props.disabled"
+      @change="handleChange"
+      type="checkbox"
+      :value="props.value"
+      class="peer sr-only"
+    />
+    <div
+      class="peer relative h-6 w-11 rounded-full bg-gray-200 transition-colors after:absolute after:start-[2px] after:top-[2px] after:size-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-pasadita-blue-3 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-disabled:opacity-40 rtl:peer-checked:after:-translate-x-full"
+    ></div>
+  </label>
 </template>

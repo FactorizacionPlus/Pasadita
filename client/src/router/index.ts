@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
-import ResidentLayout from "@/layouts/ResidentLayout.vue"
-import ResidentManagerLayout from "@/layouts/ResidentManagerLayout.vue"
+import ResidentLayout from "@/layouts/ResidentLayout.vue";
+import ResidentManagerLayout from "@/layouts/ResidentManagerLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +13,7 @@ const router = createRouter({
       component: DefaultLayout,
       children: [
         {
-          path: "",
+          path: "/",
           name: "home",
           component: () => import("../views/HomeView.vue"),
         },
@@ -21,7 +21,7 @@ const router = createRouter({
           path: "login",
           name: "login",
           component: () => import("../views/HomeView.vue"),
-        }
+        },
       ],
     },
     {
@@ -121,6 +121,6 @@ const router = createRouter({
   ],
 });
 
-console.log(router.getRoutes())
+console.log(router.getRoutes());
 
 export default router;
