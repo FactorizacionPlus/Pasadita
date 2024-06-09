@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
+import ResidentLayout from "@/layouts/ResidentLayout.vue"
+import ResidentManagerLayout from "@/layouts/ResidentManagerLayout.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,18 +34,18 @@ const router = createRouter({
           component: () => import("../views/guest/AboutView.vue"),
         },
         {
-          path: "access",
+          path: "accesos",
           name: "admin-access",
           component: () => import("../views/guest/AccessView.vue"),
         },
         {
           path: "entradas",
-          name: "admin-entrada",
-          component: () => import("../views/admin-panel/EntradaView.vue"),
+          name: "admin-entry",
+          component: () => import("../views/admin-panel/Entry.vue"),
         },
         {
           path: "permisos",
-          name: "admin-historial",
+          name: "admin-history",
           component: () => import("../views/admin-panel/PermisosView.vue"),
         },
         {
@@ -53,29 +55,66 @@ const router = createRouter({
         },
         {
           path: "residencias",
-          name: "admin-residencia",
+          name: "admin-residence",
           component: () => import("../views/admin-panel/ResidenciaView.vue"),
         },
         {
           path: "residentes",
-          name: "admin-residente",
+          name: "admin-resident",
           component: () => import("../views/admin-panel/ResidenteView.vue"),
         },
         {
           path: "invitados",
-          name: "admin-invitado",
+          name: "admin-guest",
           component: () => import("../views/admin-panel/InvitadoView.vue"),
         },
       ],
     },
     {
-      path: "/guest",
+      path: "/invitado",
       component: GuestLayout,
       children: [
         {
           path: "terminal",
           name: "guest-terminal",
           component: () => import("../views/guest/TerminalView.vue"),
+        },
+      ],
+    },
+    {
+      path: "/residente",
+      component: ResidentLayout,
+      children: [
+        {
+          path: "",
+          name: "home",
+          component: () => import("../views/resident-panel/HomeView.vue"),
+        },
+        {
+          path: "solicitudes",
+          name: "resident-request",
+          component: () => import("../views/resident-panel/RequestView.vue"),
+        },
+      ],
+    },
+    {
+      path: "/residente-encargado",
+      component: ResidentManagerLayout,
+      children: [
+        {
+          path: "",
+          name: "home",
+          component: () => import("../views/resident-manager-panel/HomeView.vue"),
+        },
+        {
+          path: "permisos",
+          name: "resident-permission",
+          component: () => import("../views/resident-manager-panel/PermissionView.vue"),
+        },
+        {
+          path: "residentes",
+          name: "resident-resident",
+          component: () => import("../views/resident-manager-panel/ResidentsView.vue"),
         },
       ],
     },
