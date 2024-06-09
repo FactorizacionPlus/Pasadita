@@ -14,13 +14,13 @@ const props = defineProps<{
     <li class="flex flex-col max-w-sm">
         <div class="ml-3">
             <p class="text-base font-semibold text-pasadita-blue-1">
-                {{ props.userEntry.rol}}
+                {{ props.userEntry.rol }}
             </p>
         </div>
         <div class="flex items-center px-2 py-2 rounded-t-lg gap-2">
             <div
                 class="flex justify-center items-center flex-shrink-0 border-2 border-pasadita-blue-2 rounded-full w-10 h-10 bg-pasadita-blue-4 overflow-hidden">
-                <UserImage :image="userEntry.image" size="25" padding="0px"/>
+                <UserImage :image="userEntry.image" size="25" padding="0px" />
             </div>
 
             <div class="flex-1">

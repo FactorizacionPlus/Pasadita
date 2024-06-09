@@ -35,7 +35,7 @@ console.log(isPending);
       <div class="flex gap-2 items-center">
         <div
           class="flex justify-center items-center flex-shrink-0 border-2 border-pasadita-blue-2 rounded-full w-10 h-10 bg-pasadita-blue-4">
-          <UserImage :image="accessRequest.image" size="25" padding="0px"/>
+          <UserImage :image="accessRequest.image" size="25" padding="0px" />
         </div>
         <div class="flex-1">
           <p class="text-base text-pasadita-blue-1/80">

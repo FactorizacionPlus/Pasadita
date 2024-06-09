@@ -18,7 +18,7 @@ const props = defineProps<{ resident: Resident }>();
         <div class="flex row px-2 gap-3 items-center">
           <div
             class="flex justify-center items-center border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full flex-shrink-0 w-24 h-24">
-            <UserImage :image="resident.image" size="70" padding="1rem"/>
+            <UserImage :image="resident.image" size="70" padding="16px" />
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="font-semibold">Nombre</p>
