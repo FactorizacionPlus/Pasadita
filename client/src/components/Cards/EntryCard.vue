@@ -32,7 +32,7 @@ const userEntryTList: UserEntryT[] = [
         </div>
       </div>
     </div>
-
+    
     <div class="flex flex-row items-center px-2 py-2 gap-1">
       <div class="flex-shrink-0">
         <VueFeather type="home" size="24" stroke="#01193F" stroke-width="1.5"></VueFeather>

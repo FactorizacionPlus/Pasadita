@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VueFeather from 'vue-feather';
 import type InvitedResident from '@/types/InvitedResident';
+import UserImage from  "@/components/UserImage.vue";
 
 const props = defineProps<{ invitedResident: InvitedResident }>();
 </script>
@@ -17,9 +18,7 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
         <div class="flex row px-2 gap-3 items-center">
           <div
             class="flex justify-center items-center border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full w-24 h-24">
-            <img v-if="props.invitedResident.image" :src="props.invitedResident.image" alt="User Image"
-              class="w-full h-full object-cover rounded-full" />
-            <VueFeather v-else type="user" size="70" stroke="#004f82" stroke-width="1.5" class="!flex p-5"></VueFeather>
+            <UserImage :image="invitedResident.image" size="70" padding="1rem"/>
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="font-semibold">Nombre</p>
