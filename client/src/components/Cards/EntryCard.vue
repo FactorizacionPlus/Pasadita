@@ -13,7 +13,8 @@ const userEntryTList: UserEntryT[] = [
     rol: "Peatonal",
     id: 12344567,
     name:"Ponce",
-    lastName:"De Leon"
+    lastName:"De Leon",
+    image:""
   },
 ]
 </script>
