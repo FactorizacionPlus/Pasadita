@@ -20,7 +20,7 @@ const userEntryTList: UserEntryT[] = [
 </script>
 
 <template>
-  <div class="w-[550px] border bg-pasadita-shade-3 border-pasadita-shade-2 rounded-lg p-4">
+  <div class="border bg-pasadita-shade-3 border-pasadita-shade-2 rounded-lg p-2">
     <div class="flex flex-row justify-between">
       <div v-for="userEntry in userEntryTList" :key="userEntry.id">
         <UserEntry :userEntry="userEntry" />

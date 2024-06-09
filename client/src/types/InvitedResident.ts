@@ -4,5 +4,4 @@ export default interface InvitedResident {
   identification: string;
   entries: number;
   image: string;
-
 }

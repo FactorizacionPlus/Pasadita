@@ -50,8 +50,8 @@ const router = createRouter({
         },
         {
           path: "terminales",
-          name: "admin-terminal",
-          component: () => import("../views/admin-panel/TerminalView.vue"),
+          name: "admin-terminales",
+          component: () => import("../views/admin-panel/TerminalesView.vue"),
         },
         {
           path: "residencias",
@@ -61,12 +61,12 @@ const router = createRouter({
         {
           path: "residentes",
           name: "admin-resident",
-          component: () => import("../views/admin-panel/ResidenteView.vue"),
+          component: () => import("../views/admin-panel/ResidentesView.vue"),
         },
         {
           path: "invitados",
           name: "admin-guest",
-          component: () => import("../views/admin-panel/InvitadoView.vue"),
+          component: () => import("../views/admin-panel/InvitadosView.vue"),
         },
       ],
     },

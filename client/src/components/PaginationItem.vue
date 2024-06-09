@@ -2,17 +2,12 @@
 import { ref } from 'vue';
 import VueFeather from 'vue-feather';
 
-// Definimos el tipo de la prop pagination
-interface PaginationItem {
-  page: number;
-}
-
 const props = defineProps<{
-  pagination: PaginationItem[]
+  totalPages: number
 }>();
 
 // Estado activo para la paginación
-const activePage = ref<number>(props.pagination.length > 0 ? props.pagination[0].page : 1);
+const activePage = ref<number>(props.totalPages > 0 ? 1 : 0);
 
 // Método para manejar el clic en el botón de paginación
 const setActivePage = (page: number) => {
@@ -28,7 +23,7 @@ const previousPage = () => {
 
 // Método para manejar el clic en el chevron derecho
 const nextPage = () => {
-  if (activePage.value < props.pagination.length) {
+  if (activePage.value < props.totalPages) {
     setActivePage(activePage.value + 1);
   }
 };
@@ -36,7 +31,7 @@ const nextPage = () => {
 
 <template>
   <nav class="flex flex-row justify-center">
-    <ul class="flex items-center -space-x-px h-10 text-base gap-16">
+    <ul class="flex items-center h-10 text-base gap-16">
       <li>
         <a href="#"
           @click.prevent="previousPage"
@@ -47,14 +42,14 @@ const nextPage = () => {
       </li>
       <!--Numbers-->
       <div class="flex flex-row gap-1">
-        <li v-for="pagination in props.pagination" :key="pagination.page">
+        <li v-for="page in props.totalPages" :key="page">
           <a href="#"
-             @click.prevent="setActivePage(pagination.page)"
+             @click.prevent="setActivePage(page)"
              :class="[
                'flex items-center justify-center text-sm w-8 h-8 font-base border border-pasadita-shade-2 rounded-lg active:scale-95 transition-all',
-               activePage === pagination.page ? 'bg-pasadita-blue-2 text-white' : 'bg-white text-pasadita-blue-2 hover:bg-pasadita-blue-2 hover:text-white hover:rounded-xl'
+               activePage === page ? 'bg-pasadita-blue-2 text-white' : 'bg-white text-pasadita-blue-2 hover:bg-pasadita-blue-2 hover:text-white hover:rounded-xl'
              ]">
-            {{ pagination.page }}
+            {{ page }}
           </a>
         </li>
       </div>
