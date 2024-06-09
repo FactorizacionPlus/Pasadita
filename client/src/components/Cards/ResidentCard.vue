@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 import type Resident from "@/types/Resident";
-import UserImage from "@/components/UserImage.vue"
+import UserImage from "@/components/UserImage.vue";
 
 const props = defineProps<{ resident: Resident }>();
 </script>
@@ -19,7 +19,8 @@ const props = defineProps<{ resident: Resident }>();
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="row flex items-center gap-3 px-2">
           <div
-            class="flex justify-center items-center border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full flex-shrink-0 w-24 h-24">
+            class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
+          >
             <UserImage :image="resident.image" size="70" padding="16px" />
           </div>
           <div class="flex flex-col text-pasadita-blue-1">

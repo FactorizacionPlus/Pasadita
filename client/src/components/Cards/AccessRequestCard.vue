@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import VueFeather from 'vue-feather';
-import type AccessRequest from '../../types/AccessRequest.ts';
+import VueFeather from "vue-feather";
+import type AccessRequest from "../../types/AccessRequest.ts";
 import UserImage from "@/components/UserImage.vue";
 
 const props = defineProps<{ accessRequest: AccessRequest }>();
@@ -43,7 +43,8 @@ console.log(isPending);
       <p class="text-xl font-semibold text-pasadita-blue-1">Solicitud de acceso</p>
       <div class="flex items-center gap-2">
         <div
-          class="flex justify-center items-center flex-shrink-0 border-2 border-pasadita-blue-2 rounded-full w-10 h-10 bg-pasadita-blue-4">
+          class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
+        >
           <UserImage :image="accessRequest.image" size="25" padding="0px" />
         </div>
         <div class="flex-1">

@@ -32,9 +32,9 @@ const userEntryTList: UserEntryT[] = [
         </div>
       </div>
     </div>
-    
-    <div class="flex flex-row items-center px-2 py-2 gap-1">
-      <div class="flex-shrink-0">
+
+    <div class="flex flex-row items-center gap-1 p-2">
+      <div class="shrink-0">
         <VueFeather type="home" size="24" stroke="#01193F" stroke-width="1.5"></VueFeather>
       </div>
 

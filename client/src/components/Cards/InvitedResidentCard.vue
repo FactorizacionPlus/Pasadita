@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import VueFeather from 'vue-feather';
-import type InvitedResident from '@/types/InvitedResident';
+import VueFeather from "vue-feather";
+import type InvitedResident from "@/types/InvitedResident";
 import UserImage from "@/components/UserImage.vue";
 
 const props = defineProps<{ invitedResident: InvitedResident }>();
@@ -19,7 +19,8 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="row flex items-center gap-3 px-2">
           <div
-            class="flex justify-center items-center border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full w-24 h-24">
+            class="flex size-24 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
+          >
             <UserImage :image="invitedResident.image" size="70" padding="16px" />
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
