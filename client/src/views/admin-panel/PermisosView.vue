@@ -25,6 +25,7 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
+        image: "",
       },
       {
         status: "PENDING",
@@ -32,6 +33,7 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
+        image: "",
       },
       {
         status: "REJECTED",
@@ -39,6 +41,7 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
+        image: "",
       },
     ],
   },
@@ -54,6 +57,7 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
+        image: "",
       },
       {
         status: "ACCEPTED",
@@ -61,6 +65,7 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
+        image: "",
       },
       {
         status: "ACCEPTED",
@@ -68,6 +73,7 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
+        image: "",
       },
     ],
   },

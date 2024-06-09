@@ -26,6 +26,7 @@ const accessRequestItems: AccessRequest[] = [
     endDate: new Date("10-04-2024"),
     residentId: "0011904041016S",
     residentName: "Juan Daniel Gaturron",
+    image: "",
   },
   {
     status: "PENDING",
@@ -33,6 +34,7 @@ const accessRequestItems: AccessRequest[] = [
     endDate: new Date("10-04-2024"),
     residentId: "0011904041016S",
     residentName: "Juan Daniel Gaturron",
+    image: "",
   },
   {
     status: "REJECTED",
@@ -40,6 +42,7 @@ const accessRequestItems: AccessRequest[] = [
     endDate: new Date("10-04-2024"),
     residentId: "0011904041016S",
     residentName: "Juan Daniel Gaturron",
+    image: "",
   },
 ];
 

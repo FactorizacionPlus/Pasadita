@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 import type Resident from "@/types/Resident";
+import UserImage from "@/components/UserImage.vue";
 
 const props = defineProps<{ resident: Resident }>();
 </script>
@@ -20,20 +21,7 @@ const props = defineProps<{ resident: Resident }>();
           <div
             class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
           >
-            <img
-              v-if="props.resident.image"
-              :src="props.resident.image"
-              alt="User Image"
-              class="size-full rounded-full object-cover"
-            />
-            <VueFeather
-              v-else
-              type="user"
-              size="70"
-              stroke="#004f82"
-              stroke-width="1.5"
-              class="!flex p-5"
-            ></VueFeather>
+            <UserImage :image="resident.image" size="70" padding="16px" />
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="font-semibold">Nombre</p>

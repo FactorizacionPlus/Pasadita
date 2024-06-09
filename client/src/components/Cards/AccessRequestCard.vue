@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 import type AccessRequest from "../../types/AccessRequest.ts";
+import UserImage from "@/components/UserImage.vue";
 
 const props = defineProps<{ accessRequest: AccessRequest }>();
 
@@ -44,7 +45,7 @@ console.log(isPending);
         <div
           class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
         >
-          <VueFeather type="user" size="25" stroke="#004f82" stroke-width="1.5"></VueFeather>
+          <UserImage :image="accessRequest.image" size="25" padding="0px" />
         </div>
         <div class="flex-1">
           <p class="text-base text-pasadita-blue-1/80">
