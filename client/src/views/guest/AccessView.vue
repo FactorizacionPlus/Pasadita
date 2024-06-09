@@ -1,9 +1,12 @@
 <template>
-  <main class="flex flex-col items-center justify-center w-full h-full gap-20">
+  <main class="flex size-full flex-col items-center justify-center gap-20">
     <div class="mx-auto min-h-[32rem]">
       <QRCodeStyling :data="token" />
     </div>
-    <button class="mx-auto bg-pasadita-blue-4 p-3 rounded-lg text-pasadita-blue-2" @click="getQRToken">
+    <button
+      class="mx-auto rounded-lg bg-pasadita-blue-4 p-3 text-pasadita-blue-2"
+      @click="getQRToken"
+    >
       Generate QR
     </button>
   </main>

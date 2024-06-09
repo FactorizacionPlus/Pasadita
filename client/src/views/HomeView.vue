@@ -1,39 +1,50 @@
 <template>
-    <CardsContainer icon="grid" title="Access Request Card">
-      <ul class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 w-full">
-        <AccessRequestCard :access-request="item" :key="index" v-for="item, index in accessRequestItems" />
-      </ul>
-    </CardsContainer>
+  <CardsContainer icon="grid" title="Access Request Card">
+    <ul class="grid w-full gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <AccessRequestCard
+        :access-request="item"
+        :key="index"
+        v-for="(item, index) in accessRequestItems"
+      />
+    </ul>
+  </CardsContainer>
+
+  <button></button>
+  <ManageResidence />
 </template>
 
 <script setup lang="ts">
-import AccessRequestCard from '@/components/Cards/AccessRequestCard.vue';
-import CardsContainer from '@/components/CardsContainer.vue';
-import type AccessRequest from '@/types/AccessRequest';
+import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
+import ManageResidence from "@/components/Modal/Residence/ManageResidence.vue";
+import CardsContainer from "@/components/CardsContainer.vue";
+import type AccessRequest from "@/types/AccessRequest";
 
-const accessRequestItems : AccessRequest[] = [
+const accessRequestItems: AccessRequest[] = [
   {
-    status: 'ACCEPTED',
-    startDate: new Date('10-04-2004'),
-    endDate: new Date('10-04-2024'),
-    residentId: '0011904041016S',
-    residentName: 'Juan Daniel Gaturron',
+    status: "ACCEPTED",
+    startDate: new Date("10-04-2004"),
+    endDate: new Date("10-04-2024"),
+    residentId: "0011904041016S",
+    residentName: "Juan Daniel Gaturron",
+    image: "",
   },
   {
-    status: 'PENDING',
-    startDate: new Date('10-04-2004'),
-    endDate: new Date('10-04-2024'),
-    residentId: '0011904041016S',
-    residentName: 'Juan Daniel Gaturron',
+    status: "PENDING",
+    startDate: new Date("10-04-2004"),
+    endDate: new Date("10-04-2024"),
+    residentId: "0011904041016S",
+    residentName: "Juan Daniel Gaturron",
+    image: "",
   },
   {
-    status: 'REJECTED',
-    startDate: new Date('10-04-2004'),
-    endDate: new Date('10-04-2024'),
-    residentId: '0011904041016S',
-    residentName: 'Juan Daniel Gaturron',
-  }
-]
+    status: "REJECTED",
+    startDate: new Date("10-04-2004"),
+    endDate: new Date("10-04-2024"),
+    residentId: "0011904041016S",
+    residentName: "Juan Daniel Gaturron",
+    image: "",
+  },
+];
 
 /*
 

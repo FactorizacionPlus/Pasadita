@@ -4,6 +4,10 @@ export default interface Resident {
   identification: string;
   entries: number;
   image: string;
+<<<<<<< HEAD
 
 }
 
+=======
+}
+>>>>>>> origin/master

@@ -1,5 +1,5 @@
 export default interface BoxContainerItem {
-    icon: boolean
-    text: string
-    value: string | number
+  icon: boolean;
+  text: string;
+  value: string | number;
 }
