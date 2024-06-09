@@ -1,29 +1,30 @@
 value: "hello",
 <script setup lang="ts">
-import VueFeather from 'vue-feather';
+import VueFeather from "vue-feather";
 
 const props = defineProps<{
-  icon: "grid" | "user" | "tablet" | "file-text" | "house" | "home" | "user",
-  title: string,
+  icon: "grid" | "user" | "tablet" | "file-text" | "house" | "home" | "user";
+  title: string;
 }>();
 </script>
 
 <template>
-  <section class="flex flex-col w-full bg-white my-5">
+  <section class="my-5 flex w-full flex-col bg-white">
     <!--Information-->
-    <div class="flex flex-col border bg-pasadita-shade-3 gap-1 border-pasadita-shade-2 p-4 rounded-t-lg ">
-      <div class="flex flex-row gap-1 items-center text-pasadita-shade-0">
-        <div class="flex justify-center items-center flex-shrink-0">
+    <div
+      class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4"
+    >
+      <div class="flex flex-row items-center gap-1 text-pasadita-shade-0">
+        <div class="flex shrink-0 items-center justify-center">
           <VueFeather :type="props.icon" size="40" stroke-width="2"></VueFeather>
         </div>
-        <p class="flex font-medium justify-center items-center text-4xl">{{ props.title }}</p>
+        <p class="flex items-center justify-center text-4xl font-medium">{{ props.title }}</p>
       </div>
     </div>
     <!--Description-->
-    <div class="flex flex-col border border-t-0 border-pasadita-shade-2 w-full">
-        <slot />
+    <div class="flex w-full flex-col border border-t-0 border-pasadita-shade-2">
+      <slot />
     </div>
     <!--CRUD-->
   </section>
-
 </template>
