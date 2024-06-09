@@ -56,7 +56,7 @@ const router = createRouter({
         {
           path: "residencias",
           name: "admin-residence",
-          component: () => import("../views/admin-panel/ResidenciaView.vue"),
+          component: () => import("../views/admin-panel/ResidenciasView.vue"),
         },
         {
           path: "residentes",
