@@ -58,7 +58,7 @@ onMounted(() => {
       />
       <label
         :for="titleSlug"
-        class="absolute -top-3 left-0 mx-1 cursor-text bg-inherit px-1 text-sm text-pasadita-shade-1 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-pasadita-shade-0 peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pasadita-blue-3 peer-disabled:opacity-40"
+        class="absolute -top-3 left-0 mx-1 cursor-text bg-inherit px-1 text-xs text-pasadita-shade-1 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-pasadita-shade-0 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-pasadita-blue-3 peer-disabled:opacity-40"
       >
         {{ props.title }}
       </label>
