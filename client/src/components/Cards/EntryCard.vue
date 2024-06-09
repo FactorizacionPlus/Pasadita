@@ -5,7 +5,7 @@ import type EntryCard from "@/types/EntryCard"
 import type UserEntryT  from "@/types/UserEntry";
 
 const props = defineProps<{
-  entry: EntryCard
+  entryCard: EntryCard
 }>();
 
 const userEntryTList: UserEntryT[] = [
@@ -13,7 +13,8 @@ const userEntryTList: UserEntryT[] = [
     rol: "Peatonal",
     id: 12344567,
     name:"Ponce",
-    lastName:"De Leon"
+    lastName:"De Leon",
+    image:""
   },
 ]
 </script>
@@ -27,7 +28,7 @@ const userEntryTList: UserEntryT[] = [
       <div class="flex row px-2 gap-3 items-center">
         <div class="flex flex-col text-pasadita-blue-1">
           <p class="font-semibold">Fecha y hora de entrada</p>
-          <p>{{ props.entry.dateTime }}</p>
+          <p>{{ props.entryCard.dateTime }}</p>
         </div>
       </div>
     </div>
@@ -37,7 +38,7 @@ const userEntryTList: UserEntryT[] = [
         <VueFeather type="home" size="24" stroke="#01193F" stroke-width="1.5"></VueFeather>
       </div>
 
-      <p>{{ props.entry.direction }}</p>
+      <p>{{ props.entryCard.direction }}</p>
     </div>
   </div>
 </template>

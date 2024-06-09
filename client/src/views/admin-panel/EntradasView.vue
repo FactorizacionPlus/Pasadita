@@ -22,7 +22,7 @@ const entryList: EntryCard[] = [
   <CurrentPageInfo title="Entradas" icon="folder" />
   <SearchBar class="py-4" />
   <ul class="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-4 w-full">
-    <Entry :entry="entry" v-for="entry in entryList" :key="entry.id" />
+    <Entry :entryCard="entry" v-for="entry in entryList" :key="entry.id" />
   </ul>
   <Pagination class="py-4" :total-pages="6" />
 </template>

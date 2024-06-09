@@ -18,8 +18,9 @@ const props = defineProps<{
         </div>
         <div class="flex items-center px-2 py-2 rounded-t-lg gap-2">
             <div
-                class="flex justify-center items-center flex-shrink-0 border-2 border-pasadita-blue-2 rounded-full w-10 h-10 bg-pasadita-blue-4">
-                <VueFeather type="user" size="25" stroke="#004f82" stroke-width="1.5"></VueFeather>
+                class="flex justify-center items-center flex-shrink-0 border-2 border-pasadita-blue-2 rounded-full w-10 h-10 bg-pasadita-blue-4 overflow-hidden">
+                <img v-if="props.userEntry.image" :src="props.userEntry.image" alt="User Image" class="w-full h-full object-cover" />
+                <VueFeather v-else type="user" size="25" stroke="#004f82" stroke-width="1.5"></VueFeather>
             </div>
 
             <div class="flex-1">

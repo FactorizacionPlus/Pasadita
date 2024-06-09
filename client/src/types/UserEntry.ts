@@ -3,4 +3,5 @@ export default interface UserEntry {
     id: number;
     name: string;
     lastName: string;
+    image: string;
 }
