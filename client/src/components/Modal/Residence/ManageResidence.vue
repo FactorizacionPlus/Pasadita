@@ -43,9 +43,9 @@ const modal = ref<typeof Modal>();
 
 <template>
   <Modal ref="modal">
-    <form class="bg-white rounded-md overflow-hidden">
+    <form class="overflow-hidden rounded-md bg-white">
       <HeaderModal title="Residencia" icon="file-text" action="add" />
-      <div class="flex flex-col gap-6 px-4 py-6 max-h-[80vh]">
+      <div class="flex max-h-[80vh] flex-col gap-6 px-4 py-6">
         <InputForm
           name="quantity"
           title="Cantidad de habitantes"
@@ -66,16 +66,16 @@ const modal = ref<typeof Modal>();
             :options="people"
           />
           <button
-            class="bg-pasadita-blue-4 font-normal rounded-lg text-sm p-2 text-center inline-flex items-center text-pasadita-blue-2 hover:bg-pasadita-blue-3 hover:text-white active:scale-95 hover:rounded-xl transition-all"
+            class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
           >
             <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
             <span>Agregar</span>
           </button>
         </div>
       </div>
-      <div class="flex justify-end gap-2 p-2 border-t border-t-pasadita-shade-2">
+      <div class="flex justify-end gap-2 border-t border-t-pasadita-shade-2 p-2">
         <button
-          class="bg-pasadita-green-2 font-normal rounded-lg text-sm p-2 text-center inline-flex items-center text-pasadita-green-1 hover:bg-pasadita-green-1 hover:text-white active:scale-95 hover:rounded-xl transition-all"
+          class="inline-flex items-center rounded-lg bg-pasadita-green-2 p-2 text-center text-sm font-normal text-pasadita-green-1 transition-all hover:rounded-xl hover:bg-pasadita-green-1 hover:text-white active:scale-95"
         >
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>Aceptar</span>
@@ -83,7 +83,7 @@ const modal = ref<typeof Modal>();
         <button
           @click="modal?.close()"
           type="button"
-          class="bg-pasadita-red-2 font-normal rounded-lg text-sm p-2 text-center inline-flex items-center text-pasadita-red-0 hover:bg-pasadita-red-1 active:scale-95 hover:rounded-xl transition-all"
+          class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
         >
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>Cancelar</span>

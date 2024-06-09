@@ -8,4 +8,3 @@ export default interface Toast {
   message: string;
   type: ToastType;
 }
-
