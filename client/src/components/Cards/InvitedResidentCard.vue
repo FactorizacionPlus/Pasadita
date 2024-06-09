@@ -6,9 +6,9 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
 </script>
 
 <template>
-  <div class="flex flex-col max-w-sm bg-white">
+  <li class="flex flex-col max-w-sm bg-white">
     <!--Information-->
-    <div class="flex flex-col border bg-pasadita-shade-3 gap-1 border-pasadita-shade-2 pb-0 px-2 pt-2 rounded-t-lg ">
+    <div class="flex flex-col border bg-pasadita-shade-3 gap-1 border-pasadita-shade-2 px-2 py-2 rounded-t-lg ">
       <p class="text-pasadita-blue-1 font-semibold text-xl">Invitado</p>
     </div>
     <!--Description-->
@@ -16,8 +16,10 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
       <div class="flex flex-col justify-center w-full gap-2">
         <div class="flex row px-2 gap-3 items-center">
           <div
-            class="flex justify-center items-center p-5 border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full flex-shrink-0">
-            <VueFeather type="user" size="70" stroke="#004f82" stroke-width="1.5"></VueFeather>
+            class="flex justify-center items-center border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full w-24 h-24">
+            <img v-if="props.invitedResident.image" :src="props.invitedResident.image" alt="User Image"
+              class="w-full h-full object-cover rounded-full" />
+            <VueFeather v-else type="user" size="70" stroke="#004f82" stroke-width="1.5" class="!flex p-5"></VueFeather>
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="font-semibold">Nombre</p>
@@ -42,6 +44,6 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
-  </div>
+  </li>
 
 </template>
