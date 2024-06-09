@@ -19,27 +19,8 @@ const props = defineProps<{ resident: Resident }>();
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="row flex items-center gap-3 px-2">
           <div
-<<<<<<< HEAD
             class="flex justify-center items-center border-2 border-pasadita-blue-2 bg-pasadita-blue-4 rounded-full flex-shrink-0 w-24 h-24">
             <UserImage :image="resident.image" size="70" padding="16px" />
-=======
-            class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
-          >
-            <img
-              v-if="props.resident.image"
-              :src="props.resident.image"
-              alt="User Image"
-              class="size-full rounded-full object-cover"
-            />
-            <VueFeather
-              v-else
-              type="user"
-              size="70"
-              stroke="#004f82"
-              stroke-width="1.5"
-              class="!flex p-5"
-            ></VueFeather>
->>>>>>> origin/master
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="font-semibold">Nombre</p>
