@@ -4,4 +4,5 @@ export default interface AccessRequest {
   startDate: Date;
   endDate: Date;
   status: "ACCEPTED" | "REJECTED" | "PENDING";
+  image: string;
 }
