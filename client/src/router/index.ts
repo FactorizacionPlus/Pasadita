@@ -41,7 +41,7 @@ const router = createRouter({
         {
           path: "entradas",
           name: "admin-entry",
-          component: () => import("../views/admin-panel/Entry.vue"),
+          component: () => import("../views/admin-panel/EntradaView.vue"),
         },
         {
           path: "permisos",
