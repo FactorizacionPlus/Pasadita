@@ -75,6 +75,11 @@ const router = createRouter({
       component: GuestLayout,
       children: [
         {
+          path: "",
+          name: "guest-home",
+          component: () => import("../views/guest/HomeView.vue"),
+        },
+        {
           path: "terminal",
           name: "guest-terminal",
           component: () => import("../views/guest/TerminalView.vue"),
