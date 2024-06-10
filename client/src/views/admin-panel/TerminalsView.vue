@@ -23,7 +23,7 @@ const terminalList: Terminal[] = [
 <template>
   <CurrentPageInfo title="Terminales" icon="tablet" />
   <SearchBar class="py-4" />
-  <ul class="grid grid-cols-4 gap-4">
+  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4">
     <AdminTerminal :terminal="terminal" v-for="terminal in terminalList" :key="terminal.type" />
   </ul>
 </template>
