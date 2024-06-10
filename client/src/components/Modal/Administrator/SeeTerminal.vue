@@ -21,7 +21,7 @@ const entryList: EntryCardT[] = [
       image: "https://www.github.com/davidquintr.png",
       name: "David",
       lastName: "Quintanilla",
-      role: "Residente Encargado"
+      role: "Residente Encargado",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2005"),
@@ -33,7 +33,7 @@ const entryList: EntryCardT[] = [
       image: "https://www.github.com/poncka.png",
       name: "David",
       lastName: "Parrales Ponce",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -45,7 +45,7 @@ const entryList: EntryCardT[] = [
       image: "https://www.github.com/JezerM.png",
       name: "Jezer",
       lastName: "Mejía Otero",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -57,7 +57,7 @@ const entryList: EntryCardT[] = [
       image: "https://www.github.com/Mrsty21.png",
       name: "Marcelo",
       lastName: "Rivera Soto",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -69,7 +69,7 @@ const entryList: EntryCardT[] = [
       image: "https://www.github.com/leocorea.png",
       name: "Leo",
       lastName: "Corea Navarrete",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -87,7 +87,6 @@ const entryList: EntryCardT[] = [
     entryDate: new Date("10-04-2015 12:00"),
   }
 ];
-
 </script>
 
 <template>
@@ -95,7 +94,7 @@ const entryList: EntryCardT[] = [
     <form class="w-full max-w-[540px] overflow-hidden rounded-md bg-white">
       <HeaderModal title="Terminal" icon="tablet" action="view" />
       <ul class="flex max-h-[80vh] flex-col gap-4 overflow-auto p-4">
-        <EntryCard :entry-card="item" :key="index" v-for="item, index in entryList"  />
+        <EntryCard :entry-card="item" :key="index" v-for="(item, index) in entryList" />
       </ul>
       <!-- Botones -->
       <div class="flex justify-end gap-2 border-t border-t-pasadita-shade-2 p-2">

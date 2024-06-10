@@ -49,8 +49,11 @@ const invitedResidentList: InvitedResident[] = [
   <CurrentPageInfo title="Invitados" icon="user" />
   <SearchBar class="py-3" />
   <ul class="grid min-h-[43rem] gap-4 pt-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-    <Guest :invitedResident="invitedResident" v-for="invitedResident in invitedResidentList"
-      :key="invitedResident.identification" />
+    <Guest
+      :invitedResident="invitedResident"
+      v-for="invitedResident in invitedResidentList"
+      :key="invitedResident.identification"
+    />
   </ul>
-  <PaginationItem :totalPages=5 />
+  <PaginationItem :totalPages="5" />
 </template>
