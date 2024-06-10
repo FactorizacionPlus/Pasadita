@@ -60,7 +60,7 @@ console.log(isPending);
     <!--Description-->
     <div class="flex flex-row border-x border-pasadita-shade-2 p-2">
       <div class="flex w-full flex-col justify-center gap-2">
-        <div class="row flex items-center gap-3 px-2">
+        <div class="flex items-center gap-3 px-2">
           <div class="flex shrink-0 items-center justify-center">
             <VueFeather type="calendar" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
           </div>
@@ -69,7 +69,7 @@ console.log(isPending);
             <p>{{ getFormattedDateTime(props.accessRequest.startDate) }}</p>
           </div>
         </div>
-        <div class="row flex items-center gap-3 px-2">
+        <div class="flex items-center gap-3 px-2">
           <div class="flex shrink-0 items-center justify-center">
             <VueFeather type="calendar" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
           </div>

@@ -25,7 +25,7 @@ const userEntryTList: UserEntryT[] = [
       <div v-for="userEntry in userEntryTList" :key="userEntry.id">
         <UserEntry :userEntry="userEntry" />
       </div>
-      <div class="row flex items-center gap-3 px-2">
+      <div class="flex items-center gap-3 px-2">
         <div class="flex flex-col text-pasadita-blue-1">
           <p class="font-semibold">Fecha y hora de entrada</p>
           <p>{{ props.entryCard.dateTime }}</p>
