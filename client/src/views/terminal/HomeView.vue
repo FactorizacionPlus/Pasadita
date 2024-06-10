@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ModalEntrie from "@/components/Modal/Terminal/CreateEntrie.vue";
+import ModalEntrie from "@/components/Modal/Terminal/CreateEntry.vue";
 import CreateEntrie from "@/assets/Crear-Entrada.svg";
 const modalEntrie = ref<typeof ModalEntrie>();
 </script>
