@@ -10,7 +10,6 @@ import BoxContainerForm from "@/components/Forms/BoxContainerForm.vue";
 import Modal from "@/components/Modal/Modal.vue";
 import type BoxContainerItem from "@/types/BoxContainerItem";
 
-
 const people: Option[] = [
   {
     text: "Juan Daniel",
@@ -40,9 +39,9 @@ const boxItems: BoxContainerItem[] = [
 ];
 
 const modal = ref<typeof Modal>();
-  defineExpose({
-    show: () => modal.value?.show(),
-    close: () => modal.value?.close(),
+defineExpose({
+  show: () => modal.value?.show(),
+  close: () => modal.value?.close(),
 });
 </script>
 
