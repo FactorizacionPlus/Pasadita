@@ -8,12 +8,7 @@
 </template>
 
 <script setup lang="ts">
-<<<<<<< HEAD
 import DefaultNavigationMenu from '@/components/NavigationMenu/DefaultNavigationMenu.vue';
-
-=======
-import DefaultNavigationMenu from "@/components/NavigationMenu/DefaultNavigationMenu.vue";
->>>>>>> master
 </script>
 
 <style scoped></style>
