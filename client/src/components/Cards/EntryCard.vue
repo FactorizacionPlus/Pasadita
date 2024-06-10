@@ -7,7 +7,6 @@ import getFormattedDateTime from "@/utils/getFormattedDateTime";
 const props = defineProps<{
   entryCard: EntryCard;
 }>();
-
 </script>
 
 <template>

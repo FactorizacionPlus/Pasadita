@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
-import DateTimeForm from "@/components/Forms/DateTimeForm.vue";
 import VueFeather from "vue-feather";
 import InputForm from "@/components/Forms/InputForm.vue";
 import Modal from "@/components/Modal/Modal.vue";
@@ -29,21 +28,7 @@ defineExpose({
   <Modal ref="modal">
     <form class="overflow-hidden rounded-md bg-white">
       <HeaderModal title="Solicitud" icon="file-text" action="add" />
-      <div class="flex max-h-[80vh] flex-row gap-6 px-4 py-6">
-        <DateTimeForm
-          name="fechaInicio"
-          title="Fecha de inicio"
-          type="datetime-local"
-          placeholder="Fecha de inicio"
-        />
-        <DateTimeForm
-          name="fechaFin"
-          title="Fecha de fin"
-          type="datetime-local"
-          placeholder="Fecha de fin"
-        />
-      </div>
-      <div class="grid w-full grid-cols-2 gap-3 px-4">
+      <div class="grid w-full grid-cols-2 gap-6 px-4 py-6">
         <button
           type="button"
           :data-state="identitySelected"

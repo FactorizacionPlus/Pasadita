@@ -22,7 +22,7 @@ const props = defineProps<{
       <p class="text-xl md:text-2xl">{{ props.title }}</p>
     </div>
     <!--Description-->
-    <div class="flex w-full flex-col rounded-b-lg border border-t-0  border-pasadita-shade-2 p-5">
+    <div class="flex w-full flex-col rounded-b-lg border border-t-0 border-pasadita-shade-2 p-5">
       <slot />
     </div>
     <!--CRUD-->

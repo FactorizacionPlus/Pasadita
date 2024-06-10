@@ -58,7 +58,6 @@ const residentHistory: ResidentHistory[] = [
     nameContainer: "Palacio de Miraflores, sede de la Presidencia de la República",
   },
 ];
-
 </script>
 
 <template>

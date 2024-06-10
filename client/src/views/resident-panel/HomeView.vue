@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import CardsContainer from "@/components/CardsContainer.vue";
 import type Resident from "@/types/Resident";
 import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import VueFeather from "vue-feather";
 import PaginationItem from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
-import AddResidentModal from "@/components/Modal/Resident/AddResidentModal.vue";
-const modalCreate = ref<typeof AddResidentModal>();
+import ModalAdd from "@/components/Modal/Resident/AddResidentModal.vue";
+const modalAdd = ref<typeof ModalAdd>();
+
 const resident1: Resident = {
   name: "marcelo",
   secondName: "Rivera",
@@ -17,28 +17,25 @@ const resident1: Resident = {
 </script>
 
 <template>
-  <div class="mb-5 flex w-full flex-col items-center">
+  <div class="flex flex-row items-center justify-between">
+    <CurrentPageInfo title="Historial de solicitudes" icon="grid" />
     <button
-      class="flex w-80 flex-col items-center rounded-lg border border-pasadita-shade-2 bg-pasadita-blue-4 py-7 text-2xl text-pasadita-blue-2 transition-all hover:rounded-2xl hover:bg-pasadita-blue-2/20 active:scale-95"
-      @click="modalCreate?.show()"
+      class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
+      @click="modalAdd?.show()"
     >
-      <div class="flex shrink-0 items-center justify-center">
-        <VueFeather type="edit" size="40" stroke-width="2"></VueFeather>
-      </div>
-      Solicitar un permiso
+      <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
+      <span>Solicitar un permiso</span>
     </button>
   </div>
-  <CardsContainer title="Solicitudes" icon="grid">
-    <SearchBar />
-    <div class="my-5 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <ResidentCard :resident="resident1" />
-      <ResidentCard :resident="resident1" />
-      <ResidentCard :resident="resident1" />
-      <ResidentCard :resident="resident1" />
-      <ResidentCard :resident="resident1" />
-      <ResidentCard :resident="resident1" />
-    </div>
-  </CardsContainer>
+  <SearchBar class="p-4 pb-0" />
+  <div class="my-5 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <ResidentCard :resident="resident1" />
+    <ResidentCard :resident="resident1" />
+    <ResidentCard :resident="resident1" />
+    <ResidentCard :resident="resident1" />
+    <ResidentCard :resident="resident1" />
+    <ResidentCard :resident="resident1" />
+  </div>
   <PaginationItem :totalPages="5" />
-  <AddResidentModal ref="modalCreate"> </AddResidentModal>
+  <ModalAdd ref="modalAdd">Hola</ModalAdd>
 </template>

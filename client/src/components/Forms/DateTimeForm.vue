@@ -2,9 +2,7 @@
 import { defineEmits, withDefaults, defineProps, onMounted } from "vue";
 import toSlug from "@/utils/toSlug";
 import VueFeather from "vue-feather";
-
 type InputType = "datetime-local";
-
 interface Props {
   title?: string;
   likes?: number;
@@ -14,17 +12,13 @@ interface Props {
   name?: string;
   value?: string;
 }
-
 const props = defineProps<Props>();
-
 const titleSlug = toSlug(props.title || "");
 const emitValue = defineEmits(["update:value"]);
-
 const handleChange = (event: Event) => {
   const inputElement = event.target as HTMLInputElement;
   emitValue("update:value", inputElement.value);
 };
-
 onMounted(() => {
   emitValue("update:value", props.value);
 });
