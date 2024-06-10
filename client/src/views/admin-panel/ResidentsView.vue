@@ -4,6 +4,7 @@ import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import type Resident from "@/types/InvitedResident";
 import CardsContainer from "@/components/CardsContainer.vue";
 import SearchBar from "@/components/SearchBar.vue";
+import PaginationItem from "@/components/PaginationItem.vue";
 
 interface ResidentHistory {
   resident: Resident[];
@@ -18,7 +19,7 @@ const residentHistory: ResidentHistory[] = [
         secondName: "Zelaya",
         identification: "C3049392",
         entries: 0,
-        image: "",
+        image: "https://github.com/davidquintr.png",
       },
       {
         name: "Pedro",
@@ -58,22 +59,6 @@ const residentHistory: ResidentHistory[] = [
   },
 ];
 
-/*const residentList: Resident[] = [
-  {
-    name: "Pedro",
-    secondName: "Zelaya",
-    identification: "C3049392",
-    entries: 0,
-    image: "",
-  },
-  {
-    name: "Sanchez",
-    secondName: "Zelaya",
-    identification: "C3049392",
-    entries: 0,
-    image: "",
-  },
-];*/
 </script>
 
 <template>
@@ -84,13 +69,14 @@ const residentHistory: ResidentHistory[] = [
     icon="home"
     :title="residentGroup.nameContainer"
   >
-    <SearchBar class="p-4 pb-0" />
-    <div class="grid grid-cols-3 gap-3 p-4">
+    <SearchBar class="pb-0" />
+    <ul class="grid gap-4 pt-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       <ResidentCard
         :resident="resident"
         :key="index"
         v-for="(resident, index) in residentGroup.resident"
       />
-    </div>
+    </ul>
+    <PaginationItem class="pt-4" :total-pages="6" />
   </CardsContainer>
 </template>

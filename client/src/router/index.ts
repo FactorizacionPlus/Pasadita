@@ -41,32 +41,32 @@ const router = createRouter({
         {
           path: "entradas",
           name: "admin-entry",
-          component: () => import("../views/admin-panel/EntradaView.vue"),
+          component: () => import("../views/admin-panel/EntriesView.vue"),
         },
         {
           path: "permisos",
           name: "admin-history",
-          component: () => import("../views/admin-panel/PermisosView.vue"),
+          component: () => import("../views/admin-panel/PermissionsView.vue"),
         },
         {
           path: "terminales",
           name: "admin-terminales",
-          component: () => import("../views/admin-panel/TerminalesView.vue"),
+          component: () => import("../views/admin-panel/TerminalsView.vue"),
         },
         {
           path: "residencias",
           name: "admin-residence",
-          component: () => import("../views/admin-panel/ResidenciasView.vue"),
+          component: () => import("../views/admin-panel/ResidencyView.vue"),
         },
         {
           path: "residentes",
           name: "admin-resident",
-          component: () => import("../views/admin-panel/ResidentesView.vue"),
+          component: () => import("../views/admin-panel/ResidentsView.vue"),
         },
         {
           path: "invitados",
           name: "admin-guest",
-          component: () => import("../views/admin-panel/InvitadosView.vue"),
+          component: () => import("../views/admin-panel/GuestsUsersView.vue"),
         },
       ],
     },

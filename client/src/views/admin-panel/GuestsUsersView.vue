@@ -16,9 +16,11 @@ const invitedResidentList: InvitedResident[] = [
 
 <template>
   <CurrentPageInfo title="Invitados" icon="user" />
-  <Guest
-    :invitedResident="invitedResident"
-    v-for="invitedResident in invitedResidentList"
-    :key="invitedResident.identification"
-  />
+  <ul class="grid gap-4 pt-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    <Guest
+      :invitedResident="invitedResident"
+      v-for="invitedResident in invitedResidentList"
+      :key="invitedResident.identification"
+    />
+  </ul>
 </template>
