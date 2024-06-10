@@ -1,90 +1,46 @@
 <script setup lang="ts">
 import CardsContainer from "@/components/CardsContainer.vue";
+import type AccessRequest from "@/types/AccessRequest";
 import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
-import Pagination from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
+import Pagination from "@/components/PaginationItem.vue";
 
-const permissionHistory: PermissionHistoryProps[] = [
+const permissionHistory: PermissionHistory = [
   {
-    residence: {
-      description: "Historial de solicitudes",
-      maxHabitants: 5,
-    },
-    requests: [
-      {
-        status: "REJECTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Vladimir Putin",
-      },
-      {
-        status: "PENDING",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Ronald Reagan",
-      },
-      {
-        status: "ACCEPTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "George Bush",
-      },
-      {
-        status: "REJECTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Barack Obama",
-      },
-      {
-        status: "ACCEPTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Donald Trump",
-      },
-      {
-        status: "REJECTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Joe Biden",
-      },
-      {
-        status: "REJECTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Kamala Harris",
-      },
-      {
-        status: "REJECTED",
-        startDate: new Date("2004-10-04"),
-        endDate: new Date("2024-10-04"),
-        residentId: "0011904041016S",
-        residentName: "Jonh F. Kennedy",
-      },
-    ],
+    status: "PENDING",
+    startDate: new Date("2004-10-04"),
+    endDate: new Date("2024-10-04"),
+    residentId: "0011904041016S",
+    residentName: "Juan Daniel Gaturron",
+    image: "",
+  },
+  {
+    status: "PENDING",
+    startDate: new Date("2004-10-04"),
+    endDate: new Date("2024-10-04"),
+    residentId: "0011904041016S",
+    residentName: "Juan Daniel Gaturron",
+    image: "",
+  },
+  {
+    status: "PENDING",
+    startDate: new Date("2004-10-04"),
+    endDate: new Date("2024-10-04"),
+    residentId: "0011904041016S",
+    residentName: "Juan Daniel Gaturron",
+    image: "",
   },
 ];
 </script>
 
 <template>
-  <CardsContainer
-    v-for="(history, index) in permissionHistory"
-    :key="index"
-    icon="grid"
-    :title="history.residence.description"
-  >
+  <CardsContainer icon="grid" title="Historial de solicitudes">
     <SearchBar class="p-4 pb-0" />
-    <ul class="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-4 w-full">
+    <ul class="grid w-full gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <AccessRequestCard
         :access-request="item"
         :key="index"
-        v-for="(item, index) in history.requests"
+        v-for="(item, index) in permissionHistory"
       />
     </ul>
     <Pagination class="py-4" :total-pages="6" />

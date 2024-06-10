@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
-import type Resident from "@/types/Resident";
 import UserImage from "@/components/UserImage.vue";
+import type Resident from "@/types/Resident";
 
 const props = defineProps<{ resident: Resident }>();
 </script>

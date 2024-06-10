@@ -17,14 +17,14 @@ const routes = [
 </script>
 
 <template>
-  <div class="grid grid-cols-[repeat(2,400px)] justify-center items-center h-[100%] gap-8">
+  <div class="grid h-full grid-cols-[repeat(2,400px)] items-center justify-center gap-8">
     <RouterLink
       :key="index"
       v-for="(route, index) in routes"
-      class="flex flex-col min-w-32 gap-2 justify-center items-center h-96 font-semibold rounded-md text-2xl bg-pasadita-blue-4 text-pasadita-blue-2 hover:bg-pasadita-blue-2 hover:text-pasadita-blue-4 transition-all active:scale-95"
+      class="flex h-96 min-w-32 flex-col items-center justify-center gap-2 rounded-md bg-pasadita-blue-4 text-2xl font-semibold text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-2 hover:text-pasadita-blue-4 active:scale-95"
       :to="`${ROUTE}${route.link}`"
     >
-      <div class="ml-1 flex justify-center items-center flex-shrink-0">
+      <div class="ml-1 flex shrink-0 items-center justify-center">
         <VueFeather :type="route.icon" size="150" stroke-width="1.5"></VueFeather>
       </div>
 
