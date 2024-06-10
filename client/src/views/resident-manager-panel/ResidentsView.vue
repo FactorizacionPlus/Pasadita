@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardsContainer from "@/components/CardsContainer.vue";
+import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import Pagination from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
@@ -37,15 +37,14 @@ const residentList = [
 </script>
 
 <template>
-  <CardsContainer icon="grid" title="Historial de solicitudes">
-    <SearchBar class="p-4 pb-0" />
-    <ul class="grid w-full gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-      <ResidentCard
-        :resident="resident"
-        v-for="resident in residentList"
-        :key="resident.identification"
-      />
-    </ul>
-    <Pagination class="py-4" :total-pages="6" />
-  </CardsContainer>
+  <CurrentPageInfo title="Lista de residentes" icon="grid" />
+  <SearchBar class="p-4 pb-0" />
+  <ul class="grid w-full gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    <ResidentCard
+      :resident="resident"
+      v-for="resident in residentList"
+      :key="resident.identification"
+    />
+  </ul>
+  <Pagination class="py-4" :total-pages="6" />
 </template>
