@@ -3,7 +3,7 @@ import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/Modal.vue";
-import UserImage from "@/components/UserImage.vue";
+//import UserImage from "@/components/UserImage.vue";
 
 const modal = ref<typeof Modal>();
 

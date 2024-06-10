@@ -12,7 +12,9 @@ const props = defineProps<{ resident: Resident }>();
 <template>
   <li class="flex max-w-sm flex-col bg-white">
     <!--Information-->
-    <div class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-2">
+    <div
+      class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-2"
+    >
       <p class="text-xl font-semibold text-pasadita-blue-1">Residente</p>
     </div>
     <!--Description-->
@@ -20,7 +22,8 @@ const props = defineProps<{ resident: Resident }>();
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="flex items-center gap-3 px-2">
           <div
-            class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4">
+            class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
+          >
             <UserImage :image="props.resident.image" size="70" padding="16px" />
           </div>
           <div class="flex flex-col text-pasadita-blue-1">

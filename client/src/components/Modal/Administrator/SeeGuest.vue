@@ -26,7 +26,7 @@ defineExpose({
       <div class="flex max-h-[80vh] flex-col gap-4 p-6">
         <div class="flex flex-row">
           <div class="flex w-full flex-col justify-center gap-2">
-            <div class="row flex items-center gap-3 px-2">
+            <div class="flex items-center gap-3 px-2">
               <div
                 class="flex size-24 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
               >

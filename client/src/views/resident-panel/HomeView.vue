@@ -17,7 +17,8 @@ const resident1: Resident = {
 <template>
   <div class="mb-5 flex w-full flex-col items-center">
     <button
-      class="flex w-80 flex-col items-center rounded-lg border border-pasadita-shade-2 bg-pasadita-blue-4 py-7 text-2xl text-pasadita-blue-2 transition-all hover:rounded-2xl hover:bg-pasadita-blue-2/20 active:scale-95">
+      class="flex w-80 flex-col items-center rounded-lg border border-pasadita-shade-2 bg-pasadita-blue-4 py-7 text-2xl text-pasadita-blue-2 transition-all hover:rounded-2xl hover:bg-pasadita-blue-2/20 active:scale-95"
+    >
       <div class="flex shrink-0 items-center justify-center">
         <VueFeather type="edit" size="40" stroke-width="2"></VueFeather>
       </div>
