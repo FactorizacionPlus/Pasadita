@@ -36,7 +36,7 @@ const nextPage = () => {
         <a
           href="#"
           @click.prevent="previousPage"
-          class="  flex size-8 items-center justify-center rounded-lg bg-white text-sm text-pasadita-blue-2 transition-all hover:rounded-xl active:scale-95"
+          class="flex size-8 items-center justify-center rounded-lg bg-white text-sm text-pasadita-blue-2 transition-all hover:rounded-xl active:scale-95"
         >
           <span class="sr-only">Previous</span>
           <VueFeather type="chevron-left" size="20" stroke-width="3" />
