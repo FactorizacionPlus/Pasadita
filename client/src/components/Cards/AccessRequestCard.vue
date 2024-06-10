@@ -4,9 +4,8 @@ import type AccessRequest from "../../types/AccessRequest.ts";
 import UserImage from "@/components/UserImage.vue";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
 
-const props = defineProps<{ accessRequest: AccessRequest }>();
+const props = defineProps<{ accessRequest: AccessRequest, controls?: boolean }>();
 const isPending = props.accessRequest.status == "PENDING";
-
 </script>
 
 <template>
@@ -50,16 +49,21 @@ const isPending = props.accessRequest.status == "PENDING";
       <button type="button" :data-state="props.accessRequest.status" :disabled="!isPending" :hover="isPending"
         :active="isPending" for="text"
         class="inline-flex w-full items-center justify-center rounded-lg bg-pasadita-yellow-0 p-2.5 text-center text-sm font-normal text-pasadita-yellow-2 transition-all hover:rounded-xl hover:bg-pasadita-yellow-1 active:scale-95 disabled:scale-100 disabled:rounded-lg disabled:bg-pasadita-yellow-0/30 data-[state=ACCEPTED]:bg-pasadita-green-2 data-[state=REJECTED]:bg-pasadita-red-1 data-[state=ACCEPTED]:text-pasadita-green-1 data-[state=REJECTED]:text-pasadita-red-0 data-[state=ACCEPTED]:opacity-60 data-[state=REJECTED]:opacity-60">
-        <p>Estado: <span class="capitalize">{{ props.accessRequest.status.toLocaleLowerCase() }}</span></p>
+        <p>
+          Estado:
+          <span class="capitalize">{{ props.accessRequest.status.toLocaleLowerCase() }}</span>
+        </p>
       </button>
-      <button v-if="isPending" type="button"
-        class="inline-flex w-[2.625rem] items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95">
-        <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
-      </button>
-      <button v-if="isPending" type="button"
-        class="inline-flex w-[2.625rem] items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95">
-        <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
-      </button>
+      <div v-if="props.controls" class="flex flex-row gap-2">
+        <button v-if="isPending" type="button"
+          class="inline-flex w-[2.625rem] items-center justify-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95">
+          <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
+        </button>
+        <button v-if="isPending" type="button"
+          class="inline-flex w-[2.625rem] items-center justify-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95">
+          <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
+        </button>
+      </div>
     </div>
   </li>
 </template>

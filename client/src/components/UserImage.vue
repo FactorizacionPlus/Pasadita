@@ -2,11 +2,10 @@
 import isValidURL from "@/utils/isValidUrl";
 import VueFeather from "vue-feather";
 const props = defineProps<{ image?: string; size: string; padding: string }>();
-
 </script>
 
 <template>
-  <picture class="grid aspect-square place-items-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4">
+  <picture class="relative rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4">
     <img
       v-if="isValidURL(props.image)"
       :src="props.image"
@@ -20,7 +19,7 @@ const props = defineProps<{ image?: string; size: string; padding: string }>();
       stroke="#004f82"
       stroke-width="1.5"
       :style="{ padding: props.padding }"
-      class="!flex"
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
     ></VueFeather>
   </picture>
 </template>

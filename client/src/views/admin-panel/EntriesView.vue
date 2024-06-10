@@ -13,7 +13,7 @@ const entryList: EntryCard[] = [
       image: "https://www.github.com/davidquintr.png",
       name: "David",
       lastName: "Quintanilla",
-      role: "Residente Encargado"
+      role: "Residente Encargado",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2005"),
@@ -25,7 +25,7 @@ const entryList: EntryCard[] = [
       image: "https://www.github.com/poncka.png",
       name: "David",
       lastName: "Parrales Ponce",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -37,7 +37,7 @@ const entryList: EntryCard[] = [
       image: "https://www.github.com/JezerM.png",
       name: "Jezer",
       lastName: "Mejía Otero",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -49,7 +49,7 @@ const entryList: EntryCard[] = [
       image: "https://www.github.com/Mrsty21.png",
       name: "Marcelo",
       lastName: "Rivera Soto",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -61,11 +61,11 @@ const entryList: EntryCard[] = [
       image: "https://www.github.com/leocorea.png",
       name: "Leo",
       lastName: "Corea Navarrete",
-      role: "Residente"
+      role: "Residente",
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
-  }
+  },
 ];
 </script>
 

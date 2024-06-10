@@ -7,7 +7,7 @@ import SelectForm from "@/components/Forms/SelectForm.vue";
 import VueFeather from "vue-feather";
 import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
 import BoxContainerForm from "@/components/Forms/BoxContainerForm.vue";
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/Modal/ModalComponent.vue";
 import type BoxContainerItem from "@/types/BoxContainerItem";
 
 const people: Option[] = [
@@ -48,7 +48,7 @@ defineExpose({
 <template>
   <Modal ref="modal">
     <form class="overflow-hidden rounded-md bg-white">
-      <HeaderModal title="Residencia" icon="file-text" action="add" />
+      <HeaderModal title="Residencia" icon="home" action="add" />
       <div class="flex max-h-[80vh] flex-col gap-6 px-4 py-6">
         <InputForm
           name="quantity"
