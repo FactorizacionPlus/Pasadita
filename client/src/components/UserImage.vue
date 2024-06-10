@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
-const props = defineProps<{ image: string; size: string; padding: string }>();
+const props = defineProps<{ image?: string; size: string; padding: string }>();
 </script>
 
 <template>
   <img
-    v-if="props.image"
+    v-if="props.image != undefined"
     :src="props.image"
     alt="User Image"
     class="size-full rounded-full object-cover"
