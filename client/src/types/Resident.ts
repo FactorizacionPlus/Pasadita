@@ -3,5 +3,5 @@ export default interface Resident {
   secondName: string;
   identification: string;
   entries: number;
-  image: string;
+  image?: string;
 }
