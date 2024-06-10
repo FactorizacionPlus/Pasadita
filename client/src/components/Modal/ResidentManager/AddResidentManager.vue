@@ -5,8 +5,19 @@ import DateTimeForm from "@/components/Forms/DateTimeForm.vue";
 import VueFeather from "vue-feather";
 import InputForm from "@/components/Forms/InputForm.vue";
 import Modal from "@/components/Modal/Modal.vue";
+import Passport from "@/Passport.svg?component";
+import Identity from "@/Identity.svg?component";
+const passportSelected = ref(false);
+const identitySelected = ref(false);
+function passportSelection() {
+  identitySelected.value = false;
+  passportSelected.value = true;
+}
+function identitySelection() {
+  passportSelected.value = false;
+  identitySelected.value = true;
+}
 const modal = ref<typeof Modal>();
-
 defineExpose({
   show: () => modal.value?.show(),
   close: () => modal.value?.close(),
@@ -30,6 +41,24 @@ defineExpose({
           type="datetime-local"
           placeholder="Fecha de fin"
         />
+      </div>
+      <div class="grid w-full grid-cols-2 gap-3 px-4">
+        <button
+          type="button"
+          :data-state="identitySelected"
+          class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
+          @click="identitySelection()"
+        >
+          <Identity class="inline" />
+        </button>
+        <button
+          type="button"
+          :data-state="passportSelected"
+          class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
+          @click="passportSelection()"
+        >
+          <Passport class="inline" />
+        </button>
       </div>
 
       <div class="gap-6 px-4 py-6">
