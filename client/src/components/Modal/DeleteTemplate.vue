@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/Modal/ModalComponent.vue";
 const props = defineProps<{ reason: string }>();
 
 const modal = ref<typeof Modal>();

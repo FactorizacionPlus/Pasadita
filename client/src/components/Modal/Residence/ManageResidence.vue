@@ -7,7 +7,7 @@ import SelectForm from "@/components/Forms/SelectForm.vue";
 import VueFeather from "vue-feather";
 import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
 import BoxContainerForm from "@/components/Forms/BoxContainerForm.vue";
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/Modal/ModalComponent.vue";
 import type BoxContainerItem from "@/types/BoxContainerItem";
 
 const people: Option[] = [

@@ -3,7 +3,7 @@ import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import InputForm from "@/components/Forms/InputForm.vue";
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/Modal/ModalComponent.vue";
 import Passport from "@/Passport.svg?component";
 import Identity from "@/Identity.svg?component";
 
