@@ -34,7 +34,8 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Juan Daniel Gaturron",
-        image: "https://www.laprensagrafica.com/__export/1714704878780/sites/prensagrafica/img/2024/05/02/what_in_the_world_is_a_shoebill_6_new_stateman.jpg_423682103.jpg",
+        image:
+          "https://www.laprensagrafica.com/__export/1714704878780/sites/prensagrafica/img/2024/05/02/what_in_the_world_is_a_shoebill_6_new_stateman.jpg_423682103.jpg",
       },
       {
         status: "REJECTED",
@@ -42,7 +43,8 @@ const permissionHistory: PermissionHistoryProps[] = [
         endDate: new Date("2024-10-04"),
         residentId: "0011904041016S",
         residentName: "Hugo Chávez Frías",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Hugo_Rafael_Ch%C3%A1vez_Fr%C3%ADas.jpeg/640px-Hugo_Rafael_Ch%C3%A1vez_Fr%C3%ADas.jpeg",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Hugo_Rafael_Ch%C3%A1vez_Fr%C3%ADas.jpeg/640px-Hugo_Rafael_Ch%C3%A1vez_Fr%C3%ADas.jpeg",
       },
     ],
   },
@@ -60,28 +62,32 @@ const permissionHistory: PermissionHistoryProps[] = [
         residentId: "0011904041016S",
         residentName: "Marcelo Rivera Soto",
         image: "https://github.com/MrSty.png",
-      }, {
+      },
+      {
         status: "ACCEPTED",
         startDate: new Date("2024-01-01"),
         endDate: new Date("2024-01-29"),
         residentId: "0011904041016S",
         residentName: "Marcelo Rivera Soto",
         image: "https://github.com/MrSty.png",
-      }, {
+      },
+      {
         status: "REJECTED",
         startDate: new Date("2024-01-01"),
         endDate: new Date("2024-01-29"),
         residentId: "0011904041016S",
         residentName: "Marcelo Rivera Soto",
         image: "https://github.com/MrSty.png",
-      }, {
+      },
+      {
         status: "ACCEPTED",
         startDate: new Date("2024-01-01"),
         endDate: new Date("2024-01-29"),
         residentId: "0011904041016S",
         residentName: "Marcelo Rivera Soto",
         image: "https://github.com/MrSty.png",
-      }, {
+      },
+      {
         status: "ACCEPTED",
         startDate: new Date("2024-01-01"),
         endDate: new Date("2024-01-29"),

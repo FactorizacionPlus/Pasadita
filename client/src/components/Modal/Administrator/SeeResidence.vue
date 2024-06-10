@@ -70,9 +70,7 @@ defineExpose({
                 <p class="text-sm font-semibold">
                   {{ resident.role }}
                 </p>
-                <p class="text-base font-normal">
-                  {{ resident.name }} {{ resident.lastName }}
-                </p>
+                <p class="text-base font-normal">{{ resident.name }} {{ resident.lastName }}</p>
               </div>
             </li>
           </ul>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ModalEntrie from "@/components/Modal/Terminal/CreateEntrie.vue";
-import CreateEntrie from "@/assets/Crear-Entrada.svg";
-const modalEntrie = ref<typeof ModalEntrie>();
+import ModalEntry from "@/components/Modal/Terminal/CreateEntry.vue";
+import CreateEntry from "@/assets/Crear-Entrada.svg";
+const modalEntrie = ref<typeof ModalEntry>();
 </script>
 
 <template>
@@ -13,7 +13,7 @@ const modalEntrie = ref<typeof ModalEntrie>();
       @click="modalEntrie?.show()"
     >
       <div class="flex flex-col items-center justify-center gap-2 p-5">
-        <CreateEntrie class="hover:text-white" />
+        <CreateEntry class="hover:text-white" />
         <span class="text-xl">Ver Permiso Activo</span>
       </div>
     </button>

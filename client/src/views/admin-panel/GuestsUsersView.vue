@@ -11,21 +11,24 @@ const invitedResidentList: InvitedResident[] = [
     secondName: "Review",
     identification: "D1234567",
     entries: 1,
-    image: "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2021/04/05/el-youtuber-dalas-review.jpeg",
+    image:
+      "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2021/04/05/el-youtuber-dalas-review.jpeg",
   },
   {
     name: "Elon",
     secondName: "Musk",
     identification: "E2345678",
     entries: 2,
-    image: "https://fotografias.lasexta.com/clipping/cmsimages02/2022/05/03/6F9C82A4-0FA4-40F9-BE2F-87F8DBBC1224/elon-musk-met-gala_69.jpg?crop=1407,791,x0,y150&width=1280&height=720&optimize=low&format=jpg",
+    image:
+      "https://fotografias.lasexta.com/clipping/cmsimages02/2022/05/03/6F9C82A4-0FA4-40F9-BE2F-87F8DBBC1224/elon-musk-met-gala_69.jpg?crop=1407,791,x0,y150&width=1280&height=720&optimize=low&format=jpg",
   },
   {
     name: "Mark",
     secondName: "Zuckerberg",
     identification: "M3456789",
     entries: 0,
-    image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
   },
   {
     name: "Nicolas",
@@ -39,10 +42,10 @@ const invitedResidentList: InvitedResident[] = [
     secondName: "Bukele",
     identification: "N5678901",
     entries: 1,
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Presidente_Bukele_%28cropped%29.jpg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/e/ef/Presidente_Bukele_%28cropped%29.jpg",
   },
 ];
-
 </script>
 
 <template>

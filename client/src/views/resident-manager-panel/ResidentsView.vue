@@ -52,14 +52,19 @@ const residentHistory: Resident[] = [
   <CurrentPageInfo title="Lista de residentes" icon="user">
     <button
       class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
-      @click="modalAdd?.show()">
+      @click="modalAdd?.show()"
+    >
       <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
       <span>Solicitar un permiso</span>
     </button>
   </CurrentPageInfo>
   <SearchBar class="py-4 pb-0" />
   <ul class="grid w-full gap-4 py-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-    <ResidentCard :resident="resident" v-for="resident in residentHistory" :key="resident.identification" />
+    <ResidentCard
+      :resident="resident"
+      v-for="resident in residentHistory"
+      :key="resident.identification"
+    />
   </ul>
   <Pagination class="py-4" :total-pages="6" />
   <ModalAdd ref="modalAdd">Hola</ModalAdd>
