@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import VueFeather from "vue-feather";
 import type InvitedResident from "@/types/InvitedResident";
 import UserImage from "@/components/UserImage.vue";
+import ModalDelete from "@/components/Modal/Guest/DeleteGuest.vue";
+import ModalSee from "@/components/Modal/Administrator/SeeGuest.vue";
+const modalDel = ref<typeof ModalDelete>();
+const modalSee = ref<typeof ModalSee>();
 
 const props = defineProps<{ invitedResident: InvitedResident }>();
 </script>
@@ -42,15 +47,30 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
       <button
         type="button"
         class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
+        @click="modalDel?.show()"
       >
-        <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
+        <VueFeather type="trash-2" stroke-width="3.5" size="16"></VueFeather>
       </button>
       <button
         type="button"
         class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
+        @click="modalSee?.show()"
       >
-        <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
+        <VueFeather type="eye" stroke-width="3.5" size="16"></VueFeather>
       </button>
     </div>
   </li>
+  <ModalDelete :name="invitedResident.name" :lastname="invitedResident.secondName" ref="modalDel">
+    Hola
+  </ModalDelete>
+  <ModalSee
+    :image="props.invitedResident.image"
+    :name="props.invitedResident.name"
+    :secondname="props.invitedResident.secondName"
+    :identification="props.invitedResident.identification"
+    :entries="props.invitedResident.entries"
+    ref="modalSee"
+  >
+    Hola
+  </ModalSee>
 </template>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import VueFeather from "vue-feather";
 import type Terminal from "../../types/AdminTerminal";
+import ModalSee from "@/components/Modal/Administrator/SeeTerminal.vue";
+const modalSee = ref<typeof ModalSee>();
 
 const props = defineProps<{
   terminal: Terminal;
@@ -35,9 +38,11 @@ const props = defineProps<{
       <button
         type="button"
         class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
+        @click="modalSee?.show()"
       >
         <VueFeather type="eye" stroke-width="3.5" size="16"></VueFeather>
       </button>
     </div>
   </li>
+  <ModalSee ref="modalSee"> Hola </ModalSee>
 </template>

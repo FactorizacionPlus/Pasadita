@@ -23,7 +23,7 @@ defineExpose({
 <template>
   <dialog
     ref="dialogRef"
-    class="fixed left-0 top-0 hidden h-dvh w-dvw place-items-center bg-black/50 open:grid"
+    class="fixed left-0 top-0 z-10 hidden h-dvh w-dvw place-items-center bg-black/50 open:grid"
   >
     <slot></slot>
   </dialog>
