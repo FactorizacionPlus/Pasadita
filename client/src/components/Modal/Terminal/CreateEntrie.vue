@@ -24,7 +24,6 @@ function identitySelection() {
   identitySelected.value = true;
 }
 
-
 defineExpose({
   show: () => modal.value?.show(),
   close: () => modal.value?.close(),
@@ -41,31 +40,46 @@ defineExpose({
           <InputForm name="apellido" title="Apellido" type="text" placeholder="Apellido" />
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <button type="button" :data-state="identitySelected"
+          <button
+            type="button"
+            :data-state="identitySelected"
             class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-            @click="identitySelection()">
+            @click="identitySelection()"
+          >
             <Identity class="inline" />
           </button>
-          <button type="button" :data-state="passportSelected"
+          <button
+            type="button"
+            :data-state="passportSelected"
             class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-            @click="passportSelection()">
+            @click="passportSelection()"
+          >
             <Passport class="inline" />
           </button>
         </div>
-        <InputForm :disabled="!isIdentificationEnabled" name="identificacion" title="Identificación" type="text"
-          placeholder="Identificación" />
+        <InputForm
+          :disabled="!isIdentificationEnabled"
+          name="identificacion"
+          title="Identificación"
+          type="text"
+          placeholder="Identificación"
+        />
         <TextAreaForm name="description" title="Descripcion" placeholder="Descripcion" />
       </div>
 
       <!-- Botones -->
       <div class="flex justify-end gap-2 border-t border-t-pasadita-shade-2 p-2">
         <button
-          class="inline-flex items-center rounded-lg bg-pasadita-green-2 p-2 text-center text-sm font-normal text-pasadita-green-1 transition-all hover:rounded-xl hover:bg-pasadita-green-1 hover:text-white active:scale-95">
+          class="inline-flex items-center rounded-lg bg-pasadita-green-2 p-2 text-center text-sm font-normal text-pasadita-green-1 transition-all hover:rounded-xl hover:bg-pasadita-green-1 hover:text-white active:scale-95"
+        >
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>Aceptar</span>
         </button>
-        <button @click="modal?.close()" type="button"
-          class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95">
+        <button
+          @click="modal?.close()"
+          type="button"
+          class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
+        >
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>Cancelar</span>
         </button>
