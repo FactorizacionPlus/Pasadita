@@ -3,7 +3,7 @@ import { ref } from "vue";
 import VueFeather from "vue-feather";
 import type InvitedResident from "@/types/InvitedResident";
 import UserImage from "@/components/UserImage.vue";
-import ModalDelete from "@/components/Modal/DeleteGuest.vue";
+import ModalDelete from "@/components/Modal/Guest/DeleteGuest.vue";
 import ModalSee from "@/components/Modal/Administrator/SeeGuest.vue"
 const modalDel = ref<typeof ModalDelete>();
 const modalSee = ref<typeof ModalSee>();
