@@ -3,7 +3,7 @@ import { ref } from "vue";
 import VueFeather from "vue-feather";
 import type Resident from "@/types/Resident";
 import UserImage from "@/components/UserImage.vue";
-import ModalDelete from "@/components/Modal/DeleteGuest.vue";
+import ModalDelete from "@/components/Modal/Resident/DeleteResident.vue";
 const modalDel = ref<typeof ModalDelete>();
 
 const props = defineProps<{ resident: Resident }>();
@@ -12,18 +12,15 @@ const props = defineProps<{ resident: Resident }>();
 <template>
   <li class="flex max-w-sm flex-col bg-white">
     <!--Information-->
-    <div
-      class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-2"
-    >
+    <div class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-2">
       <p class="text-xl font-semibold text-pasadita-blue-1">Residente</p>
     </div>
     <!--Description-->
-    <div class="flex flex-row border-x border-pasadita-shade-2 p-2">
+    <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="row flex items-center gap-3 px-2">
           <div
-            class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
-          >
+            class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4">
             <UserImage :image="resident.image" size="70" padding="16px" />
           </div>
           <div class="flex flex-col text-pasadita-blue-1">
@@ -42,12 +39,12 @@ const props = defineProps<{ resident: Resident }>();
     </div>
     <!--CRUD-->
     <div class="flex flex-row justify-end gap-2 rounded-b-lg border border-pasadita-shade-2 p-2">
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95" @click="modalDel?.show()">
+      <button type="button"
+        class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
+        @click="modalDel?.show()">
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
   </li>
-  <ModalDelete :name="resident.name" :lastname="resident.secondName"  ref="modalDel"> Hola </ModalDelete>
+  <ModalDelete :name="resident.name" :lastname="resident.secondName" ref="modalDel"> Hola </ModalDelete>
 </template>
