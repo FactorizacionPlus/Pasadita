@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <section class="my-5 flex w-full flex-col bg-white">
+  <section class="flex flex-col my-5 w-full bg-white">
     <!--Information-->
     <div
       class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4"

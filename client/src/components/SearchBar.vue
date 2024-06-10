@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
       <button
         id="dropdownDefaultButton1"
         @click="toggleDropdown1"
-        class="font-sm inline-flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 bg-white px-5 py-2.5 text-center text-sm text-pasadita-shade-1 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:outline-none focus:ring-1 focus:ring-pasadita-shade-2"
+        class="inline-flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 bg-white px-5 py-2.5 text-center text-sm text-pasadita-shade-1 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:outline-none focus:ring-1 focus:ring-pasadita-shade-2"
         type="button"
       >
         Ordenar por:
@@ -114,7 +114,7 @@ onBeforeUnmount(() => {
       <button
         id="dropdownDefaultButton2"
         @click="toggleDropdown2"
-        class="font-sm inline-flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 bg-pasadita-blue-4 px-5 py-2.5 text-center text-sm text-pasadita-shade-1 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:outline-none focus:ring-1 focus:ring-pasadita-shade-2"
+        class="inline-flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 bg-pasadita-blue-4 px-5 py-2.5 text-center text-sm text-pasadita-shade-1 hover:bg-pasadita-blue-5 hover:text-pasadita-shade-0 focus:outline-none focus:ring-1 focus:ring-pasadita-shade-2"
         type="button"
       >
         Buscar por:

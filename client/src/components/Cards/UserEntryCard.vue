@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueFeather from "vue-feather";
 import type UserEntry from "@/types/UserEntry";
 import UserImage from "@/components/UserImage.vue";
 
