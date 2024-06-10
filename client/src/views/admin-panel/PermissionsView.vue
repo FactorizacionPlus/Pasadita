@@ -17,6 +17,7 @@ const permissionHistory: PermissionHistoryProps[] = [
     residence: {
       description: "Palacio de Miraflores",
       maxHabitants: 5,
+      currentResidents: 4,
     },
     requests: [
       {
@@ -49,6 +50,7 @@ const permissionHistory: PermissionHistoryProps[] = [
     residence: {
       description: "Casa Presidencial de Team Factorización   ",
       maxHabitants: 3,
+      currentResidents: 2
     },
     requests: [
       {
@@ -88,14 +90,14 @@ const permissionHistory: PermissionHistoryProps[] = [
     icon="home"
     :title="history.residence.description"
   >
-    <SearchBar class="p-4 pb-0" />
-    <ul class="grid w-full gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    <SearchBar class="pb-0" />
+    <ul class="grid w-full gap-4 pt-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       <AccessRequestCard
         :access-request="item"
         :key="index"
         v-for="(item, index) in history.requests"
       />
     </ul>
-    <Pagination class="py-4" :total-pages="6" />
+    <Pagination class="pt-4" :total-pages="6" />
   </CardsContainer>
 </template>

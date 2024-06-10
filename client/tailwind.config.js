@@ -12,6 +12,7 @@ export default {
             3: "#17a4fe",
             4: "#f3faff",
             5: "#f6f8fa",
+            6: "#dcf0ff"
           },
           green: {
             0: "#008209",

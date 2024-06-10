@@ -6,20 +6,24 @@ import Residences from "@/components/Cards/ResidenceCard.vue";
 import type Residence from "@/types/Residence";
 import SearchBar from "@/components/SearchBar.vue";
 import ModalAdd from "@/components/Modal/Residence/ManageResidence.vue";
+import PaginationItem from "@/components/PaginationItem.vue";
 const modalAdd = ref<typeof ModalAdd>();
 
 const residenceList: Residence[] = [
   {
-    maxHabitants: 1,
+    maxHabitants: 2,
     description: "Lorem Ipsum",
+    currentResidents: 1
   },
   {
     maxHabitants: 2,
     description: "Lorem Ipsum",
+    currentResidents: 1,
   },
   {
     maxHabitants: 3,
     description: "Lorem Ipsum",
+    currentResidents: 3
   },
 ];
 </script>
@@ -36,12 +40,13 @@ const residenceList: Residence[] = [
     </button>
   </div>
   <SearchBar class="py-4" />
-  <ul class="grid grid-cols-4 gap-4">
+  <ul class="grid w-full gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
     <Residences
       :residence="residence"
       v-for="residence in residenceList"
       :key="residence.description"
     />
   </ul>
+  <PaginationItem class="pt-4" :total-pages="6" />
   <ModalAdd ref="modalAdd">Hola</ModalAdd>
 </template>
