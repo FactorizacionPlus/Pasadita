@@ -40,6 +40,6 @@ const filterBy : Option[] = [
         </label>
       </div>
       <SelectForm class="hidden max-w-32 sm:block" :options="orderOption" default-option="Ordenar por" name="Ordenar Por"/>
-      <SelectForm class="hidden max-w-32 bg-pasadita-blue-6 text-pasadita-blue-2 !ring-pasadita-blue-2 hover:bg-pasadita-blue-4 sm:block" :options="filterBy" default-option="Filtrar por" name="Filtrar Por"/>
+      <SelectForm class="hidden max-w-32 !bg-pasadita-blue-6 text-pasadita-blue-2 !ring-pasadita-blue-2 hover:bg-pasadita-blue-4 sm:block" :options="filterBy" default-option="Filtrar por" name="Filtrar Por"/>
     </form>
 </template>
