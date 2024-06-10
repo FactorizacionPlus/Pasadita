@@ -3,7 +3,7 @@ import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
 import VueFeather from "vue-feather";
-import Modal from "@/components/Modal/Modal.vue";
+import Modal from "@/components/Modal/ModalComponent.vue";
 import QrCode from "@/assets/qr-code.svg?url";
 
 const modal = ref<typeof Modal>();
