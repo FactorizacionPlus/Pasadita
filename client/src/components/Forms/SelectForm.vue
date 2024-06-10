@@ -33,7 +33,7 @@ onMounted(() => {
 <template>
   <select
     :name="props.name"
-    class="peer h-10 w-72 rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 accent-pasadita-blue-3 ring-1 ring-pasadita-shade-1 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
+    class="peer h-10 w-72 rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 accent-pasadita-blue-3 ring-1 ring-pasadita-shade-2 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
     @change="handleChange"
     :disabled="props.disabled"
   >
