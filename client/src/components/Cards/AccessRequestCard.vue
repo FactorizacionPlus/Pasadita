@@ -4,7 +4,7 @@ import type AccessRequest from "../../types/AccessRequest.ts";
 import UserImage from "@/components/UserImage.vue";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
 
-const props = defineProps<{ accessRequest: AccessRequest, controls: boolean }>();
+const props = defineProps<{ accessRequest: AccessRequest, controls?: boolean }>();
 const isPending = props.accessRequest.status == "PENDING";
 </script>
 
