@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import CardsContainer from "@/components/CardsContainer.vue";
 import type Resident from "@/types/Resident";
 import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import VueFeather from "vue-feather";
 import PaginationItem from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
-
+import AddResidentModal from "@/components/Modal/Resident/AddResidentModal.vue";
+const modalCreate = ref<typeof AddResidentModal>();
 const resident1: Resident = {
   name: "marcelo",
   secondName: "Rivera",
@@ -18,6 +20,7 @@ const resident1: Resident = {
   <div class="mb-5 flex w-full flex-col items-center">
     <button
       class="flex w-80 flex-col items-center rounded-lg border border-pasadita-shade-2 bg-pasadita-blue-4 py-7 text-2xl text-pasadita-blue-2 transition-all hover:rounded-2xl hover:bg-pasadita-blue-2/20 active:scale-95"
+      @click="modalCreate?.show()"
     >
       <div class="flex shrink-0 items-center justify-center">
         <VueFeather type="edit" size="40" stroke-width="2"></VueFeather>
@@ -37,4 +40,5 @@ const resident1: Resident = {
     </div>
   </CardsContainer>
   <PaginationItem :totalPages="5" />
+  <AddResidentModal ref="modalCreate"> </AddResidentModal>
 </template>
