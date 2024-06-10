@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { usePrefferedCamera } from "@/stores/prefferedCamera";
-import {
-  Html5Qrcode,
-  Html5QrcodeSupportedFormats,
-  type CameraDevice,
-} from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeSupportedFormats, type CameraDevice } from "html5-qrcode";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const camerasOptions = ref<CameraDevice[]>([]);

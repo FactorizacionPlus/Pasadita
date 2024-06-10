@@ -14,36 +14,36 @@ const residents: User[] = [
     id: "0011904041016S",
     name: "Juan Daniel",
     lastName: "Treminio",
-    image: "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
-    role: "Administrador"
+    image:
+      "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
+    role: "Administrador",
   },
   {
     id: "0011904041016S",
     name: "Nicolás",
     lastName: "Maduro Moros",
     image: "https://pasadita.vercel.app/madurito.png",
-    role: "Dictador"
+    role: "Dictador",
   },
   {
     id: "0011904041016S",
     name: "David Sebastián",
     lastName: "Parrales Ponce",
     image: "https://github.com/poncka.png",
-    role: "Residente"
-  }
-]
+    role: "Residente",
+  },
+];
 
 const residence: Residence = {
   currentResidents: residents.length,
   description: "Palacio de Miraflores, República Bolivariana de Venezuela",
   maxHabitants: 5,
-}
+};
 
 defineExpose({
   show: () => modal.value?.show(),
   close: () => modal.value?.close(),
 });
-
 </script>
 
 <template>
@@ -55,8 +55,9 @@ defineExpose({
           <VueFeather type="home" size="40" stroke-width="1.5"></VueFeather>
           <div class="flex-1">
             <p class="text-base font-medium">Residencia</p>
-            <p class="text-base font-normal">{{ residence.currentResidents }} / {{
-              residence.maxHabitants }} Habitantes</p>
+            <p class="text-base font-normal">
+              {{ residence.currentResidents }} / {{ residence.maxHabitants }} Habitantes
+            </p>
           </div>
         </div>
         <span class="font-semibold text-pasadita-blue-1">Residentes</span>
@@ -67,9 +68,7 @@ defineExpose({
               <p class="text-sm font-semibold">
                 {{ resident.role }}
               </p>
-              <p class="text-base font-normal">
-                {{ resident.name }} {{ resident.lastName }}
-              </p>
+              <p class="text-base font-normal">{{ resident.name }} {{ resident.lastName }}</p>
             </div>
           </li>
         </ul>
@@ -77,8 +76,11 @@ defineExpose({
 
       <!-- Botones -->
       <div class="flex justify-end gap-2 border-t border-t-pasadita-shade-2 p-2">
-        <button @click="modal?.close()" type="button"
-          class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95">
+        <button
+          @click="modal?.close()"
+          type="button"
+          class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
+        >
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>Cancelar</span>
         </button>

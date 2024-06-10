@@ -43,8 +43,8 @@ const residentList = [
 <template>
   <CurrentPageInfo title="Lista de residentes" icon="user">
     <button
-    class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
-    @click="modalAdd?.show()"
+      class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
+      @click="modalAdd?.show()"
     >
       <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
       <span>Solicitar un permiso</span>

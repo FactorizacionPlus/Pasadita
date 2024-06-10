@@ -4,6 +4,7 @@ import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
+import QrCode from "@/assets/qr-code.svg?url";
 
 const modal = ref<typeof Modal>();
 
@@ -44,7 +45,7 @@ defineExpose({
         <!-- QR Code Section -->
         <div class="flex items-center justify-center">
           <div class="flex flex-col items-center justify-center">
-            <img src="/public/qr-code.svg" class="size-64" />
+            <img :src="QrCode" class="size-72" />
             <div class="mt-4 flex justify-center">
               <button
                 class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"

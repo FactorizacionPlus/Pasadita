@@ -84,12 +84,20 @@ const permissionHistory: PermissionHistoryProps[] = [
 
 <template>
   <CurrentPageInfo title="Historial de Permisos" icon="file" />
-  <CardsContainer v-for="(history, index) in permissionHistory" :key="index" icon="home"
-    :title="history.residence.description">
+  <CardsContainer
+    v-for="(history, index) in permissionHistory"
+    :key="index"
+    icon="home"
+    :title="history.residence.description"
+  >
     <SearchBar class="pb-0" />
     <ul class="grid w-full gap-4 pt-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-      <AccessRequestCard :access-request="item" :controls="false" :key="index"
-        v-for="(item, index) in history.requests" />
+      <AccessRequestCard
+        :access-request="item"
+        :controls="false"
+        :key="index"
+        v-for="(item, index) in history.requests"
+      />
     </ul>
     <Pagination class="pt-4" :total-pages="6" />
   </CardsContainer>
