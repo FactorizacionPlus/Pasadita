@@ -6,36 +6,44 @@ import Pagination from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import VueFeather from "vue-feather";
 import ModalAdd from "@/components/Modal/ResidentManager/AddResident.vue";
+import type Resident from "@/types/Resident";
 const modalAdd = ref<typeof ModalAdd>();
 
-const residentList = [
+const residentHistory: Resident[] = [
   {
-    name: "Juan",
-    secondName: "Perez",
+    image: "https://www.github.com/davidquintr.png",
+    name: "David",
+    secondName: "Quintanilla",
+    identification: "0011904041016S",
+    entries: 12,
+  },
+  {
+    name: "David",
+    secondName: "Parrales Ponce",
     identification: "C3049392",
-    entries: 10,
-    image: "",
+    entries: 0,
+    image: "https://www.github.com/poncka.png",
   },
   {
-    name: "Maria",
-    secondName: "Delgado",
+    name: "Jezer",
+    secondName: "Mejía Otero",
     identification: "C3049392",
-    entries: 6,
-    image: "",
+    entries: 0,
+    image: "https://www.github.com/JezerM.png",
   },
   {
-    name: "Pedro",
-    secondName: "Sanchez",
-    identification: "C4270432",
-    entries: 33,
-    image: "",
+    name: "Marcelo",
+    secondName: "Rivera Soto",
+    identification: "C3049392",
+    entries: 0,
+    image: "https://www.github.com/Mrsty21.png",
   },
   {
-    name: "Carlos",
-    secondName: "Santos",
-    identification: "C3643642",
-    entries: 4,
-    image: "",
+    name: "Leo",
+    secondName: "Corea Navarrete",
+    identification: "C3049392",
+    entries: 0,
+    image: "https://www.github.com/leocorea.png",
   },
 ];
 </script>
@@ -54,7 +62,7 @@ const residentList = [
   <ul class="grid w-full gap-4 py-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
     <ResidentCard
       :resident="resident"
-      v-for="resident in residentList"
+      v-for="resident in residentHistory"
       :key="resident.identification"
     />
   </ul>

@@ -11,9 +11,9 @@ const props = defineProps<{
 
 <template>
   <li class="flex flex-col gap-4 rounded-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4">
-    <div class="flex flex-row items-center justify-between">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
       <UserEntry :user="entryCard.user" />
-      <div class="flex flex-col text-right text-pasadita-blue-1">
+      <div class="flex flex-col text-pasadita-blue-1 sm:text-right">
         <p class="font-semibold">Fecha y hora de entrada</p>
         <p>{{ getFormattedDateTime(props.entryCard.entryDate) }}</p>
       </div>

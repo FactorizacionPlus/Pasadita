@@ -30,45 +30,36 @@ const nextPage = () => {
 </script>
 
 <template>
-  <nav class="flex flex-row justify-center">
-    <ul class="flex h-10 items-center gap-16 text-base">
-      <li>
-        <a
-          href="#"
-          @click.prevent="previousPage"
-          class="flex size-8 items-center justify-center rounded-lg bg-white text-sm text-pasadita-blue-2 transition-all hover:rounded-xl active:scale-95"
+  <nav class="flex w-full flex-row justify-center">
+    <button
+      @click="previousPage"
+      class="flex size-10 items-center justify-center rounded-lg bg-white text-sm text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
+    >
+      <span class="sr-only">Previous</span>
+      <VueFeather type="chevron-left" size="20" stroke-width="3" />
+    </button>
+    <!--Numbers-->
+    <ul class="mx-auto flex flex-row gap-1">
+      <li v-for="page in props.totalPages" :key="page">
+        <button
+          @click="setActivePage(page)"
+          :class="[
+            'flex size-10 items-center justify-center rounded-lg text-sm transition-all active:scale-95',
+            activePage === page
+              ? 'bg-pasadita-blue-2 text-white'
+              : 'bg-pasadita-blue-4 text-pasadita-blue-2 hover:rounded-xl hover:bg-pasadita-blue-6',
+          ]"
         >
-          <span class="sr-only">Previous</span>
-          <VueFeather type="chevron-left" size="20" stroke-width="3" />
-        </a>
-      </li>
-      <!--Numbers-->
-      <div class="flex flex-row gap-1">
-        <li v-for="page in props.totalPages" :key="page">
-          <a
-            href="#"
-            @click.prevent="setActivePage(page)"
-            :class="[
-              ' flex size-8 items-center justify-center rounded-lg border border-pasadita-shade-2 text-sm transition-all active:scale-95',
-              activePage === page
-                ? 'bg-pasadita-blue-2 text-white'
-                : 'bg-white text-pasadita-blue-2 hover:rounded-xl hover:bg-pasadita-blue-2 hover:text-white',
-            ]"
-          >
-            {{ page }}
-          </a>
-        </li>
-      </div>
-      <li>
-        <a
-          href="#"
-          @click.prevent="nextPage"
-          class="flex size-8 items-center justify-center rounded-lg bg-white text-sm text-pasadita-blue-2 transition-all hover:rounded-xl active:scale-95"
-        >
-          <span class="sr-only">Next</span>
-          <VueFeather type="chevron-right" size="20" stroke-width="3" />
-        </a>
+          {{ page }}
+        </button>
       </li>
     </ul>
+    <button
+      @click="nextPage"
+      class="flex size-10 items-center justify-center rounded-lg bg-white text-sm text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
+    >
+      <span class="sr-only">Next</span>
+      <VueFeather type="chevron-right" size="20" stroke-width="3" />
+    </button>
   </nav>
 </template>

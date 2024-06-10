@@ -29,7 +29,7 @@ const props = defineProps<{
       </div>
     </div>
     <!--Description-->
-    <div class="flex h-[4.5rem] flex-row border-x border-pasadita-shade-2 p-2">
+    <div class="flex h-auto flex-1 flex-row border-x border-pasadita-shade-2 p-2">
       <p class="line-clamp-2 font-normal text-pasadita-blue-1">
         {{ props.residence.description }}
       </p>

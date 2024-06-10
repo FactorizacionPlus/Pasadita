@@ -74,12 +74,25 @@ const entryList: EntryCardT[] = [
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
   },
+  {
+    id: 4,
+    user: {
+      id: "0011904041016S",
+      image:
+        "https://phantom-marca.unidadeditorial.es/ed45b2f6e1292d0ab52646ae08d9e1a6/crop/0x0/814x458/resize/828/f/jpg/assets/multimedia/imagenes/2022/03/07/16466725254649.jpg",
+      name: "Daniel José",
+      lastName: "Santomé Lemus",
+      role: "Residente",
+    },
+    description: "Rumbo a la casas de los pueblos",
+    entryDate: new Date("10-04-2015 12:00"),
+  },
 ];
 </script>
 
 <template>
   <Modal ref="modal">
-    <form class="overflow-hidden rounded-md bg-white">
+    <form class="w-full max-w-[540px] overflow-hidden rounded-md bg-white">
       <HeaderModal title="Terminal" icon="tablet" action="view" />
       <ul class="flex max-h-[80vh] flex-col gap-4 overflow-auto p-4">
         <EntryCard :entry-card="item" :key="index" v-for="(item, index) in entryList" />

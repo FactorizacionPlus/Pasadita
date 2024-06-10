@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <header>
-      <h2>Guest</h2>
-    </header>
-    <main>
-      <router-view />
-    </main>
-  </div>
+  <main>
+    <router-view />
+  </main>
 </template>
 
 <script>

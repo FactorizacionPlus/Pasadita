@@ -16,12 +16,12 @@ const props = defineProps<Props>();
   <div class="rounded-lg bg-white">
     <div class="relative bg-inherit">
       <ul
-        class="peer flex min-h-10 w-full flex-wrap gap-2 rounded-[4px] bg-pasadita-shade-3 p-4 px-2 text-pasadita-blue-0 ring-1 ring-pasadita-shade-1 transition-all placeholder:text-transparent focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
+        class="peer flex min-h-10 w-full flex-wrap gap-2 rounded-[4px] bg-pasadita-shade-3 p-4 px-2 text-pasadita-blue-0 ring-1 ring-pasadita-shade-2 transition-all placeholder:text-transparent focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
       >
         <li
           :key="index"
           v-for="(item, index) in items"
-          class="flex items-center gap-1 rounded-lg bg-pasadita-blue-4 p-2"
+          class="flex items-center gap-1 rounded-lg border border-pasadita-blue-6 bg-pasadita-blue-4 p-2"
         >
           <div
             class="flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
@@ -32,7 +32,7 @@ const props = defineProps<Props>();
             <span>{{ item.text }}</span>
             <button
               :disabled="props.disabled"
-              class="grid size-5 cursor-pointer place-items-center rounded-full p-1 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-3 hover:text-white active:scale-95 disabled:pointer-events-none disabled:opacity-40"
+              class="grid size-5 cursor-pointer place-items-center rounded-full p-1 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
             >
               <VueFeather type="x" size="16" stroke-width="3"></VueFeather>
             </button>
