@@ -39,23 +39,28 @@ defineExpose({
           <InputForm name="nombre" title="Nombre" type="text" placeholder="Nombre" />
           <InputForm name="apellido" title="Apellido" type="text" placeholder="Apellido" />
         </div>
-        <div class="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            :data-state="identitySelected"
-            class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-            @click="identitySelection()"
-          >
-            <Identity class="inline" />
-          </button>
-          <button
-            type="button"
-            :data-state="passportSelected"
-            class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-            @click="passportSelection()"
-          >
-            <Passport class="inline" />
-          </button>
+        <div class="flex flex-col gap-1">
+          <p class="text-sm leading-none text-pasadita-blue-3">
+            Seleccione el tipo de identificacion
+          </p>
+          <div class="grid w-full grid-cols-2 gap-2">
+            <button
+              type="button"
+              :data-state="identitySelected"
+              class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
+              @click="identitySelection()"
+            >
+              <Identity class="inline" />
+            </button>
+            <button
+              type="button"
+              :data-state="passportSelected"
+              class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
+              @click="passportSelection()"
+            >
+              <Passport class="inline" />
+            </button>
+          </div>
         </div>
         <InputForm
           :disabled="!isIdentificationEnabled"
