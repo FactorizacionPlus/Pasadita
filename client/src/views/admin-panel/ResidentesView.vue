@@ -79,7 +79,7 @@ const residentHistory: ResidentHistory[] = [
 <template>
   <CurrentPageInfo title="Residentes" icon="user" />
   <CardsContainer v-for="(residentGroup, index) in residentHistory" :key="index" icon="home" :title="residentGroup.nameContainer">
-    <SearchBar class="p-4 pb-0" />
+    <SearchBar class="p-4 pb-0"/>
     <div class="grid grid-cols-3 gap-3 p-4">  
       <ResidentCard :resident="resident" :key="index" v-for="(resident, index) in residentGroup.resident" />
     </div>
