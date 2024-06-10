@@ -14,7 +14,7 @@ const router = createRouter({
       children: [
         {
           path: "/",
-          name: "home",
+          name: "page-home",
           component: () => import("../views/HomeView.vue"),
         },
         {
@@ -26,17 +26,13 @@ const router = createRouter({
     },
     {
       path: "/admin",
+      name: "admin",
       component: AdminLayout,
       children: [
         {
           path: "about",
           name: "admin-about",
           component: () => import("../views/guest/AboutView.vue"),
-        },
-        {
-          path: "accesos",
-          name: "admin-access",
-          component: () => import("../views/guest/AccessView.vue"),
         },
         {
           path: "entradas",
@@ -72,6 +68,7 @@ const router = createRouter({
     },
     {
       path: "/invitado",
+      name: "guest",
       component: GuestLayout,
       children: [
         {
@@ -88,44 +85,39 @@ const router = createRouter({
     },
     {
       path: "/residente",
+      name: "resident",
       component: ResidentLayout,
       children: [
         {
           path: "",
-          name: "home-resident",
+          name: "resident-home",
           component: () => import("../views/resident-panel/HomeView.vue"),
-        },
-        {
-          path: "solicitudes",
-          name: "resident-request",
-          component: () => import("../views/resident-panel/RequestView.vue"),
         },
       ],
     },
     {
       path: "/residente-encargado",
+      name: "resident-chief",
       component: ResidentManagerLayout,
       children: [
         {
           path: "",
-          name: "home",
+          name: "resident-chief-home",
           component: () => import("../views/resident-manager-panel/HomeView.vue"),
         },
         {
           path: "permisos",
-          name: "resident-permission",
+          name: "resident-chief-permission",
           component: () => import("../views/resident-manager-panel/PermissionView.vue"),
         },
         {
           path: "residentes",
-          name: "resident-resident",
+          name: "resident-chief-residents",
           component: () => import("../views/resident-manager-panel/ResidentsView.vue"),
         },
       ],
     },
   ],
 });
-
-console.log(router.getRoutes());
 
 export default router;
