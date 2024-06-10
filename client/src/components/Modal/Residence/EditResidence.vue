@@ -48,7 +48,7 @@ defineExpose({
 <template>
   <Modal ref="modal">
     <form class="overflow-hidden rounded-md bg-white">
-      <HeaderModal title="Residencia" icon="file-text" action="edit" />
+      <HeaderModal title="Residencia" icon="home" action="edit" />
       <div class="flex max-h-[80vh] flex-col gap-6 px-4 py-6">
         <InputForm
           name="quantity"

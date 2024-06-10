@@ -18,7 +18,7 @@ defineExpose({
     <form class="overflow-hidden rounded-md bg-white">
       <HeaderModal title="Invitado" icon="grid" action="delete" />
 
-      <div class="flex max-h-[80vh] flex-col gap-4 px-4 py-6">
+      <div class="flex max-h-[80vh] flex-col gap-4 p-4 text-xl text-pasadita-blue-1">
         ¿Deseas expulsar a {{ props.name }} {{ props.lastname }} de la residencia y del sistema?
       </div>
 
