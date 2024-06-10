@@ -31,7 +31,7 @@ const actions = {
 };
 
 interface Props {
-  icon: "grid" | "user" | "tablet" | "file-text" | "house";
+  icon: "grid" | "user" | "tablet" | "file-text" | "home";
   title: string;
   action?: "create" | "view" | "edit" | "delete" | "add";
 }
