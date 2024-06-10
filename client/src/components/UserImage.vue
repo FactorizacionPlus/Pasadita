@@ -2,7 +2,6 @@
 import isValidURL from "@/utils/isValidUrl";
 import VueFeather from "vue-feather";
 const props = defineProps<{ image?: string; size: string; padding: string }>();
-
 </script>
 
 <template>

@@ -13,7 +13,7 @@ const residenceList: Residence[] = [
   {
     maxHabitants: 2,
     description: "Lorem Ipsum",
-    currentResidents: 1
+    currentResidents: 1,
   },
   {
     maxHabitants: 2,
@@ -23,7 +23,7 @@ const residenceList: Residence[] = [
   {
     maxHabitants: 3,
     description: "Lorem Ipsum",
-    currentResidents: 3
+    currentResidents: 3,
   },
 ];
 </script>
