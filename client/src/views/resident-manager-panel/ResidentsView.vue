@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import Pagination from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
+import VueFeather from "vue-feather";
+import ModalAdd from "@/components/Modal/ResidentManager/AddResident.vue";
+const modalAdd = ref<typeof ModalAdd>();
 
 const residentList = [
   {
@@ -37,7 +41,16 @@ const residentList = [
 </script>
 
 <template>
-  <CurrentPageInfo title="Lista de residentes" icon="grid" />
+  <div class="flex flex-row items-center justify-between">
+    <CurrentPageInfo title="Lista de residentes" icon="grid" />
+    <button
+      class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
+      @click="modalAdd?.show()"
+    >
+      <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
+      <span>Solicitar un permiso</span>
+    </button>
+  </div>
   <SearchBar class="p-4 pb-0" />
   <ul class="grid w-full gap-4 p-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
     <ResidentCard
@@ -47,4 +60,5 @@ const residentList = [
     />
   </ul>
   <Pagination class="py-4" :total-pages="6" />
+  <ModalAdd ref="modalAdd">Hola</ModalAdd>
 </template>
