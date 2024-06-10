@@ -3,6 +3,7 @@ import { ref } from "vue";
 import VueFeather from "vue-feather";
 import UserImage from "@/components/UserImage.vue";
 import ModalDelete from "@/components/Modal/Resident/DeleteResident.vue";
+import type Resident from "@/types/Resident";
 const modalDel = ref<typeof ModalDelete>();
 
 const props = defineProps<{ resident: Resident }>();
