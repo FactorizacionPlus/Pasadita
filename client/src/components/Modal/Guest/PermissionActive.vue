@@ -16,19 +16,21 @@ defineExpose({
 
 <template>
   <Modal ref="modal">
-    <form class="overflow-hidden rounded-md bg-white">
+    <form class="w-full max-w-[480px] overflow-hidden rounded-md bg-white">
       <HeaderModal title="Permiso Activo" icon="grid" action="view" />
 
-      <div class="flex max-h-[80vh] flex-col gap-4 px-4 py-6">
+      <div class="flex max-h-[80vh] flex-col gap-4 overflow-y-auto px-4 py-6">
         <!-- Inputs -->
         <div class="flex flex-row gap-2">
           <InputForm
+            class="flex-1"
             name="quantity"
             title="Cantidad de habitantes"
             type="date"
             placeholder="Inserte la cantidad de habitantes"
           />
           <InputForm
+            class="flex-1"
             name="quantity"
             title="Cantidad de habitantes"
             type="date"
@@ -38,7 +40,7 @@ defineExpose({
         <InputForm
           name="quantity"
           title="Cantidad de habitantes"
-          type="text"
+          type="number"
           placeholder="Inserte la cantidad de habitantes"
         />
 
