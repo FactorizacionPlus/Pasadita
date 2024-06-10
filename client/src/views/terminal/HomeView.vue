@@ -18,5 +18,5 @@ const modalEntry = ref<typeof ModalEntry>();
       </div>
     </button>
   </div>
-  <ModalEntrie ref="modalEntry">Hola</ModalEntrie>
+  <ModalEntry ref="modalEntry">Hola</ModalEntry>
 </template>
