@@ -22,7 +22,7 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
     <!--Description-->
     <div class="flex flex-row border-x border-pasadita-shade-2 p-2">
       <div class="flex w-full flex-col justify-center gap-2">
-        <div class="row flex items-center gap-3 px-2">
+        <div class="flex items-center gap-3 px-2">
           <div
             class="flex size-24 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
           >

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import VueFeather from "vue-feather";
-import type Resident from "@/types/Resident";
 import UserImage from "@/components/UserImage.vue";
 import ModalDelete from "@/components/Modal/Resident/DeleteResident.vue";
 const modalDel = ref<typeof ModalDelete>();
@@ -20,7 +19,7 @@ const props = defineProps<{ resident: Resident }>();
     <!--Description-->
     <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
       <div class="flex w-full flex-col justify-center gap-2">
-        <div class="row flex items-center gap-3 px-2">
+        <div class="flex items-center gap-3 px-2">
           <div
             class="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
           >

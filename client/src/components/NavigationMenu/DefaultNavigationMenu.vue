@@ -3,7 +3,7 @@
     class="flex flex-col justify-between border-b border-b-pasadita-shade-2 bg-pasadita-shade-3 py-2"
   >
     <div class="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4">
-      <img class="object-fit h-8 w-auto" src="/identity/pasaditaLogo.svg" />
+      <img class="h-8 w-auto" src="/identity/pasaditaLogo.svg" />
       <div class="flex items-center gap-1">
         <div
           class="flex cursor-pointer items-center gap-1 rounded-lg p-2 text-pasadita-blue-2 transition-all hover:bg-black/5 active:scale-95"

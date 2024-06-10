@@ -92,7 +92,7 @@ const router = createRouter({
       children: [
         {
           path: "",
-          name: "home",
+          name: "home-resident",
           component: () => import("../views/resident-panel/HomeView.vue"),
         },
         {

@@ -4,9 +4,9 @@
   >
     <div>
       <div class="flex justify-center">
-        <img class="object-fit h-12 w-4/5" src="/identity/pasaditaLogo.svg" />
+        <img class="h-12 w-4/5" src="/identity/pasaditaLogo.svg" />
       </div>
-      <div class="h-70 ml-1 mt-2 flex h-full flex-col justify-between">
+      <div class="ml-1 mt-2 flex h-full flex-col justify-between">
         <RouterLink
           :key="index"
           v-for="(route, index) in routes"

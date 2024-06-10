@@ -1,4 +1,3 @@
-value: "hello",
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 
@@ -22,7 +21,7 @@ const props = defineProps<{
       </div>
     </div>
     <!--Description-->
-    <div class="flex w-full flex-col border border-t-0 border-pasadita-shade-2">
+    <div class="flex w-full flex-col border border-t-0 border-pasadita-shade-2 p-5">
       <slot />
     </div>
     <!--CRUD-->
