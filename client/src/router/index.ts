@@ -68,6 +68,11 @@ const router = createRouter({
           name: "admin-guest",
           component: () => import("../views/admin-panel/GuestsUsersView.vue"),
         },
+        {
+          path: "configuraciones",
+          name: "admin-configuration",
+          component: () => import("../views/admin-panel/ConfigurationsView.vue"),
+        },
       ],
     },
     {
