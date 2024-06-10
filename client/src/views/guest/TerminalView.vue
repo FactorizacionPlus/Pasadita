@@ -56,8 +56,8 @@ watch(token, (value) => {
 </script>
 
 <template>
-  <main class="flex flex-col items-center justify-center w-full h-full gap-28">
+  <main class="flex size-full flex-col items-center justify-center gap-28">
     <QRCodeReader @update="(v) => (token = v)" />
-    <h1 class="lg:text-6xl font-medium">{{ message }}</h1>
+    <h1 class="font-medium lg:text-6xl">{{ message }}</h1>
   </main>
 </template>

@@ -1,5 +1,4 @@
-export default interface AdminTerminal{
-    type:string,
-    numentries:number
-    
+export default interface AdminTerminal {
+  type: string;
+  numentries: number;
 }

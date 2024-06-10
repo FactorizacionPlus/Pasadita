@@ -1,4 +1,5 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import CardsContainer from "@/components/CardsContainer.vue"
 import ResidentCard from "@/components/Cards/ResidentCard.vue"
 import VueFeather from 'vue-feather';
@@ -10,6 +11,7 @@ const residet1 = {
   secondName: "Rivera",
   identification: "00212121",
   entries: 21,
+<<<<<<< HEAD
 }
 </script>
 

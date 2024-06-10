@@ -16,7 +16,6 @@ const currentOption = ref<Option | null>(null);
 
 const emitValue = defineEmits(["update:value"]);
 
-
 const handleChange = (event: Event) => {
   const selectElement = event.target as HTMLSelectElement;
   const selectedOptionIndex = selectElement.selectedIndex;
@@ -27,18 +26,24 @@ const handleChange = (event: Event) => {
 onMounted(() => {
   if (props.currentIndex !== undefined && props.options) {
     emitValue("update:value", props.options[props.currentIndex]);
-  }});
+  }
+});
 </script>
 
 <template>
   <select
     :name="props.name"
-    class="peer accent-pasadita-blue-3 bg-transparent h-10 w-72 rounded-[4px] hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 transition-all text-pasadita-blue-0 placeholder-transparent ring-1 px-2 ring-pasadita-shade-1 focus:ring-pasadita-blue-3 focus:outline-none disabled:opacity-40"
+    class="peer h-10 w-72 rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 accent-pasadita-blue-3 ring-1 ring-pasadita-shade-1 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
     @change="handleChange"
     :disabled="props.disabled"
   >
     <option disabled selected>{{ props.defaultOption }}</option>
-    <option v-for="(option, index) in props.options" :key="index" :value="option.value" :selected="index === props.currentIndex">
+    <option
+      v-for="(option, index) in props.options"
+      :key="index"
+      :value="option.value"
+      :selected="index === props.currentIndex"
+    >
       {{ option.text }}
     </option>
   </select>

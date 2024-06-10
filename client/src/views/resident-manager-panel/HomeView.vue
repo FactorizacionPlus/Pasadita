@@ -1,9 +1,34 @@
 <script setup lang="ts">
-import type TheWelcome from '@/components/TheWelcome.vue';
+import VueFeather from "vue-feather";
 
+const ROUTE = "/residente-encargado/";
+const routes = [
+  {
+    text: "Gestionar permisos",
+    link: "permisos",
+    icon: "file-minus",
+  },
+  {
+    text: "Gestionar residentes",
+    link: "residentes",
+    icon: "users",
+  },
+];
 </script>
 
 <template>
-  <TheWelcome />
-  <h3>Hogar</h3>
+  <div class="grid h-full grid-cols-[repeat(2,400px)] items-center justify-center gap-8">
+    <RouterLink
+      :key="index"
+      v-for="(route, index) in routes"
+      class="flex h-96 min-w-32 flex-col items-center justify-center gap-2 rounded-md bg-pasadita-blue-4 text-2xl font-semibold text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-2 hover:text-pasadita-blue-4 active:scale-95"
+      :to="`${ROUTE}${route.link}`"
+    >
+      <div class="ml-1 flex shrink-0 items-center justify-center">
+        <VueFeather :type="route.icon" size="150" stroke-width="1.5"></VueFeather>
+      </div>
+
+      {{ route.text }}
+    </RouterLink>
+  </div>
 </template>
