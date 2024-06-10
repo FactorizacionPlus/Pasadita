@@ -12,17 +12,17 @@ const modalAdd = ref<typeof ModalAdd>();
 const residenceList: Residence[] = [
   {
     maxHabitants: 2,
-    description: "Lorem Ipsum",
+    description: "Palacio de Miraflores, República de Venezuela",
     currentResidents: 1,
   },
   {
     maxHabitants: 2,
-    description: "Lorem Ipsum",
+    description: "Casa Presidencial, Team Factorización, Mejicanos, San Salvador",
     currentResidents: 1,
   },
   {
     maxHabitants: 3,
-    description: "Lorem Ipsum",
+    description: "Universidad Centroamericana, Managua, Nicaragua",
     currentResidents: 3,
   },
 ];
