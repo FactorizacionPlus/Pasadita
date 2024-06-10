@@ -50,7 +50,7 @@ const permissionHistory: PermissionHistoryProps[] = [
     residence: {
       description: "Casa Presidencial de Team Factorización   ",
       maxHabitants: 3,
-      currentResidents: 2
+      currentResidents: 2,
     },
     requests: [
       {
