@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import CardsContainer from "@/components/CardsContainer.vue";
-import type AccessRequest from "@/types/AccessRequest";
 import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import Pagination from "@/components/PaginationItem.vue";
