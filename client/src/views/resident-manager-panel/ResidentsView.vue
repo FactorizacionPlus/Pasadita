@@ -7,7 +7,7 @@ import SearchBar from "@/components/SearchBar.vue";
 const residentList = [
   {
     name: "Juan",
-    secondName: "Peres",
+    secondName: "Perez",
     identification: "C3049392",
     entries: 10,
     image: "",
