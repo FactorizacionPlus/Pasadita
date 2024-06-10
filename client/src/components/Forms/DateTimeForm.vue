@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { defineEmits, withDefaults, defineProps, onMounted } from "vue";
+import { defineEmits, defineProps, onMounted } from "vue";
 import toSlug from "@/utils/toSlug";
-import VueFeather from "vue-feather";
 type InputType = "datetime-local";
 interface Props {
   title?: string;

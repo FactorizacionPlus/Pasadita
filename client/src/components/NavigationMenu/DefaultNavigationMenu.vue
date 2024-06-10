@@ -14,7 +14,7 @@
             <VueFeather type="user" size="25" stroke="#004f82" stroke-width="1.5"></VueFeather>
           </div>
 
-          <div class="flex-1">
+          <div class="hidden flex-1 sm:block">
             <p class="text-xs leading-none">Rol</p>
             <p class="text-xl font-semibold leading-tight text-pasadita-blue-1">Username</p>
           </div>

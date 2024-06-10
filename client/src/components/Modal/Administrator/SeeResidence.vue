@@ -4,8 +4,6 @@ import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/Modal.vue";
 import UserImage from "@/components/UserImage.vue";
-import type Resident from "@/types/Resident";
-import UserEntryCard from "@/components/Cards/UserEntryCard.vue";
 import type User from "@/types/User";
 import type Residence from "@/types/Residence";
 
