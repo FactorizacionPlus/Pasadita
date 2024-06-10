@@ -28,7 +28,7 @@ const isPending = props.accessRequest.status == "PENDING";
       </div>
     </div>
     <!--Description-->
-    <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
+    <div class="flex flex-1 flex-row border-x border-pasadita-shade-2 p-4">
       <ul class="flex w-full flex-col justify-center gap-2 text-pasadita-blue-1">
         <li class="flex items-center gap-2">
           <VueFeather type="calendar" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
