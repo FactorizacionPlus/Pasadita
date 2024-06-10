@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/Guest/PermissionActive.vue";
-import IconComponent from "@/assets/Passaport.svg?component"
+import IconComponent from "@/assets/Passaport.svg?component";
 const modal = ref<typeof Modal>();
 </script>
 
@@ -18,7 +18,7 @@ const modal = ref<typeof Modal>();
         <span class="text-xl">Ver Permiso Activo</span>
       </div>
     </button>
-    <!--<IconComponent class="text-pasadita-blue-2 hover:text-red-950"/>-->
+    <IconComponent class="text-pasadita-blue-2 hover:text-red-950"/>
   </div>
   <Modal ref="modal"> Hola </Modal>
 </template>
