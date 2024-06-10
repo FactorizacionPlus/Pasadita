@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import VueFeather from "vue-feather";
 import type Resident from "@/types/Resident";
 import UserImage from "@/components/UserImage.vue";
+import ModalDelete from "@/components/Modal/DeleteGuest.vue";
+const modalDel = ref<typeof ModalDelete>();
 
 const props = defineProps<{ resident: Resident }>();
 </script>
@@ -41,10 +44,10 @@ const props = defineProps<{ resident: Resident }>();
     <div class="flex flex-row justify-end gap-2 rounded-b-lg border border-pasadita-shade-2 p-2">
       <button
         type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
-      >
+        class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95" @click="modalDel?.show()">
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
   </li>
+  <ModalDelete :name="resident.name" :lastname="resident.secondName"  ref="modalDel"> Hola </ModalDelete>
 </template>
