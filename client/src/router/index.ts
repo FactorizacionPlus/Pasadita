@@ -122,6 +122,23 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/terminal",
+      name: "terminal",
+      component: ResidentManagerLayout,
+      children: [
+        {
+          path: "login",
+          name: "terminal-login",
+          component: () => import("../views/terminal/LoginView.vue"),
+        },
+        {
+          path: "",
+          name: "terminal-home",
+          component: () => import("../views/terminal/HomeView.vue"),
+        },
+      ],
+    },
   ],
 });
 
