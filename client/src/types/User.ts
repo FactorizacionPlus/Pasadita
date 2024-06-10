@@ -1,5 +1,7 @@
 export default interface User {
-  rol: string;
+  id: string;
+  role: string;
   name: string;
   lastName: string;
+  image: string;
 }

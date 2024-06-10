@@ -12,29 +12,25 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
 </script>
 
 <template>
-  <li class="flex max-w-sm flex-col bg-white">
+  <li class="flex flex-col bg-white">
     <!--Information-->
     <div
-      class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-2"
+      class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-blue-5 p-2"
     >
       <p class="text-xl font-semibold text-pasadita-blue-1">Invitado</p>
     </div>
     <!--Description-->
-    <div class="flex flex-row border-x border-pasadita-shade-2 p-2">
+    <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
       <div class="flex w-full flex-col justify-center gap-2">
-        <div class="flex items-center gap-3 px-2">
-          <div
-            class="flex size-24 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
-          >
-            <UserImage :image="invitedResident.image" size="70" padding="16px" />
-          </div>
+        <div class="flex items-center gap-3">
+          <UserImage class="size-36" :image="props.invitedResident.image" size="84" padding="16px" />
           <div class="flex flex-col text-pasadita-blue-1">
-            <p class="font-semibold">Nombre</p>
-            <p>{{ props.invitedResident.name }}</p>
-            <p class="font-semibold">Apellido</p>
-            <p>{{ props.invitedResident.secondName }}</p>
-            <p class="font-semibold">Identificacion</p>
-            <p>{{ props.invitedResident.identification }}</p>
+            <p class="text-sm font-semibold leading-none">Nombre</p>
+            <p class="text-lg leading-relaxed">{{ props.invitedResident.name }}</p>
+            <p class="text-sm font-semibold leading-none">Apellido</p>
+            <p class="text-lg leading-relaxed">{{ props.invitedResident.secondName }}</p>
+            <p class="text-sm font-semibold leading-none">Identificacion</p>
+            <p class="text-lg leading-relaxed">{{ props.invitedResident.identification }}</p>
           </div>
         </div>
         <p class="font-semibold text-pasadita-blue-1">
@@ -49,14 +45,7 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
         class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
         @click="modalDel?.show()"
       >
-        <VueFeather type="trash-2" stroke-width="3.5" size="16"></VueFeather>
-      </button>
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
-        @click="modalSee?.show()"
-      >
-        <VueFeather type="eye" stroke-width="3.5" size="16"></VueFeather>
+        <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
   </li>
@@ -64,7 +53,7 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
     Hola
   </ModalDelete>
   <ModalSee
-    :image="props.invitedResident.image"
+    :image="props.invitedResident.image || ''"
     :name="props.invitedResident.name"
     :secondname="props.invitedResident.secondName"
     :identification="props.invitedResident.identification"
