@@ -6,7 +6,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import Pagination from "@/components/PaginationItem.vue";
 import type AccessRequest from "@/types/AccessRequest";
 import ModalAdd from "@/components/Modal/ResidentManager/AddResidentManager.vue";
-import VueFeather from "vue-feather"
+import VueFeather from "vue-feather";
 const modalAdd = ref<typeof ModalAdd>();
 
 const permissionHistory: AccessRequest[] = [
