@@ -5,4 +5,3 @@ export default interface Resident {
   entries: number;
   image: string;
 }
-

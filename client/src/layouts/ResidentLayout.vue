@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col mx-auto">
+  <div class="mx-auto flex flex-col">
     <DefaultNavigationMenu />
-    <main class="flex-shrink-0 w-full max-w-screen-2xl mx-auto flex-grow-[1] p-4 overflow-y-auto">
+    <main class="mx-auto w-full max-w-screen-2xl shrink-0 grow overflow-y-auto p-4">
       <router-view />
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import DefaultNavigationMenu from '@/components/NavigationMenu/DefaultNavigationMenu.vue';
+import DefaultNavigationMenu from "@/components/NavigationMenu/DefaultNavigationMenu.vue";
 </script>
 
 <style scoped></style>
