@@ -23,7 +23,12 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
     <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="flex items-center gap-3">
-          <UserImage class="size-36" :image="props.invitedResident.image" size="84" padding="16px" />
+          <UserImage
+            class="size-36"
+            :image="props.invitedResident.image"
+            size="84"
+            padding="16px"
+          />
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="text-sm font-semibold leading-none">Nombre</p>
             <p class="text-lg leading-relaxed">{{ props.invitedResident.name }}</p>
