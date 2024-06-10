@@ -20,6 +20,7 @@
     "html5-qrcode": "^2.3.8",
     "pinia": "^2.1.7",
     "qr-code-styling": "^1.6.0-rc.1",
+    "vite-svg-loader": "^5.1.0",
     "vue": "3",
     "vue-feather": "2",
     "vue-feather-icons": "^5.1.0",
