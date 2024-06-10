@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import CardsContainer from "@/components/CardsContainer.vue";
-import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
 import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import Pagination from "@/components/PaginationItem.vue";
 import SearchBar from "@/components/SearchBar.vue";
-import type Resident from "@/types/Resident";
 
-const residentList: Resident = [
+const residentList = [
   {
     name: "Juan",
     secondName: "Peres",

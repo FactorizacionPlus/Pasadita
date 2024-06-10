@@ -4,7 +4,7 @@ import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import Pagination from "@/components/PaginationItem.vue";
 
-const permissionHistory: PermissionHistory = [
+const permissionHistory = [
   {
     status: "PENDING",
     startDate: new Date("2004-10-04"),
