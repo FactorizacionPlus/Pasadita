@@ -18,15 +18,13 @@ const props = defineProps<{
   <li class="flex flex-col bg-white">
     <!--Information-->
     <div
-      class="flex items-center gap-2 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-2"
+      class="flex items-center gap-2 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-blue-5 p-2"
     >
-      <div class="shrink-0">
-        <VueFeather type="home" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
-      </div>
+      <VueFeather type="home" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
       <div class="flex-1">
         <p class="text-base font-medium text-pasadita-blue-1">Residencia</p>
         <p class="text-base font-normal text-pasadita-blue-1">
-          Habitantes: {{ props.residence.maxHabitants }}
+          {{ props.residence.currentResidents }} / {{ props.residence.maxHabitants }} Habitantes
         </p>
       </div>
     </div>
@@ -47,7 +45,7 @@ const props = defineProps<{
       </button>
       <button
         type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
+        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
         @click="modalEdit?.show()"
       >
         <VueFeather type="edit-2" stroke-width="3.5" size="16"></VueFeather>
@@ -55,7 +53,7 @@ const props = defineProps<{
       </button>
       <button
         type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-3 hover:text-white active:scale-95"
+        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
         @click="modalSee?.show()"
       >
         <VueFeather type="eye" stroke-width="3.5" size="16"></VueFeather>
