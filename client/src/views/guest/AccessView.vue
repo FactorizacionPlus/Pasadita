@@ -1,10 +1,10 @@
 <template>
-  <main class="flex flex-col items-center justify-center w-full h-full gap-20">
+  <main class="flex size-full flex-col items-center justify-center gap-20">
     <div class="mx-auto min-h-[32rem]">
       <QRCodeStyling :data="token" />
     </div>
     <button
-      class="mx-auto bg-pasadita-blue-4 p-3 rounded-lg text-pasadita-blue-2"
+      class="mx-auto rounded-lg bg-pasadita-blue-4 p-3 text-pasadita-blue-2"
       @click="getQRToken"
     >
       Generate QR
@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import QRCodeStyling from "../components/QRCodeStyling.vue";
+import type QRCodeStyling from "@/components/QRCodeStyling.vue";
+import { ref } from "vue";
 
 const userAuthToken =
   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbXl1a2k0QGdtYWlsLmNvbSIsImlhdCI6MTcxNzQ2NTE0NSwiZXhwIjoxNzE4NzYxMTQ1fQ.JWd6j_YJg1dEP9sornZfkTnBOtAtRsZ2hMmODVQ-QDZZTQsp7zmD92uwTXhZjGlF82PxyuHspwYJFncgAZu8LA";

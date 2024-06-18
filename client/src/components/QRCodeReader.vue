@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { usePrefferedCamera } from "@/stores/prefferedCamera";
-import {
-  Html5Qrcode,
-  Html5QrcodeSupportedFormats,
-  type CameraDevice,
-  type Html5QrcodeResult,
-} from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeSupportedFormats, type CameraDevice } from "html5-qrcode";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const camerasOptions = ref<CameraDevice[]>([]);
@@ -24,7 +19,7 @@ prefferedCamera.$subscribe(async (_, state) => {
   await startHtmlQrCode(state.id);
 });
 
-function onScanSuccess(decodedText: string, _decodedResult: Html5QrcodeResult) {
+function onScanSuccess(decodedText: string) {
   emit("update", decodedText);
 }
 

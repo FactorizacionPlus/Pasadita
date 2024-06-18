@@ -1,50 +1,143 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import LoginView from "../views/LoginView.vue";
+import GuestLayout from "@/layouts/GuestLayout.vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import AdminLayout from "@/layouts/AdminLayout.vue";
+import ResidentLayout from "@/layouts/ResidentLayout.vue";
+import ResidentManagerLayout from "@/layouts/ResidentManagerLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      component: DefaultLayout,
+      children: [
+        {
+          path: "/",
+          name: "page-home",
+          component: () => import("../views/HomeView.vue"),
+        },
+        {
+          path: "login",
+          name: "login",
+          component: () => import("../views/HomeView.vue"),
+        },
+      ],
     },
     {
-      path: "/login",
-      name: "login",
-      component: LoginView,
+      path: "/admin",
+      name: "admin",
+      component: AdminLayout,
+      children: [
+        {
+          path: "about",
+          name: "admin-about",
+          component: () => import("../views/guest/AboutView.vue"),
+        },
+        {
+          path: "entradas",
+          name: "admin-entry",
+          component: () => import("../views/admin-panel/EntriesView.vue"),
+        },
+        {
+          path: "permisos",
+          name: "admin-history",
+          component: () => import("../views/admin-panel/PermissionsView.vue"),
+        },
+        {
+          path: "terminales",
+          name: "admin-terminales",
+          component: () => import("../views/admin-panel/TerminalsView.vue"),
+        },
+        {
+          path: "residencias",
+          name: "admin-residence",
+          component: () => import("../views/admin-panel/ResidencyView.vue"),
+        },
+        {
+          path: "residentes",
+          name: "admin-resident",
+          component: () => import("../views/admin-panel/ResidentsView.vue"),
+        },
+        {
+          path: "invitados",
+          name: "admin-guest",
+          component: () => import("../views/admin-panel/GuestsUsersView.vue"),
+        },
+      ],
     },
     {
-      path: "/login/google",
-      name: "login-google",
-      component: () => import("../views/AuthGoogleView.vue"),
+      path: "/invitado",
+      name: "guest",
+      component: GuestLayout,
+      children: [
+        {
+          path: "login",
+          name: "guest-login",
+          component: () => import("../views/guest/LoginView.vue"),
+        },
+        {
+          path: "",
+          name: "guest-home",
+          component: () => import("../views/guest/HomeView.vue"),
+        },
+        {
+          path: "terminal",
+          name: "guest-terminal",
+          component: () => import("../views/guest/TerminalView.vue"),
+        },
+      ],
     },
     {
-      path: "/register/google",
-      name: "register-google",
-      component: () => import("../views/AuthGoogleView.vue"),
+      path: "/residente",
+      name: "resident",
+      component: ResidentLayout,
+      children: [
+        {
+          path: "",
+          name: "resident-home",
+          component: () => import("../views/resident-panel/HomeView.vue"),
+        },
+      ],
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
-    {
-      path: "/access",
-      name: "access",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AccessView.vue"),
+      path: "/residente-encargado",
+      name: "resident-chief",
+      component: ResidentManagerLayout,
+      children: [
+        {
+          path: "",
+          name: "resident-chief-home",
+          component: () => import("../views/resident-manager-panel/HomeView.vue"),
+        },
+        {
+          path: "permisos",
+          name: "resident-chief-permission",
+          component: () => import("../views/resident-manager-panel/PermissionView.vue"),
+        },
+        {
+          path: "residentes",
+          name: "resident-chief-residents",
+          component: () => import("../views/resident-manager-panel/ResidentsView.vue"),
+        },
+      ],
     },
     {
       path: "/terminal",
       name: "terminal",
-      component: () => import("../views/TerminalView.vue"),
+      component: ResidentManagerLayout,
+      children: [
+        {
+          path: "login",
+          name: "terminal-login",
+          component: () => import("../views/terminal/LoginView.vue"),
+        },
+        {
+          path: "",
+          name: "terminal-home",
+          component: () => import("../views/terminal/HomeView.vue"),
+        },
+      ],
     },
   ],
 });
