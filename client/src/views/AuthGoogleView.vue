@@ -80,8 +80,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="flex size-full flex-col items-center justify-center gap-24">
-    <h1 class="font-bold lg:text-6xl">{{ message }}</h1>
+  <main class="flex size-full flex-col items-center justify-center gap-10">
+    <h1 class="text-center font-bold lg:text-4xl">{{ message }}</h1>
     <a
       :href="registerUrl.toString()"
       class="flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 px-6 py-4"
@@ -89,6 +89,13 @@ onMounted(() => {
     >
       <img src="/google-g.svg" alt="Google G Logo" class="size-9" />
       <span class="text-4xl font-normal text-pasadita-shade-1">Registrarse con Google</span>
+    </a>
+    <a
+      href="/"
+      class="flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 px-6 py-4"
+      v-if="message == Message.ERROR"
+    >
+      <span class="text-2xl font-normal text-pasadita-shade-1">Volver a inicio</span>
     </a>
   </main>
 </template>
