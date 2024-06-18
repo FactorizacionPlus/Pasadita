@@ -7,6 +7,7 @@ export function applyAuthRouting(router: Router) {
   const auth = useAuth();
 
   router.beforeEach((to, from, next) => {
+    console.log({ to, from });
     const isLoggedIn = auth.token != null;
 
     const isInAnonymous = allowedAnonymous.includes(to.name ?? "");
@@ -14,9 +15,9 @@ export function applyAuthRouting(router: Router) {
     if (isLoggedIn) {
       // Logged in
 
-      if (to.path.startsWith("/logout")) {
+      if (to.path.startsWith("/auth/logout")) {
         auth.logout();
-        return next("/login");
+        return next("/auth/login");
       }
 
       if (isInAnonymous) {
@@ -33,7 +34,7 @@ export function applyAuthRouting(router: Router) {
         return next();
       } else {
         // Deny other routes
-        return next("/login");
+        return next("/auth/login");
       }
     }
   });

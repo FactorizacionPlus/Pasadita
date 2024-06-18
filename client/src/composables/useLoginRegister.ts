@@ -1,7 +1,9 @@
 import type GeneralResponse from "@/types/GeneralResponse";
 import { buildGeneralResponse } from "@/utils/generalResponse";
 
-function buildUrl(redirect: string, prompt: string = "select_account") {
+type GOOGLE_PROMPT = "select_account" | "consent" | "none";
+
+function buildUrl(redirect: string, prompt: GOOGLE_PROMPT = "select_account") {
   const url = new URL(import.meta.env.VITE_GOOGLE_OAUTH);
   const params = new URLSearchParams();
 
@@ -18,12 +20,12 @@ function buildUrl(redirect: string, prompt: string = "select_account") {
   return url;
 }
 
-export function useLoginUrl(prompt: string | undefined = undefined) {
-  return buildUrl("/login/google", prompt);
+export function useLoginUrl(prompt: GOOGLE_PROMPT | undefined = undefined) {
+  return buildUrl("/auth/login-google", prompt);
 }
 
-export function useRegisterUrl(prompt: string | undefined = undefined) {
-  return buildUrl("/register/google", prompt);
+export function useRegisterUrl(prompt: GOOGLE_PROMPT | undefined = undefined) {
+  return buildUrl("/auth/register-google", prompt);
 }
 
 function buildParams(code: string) {

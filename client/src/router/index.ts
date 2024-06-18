@@ -25,6 +25,27 @@ const router = createRouter({
       ],
     },
     {
+      path: "/auth",
+      component: GuestLayout,
+      children: [
+        {
+          path: "login",
+          name: "login",
+          component: () => import("../views/LoginView.vue"),
+        },
+        {
+          path: "login-google",
+          name: "login-google",
+          component: () => import("../views/AuthGoogleView.vue"),
+        },
+        {
+          path: "register-google",
+          name: "register-google",
+          component: () => import("../views/AuthGoogleView.vue"),
+        },
+      ],
+    },
+    {
       path: "/admin",
       name: "admin",
       component: AdminLayout,

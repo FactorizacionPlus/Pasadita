@@ -23,7 +23,7 @@ export const useAuth = defineStore("auth", () => {
     tokenRef.value = null;
 
     if (router) {
-      router.push("/login");
+      router.push("/auth/login");
     }
   }
 

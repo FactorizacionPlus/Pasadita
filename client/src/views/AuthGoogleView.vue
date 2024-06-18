@@ -80,11 +80,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="w-full h-full flex flex-col items-center justify-center gap-24">
+  <main class="flex size-full flex-col items-center justify-center gap-24">
     <h1 class="font-bold lg:text-6xl">{{ message }}</h1>
     <a
       :href="registerUrl.toString()"
-      class="flex flex-row gap-2 items-center px-6 py-4 rounded-lg border border-pasadita-shade-2"
+      class="flex flex-row items-center gap-2 rounded-lg border border-pasadita-shade-2 px-6 py-4"
       v-if="message == Message.NO_USER"
     >
       <img src="/google-g.svg" alt="Google G Logo" class="size-9" />
