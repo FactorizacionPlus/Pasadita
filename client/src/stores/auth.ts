@@ -2,9 +2,9 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
-const router = useRouter();
-
 export const useAuth = defineStore("auth", () => {
+  const router = useRouter();
+
   const authToken = localStorage.getItem("authToken");
   const tokenRef = ref<string | null>(null);
   if (authToken) {
