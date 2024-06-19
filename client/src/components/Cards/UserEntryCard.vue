@@ -11,13 +11,13 @@ const props = defineProps<{ user: User }>();
       {{ props.user.role }}
     </p>
     <div class="flex items-center gap-2 rounded-t-lg">
-      <UserImage class="size-12" :image="props.user.image" size="25" padding="0px" />
+      <UserImage class="size-12" :image="props.user.imageUrl" size="25" padding="0px" />
       <div class="flex-1">
         <p class="text-sm font-semibold text-pasadita-blue-1">
-          {{ props.user.id }}
+          {{ props.user.identifier }}
         </p>
         <p class="text-base font-normal text-pasadita-blue-1">
-          {{ props.user.name }} {{ props.user.lastName }}
+          {{ props.user.firstName }} {{ props.user.lastName }}
         </p>
       </div>
     </div>

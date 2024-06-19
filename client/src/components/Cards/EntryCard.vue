@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
-import UserEntry from "@/components/Cards/UserEntryCard.vue";
+import UserEntryCard from "@/components/Cards/UserEntryCard.vue";
 import type EntryCard from "@/types/EntryCard";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
 
@@ -12,7 +12,7 @@ const props = defineProps<{
 <template>
   <li class="flex flex-col gap-4 rounded-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4">
     <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-      <UserEntry :user="entryCard.user" />
+      <UserEntryCard :user="entryCard.user" />
       <div class="flex flex-col text-pasadita-blue-1 sm:text-right">
         <p class="font-semibold">Fecha y hora de entrada</p>
         <p>{{ getFormattedDateTime(props.entryCard.entryDate) }}</p>

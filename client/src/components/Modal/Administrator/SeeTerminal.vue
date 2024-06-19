@@ -17,9 +17,9 @@ const entryList: EntryCardT[] = [
   {
     id: 0,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/davidquintr.png",
-      name: "David",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/davidquintr.png",
+      firstName: "David",
       lastName: "Quintanilla",
       role: "Residente Encargado",
     },
@@ -29,9 +29,9 @@ const entryList: EntryCardT[] = [
   {
     id: 1,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/poncka.png",
-      name: "David",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/poncka.png",
+      firstName: "David",
       lastName: "Parrales Ponce",
       role: "Residente",
     },
@@ -41,9 +41,9 @@ const entryList: EntryCardT[] = [
   {
     id: 2,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/JezerM.png",
-      name: "Jezer",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/JezerM.png",
+      firstName: "Jezer",
       lastName: "Mejía Otero",
       role: "Residente",
     },
@@ -53,9 +53,9 @@ const entryList: EntryCardT[] = [
   {
     id: 3,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/Mrsty21.png",
-      name: "Marcelo",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/Mrsty21.png",
+      firstName: "Marcelo",
       lastName: "Rivera Soto",
       role: "Residente",
     },
@@ -65,9 +65,9 @@ const entryList: EntryCardT[] = [
   {
     id: 4,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/leocorea.png",
-      name: "Leo",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/leocorea.png",
+      firstName: "Leo",
       lastName: "Corea Navarrete",
       role: "Residente",
     },
@@ -77,10 +77,10 @@ const entryList: EntryCardT[] = [
   {
     id: 4,
     user: {
-      id: "0011904041016S",
-      image:
+      identifier: "0011904041016S",
+      imageUrl:
         "https://phantom-marca.unidadeditorial.es/ed45b2f6e1292d0ab52646ae08d9e1a6/crop/0x0/814x458/resize/828/f/jpg/assets/multimedia/imagenes/2022/03/07/16466725254649.jpg",
-      name: "Daniel José",
+      firstName: "Daniel José",
       lastName: "Santomé Lemus",
       role: "Residente",
     },

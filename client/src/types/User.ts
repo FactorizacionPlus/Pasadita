@@ -1,7 +1,9 @@
 export default interface User {
-  id: string;
+  identifier: string;
   role: string;
-  name: string;
+  firstName: string;
   lastName: string;
-  image: string;
+  imageUrl: string;
+  // email: string;
+  // identifierType: "DUI" | "PASSPORT";
 }
