@@ -17,7 +17,7 @@ import type QRCodeStyling from "@/components/QRCodeStyling.vue";
 import { ref } from "vue";
 
 const userAuthToken =
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXZlcmFzb3RvLm1hcmNlbG8uYmFja3VwQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM5MzE5NCwiZXhwIjoxNzE4Njg5MTk0fQ.IfwJL5pjKPfJ4MqzX4wcgxkqUYCwrWVoPZgW28pbYHdVTR1ylGQrxi0jVqTAtNien8AUPck9FdCH_AlV7E1eiw";
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbXl1a2k0QGdtYWlsLmNvbSIsImlhdCI6MTcxNzQ2NTE0NSwiZXhwIjoxNzE4NzYxMTQ1fQ.JWd6j_YJg1dEP9sornZfkTnBOtAtRsZ2hMmODVQ-QDZZTQsp7zmD92uwTXhZjGlF82PxyuHspwYJFncgAZu8LA";
 
 const token = ref("");
 

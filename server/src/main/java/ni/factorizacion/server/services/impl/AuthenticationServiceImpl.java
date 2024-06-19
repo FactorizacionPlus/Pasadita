@@ -37,18 +37,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Value("${google.endpoint_userinfo}")
     private String googleEndpointUserInfo;
 
-    @Value("${server.public_domain}/auth/login/google")
-    private String googleRedirectLogin;
-    @Value("${server.public_domain}/auth/register/google")
-    private String googleRedirectRegister;
-
     @Autowired
     private JWTTools jwtTools;
     @Autowired
     private TokenRepository tokenRepository;
 
     @Override
-    public String getGoogleToken(String code, boolean isLogin) throws ControlException {
+    public String getGoogleToken(String code, String redirectUri) throws ControlException {
         // TODO: Validate errors
 
         WebClient client = WebClient.builder()
@@ -61,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .with("client_secret", googleClientSecret)
                 .with("code", code)
                 .with("grant_type", "authorization_code")
-                .with("redirect_uri", isLogin ? googleRedirectLogin : googleRedirectRegister)
+                .with("redirect_uri", redirectUri)
         ).retrieve();
 
         GoogleAccessToken googleToken = response.bodyToFlux(GoogleAccessToken.class).blockLast();

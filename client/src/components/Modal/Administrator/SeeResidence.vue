@@ -11,25 +11,25 @@ const modal = ref<typeof Modal>();
 
 const residents: User[] = [
   {
-    id: "0011904041016S",
-    name: "Juan Daniel",
+    identifier: "0011904041016S",
+    firstName: "Juan Daniel",
     lastName: "Treminio",
-    image:
+    imageUrl:
       "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
     role: "Administrador",
   },
   {
-    id: "0011904041016S",
-    name: "Nicolás",
+    identifier: "0011904041016S",
+    firstName: "Nicolás",
     lastName: "Maduro Moros",
-    image: "https://pasadita.vercel.app/madurito.png",
+    imageUrl: "https://pasadita.vercel.app/madurito.png",
     role: "Dictador",
   },
   {
-    id: "0011904041016S",
-    name: "David Sebastián",
+    identifier: "0011904041016S",
+    firstName: "David Sebastián",
     lastName: "Parrales Ponce",
-    image: "https://github.com/poncka.png",
+    imageUrl: "https://github.com/poncka.png",
     role: "Residente",
   },
 ];
@@ -65,12 +65,14 @@ defineExpose({
           <span class="font-semibold text-pasadita-blue-1">Residentes</span>
           <ul class="grid gap-4 min-[480px]:grid-cols-2">
             <li class="flex gap-2" :key="index" v-for="(resident, index) in residents">
-              <UserImage class="size-12" :image="resident.image" size="25" padding="0px" />
+              <UserImage class="size-12" :image="resident.imageUrl" size="25" padding="0px" />
               <div class="flex-1 text-pasadita-blue-1">
                 <p class="text-sm font-semibold">
                   {{ resident.role }}
                 </p>
-                <p class="text-base font-normal">{{ resident.name }} {{ resident.lastName }}</p>
+                <p class="text-base font-normal">
+                  {{ resident.firstName }} {{ resident.lastName }}
+                </p>
               </div>
             </li>
           </ul>

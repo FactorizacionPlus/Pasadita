@@ -9,9 +9,9 @@ const entryList: EntryCard[] = [
   {
     id: 0,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/davidquintr.png",
-      name: "David",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/davidquintr.png",
+      firstName: "David",
       lastName: "Quintanilla",
       role: "Residente Encargado",
     },
@@ -21,9 +21,9 @@ const entryList: EntryCard[] = [
   {
     id: 1,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/poncka.png",
-      name: "David",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/poncka.png",
+      firstName: "David",
       lastName: "Parrales Ponce",
       role: "Residente",
     },
@@ -33,9 +33,9 @@ const entryList: EntryCard[] = [
   {
     id: 2,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/JezerM.png",
-      name: "Jezer",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/JezerM.png",
+      firstName: "Jezer",
       lastName: "Mejía Otero",
       role: "Residente",
     },
@@ -45,9 +45,9 @@ const entryList: EntryCard[] = [
   {
     id: 3,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/Mrsty21.png",
-      name: "Marcelo",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/Mrsty21.png",
+      firstName: "Marcelo",
       lastName: "Rivera Soto",
       role: "Residente",
     },
@@ -57,9 +57,9 @@ const entryList: EntryCard[] = [
   {
     id: 4,
     user: {
-      id: "0011904041016S",
-      image: "https://www.github.com/leocorea.png",
-      name: "Leo",
+      identifier: "0011904041016S",
+      imageUrl: "https://www.github.com/leocorea.png",
+      firstName: "Leo",
       lastName: "Corea Navarrete",
       role: "Residente",
     },
