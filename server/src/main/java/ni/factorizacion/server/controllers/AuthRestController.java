@@ -1,6 +1,7 @@
 package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.RegisteredUserSimpleDto;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
@@ -12,6 +13,7 @@ import ni.factorizacion.server.types.GoogleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,5 +65,18 @@ public class AuthRestController {
         Token token = authService.registerToken(user);
 
         return GeneralResponse.getResponse(HttpStatus.OK, "Auth token", token.getContent());
+    }
+
+    @RequestMapping("/self")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<GeneralResponse<RegisteredUserSimpleDto>> getUserInfo() throws ControlException {
+        Optional<RegisteredUser> registeredUser = authService.getCurrentAuthenticatedUser();
+        if (registeredUser.isEmpty()) {
+            throw new ControlException(HttpStatus.UNAUTHORIZED, "No authenticated user");
+        }
+
+        RegisteredUserSimpleDto userSimpleDto = RegisteredUserSimpleDto.from(registeredUser.get());
+
+        return GeneralResponse.getResponse(HttpStatus.OK, "Found user", userSimpleDto);
     }
 }

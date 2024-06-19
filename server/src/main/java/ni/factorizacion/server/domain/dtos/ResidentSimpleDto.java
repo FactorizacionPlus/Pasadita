@@ -9,8 +9,7 @@ import ni.factorizacion.server.domain.entities.Resident;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
-public class ResidentSimpleDto extends InvitedUserSimpleDto {
-    private Integer role;
+public class ResidentSimpleDto extends RegisteredUserSimpleDto {
     private Residence residence;
 
     static public ResidentSimpleDto from(Resident resident) {
@@ -24,7 +23,7 @@ public class ResidentSimpleDto extends InvitedUserSimpleDto {
                 .email(resident.getEmail())
                 .imageUrl(resident.getImageUrl())
 
-                .role(resident.getRole())
+                .role(resident.getRole() == 0 ? "ROLE_RESIDENT" : "ROLE_RESIDENT_SUDO")
                 .residence(resident.getResidence())
                 .build();
     }
