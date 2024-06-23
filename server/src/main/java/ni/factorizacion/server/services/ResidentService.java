@@ -1,6 +1,6 @@
 package ni.factorizacion.server.services;
 
-import ni.factorizacion.server.domain.dtos.SaveResidentDto;
+import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.types.ControlException;
 

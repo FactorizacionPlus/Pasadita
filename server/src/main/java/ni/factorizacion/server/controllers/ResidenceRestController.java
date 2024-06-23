@@ -2,8 +2,8 @@ package ni.factorizacion.server.controllers;
 
 import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
-import ni.factorizacion.server.domain.dtos.ResidenceSimpleDto;
-import ni.factorizacion.server.domain.dtos.SaveResidenceDto;
+import ni.factorizacion.server.domain.dtos.output.ResidenceSimpleDto;
+import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.services.ResidenceService;
 import org.springframework.beans.factory.annotation.Autowired;

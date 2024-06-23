@@ -1,7 +1,7 @@
 package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
-import ni.factorizacion.server.domain.dtos.RegisteredUserSimpleDto;
+import ni.factorizacion.server.domain.dtos.output.RegisteredUserSimpleDto;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;

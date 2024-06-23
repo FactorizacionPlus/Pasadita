@@ -1,4 +1,4 @@
-package ni.factorizacion.server.domain.dtos;
+package ni.factorizacion.server.domain.dtos.input;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

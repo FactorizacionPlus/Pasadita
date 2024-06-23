@@ -1,4 +1,4 @@
-package ni.factorizacion.server.domain.dtos;
+package ni.factorizacion.server.domain.dtos.output;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package ni.factorizacion.server.domain.dtos;
+package ni.factorizacion.server.domain.dtos.input;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

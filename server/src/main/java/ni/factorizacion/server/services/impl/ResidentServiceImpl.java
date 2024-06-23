@@ -1,6 +1,6 @@
 package ni.factorizacion.server.services.impl;
 
-import ni.factorizacion.server.domain.dtos.SaveResidentDto;
+import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidentRepository;
