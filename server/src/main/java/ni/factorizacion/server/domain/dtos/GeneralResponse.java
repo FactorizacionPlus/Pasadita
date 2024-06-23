@@ -2,11 +2,8 @@ package ni.factorizacion.server.domain.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.net.URI;
 
 @Data
 @AllArgsConstructor
@@ -18,10 +15,28 @@ public class GeneralResponse<T> {
         return new ResponseEntity<>(new GeneralResponse<>(message, data), status);
     }
 
-    public static <T> ResponseEntity<GeneralResponse<T>> redirectTo(String url, String message, T data) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create(url));
-
-        return new ResponseEntity<>(new GeneralResponse<>(message, data), headers, HttpStatus.MOVED_PERMANENTLY);
+    public static <T> ResponseEntity<GeneralResponse<T>> error404(String message) {
+        return GeneralResponse.getResponse(HttpStatus.NOT_FOUND, message, null);
     }
+
+    public static <T> ResponseEntity<GeneralResponse<T>> error400(String message) {
+        return GeneralResponse.getResponse(HttpStatus.BAD_REQUEST, message, null);
+    }
+
+    public static <T> ResponseEntity<GeneralResponse<T>> error401(String message) {
+        return GeneralResponse.getResponse(HttpStatus.UNAUTHORIZED, message, null);
+    }
+
+    public static <T> ResponseEntity<GeneralResponse<T>> error409(String message) {
+        return GeneralResponse.getResponse(HttpStatus.CONFLICT, message, null);
+    }
+
+    public static <T> ResponseEntity<GeneralResponse<T>> error500(String message) {
+        return GeneralResponse.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, message, null);
+    }
+
+    public static <T> ResponseEntity<GeneralResponse<T>> ok(String message, T data) {
+        return GeneralResponse.getResponse(HttpStatus.OK, message, data);
+    }
+
 }

@@ -11,7 +11,6 @@ import ni.factorizacion.server.services.RegisteredUserService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+
 //Test
 @RestController
 @RequestMapping("/auth/")
@@ -38,17 +38,17 @@ public class AuthRestController {
 
         Optional<GoogleUserInfo> userInfo = authService.getUserInfoFromToken(googleToken);
         if (userInfo.isEmpty()) {
-            throw new ControlException(HttpStatus.UNAUTHORIZED, "No user information found");
+            return GeneralResponse.error401("No user information found");
         }
 
         Optional<RegisteredUser> user = userService.findByEmail(userInfo.get().getEmail());
         if (user.isEmpty()) {
-            throw new ControlException(HttpStatus.UNAUTHORIZED, "No user found");
+            return GeneralResponse.error401("No user found");
         }
 
         Token token = authService.registerToken(user.get());
 
-        return GeneralResponse.getResponse(HttpStatus.OK, "Auth token", token.getContent());
+        return GeneralResponse.ok("Auth token", token.getContent());
     }
 
     @RequestMapping("/register/google")
@@ -57,26 +57,26 @@ public class AuthRestController {
 
         Optional<GoogleUserInfo> userInfo = authService.getUserInfoFromToken(googleToken);
         if (userInfo.isEmpty()) {
-            throw new ControlException(HttpStatus.UNAUTHORIZED, "No user information found");
+            return GeneralResponse.error401("No user information found");
         }
 
         InvitedUser user = invitedUserService.createUser(userInfo.get());
 
         Token token = authService.registerToken(user);
 
-        return GeneralResponse.getResponse(HttpStatus.OK, "Auth token", token.getContent());
+        return GeneralResponse.ok("Auth token", token.getContent());
     }
 
     @RequestMapping("/self")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<GeneralResponse<RegisteredUserSimpleDto>> getUserInfo() throws ControlException {
+    public ResponseEntity<GeneralResponse<RegisteredUserSimpleDto>> getUserInfo() {
         Optional<RegisteredUser> registeredUser = authService.getCurrentAuthenticatedUser();
         if (registeredUser.isEmpty()) {
-            throw new ControlException(HttpStatus.UNAUTHORIZED, "No authenticated user");
+            return GeneralResponse.error401("No authenticated user");
         }
 
         RegisteredUserSimpleDto userSimpleDto = RegisteredUserSimpleDto.from(registeredUser.get());
 
-        return GeneralResponse.getResponse(HttpStatus.OK, "Found user", userSimpleDto);
+        return GeneralResponse.ok("Found user", userSimpleDto);
     }
 }

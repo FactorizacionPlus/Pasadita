@@ -1,6 +1,5 @@
 package ni.factorizacion.server.services.impl;
 
-import ni.factorizacion.server.domain.dtos.ResidentSimpleDto;
 import ni.factorizacion.server.domain.dtos.SaveResidentDto;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.Status;
@@ -20,13 +19,13 @@ public class ResidentServiceImpl implements ResidentService {
     private ResidentRepository repository;
 
     @Override
-    public List<ResidentSimpleDto> getAll() {
-        return repository.findAll().stream().map(ResidentSimpleDto::from).toList();
+    public List<Resident> findAll() {
+        return repository.findAll();
     }
 
     @Override
-    public Optional<ResidentSimpleDto> findByIdentifier(String identifier) {
-        return repository.findByIdentifier(identifier).map(ResidentSimpleDto::from);
+    public Optional<Resident> findByIdentifier(String identifier) {
+        return repository.findByIdentifier(identifier);
     }
 
     @Override

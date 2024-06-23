@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.ResidentSimpleDto;
 import ni.factorizacion.server.domain.dtos.SaveResidentDto;
+import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.ResidentService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/residents/", produces = "application/json")
@@ -21,25 +22,27 @@ public class ResidentRestController {
 
     @GetMapping
     public ResponseEntity<GeneralResponse<List<ResidentSimpleDto>>> getAllResidents() {
-        var users = service.getAll();
-        if (users.isEmpty()) {
-            return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "No residents found", users);
+        List<Resident> residents = service.findAll();
+        if (residents.isEmpty()) {
+            return GeneralResponse.ok("No residents found", List.of());
         }
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found residents", users);
+        List<ResidentSimpleDto> residenceSimpleDtos = residents.stream().map(ResidentSimpleDto::from).toList();
+        return GeneralResponse.ok("Found residents", residenceSimpleDtos);
     }
 
     @GetMapping(value = "/{identifier}")
     public ResponseEntity<GeneralResponse<ResidentSimpleDto>> getResident(@PathVariable String identifier) {
-        var user = service.findByIdentifier(identifier);
+        Optional<Resident> user = service.findByIdentifier(identifier);
         if (user.isEmpty()) {
-            return GeneralResponse.getResponse(HttpStatus.NOT_FOUND, "Resident not found", null);
+            return GeneralResponse.error404("Resident not found");
         }
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found", user.get());
+        ResidentSimpleDto residentDto = ResidentSimpleDto.from(user.get());
+        return GeneralResponse.ok("Found resident", residentDto);
     }
 
     @PostMapping
     public ResponseEntity<GeneralResponse<User>> saveUser(@Valid @RequestBody SaveResidentDto userDto) throws Exception {
         service.saveUser(userDto);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Resident saved", null);
+        return GeneralResponse.ok("Resident saved", null);
     }
 }

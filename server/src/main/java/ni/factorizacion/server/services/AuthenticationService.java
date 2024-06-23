@@ -13,11 +13,11 @@ public interface AuthenticationService {
 
     Optional<GoogleUserInfo> getUserInfoFromToken(String token);
 
-    Token registerToken(RegisteredUser user) throws ControlException;
+    Token registerToken(RegisteredUser user);
 
     Boolean isTokenValid(RegisteredUser user, String token);
 
-    void cleanTokens(RegisteredUser user) throws ControlException;
+    void cleanTokens(RegisteredUser user);
 
     Optional<RegisteredUser> getCurrentAuthenticatedUser();
 }

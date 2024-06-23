@@ -7,12 +7,12 @@ import ni.factorizacion.server.domain.dtos.SaveUserDto;
 import ni.factorizacion.server.domain.dtos.UserSimpleDto;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(produces = "application/json")
@@ -23,37 +23,39 @@ public class UserRestController {
     @GetMapping(value = "/api/users/")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllUsers() {
-        var users = service.getAll();
+        List<User> users = service.findAll();
         if (users.isEmpty()) {
-            return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "No anonymous users found", users);
+            return GeneralResponse.ok("No anonymous users found", List.of());
         }
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Found anonymous users", users);
+        List<UserSimpleDto> userSimpleDtos = users.stream().map(UserSimpleDto::from).toList();
+        return GeneralResponse.ok("Anonymous users found", userSimpleDtos);
     }
 
     @GetMapping(value = "/api/users/{identifier}")
-    public ResponseEntity<GeneralResponse<User>> getUser(@PathVariable String identifier) {
-        var user = service.findByIdentifier(identifier);
+    public ResponseEntity<GeneralResponse<UserSimpleDto>> getUser(@PathVariable String identifier) {
+        Optional<User> user = service.findByIdentifier(identifier);
         if (user.isEmpty()) {
-            return GeneralResponse.getResponse(HttpStatus.NOT_FOUND, "Anonymous user not found", null);
+            return GeneralResponse.error404("Anonymous user not found");
         }
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Accepted", user.get());
+        UserSimpleDto userSimpleDto = UserSimpleDto.from(user.get());
+        return GeneralResponse.ok("User found", userSimpleDto);
     }
 
     @PostMapping(value = "/api/users/", consumes = "application/json")
     public ResponseEntity<GeneralResponse<User>> saveUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
         service.saveUser(userDto);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Anonymous user saved", null);
+        return GeneralResponse.ok("Anonymous user saved", null);
     }
 
     @PatchMapping(value = "/api/users/", consumes = "application/json")
     public ResponseEntity<GeneralResponse<User>> updateUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
         service.updateUser(userDto);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Anonymous user updated", null);
+        return GeneralResponse.ok("Anonymous user updated", null);
     }
 
     @DeleteMapping(value = "/api/users/{identifier}")
     public ResponseEntity<GeneralResponse<User>> removeUser(@PathVariable String identifier) throws Exception {
         service.removeUser(identifier);
-        return GeneralResponse.getResponse(HttpStatus.ACCEPTED, "Anonymous user deleted", null);
+        return GeneralResponse.ok("Anonymous user deleted", null);
     }
 }

@@ -1,7 +1,6 @@
 package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.domain.dtos.SaveUserDto;
-import ni.factorizacion.server.domain.dtos.UserSimpleDto;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.repositories.UserRepository;
@@ -20,8 +19,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public List<UserSimpleDto> getAll() {
-        return repository.findAllAnonymous().stream().map(UserSimpleDto::from).toList();
+    public List<User> findAll() {
+        return repository.findAllAnonymous();
     }
 
     @Override

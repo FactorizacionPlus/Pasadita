@@ -1,8 +1,5 @@
 package ni.factorizacion.server.services.impl;
 
-import jakarta.transaction.Transactional;
-import ni.factorizacion.server.domain.dtos.ResidenceSimpleDto;
-import ni.factorizacion.server.domain.dtos.ResidentSimpleDto;
 import ni.factorizacion.server.domain.dtos.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Status;
@@ -14,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,12 +20,12 @@ public class ResidenceServiceImpl implements ResidenceService {
     @Autowired
     private ResidenceRepository repository;
 
-    public List<ResidenceSimpleDto> getAll() {
-        return repository.findAll().stream().map(ResidenceSimpleDto::from).toList();
+    public List<Residence> findAll() {
+        return repository.findAll();
     }
 
     @Override
-     public Optional<Residence> findByDescription(String description){
+    public Optional<Residence> findByDescription(String description) {
         return repository.findByDescription(description);
     }
 
@@ -47,7 +43,7 @@ public class ResidenceServiceImpl implements ResidenceService {
     }
 
     @Override
-    public void updateResidence(String uuid,SaveResidenceDto dto) throws ControlException {
+    public void updateResidence(String uuid, SaveResidenceDto dto) throws ControlException {
         Optional<Residence> found = repository.findById(UUID.fromString(uuid));
         if (found.isEmpty()) {
             throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
@@ -59,11 +55,11 @@ public class ResidenceServiceImpl implements ResidenceService {
     }
 
     @Override
-    public void removeResidence(String uuid) throws ControlException{
+    public void removeResidence(String uuid) throws ControlException {
         boolean exist = repository.existsById(UUID.fromString(uuid));
-        if(!exist){
+        if (!exist) {
             throw new IllegalStateException(
-                    "Residence with the id +" + uuid +" does not exist");
+                    "Residence with the id +" + uuid + " does not exist");
         }
         repository.deleteById(UUID.fromString(uuid));
     }
