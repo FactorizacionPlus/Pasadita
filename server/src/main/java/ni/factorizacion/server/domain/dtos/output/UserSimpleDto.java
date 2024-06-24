@@ -21,7 +21,7 @@ public class UserSimpleDto {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .identifier(user.getIdentifier())
-                .identifierType(user.getIdentifierType().name())
+                .identifierType(user.getIdentifierType() != null ? user.getIdentifierType().name() : null)
                 .build();
     }
 }

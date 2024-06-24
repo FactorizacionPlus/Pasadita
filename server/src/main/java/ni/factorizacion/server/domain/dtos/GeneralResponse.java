@@ -31,6 +31,10 @@ public class GeneralResponse<T> {
         return GeneralResponse.getResponse(HttpStatus.CONFLICT, message, null);
     }
 
+    public static <T> ResponseEntity<GeneralResponse<T>> error418(String message) {
+        return GeneralResponse.getResponse(HttpStatus.I_AM_A_TEAPOT, message, null);
+    }
+
     public static <T> ResponseEntity<GeneralResponse<T>> error500(String message) {
         return GeneralResponse.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, message, null);
     }

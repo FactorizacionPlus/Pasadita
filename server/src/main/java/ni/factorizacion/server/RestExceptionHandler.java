@@ -49,4 +49,9 @@ public class RestExceptionHandler {
 
         return GeneralResponse.getResponse(HttpStatus.BAD_REQUEST, "Field errors", errorsMap);
     }
+
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<GeneralResponse<Object>> handleException(Exception ex) {
+        return GeneralResponse.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
+    }
 }

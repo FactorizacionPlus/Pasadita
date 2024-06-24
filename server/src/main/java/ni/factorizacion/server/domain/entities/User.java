@@ -10,8 +10,7 @@ import java.util.UUID;
 @Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
-    @Id()
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
     private UUID uuid;
 
     @NotNull
@@ -30,4 +29,11 @@ public class User {
     // Eager va a ser el ManyToOne
     // El OneToMany permite la comunicación de uno a muchos, no hace la unión y por tanto se recomienda que sea Lazy
     // Usa @JsonIgnore para omitir valores OneToMany y evitar circular dependencies
+
+    @PrePersist
+    protected void onCreation() {
+        if (uuid == null) {
+            setUuid(UUID.randomUUID());
+        }
+    }
 }

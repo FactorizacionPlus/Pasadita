@@ -1,6 +1,7 @@
 package ni.factorizacion.server.services;
 
 import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.types.ControlException;
 
@@ -17,4 +18,8 @@ public interface ResidentService {
     void updateUser(SaveResidentDto dto) throws ControlException;
 
     void removeUser(String identifier) throws ControlException;
+
+    Optional<Resident> createFrom(RegisteredUser user);
+
+    void save(Resident resident);
 }

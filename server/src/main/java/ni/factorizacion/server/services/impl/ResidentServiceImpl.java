@@ -1,6 +1,7 @@
 package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidentRepository;
@@ -59,5 +60,33 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public void removeUser(String identifier) throws ControlException {
 
+    }
+
+    @Override
+    public Optional<Resident> createFrom(RegisteredUser user) {
+        if (user.getClass().equals(Resident.class)) {
+            return Optional.empty();
+        }
+        Resident resident = new Resident();
+
+        resident.setUuid(user.getUuid());
+        resident.setFirstName(user.getFirstName());
+        resident.setLastName(user.getLastName());
+
+        resident.setIdentifier(user.getIdentifier());
+        resident.setIdentifierType(user.getIdentifierType());
+
+        resident.setEmail(user.getEmail());
+        resident.setImageUrl(user.getImageUrl());
+
+        resident.setStatus(Status.ACTIVE);
+        resident.setRole(0);
+
+        return Optional.of(resident);
+    }
+
+    @Override
+    public void save(Resident resident) {
+        repository.save(resident);
     }
 }

@@ -1,6 +1,7 @@
 package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.domain.entities.InvitedUser;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.InvitedUserRepository;
 import ni.factorizacion.server.services.InvitedUserService;
@@ -34,5 +35,32 @@ public class InvitedUserServiceImpl implements InvitedUserService {
 
         repository.save(user);
         return user;
+    }
+
+    @Override
+    public Optional<InvitedUser> createFrom(RegisteredUser user) {
+        if (user.getClass().equals(InvitedUser.class)) {
+            return Optional.empty();
+        }
+        InvitedUser invited = new InvitedUser();
+
+        invited.setUuid(user.getUuid());
+        invited.setFirstName(user.getFirstName());
+        invited.setLastName(user.getLastName());
+
+        invited.setIdentifier(user.getIdentifier());
+        invited.setIdentifierType(user.getIdentifierType());
+
+        invited.setEmail(user.getEmail());
+        invited.setImageUrl(user.getImageUrl());
+
+        invited.setStatus(Status.ACTIVE);
+
+        return Optional.of(invited);
+    }
+
+    @Override
+    public void save(InvitedUser invitedUser) {
+        repository.save(invitedUser);
     }
 }

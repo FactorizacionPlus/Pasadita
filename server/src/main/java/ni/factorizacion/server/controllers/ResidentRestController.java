@@ -8,6 +8,7 @@ import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.ResidentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/residents/", produces = "application/json")
-@RequiredArgsConstructor
 public class ResidentRestController {
-    private final ResidentService service;
+    @Autowired
+    private ResidentService service;
 
     @GetMapping
     public ResponseEntity<GeneralResponse<List<ResidentSimpleDto>>> getAllResidents() {

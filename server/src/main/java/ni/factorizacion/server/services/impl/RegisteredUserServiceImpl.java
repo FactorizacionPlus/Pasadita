@@ -15,7 +15,17 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
     RegisteredUserRepository repository;
 
     @Override
+    public Optional<RegisteredUser> findByIdentifier(String identifier) {
+        return repository.findByIdentifier(identifier);
+    }
+
+    @Override
     public Optional<RegisteredUser> findByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+    @Override
+    public void delete(RegisteredUser registeredUser) {
+        repository.delete(registeredUser);
     }
 }
