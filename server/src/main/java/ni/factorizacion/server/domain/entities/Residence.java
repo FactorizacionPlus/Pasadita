@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,5 +25,5 @@ public class Residence {
 
     @OneToMany
     @JsonIgnore
-    private Set<Resident> residents;
+    private List<Resident> residents;
 }

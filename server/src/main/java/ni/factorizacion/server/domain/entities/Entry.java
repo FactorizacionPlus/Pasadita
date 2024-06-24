@@ -22,6 +22,7 @@ public class Entry {
     @NotNull
     @ManyToOne
     private User user;
+
     @NotNull
     @ManyToOne
     private Terminal terminal;

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,7 +22,7 @@ public class Terminal {
     @NotNull
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "terminal")
     @JsonIgnore
-    private Set<Entry> entries;
+    private List<Entry> entries;
 }
