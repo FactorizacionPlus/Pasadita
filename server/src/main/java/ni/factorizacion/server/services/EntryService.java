@@ -7,5 +7,5 @@ import ni.factorizacion.server.domain.entities.User;
 import java.util.Optional;
 
 public interface EntryService {
-    Optional<Entry> createEntry(User user, Terminal terminal);
+    Optional<Entry> createEntry(User user, Terminal terminal, String description);
 }

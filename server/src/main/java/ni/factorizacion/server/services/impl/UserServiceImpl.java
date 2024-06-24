@@ -1,13 +1,10 @@
 package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.domain.dtos.input.SaveUserDto;
-import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.repositories.UserRepository;
 import ni.factorizacion.server.services.UserService;
-import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,46 +26,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(SaveUserDto saveUserDto) throws ControlException {
-        Optional<User> found = repository.findByIdentifier(saveUserDto.getIdentifier());
-        if (found.isPresent()) {
-            throw new ControlException(HttpStatus.CONFLICT, "User already exists");
-        }
+    public Optional<User> createFrom(SaveUserDto dto) {
         User user = new User();
 
-        user.setFirstName(saveUserDto.getFirstName());
-        user.setLastName(saveUserDto.getLastName());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
 
-        user.setIdentifier(saveUserDto.getIdentifier());
-        user.setIdentifierType(saveUserDto.getIdentifierType());
+        user.setIdentifier(dto.getIdentifier());
+        user.setIdentifierType(dto.getIdentifierType());
 
-        user.setStatus(Status.ACTIVE);
-
-        repository.save(user);
+        return Optional.of(user);
     }
 
     @Override
-    public void updateUser(SaveUserDto saveUserDto) throws ControlException {
-        Optional<User> found = repository.findByIdentifier(saveUserDto.getIdentifier());
-        if (found.isEmpty()) {
-            throw new ControlException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        User user = found.get();
-
-        user.setIdentifier(saveUserDto.getIdentifier());
-        user.setFirstName(saveUserDto.getFirstName());
-        user.setLastName(saveUserDto.getLastName());
-
-        repository.save(user);
+    public User save(User user) {
+        return repository.save(user);
     }
 
     @Override
-    public void removeUser(String identifier) throws ControlException {
-        Optional<User> found = repository.findByIdentifier(identifier);
-        if (found.isEmpty()) {
-            throw new ControlException(HttpStatus.NOT_FOUND, "User not found");
-        }
-
-        repository.delete(found.get());
+    public void update(User user, SaveUserDto saveUserDto) {
+        user.setIdentifier(saveUserDto.getIdentifier());
+        user.setFirstName(saveUserDto.getFirstName());
+        user.setLastName(saveUserDto.getLastName());
     }
 }

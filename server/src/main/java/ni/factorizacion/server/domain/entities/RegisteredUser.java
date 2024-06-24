@@ -1,6 +1,8 @@
 package ni.factorizacion.server.domain.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,6 +15,10 @@ public abstract class RegisteredUser extends User implements UserDetails {
     @NotNull
     private String email;
     private String imageUrl;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Override
     public String getPassword() {

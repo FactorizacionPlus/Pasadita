@@ -16,7 +16,7 @@ public class EntryServiceImpl implements EntryService {
     EntryRepository entryRepository;
 
     @Override
-    public Optional<Entry> createEntry(User user, Terminal terminal) {
+    public Optional<Entry> createEntry(User user, Terminal terminal, String description) {
         Entry entry = new Entry();
 
         if (user instanceof Administrator) {
