@@ -38,12 +38,12 @@ public class AccessServiceImpl implements AccessService {
             return false;
         }
         // User must not be an Administrator
-        if (user instanceof Administrator) {
+        if (user.getClass().equals(Administrator.class)) {
             return false;
         }
 
         // InvitedUser must have a permission to make the validation
-        if (user instanceof InvitedUser) {
+        if (user.getClass().equals(InvitedUser.class)) {
             Optional<Permission> permission = permissionService.findByUserNow((InvitedUser) user);
 
             // There must be a permission for the InvitedUser
