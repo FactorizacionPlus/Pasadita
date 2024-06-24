@@ -2,18 +2,14 @@ package ni.factorizacion.server.controllers;
 
 import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
-import ni.factorizacion.server.domain.dtos.TerminalValidateQRDto;
-import ni.factorizacion.server.domain.entities.Entry;
-import ni.factorizacion.server.domain.entities.RegisteredUser;
-import ni.factorizacion.server.domain.entities.Terminal;
-import ni.factorizacion.server.domain.entities.Token;
-import ni.factorizacion.server.services.AccessService;
-import ni.factorizacion.server.services.AuthenticationService;
-import ni.factorizacion.server.services.EntryService;
-import ni.factorizacion.server.services.TerminalService;
+import ni.factorizacion.server.domain.dtos.input.SaveUserDto;
+import ni.factorizacion.server.domain.dtos.input.TerminalCreateEntryDto;
+import ni.factorizacion.server.domain.dtos.input.TerminalValidateQRDto;
+import ni.factorizacion.server.domain.entities.*;
+import ni.factorizacion.server.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +30,15 @@ public class AccessRestController {
     private EntryService entryService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private TerminalService terminalService;
+    @Autowired
+    private UserRestController userRestController;
 
     @RequestMapping("/generate/")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<GeneralResponse<String>> getQrToken() {
         Optional<RegisteredUser> user = authService.getCurrentAuthenticatedUser();
 
@@ -67,11 +69,40 @@ public class AccessRestController {
 
         RegisteredUser user = token.get().getUser();
 
-        Optional<Entry> entry = entryService.createEntry(user, terminal.get());
+        Optional<Entry> entry = entryService.createEntry(user, terminal.get(), "");
         if (entry.isEmpty()) {
             return GeneralResponse.error500("Could not create entry");
         }
 
         return GeneralResponse.ok("Entry created", null);
+    }
+
+    @PostMapping("/anonymous/entry/")
+    public ResponseEntity<GeneralResponse<String>> createEntry(@RequestBody @Valid TerminalCreateEntryDto actionDto) {
+        if (actionDto.getTerminalType() != TerminalType.MANUAL) {
+            return GeneralResponse.error401("Not allowed to create an entry");
+        }
+
+        Optional<Terminal> terminal = terminalService.findTerminalByType(actionDto.getTerminalType(), actionDto.getPassword());
+        if (terminal.isEmpty()) {
+            return GeneralResponse.error404("Incorrect terminal data");
+        }
+
+        Optional<User> user = userService.findByIdentifier(actionDto.getIdentifier());
+        if (user.isEmpty()) {
+            return GeneralResponse.error404("Anonymous user not found");
+        }
+
+        Optional<Entry> entry = entryService.createEntry(user.get(), terminal.get(), actionDto.getDescription());
+        if (entry.isEmpty()) {
+            return GeneralResponse.error500("Could not create entry");
+        }
+
+        return GeneralResponse.ok("Entry created", null);
+    }
+
+    @PostMapping("/anonymous/user/")
+    public ResponseEntity<GeneralResponse<String>> createUser(@RequestBody @Valid SaveUserDto saveUserDto) {
+        return userRestController.saveUser(saveUserDto);
     }
 }

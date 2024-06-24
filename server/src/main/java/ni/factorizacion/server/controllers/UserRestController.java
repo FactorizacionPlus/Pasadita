@@ -42,20 +42,30 @@ public class UserRestController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<GeneralResponse<User>> saveUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
-        service.saveUser(userDto);
-        return GeneralResponse.ok("Anonymous user saved", null);
+    public ResponseEntity<GeneralResponse<String>> saveUser(@Valid @RequestBody SaveUserDto userDto) {
+        Optional<User> found = service.findByIdentifier(userDto.getIdentifier());
+        if (found.isPresent()) {
+            return GeneralResponse.error409("Anonymous user already exists");
+        }
+
+        Optional<User> user = service.createFrom(userDto);
+        if (user.isEmpty()) {
+            return GeneralResponse.error409("Could not create anonymous user");
+        }
+
+        service.save(user.get());
+
+        return GeneralResponse.ok("Anonymous user created", null);
     }
 
     @PatchMapping(consumes = "application/json")
-    public ResponseEntity<GeneralResponse<User>> updateUser(@Valid @RequestBody SaveUserDto userDto) throws Exception {
-        service.updateUser(userDto);
+    public ResponseEntity<GeneralResponse<String>> updateUser(@Valid @RequestBody SaveUserDto userDto) {
+        Optional<User> found = service.findByIdentifier(userDto.getIdentifier());
+        if (found.isEmpty()) {
+            return GeneralResponse.error404("Anonymous user not found");
+        }
+        service.update(found.get(), userDto);
+        service.save(found.get());
         return GeneralResponse.ok("Anonymous user updated", null);
-    }
-
-    @DeleteMapping(value = "/{identifier}")
-    public ResponseEntity<GeneralResponse<User>> removeUser(@PathVariable String identifier) throws Exception {
-        service.removeUser(identifier);
-        return GeneralResponse.ok("Anonymous user deleted", null);
     }
 }
