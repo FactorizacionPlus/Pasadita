@@ -14,4 +14,7 @@ public class Configuration {
 
     // Timeframe for allowing entries after permission has expired
     private Integer timeframe;
+
+    // Expiration time (in seconds) for QR codes
+    private Long qrExpiration;
 }
