@@ -13,7 +13,7 @@ public class Configuration {
     private UUID uuid;
 
     // Timeframe for allowing entries after permission has expired
-    private Integer timeframe;
+    private Long timeframe;
 
     // Expiration time (in seconds) for QR codes
     private Long qrExpiration;
