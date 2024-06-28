@@ -35,6 +35,7 @@ for address, port in env.SERVER_CONNECTIONS:
         print(f"Connecting to {addr}...")
         my_socket = connect_to(addr)
         print(f"Connected to {addr}")
+        break
     except OSError as e:
         print(e)
         continue
