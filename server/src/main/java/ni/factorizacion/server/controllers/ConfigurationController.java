@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/configuration")
+@RequestMapping("api/configuration/")
 public class ConfigurationController {
     @Autowired
     private ConfigurationService service;
 
-    @GetMapping("/")
+    @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<Configuration>> getConfiguration() {
         Configuration configuration = service.getConfiguration();
         return GeneralResponse.ok("Configuration found", configuration);
     }
-    @PatchMapping(value = "/", consumes = "application/json")
+    @PatchMapping(consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<String>> updateConfiguration(Long timeFrame, Long qrExpiration) {
         Configuration configuration = service.getConfiguration();
