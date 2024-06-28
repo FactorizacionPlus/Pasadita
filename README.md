@@ -15,14 +15,18 @@ PUBLIC_DOMAIN=http://localhost:8080
 
 ## Microcontrolador
 
-Hecho para el microcontrolador RP2040 en un Raspberry Pi Pico W, con MicroPython. Una vez instalado el MicroPython para el Pico W, con `rshell` se copia el archivo de `pasadita.py` al Pico W.
+Hecho para el microcontrolador RP2040 en un Raspberry Pi Pico W, con MicroPython. Una vez instalado el MicroPython para el Pico W, con `mpremote` se copia todos los archivos del microcontrolador. Ya existe un script de zsh para copiar todos los archivos al destino:
 
 ```sh
-rshell -p /dev/ttyACM0 --buffer-size 512 cp pasadita.py /pyboard/main.py
+./transfer.sh /dev/ttyACM0
 ```
 
 > [!NOTE]
 > El dispositivo puede variar en nombre según sistema operativo, puede ser `/dev/tty.usbmodem11101`
+
+### Funcionamiento
+
+Con SSE (Server Sent Events), cada vez que se añada una Entrada en el sistema, se enviará un evento a cada terminal indicando cuál abrir. Si la Entrada se realizó con la pluma/aguja, se abrirá esa automáticamente.
 
 ## Contribuciones
 
