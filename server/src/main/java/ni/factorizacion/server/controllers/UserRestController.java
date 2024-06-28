@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/users/", produces = "application/json")
+@RequestMapping(value = "/api/users", produces = "application/json")
 public class UserRestController {
     @Autowired
     private UserService service;

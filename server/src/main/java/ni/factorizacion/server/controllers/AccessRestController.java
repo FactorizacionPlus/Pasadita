@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/access/")
+@RequestMapping("/api/access")
 public class AccessRestController {
     @Autowired
     private AccessService accessService;
@@ -37,7 +37,7 @@ public class AccessRestController {
     @Autowired
     private UserRestController userRestController;
 
-    @RequestMapping("/generate/")
+    @RequestMapping("/generate")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<GeneralResponse<String>> getQrToken() {
         Optional<RegisteredUser> user = authService.getCurrentAuthenticatedUser();
@@ -50,7 +50,7 @@ public class AccessRestController {
     }
 
 
-    @PostMapping(value = "/validate/", consumes = "application/json")
+    @PostMapping(value = "/validate", consumes = "application/json")
     public ResponseEntity<GeneralResponse<String>> validateQrToken(@RequestBody @Valid TerminalValidateQRDto actionDto) {
         Optional<Terminal> terminal = terminalService.findTerminalByType(actionDto.getTerminalType(), actionDto.getPassword());
         if (terminal.isEmpty()) {
@@ -77,7 +77,7 @@ public class AccessRestController {
         return GeneralResponse.ok("Entry created", null);
     }
 
-    @PostMapping("/anonymous/entry/")
+    @PostMapping("/anonymous/entry")
     public ResponseEntity<GeneralResponse<String>> createEntry(@RequestBody @Valid TerminalCreateEntryDto actionDto) {
         if (actionDto.getTerminalType() != TerminalType.MANUAL) {
             return GeneralResponse.error401("Not allowed to create an entry");
@@ -101,7 +101,7 @@ public class AccessRestController {
         return GeneralResponse.ok("Entry created", null);
     }
 
-    @PostMapping("/anonymous/user/")
+    @PostMapping("/anonymous/user")
     public ResponseEntity<GeneralResponse<String>> createUser(@RequestBody @Valid SaveUserDto saveUserDto) {
         return userRestController.saveUser(saveUserDto);
     }
