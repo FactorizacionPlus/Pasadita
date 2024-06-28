@@ -10,4 +10,6 @@ for file in "${files[@]}"; do
   mpremote cp $file ":$file"
 done
 
+mpremote cp -r lib/ :
+
 mpremote disconnect + reset
