@@ -21,7 +21,7 @@ import java.util.Optional;
 
 //Test
 @RestController
-@RequestMapping("/auth/")
+@RequestMapping("/auth")
 public class AuthRestController {
 
     @Autowired

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/residents/", produces = "application/json")
+@RequestMapping(value = "/api/residents")
 public class ResidentRestController {
     @Autowired
     private ResidentService service;
