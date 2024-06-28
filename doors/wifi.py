@@ -1,11 +1,13 @@
 import network
 import time
-from led import blink_led_times
-from servo import move_servo_to
+import socket
 
-def wifi_init(ssid: string, password: string):
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
+from typing import Tuple
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+
+def wifi_init(ssid: str, password: str):
     wlan.connect(ssid, password)
 
     for _ in range(10):
@@ -14,17 +16,18 @@ def wifi_init(ssid: string, password: string):
         print("Waiting to connect...")
         time.sleep(1)
 
-    if (wlan.status() < 0):
-        err = abs(wlan.status())
-        blink_led_times(err)
-    else:
-        blink_led_times(4, 100)
-
     if wlan.status() != 3:
         raise RuntimeError("Network connection failed", wlan.status())
 
     print(wlan.ifconfig())
     print(wlan.status())
-    move_servo_to(0.5)
-    blink_led_times(1, 1000)
-    move_servo_to(0)
+
+def connect_to(addr: Tuple[str, int] | Tuple[str, int, int, int]) -> socket.socket:
+    local_s = socket.socket()
+    local_s.settimeout(5)
+    local_s.connect(addr)
+
+    local_s.setblocking(False)
+    local_s.send(b"GET /sse/terminal/entry HTTP/1.0\r\n\r\n")
+
+    return local_s

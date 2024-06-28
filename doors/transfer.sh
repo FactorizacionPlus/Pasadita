@@ -1,9 +1,13 @@
 #!/bin/zsh
 
-files=("./env.py" "./led.py" "./wifi.py" "./servo.py" "./main.py")
+files=("env.py" "led.py" "wifi.py" "servo.py" "main.py")
 
 source ./.venv/bin/activate
 
+mpremote connect $1 + soft-reset
+
 for file in "${files[@]}"; do
-  rshell -p "$1" --buffer-size 512 cp "$file" "/pyboard/$file"
+  mpremote cp $file ":$file"
 done
+
+mpremote disconnect + reset
