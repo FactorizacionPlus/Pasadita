@@ -1,7 +1,7 @@
 import socket
 import sys
 import env
-from servo import open_gate, move_servo_to 
+from servo import open_gate, move_servo_to, do_a_no
 from led import blink_led_times
 from wifi import wifi_init, wlan, connect_to
 
@@ -17,8 +17,7 @@ if wlan.status() != 3:
         err = abs(wlan.status())
         blink_led_times(err)
 
-    move_servo_to(1)
-    move_servo_to(0)
+    do_a_no()
     sys.exit()
 else:
     ssid = wlan.config("ssid")
@@ -41,8 +40,7 @@ for address, port in env.SERVER_CONNECTIONS:
         continue
 
 if my_socket is None:
-    move_servo_to(1)
-    move_servo_to(0)
+    do_a_no()
     sys.exit()
 else:
     move_servo_to(0.25)

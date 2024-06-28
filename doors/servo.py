@@ -20,6 +20,13 @@ def move_servo_to(percentage: float):
     servo.duty_ns(int(position_ns))
     time.sleep_ms(int(time_ms) + 200)
 
+def do_a_no():
+    move_servo_to(0.75)
+    move_servo_to(0.25)
+    move_servo_to(0.75)
+    move_servo_to(0.25)
+    move_servo_to(0)
+
 def open_gate(duration: int):
     led.value(1)
     move_servo_to(0.5) # Set servo at 90°
