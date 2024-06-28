@@ -1,8 +1,5 @@
-from machine import Pin, PWM
 import socket
 import network
-import uasyncio as asyncio
-from led import led
 from servo import open_gate
 
 import env
@@ -14,6 +11,8 @@ wifi_init(env.SSID, env.PASSWORD)
 
 ai = socket.getaddrinfo(env.SERVER_ADDRESS, env.SERVER_PORT)
 addr = ai[0][-1]
+
+print(addr)
 
 s = socket.socket()
 s.connect(addr)
@@ -32,7 +31,7 @@ def parse_event(event: bytes):
 
     return (data, event)
 
-async def main():
+def main():
     global s
 
     buffer = b""
@@ -59,6 +58,6 @@ async def main():
             print()
 
             if (event == b"entry-added" and data == env.TERMINAL):
-                await open_gate(2000)
+                open_gate(2000)
 
-asyncio.run(main())
+main()

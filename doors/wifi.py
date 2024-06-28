@@ -1,6 +1,7 @@
 import network
 import time
 from led import blink_led_times
+from servo import move_servo_to
 
 def wifi_init(ssid: string, password: string):
     wlan = network.WLAN(network.STA_IF)
@@ -24,4 +25,6 @@ def wifi_init(ssid: string, password: string):
 
     print(wlan.ifconfig())
     print(wlan.status())
-    blink_led_times(1, 2000)
+    move_servo_to(0.5)
+    blink_led_times(1, 1000)
+    move_servo_to(0)
