@@ -1,9 +1,12 @@
 package ni.factorizacion.server.services.impl;
 
+import ni.factorizacion.server.domain.dtos.input.AssignResidentDto;
 import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
+import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidenceRepository;
+import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ import java.util.UUID;
 
 @Service
 public class ResidenceServiceImpl implements ResidenceService {
+
+    @Autowired
+    private ResidentRepository residentRepository;
 
     @Autowired
     private ResidenceRepository repository;
@@ -62,5 +68,24 @@ public class ResidenceServiceImpl implements ResidenceService {
                     "Residence with the id +" + uuid + " does not exist");
         }
         repository.deleteById(UUID.fromString(uuid));
+    }
+
+    public void assignResidenteToResidencia(AssignResidentDto request) throws ControlException {
+
+        Optional<Resident> optionalResidente = residentRepository.findByIdentifier(request.getIdentifier());
+        if (optionalResidente.isEmpty()) {
+            throw new ControlException(HttpStatus.CONFLICT, "Resident does not exist");
+        }
+
+        Optional<Residence> optionalResidencia = repository.findById(UUID.fromString(request.getUuid()));
+        if (optionalResidencia.isEmpty()) {
+            throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
+        }
+
+        Resident residente = optionalResidente.get();
+        Residence residencia = optionalResidencia.get();
+
+        residencia.getResidents().add(residente);
+        repository.save(residencia);
     }
 }

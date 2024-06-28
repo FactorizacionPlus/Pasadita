@@ -2,10 +2,12 @@ package ni.factorizacion.server.controllers;
 
 import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.input.AssignResidentDto;
 import ni.factorizacion.server.domain.dtos.output.ResidenceSimpleDto;
 import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.services.ResidenceService;
+import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,4 +45,11 @@ public class ResidenceRestController {
     public void updateUser(@PathVariable("uuid") String uuid, @RequestBody @Valid SaveResidenceDto dto) throws Exception {
         service.updateResidence(uuid, dto);
     }
+
+    @PostMapping(path = "/assign", consumes = "application/json")
+    public ResponseEntity<GeneralResponse<Residence>> assignResidenteToResidencia(@Valid @RequestBody AssignResidentDto request) throws ControlException {
+        service.assignResidenteToResidencia(request);
+        return GeneralResponse.ok("Residente asigando a la residencia", null);
+    }
+
 }
