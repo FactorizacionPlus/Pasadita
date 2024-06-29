@@ -1,7 +1,7 @@
-import type { Identifier } from "typescript";
+import type { Identifier } from "./IdentifierType";
 import type { Status } from "./StatusType";
 
-export default interface Resident {
+export default interface Invited {
   firstName: string;
   lastName: string;
   identifier: string;
@@ -9,6 +9,4 @@ export default interface Resident {
   email: string;
   imageUrl: string;
   status: Status;
-  role: string;
-  residence_uuid: string;
 }

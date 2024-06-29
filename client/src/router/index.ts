@@ -51,6 +51,16 @@ const router = createRouter({
       component: AdminLayout,
       children: [
         {
+          path: "",
+          name: "admin-dashboard",
+          component: () => import("../views/admin-panel/DashboardView.vue"),
+        },
+        {
+          path: "configuraciones",
+          name: "admin-settings",
+          component: () => import("../views/admin-panel/SettingsView.vue"),
+        },
+        {
           path: "about",
           name: "admin-about",
           component: () => import("../views/guest/AboutView.vue"),

@@ -26,10 +26,10 @@
         v-for="(route, index) in routes"
         :class="
           currentPath == ADMIN_ROUTE + route.link
-            ? 'bg-blue-200 hover:!bg-blue-100 font-medium'
-            : ''
+            ? 'bg-blue-200 hover:!bg-blue-100 font-medium rounded-xl'
+            : 'rounded-md hover:bg-blue-100'
         "
-        class="flex min-w-[328px] items-center gap-1.5 rounded-md p-3 text-xl text-blue-400 transition-all last:mt-auto hover:bg-blue-100 active:scale-95"
+        class="flex min-w-[328px] items-center gap-1.5 p-3 text-xl text-blue-400 transition-all last:mt-auto hover:rounded-xl active:scale-95"
         :to="`${ADMIN_ROUTE}${route.link}`"
       >
         <VueFeather :type="route.icon" class="w-6" stroke-width="2"></VueFeather>
@@ -59,6 +59,11 @@ watch(route, (newRoute) => {
 
 const ADMIN_ROUTE = "/admin/";
 const routes = [
+  {
+    text: "Dashboard",
+    link: "",
+    icon: "grid",
+  },
   {
     text: "Entradas",
     link: "entradas",
