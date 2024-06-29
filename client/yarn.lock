@@ -249,6 +249,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/rubik@npm:^5.0.22":
+  version: 5.0.22
+  resolution: "@fontsource-variable/rubik@npm:5.0.22"
+  checksum: 10c0/1ec590e32aa728dd7a71c144538563e6221b504cc0d71452f5d0258eb5ed702208ed61596c42dfa432817a9a878fbf342a0fb2dc5550d391feaa3e9d52d317ef
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -1251,6 +1258,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "client@workspace:."
   dependencies:
+    "@fontsource-variable/rubik": "npm:^5.0.22"
     "@rushstack/eslint-patch": "npm:^1.8.0"
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/feather-icons": "npm:^4"

@@ -14,7 +14,7 @@ const modalAdd = ref<typeof ModalAdd>();
     <button
       type="button"
       class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-semibold text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-2 hover:text-white active:scale-95"
-      @click="modalActive?.show()"
+      @click="modalAdd?.show()"
     >
       <div class="flex flex-col items-center justify-center gap-2 p-5">
         <VueFeather type="clock" size="125" stroke-width="1.5" />

@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import UserImage from "@/components/UserImage.vue";
 import type User from "@/types/User";
+import IdentityCard from "@/IdentityCard.svg?component"
 
 const props = defineProps<{ user: User }>();
 </script>
 
 <template>
   <li class="flex flex-col gap-2">
-    <p class="text-base font-semibold leading-none text-pasadita-blue-1">
-      {{ props.user.role }}
-    </p>
-    <div class="flex items-center gap-2 rounded-t-lg">
-      <UserImage class="size-12" :image="props.user.imageUrl" size="25" padding="0px" />
+    <div class="flex items-center gap-1 rounded-t-lg">
+      <UserImage class="size-9" :image="props.user.imageUrl" size="25" padding="0px" />
       <div class="flex-1">
-        <p class="text-sm font-semibold text-pasadita-blue-1">
-          {{ props.user.identifier }}
-        </p>
-        <p class="text-base font-normal text-pasadita-blue-1">
+        <div class="flex items-center gap-0.5 text-sm text-blue-500">
+          <IdentityCard class="h-3.5" />
+          <span class="text-sm">
+            {{ props.user.identifier }}
+          </span>
+        </div>
+        <p class="text-base leading-tight text-blue-400">
           {{ props.user.firstName }} {{ props.user.lastName }}
         </p>
       </div>

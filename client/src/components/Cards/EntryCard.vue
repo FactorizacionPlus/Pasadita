@@ -10,16 +10,19 @@ const props = defineProps<{
 </script>
 
 <template>
-  <li class="flex flex-col gap-4 rounded-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4">
-    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-      <UserEntryCard :user="entryCard.user" />
-      <div class="flex flex-col text-pasadita-blue-1 sm:text-right">
-        <p class="font-semibold">Fecha y hora de entrada</p>
-        <p>{{ getFormattedDateTime(props.entryCard.entryDate) }}</p>
+  <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200 bg-blue-100">
+    <div class="flex flex-col gap-1 p-2">
+      <h3 class="font-medium leading-5">{{ entryCard.user.role }}</h3>
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <UserEntryCard :user="entryCard.user" />
+        <div class="flex flex-col leading-none sm:text-right">
+          <p class="text-xs font-semibold text-blue-500">Fecha y hora de entrada</p>
+          <p class="text-blue-400">{{ getFormattedDateTime(props.entryCard.entryDate) }}</p>
+        </div>
       </div>
     </div>
-    <div class="flex flex-row items-center gap-1">
-      <VueFeather type="home" size="24" stroke="#01193F" stroke-width="1.5"></VueFeather>
+    <div class="flex flex-row items-center gap-1 bg-white p-2 text-blue-500">
+      <VueFeather type="home" size="16" stroke-width="2"></VueFeather>
       <p>{{ props.entryCard.description }}</p>
     </div>
   </li>

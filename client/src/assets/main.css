@@ -1,3 +1,5 @@
+@import '@fontsource-variable/rubik';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,18 +1,18 @@
 <template>
   <nav
-    class="sticky top-0 z-10 flex min-w-52 flex-col border-b border-r-pasadita-shade-2 bg-pasadita-shade-3 p-2 md:relative md:h-dvh md:border-r md:p-4"
+    class="sticky top-0 z-10 flex min-w-52 flex-col rounded-lg bg-white p-2 shadow-header md:relative md:p-4"
   >
     <div class="flex justify-between gap-4 md:flex-col md:justify-start">
-      <img class="mx-auto hidden h-12 w-4/5 md:block" src="/identity/pasaditaLogo.svg" />
+      <img class="mx-auto hidden h-[45px] w-auto md:block" src="/identity/pasaditaLogo.svg" />
       <img class="block h-12 md:hidden" src="/identity/pasaditaLogoMin.svg" />
       <button
         :class="
           isNavActive
-            ? 'bg-pasadita-blue-2 text-white hover:!bg-pasadita-blue-3 hover:text-white'
+            ? 'bg-blue-200 hover:!bg-blue-100'
             : ''
         "
         @click="toggleNav"
-        class="grid size-12 place-items-center rounded-lg text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 active:scale-95 md:hidden"
+        class="grid size-12 place-items-center rounded-lg text-blue-400 transition-all hover:bg-blue-200 active:scale-95 md:hidden"
       >
         <VueFeather type="menu" class="w-6" stroke-width="1.5"></VueFeather>
       </button>
@@ -26,13 +26,13 @@
         v-for="(route, index) in routes"
         :class="
           currentPath == ADMIN_ROUTE + route.link
-            ? 'bg-pasadita-blue-2 text-white hover:!bg-pasadita-blue-3 hover:text-white'
+            ? 'bg-blue-200 hover:!bg-blue-100 font-medium'
             : ''
         "
-        class="flex min-w-32 items-center gap-1.5 rounded-md p-3 text-pasadita-blue-2 transition-all last:mt-auto hover:bg-pasadita-blue-6 active:scale-95"
+        class="flex min-w-[328px] items-center gap-1.5 rounded-md p-3 text-xl text-blue-400 transition-all last:mt-auto hover:bg-blue-100 active:scale-95"
         :to="`${ADMIN_ROUTE}${route.link}`"
       >
-        <VueFeather :type="route.icon" class="w-6" stroke-width="1.5"></VueFeather>
+        <VueFeather :type="route.icon" class="w-6" stroke-width="2"></VueFeather>
         <span>{{ route.text }}</span>
       </RouterLink>
     </div>

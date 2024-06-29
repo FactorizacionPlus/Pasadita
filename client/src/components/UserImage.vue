@@ -5,7 +5,7 @@ const props = defineProps<{ image?: string; size: string; padding: string }>();
 </script>
 
 <template>
-  <picture class="relative rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4">
+  <picture class="relative rounded-full border-2 border-blue-400 bg-blue-100">
     <img
       v-if="isValidURL(props.image)"
       :src="props.image"

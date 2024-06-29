@@ -13,7 +13,9 @@ const entryList: EntryCard[] = [
       imageUrl: "https://www.github.com/davidquintr.png",
       firstName: "David",
       lastName: "Quintanilla",
-      role: "Residente Encargado",
+      identifierType: "PASSPORT",
+      uuid: "0000",
+      role: "Residente"
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2005"),
@@ -25,7 +27,9 @@ const entryList: EntryCard[] = [
       imageUrl: "https://www.github.com/poncka.png",
       firstName: "David",
       lastName: "Parrales Ponce",
-      role: "Residente",
+      identifierType: "PASSPORT",
+      uuid: "0000",
+      role: "Residente"
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -38,6 +42,8 @@ const entryList: EntryCard[] = [
       firstName: "Jezer",
       lastName: "Mejía Otero",
       role: "Residente",
+      identifierType: "PASSPORT",
+      uuid: "0000"
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -50,6 +56,8 @@ const entryList: EntryCard[] = [
       firstName: "Marcelo",
       lastName: "Rivera Soto",
       role: "Residente",
+      identifierType: "PASSPORT",
+      uuid: "0000"
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -61,7 +69,9 @@ const entryList: EntryCard[] = [
       imageUrl: "https://www.github.com/leocorea.png",
       firstName: "Leo",
       lastName: "Corea Navarrete",
-      role: "Residente",
+      identifierType: "PASSPORT",
+      uuid: "0000",
+      role: "Residente"
     },
     description: "Rumbo a la casas de los pueblos",
     entryDate: new Date("10-04-2015 12:00"),
@@ -70,10 +80,12 @@ const entryList: EntryCard[] = [
 </script>
 
 <template>
-  <CurrentPageInfo title="Entradas" icon="folder" />
-  <SearchBar class="py-4" />
-  <ul class="grid w-full gap-4 pt-4 lg:grid-cols-2">
-    <Entry :entryCard="entry" v-for="entry in entryList" :key="entry.id" />
-  </ul>
-  <PaginationItem class="pt-4" :total-pages="6" />
+  <CurrentPageInfo title="Entradas" icon="folder"  />
+  <article class="flex w-full flex-col gap-8 rounded-lg  bg-white p-4">
+    <SearchBar />
+    <ul class="grid gap-4 lg:grid-cols-2">
+      <Entry :entryCard="entry" v-for="entry in entryList" :key="entry.id" />
+    </ul>
+    <PaginationItem :total-pages="6"  />
+  </article>
 </template>
