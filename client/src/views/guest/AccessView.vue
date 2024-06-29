@@ -22,7 +22,7 @@ const userAuthToken =
 const token = ref("");
 
 async function getQRToken() {
-  const response = await fetch("http://localhost:8080/api/access/generate/", {
+  const response = await fetch("http://localhost:8080/api/access/generate", {
     headers: { Authorization: "Bearer " + userAuthToken },
   });
 

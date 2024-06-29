@@ -1,25 +1,54 @@
-from machine import Pin, PWM
 import socket
-import network
-import uasyncio as asyncio
-from led import led
-from servo import open_gate
-
+import sys
 import env
-from wifi import wifi_init
+from servo import open_gate, move_servo_to, do_a_no
+from led import blink_led_times
+from wifi import wifi_init, wlan, connect_to
 
-wifi_init(env.SSID, env.PASSWORD)
+for ssid, password in env.WIFI_CONNECTIONS:
+    try:
+        wifi_init(ssid, password)
+        break
+    except Exception as e:
+        continue
 
-# Socket management
+if wlan.status() != 3:
+    if (wlan.status() < 0):
+        err = abs(wlan.status())
+        blink_led_times(err)
 
-ai = socket.getaddrinfo(env.SERVER_ADDRESS, env.SERVER_PORT)
-addr = ai[0][-1]
+    do_a_no()
+    sys.exit()
+else:
+    ssid = wlan.config("ssid")
+    print(f"Connected to {ssid}")
+    move_servo_to(0.25)
+    blink_led_times(1, 500)
+    move_servo_to(0)
 
-s = socket.socket()
-s.connect(addr)
-s.send(b"GET /sse/terminal/entry HTTP/1.0\r\n\r\n")
+my_socket: socket.socket | None = None
 
-s.setblocking(False)
+for address, port in env.SERVER_CONNECTIONS:
+    ai = socket.getaddrinfo(address, port)
+    addr = ai[0][-1]
+    try:
+        print(f"Connecting to {addr}...")
+        my_socket = connect_to(addr)
+        print(f"Connected to {addr}")
+        break
+    except OSError as e:
+        print(e)
+        continue
+
+if my_socket is None:
+    do_a_no()
+    sys.exit()
+else:
+    move_servo_to(0.25)
+    blink_led_times(1, 500)
+    move_servo_to(0)
+
+# Event management
 
 def parse_event(event: bytes):
     split = event.split(b"\n")
@@ -32,12 +61,10 @@ def parse_event(event: bytes):
 
     return (data, event)
 
-async def main():
-    global s
-
+def main():
     buffer = b""
     while (True):
-        char = s.read(1)
+        char = my_socket.read(1)
         if (char is None or char is b""):
             continue
         buffer += char
@@ -59,6 +86,6 @@ async def main():
             print()
 
             if (event == b"entry-added" and data == env.TERMINAL):
-                await open_gate(2000)
+                open_gate(2000)
 
-asyncio.run(main())
+main()

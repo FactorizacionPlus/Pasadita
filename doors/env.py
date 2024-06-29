@@ -1,8 +1,14 @@
-SSID = "CLARO2_81DEA0"
-PASSWORD = "G61S8ONKBC"
-SERVER_ADDRESS = "https://pasadita-production.up.railway.app/"
-SERVER_PORT = 80
+from typing import List, Tuple
+
+WIFI_CONNECTIONS: List[Tuple[str, str]] = [
+    ( "SSID", "PASSWORD" ),
+]
+
+SERVER_CONNECTIONS: List[Tuple[str, int]] = [
+    ( "LOCALHOST", 8080 ),
+    ( "pasadita-production.up.railway.app", 80 ),
+]
 
 # Terminal UUID
 # TODO: Maybe try to get this UUID from the server?
-TERMINAL = b"eb85ec1b-98ca-43d5-a6d0-605c82ed37a9"
+TERMINAL = b"1c6586ba-32a1-442b-a74c-8d2c32306a65"

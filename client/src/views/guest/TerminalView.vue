@@ -18,7 +18,7 @@ async function validateToken(tokenContent: string) {
 
   let response = null;
   try {
-    response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/api/access/validate/", {
+    response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/api/access/validate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

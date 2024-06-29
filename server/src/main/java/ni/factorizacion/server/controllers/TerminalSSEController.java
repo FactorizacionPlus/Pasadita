@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
-@RequestMapping("/sse/terminal/")
+@RequestMapping("/sse/terminal")
 public class TerminalSSEController {
 
     @Autowired
