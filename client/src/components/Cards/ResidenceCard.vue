@@ -12,55 +12,52 @@ const modalEdit = ref<typeof ModalEdit>();
 const props = defineProps<{
   residence: Residence;
 }>();
+
+enum dic {
+  SINGULAR = "Residencia",
+  PEOPLE = "Habitantes",
+  DESCRIPTION = "Descripción"
+}
+
+const currentResidents = 0;
+
 </script>
 
 <template>
-  <li class="flex flex-col bg-white">
-    <!--Information-->
-    <div
-      class="flex items-center gap-2 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-blue-5 p-2"
-    >
-      <VueFeather type="home" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
-      <div class="flex-1">
-        <p class="text-base font-medium text-pasadita-blue-1">Residencia</p>
-        <p class="text-base font-normal text-pasadita-blue-1">
-          {{ props.residence.currentResidents }} / {{ props.residence.maxHabitants }} Habitantes
+  <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200">
+    <div class="flex flex-col gap-1 bg-blue-100 p-2">
+      <h2 class="text-base font-medium text-pasadita-blue-1">{{ dic.SINGULAR }}</h2>
+      <div class="flex items-center gap-2 text-blue-400">
+        <VueFeather type="home" size="24" stroke-width="1.5"></VueFeather>
+        <p class="text-base font-normal">
+          {{ currentResidents }} / {{ props.residence.maxHabitants }} {{ dic.PEOPLE }}
         </p>
       </div>
     </div>
-    <!--Description-->
-    <div class="flex h-auto flex-1 flex-row border-x border-pasadita-shade-2 p-2">
+    <div class="flex h-auto flex-1 flex-row bg-white p-2">
       <p class="line-clamp-2 font-normal text-pasadita-blue-1">
         {{ props.residence.description }}
       </p>
     </div>
-    <!--CRUD-->
-    <div class="flex flex-row justify-end gap-2 rounded-b-lg border border-pasadita-shade-2 p-2">
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
-        @click="modalDel?.show()"
-      >
-        <VueFeather type="trash-2" stroke-width="3.5" size="16"></VueFeather>
+    <div class="flex flex-row justify-end gap-2 bg-white p-2">
+      <button type="button"
+        class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
+        @click="modalDel?.show()">
+        <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
-        @click="modalEdit?.show()"
-      >
-        <VueFeather type="edit-2" stroke-width="3.5" size="16"></VueFeather>
-        <span class="sr-only">Icon description</span>
+      <button type="button"
+        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
+        @click="modalEdit?.show()">
+        <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
-        @click="modalSee?.show()"
-      >
-        <VueFeather type="eye" stroke-width="3.5" size="16"></VueFeather>
+      <button type="button"
+        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
+        @click="modalSee?.show()">
+        <VueFeather type="eye" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
   </li>
   <ModalDelete reason="¿Desea eliminar esta residencia?" ref="modalDel"> Hola </ModalDelete>
-  <ModalSee ref="modalSee"> Hola </ModalSee>
-  <ModalEdit ref="modalEdit"> Hola </ModalEdit>
+  <ModalSee ref="modalSee" />
+  <ModalEdit ref="modalEdit" />
 </template>

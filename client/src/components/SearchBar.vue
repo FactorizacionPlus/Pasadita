@@ -3,7 +3,7 @@ import VueFeather from "vue-feather";
 </script>
 
 <template>
-  <form class="relative ml-auto flex w-full max-w-[50%] gap-2">
+  <form class="relative ml-auto flex w-full max-w-screen-sm gap-2 overflow-auto">
     <input type="text"
       class="peer h-10 w-full rounded-md border-x border-b-2 border-t border-shades-400 bg-shades-100 px-2 pl-8 text-blue-500 outline-none transition-all placeholder:text-shades-400 hover:bg-blue-100 focus:border-blue-400 focus:bg-blue-200 focus:text-blue-400 focus:placeholder:text-blue-300 disabled:opacity-40"
       placeholder="Buscar" required />

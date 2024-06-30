@@ -1,10 +1,10 @@
 <template>
   <nav
-    class="sticky top-0 z-10 flex min-w-52 flex-col rounded-lg bg-white p-2 shadow-header md:relative md:p-4"
+    class="sticky top-4 z-10 flex flex-col rounded-lg bg-white p-2 shadow-header md:relative md:top-0 md:p-4"
   >
-    <div class="flex justify-between gap-4 md:flex-col md:justify-start">
-      <img class="mx-auto hidden h-[45px] w-auto md:block" src="/identity/pasaditaLogo.svg" />
-      <img class="block h-12 md:hidden" src="/identity/pasaditaLogoMin.svg" />
+    <div class="relative flex justify-between gap-4 md:flex-col md:justify-start">
+      <img v-if="isFullNav" class="mx-auto hidden h-[45px] w-auto md:block" src="/identity/pasaditaLogo.svg" />
+      <img v-else class="hidden h-8 w-auto md:block" src="/identity/pasaditaLogoMin.svg" />
       <button
         :class="
           isNavActive
@@ -16,6 +16,9 @@
       >
         <VueFeather type="menu" class="w-6" stroke-width="1.5"></VueFeather>
       </button>
+      <button @click="() => { isFullNav = !isFullNav }" class="absolute -right-8 top-1/2 hidden size-8 -translate-y-1/2 place-items-center rounded-lg bg-blue-100 text-blue-400 shadow-header transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95 md:grid">
+        <VueFeather :class="isFullNav && 'rotate-180'" type="chevron-right" class="w-4 transition-transform" stroke-width="2.5"></VueFeather>
+      </button>
     </div>
     <div
       :class="isNavActive ? 'block' : 'hidden'"
@@ -25,15 +28,15 @@
         :key="index"
         v-for="(route, index) in routes"
         :class="
-          currentPath == ADMIN_ROUTE + route.link
-            ? 'bg-blue-200 hover:!bg-blue-100 font-medium rounded-xl'
-            : 'rounded-md hover:bg-blue-100'
+          [currentPath == ADMIN_ROUTE + route.link
+            ? 'translate-x-1 rounded-xl bg-blue-200 font-medium hover:bg-blue-100'
+            : 'rounded-md hover:bg-blue-100', isFullNav ? 'min-w-[328px]' : 'md:aspect-square md:justify-center']
         "
-        class="flex min-w-[328px] items-center gap-1.5 p-3 text-xl text-blue-400 transition-all last:mt-auto hover:rounded-xl active:scale-95"
+        class="flex items-center gap-1.5 p-3 text-xl text-blue-400 transition-all last:mt-auto hover:rounded-xl active:scale-95"
         :to="`${ADMIN_ROUTE}${route.link}`"
       >
         <VueFeather :type="route.icon" class="w-6" stroke-width="2"></VueFeather>
-        <span>{{ route.text }}</span>
+        <span :class="!isFullNav && 'md:hidden'" >{{ route.text }}</span>
       </RouterLink>
     </div>
   </nav>
@@ -45,6 +48,7 @@ import VueFeather from "vue-feather";
 import { ref, watch } from "vue";
 
 const isNavActive = ref(false);
+const isFullNav = ref(true);
 
 const toggleNav = () => {
   isNavActive.value = !isNavActive.value;
@@ -70,11 +74,6 @@ const routes = [
     icon: "folder",
   },
   {
-    text: "Historial de Permisos",
-    link: "permisos",
-    icon: "file-minus",
-  },
-  {
     text: "Terminales",
     link: "terminales",
     icon: "tablet",
@@ -85,13 +84,8 @@ const routes = [
     icon: "home",
   },
   {
-    text: "Residentes",
-    link: "residentes",
-    icon: "user",
-  },
-  {
-    text: "Invitados",
-    link: "invitados",
+    text: "Usuarios",
+    link: "usuarios",
     icon: "user",
   },
   {
