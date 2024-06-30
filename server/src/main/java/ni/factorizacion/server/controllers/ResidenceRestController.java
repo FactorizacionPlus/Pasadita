@@ -59,12 +59,12 @@ public class ResidenceRestController {
     public ResponseEntity<GeneralResponse<Residence>> assignResidenteToResidencia(@Valid @RequestBody AssignResidentDto request) throws ControlException {
         Optional<Resident> optionalResidente = residentService.findByIdentifier(request.getIdentifier());
         if (optionalResidente.isEmpty()) {
-            throw new ControlException(HttpStatus.CONFLICT, "Resident does not exist");
+            return GeneralResponse.error404("Resident does not exist");
         }
 
         Optional<Residence> optionalResidencia = service.findById(UUID.fromString(request.getUuid()));
         if (optionalResidencia.isEmpty()) {
-            throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
+            return GeneralResponse.error404("Residence does not exist");
         }
 
         Resident residente = optionalResidente.get();
