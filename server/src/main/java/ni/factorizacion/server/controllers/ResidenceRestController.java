@@ -6,19 +6,28 @@ import ni.factorizacion.server.domain.dtos.input.AssignResidentDto;
 import ni.factorizacion.server.domain.dtos.output.ResidenceSimpleDto;
 import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
+import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.services.ResidenceService;
+import ni.factorizacion.server.services.ResidentService;
 import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/residence")
 public class ResidenceRestController {
+
     @Autowired
     private ResidenceService service;
+
+    @Autowired
+    private ResidentService residentService;
 
     @GetMapping
     public ResponseEntity<GeneralResponse<List<ResidenceSimpleDto>>> getAllResidences() {
@@ -48,8 +57,20 @@ public class ResidenceRestController {
 
     @PostMapping(consumes = "application/json", value = "/assign")
     public ResponseEntity<GeneralResponse<Residence>> assignResidenteToResidencia(@Valid @RequestBody AssignResidentDto request) throws ControlException {
-        service.assignResidenteToResidencia(request);
-        return GeneralResponse.ok("Resident assigning to residence", null);
-    }
+        Optional<Resident> optionalResidente = residentService.findByIdentifier(request.getIdentifier());
+        if (optionalResidente.isEmpty()) {
+            throw new ControlException(HttpStatus.CONFLICT, "Resident does not exist");
+        }
 
+        Optional<Residence> optionalResidencia = service.findById(UUID.fromString(request.getUuid()));
+        if (optionalResidencia.isEmpty()) {
+            throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
+        }
+
+        Resident residente = optionalResidente.get();
+        Residence residencia = optionalResidencia.get();
+
+        service.assignResidenteToResidencia(residente, residencia);
+        return GeneralResponse.ok("Resident assigned to residence", null);
+    }
 }

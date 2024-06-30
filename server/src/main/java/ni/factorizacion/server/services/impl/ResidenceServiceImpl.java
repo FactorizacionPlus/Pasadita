@@ -36,6 +36,12 @@ public class ResidenceServiceImpl implements ResidenceService {
     }
 
     @Override
+    public Optional<Residence> findById(UUID uuid) {
+        return repository.findById(uuid);
+    }
+
+
+    @Override
     public void saveResidence(SaveResidenceDto dto) throws ControlException {
         Optional<Residence> found = this.findByDescription(dto.getDescription());
         if (found.isPresent()) {
@@ -70,26 +76,13 @@ public class ResidenceServiceImpl implements ResidenceService {
         repository.deleteById(UUID.fromString(uuid));
     }
 
-    public void assignResidenteToResidencia(AssignResidentDto request) throws ControlException {
-
-        Optional<Resident> optionalResidente = residentRepository.findByIdentifier(request.getIdentifier());
-        if (optionalResidente.isEmpty()) {
-            throw new ControlException(HttpStatus.CONFLICT, "Resident does not exist");
-        }
-
-        Optional<Residence> optionalResidencia = repository.findById(UUID.fromString(request.getUuid()));
-        if (optionalResidencia.isEmpty()) {
-            throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
-        }
-
-        Resident residente = optionalResidente.get();
-        Residence residencia = optionalResidencia.get();
-
-        if (residencia.getResidents().size() >= residencia.getMaxHabitants()) {
+    @Override
+    public void assignResidenteToResidencia(Resident resident, Residence residence) throws ControlException {
+        if (residence.getResidents().size() >= residence.getMaxHabitants()) {
             throw new ControlException(HttpStatus.CONFLICT, "The residence reached the maximum number of residents allowed");
         }
 
-        residencia.getResidents().add(residente);
-        repository.save(residencia);
+        residence.getResidents().add(resident);
+        repository.save(residence);
     }
 }
