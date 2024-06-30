@@ -36,20 +36,20 @@ public class ResidenceRestController {
         return GeneralResponse.ok("Residence saved", null);
     }
 
-    @DeleteMapping(path = "/{uuid}")
+    @DeleteMapping(value = "/{uuid}")
     public void removeResidence(@PathVariable("uuid") String uuid) throws Exception {
         service.removeResidence(uuid);
     }
 
-    @PutMapping(path = "/{uuid}")
+    @PutMapping(value = "/{uuid}")
     public void updateUser(@PathVariable("uuid") String uuid, @RequestBody @Valid SaveResidenceDto dto) throws Exception {
         service.updateResidence(uuid, dto);
     }
 
-    @PostMapping(path = "/assign", consumes = "application/json")
+    @PostMapping(consumes = "application/json", value = "/assign")
     public ResponseEntity<GeneralResponse<Residence>> assignResidenteToResidencia(@Valid @RequestBody AssignResidentDto request) throws ControlException {
         service.assignResidenteToResidencia(request);
-        return GeneralResponse.ok("Residente asigando a la residencia", null);
+        return GeneralResponse.ok("Resident assigning to residence", null);
     }
 
 }

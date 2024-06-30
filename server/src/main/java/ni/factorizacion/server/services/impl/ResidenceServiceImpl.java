@@ -85,6 +85,10 @@ public class ResidenceServiceImpl implements ResidenceService {
         Resident residente = optionalResidente.get();
         Residence residencia = optionalResidencia.get();
 
+        if (residencia.getResidents().size() >= residencia.getMaxHabitants()) {
+            throw new ControlException(HttpStatus.CONFLICT, "The residence reached the maximum number of residents allowed");
+        }
+
         residencia.getResidents().add(residente);
         repository.save(residencia);
     }
