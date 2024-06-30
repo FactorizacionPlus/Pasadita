@@ -3,14 +3,13 @@ package ni.factorizacion.server.domain.dtos.output;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
-import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Resident;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 public class ResidentSimpleDto extends RegisteredUserSimpleDto {
-    private Residence residence;
+    private ResidenceSimpleDto residence;
 
     static public ResidentSimpleDto from(Resident resident) {
         return ResidentSimpleDto.builder()
@@ -24,7 +23,7 @@ public class ResidentSimpleDto extends RegisteredUserSimpleDto {
                 .imageUrl(resident.getImageUrl())
 
                 .role(resident.getRole() == 0 ? "ROLE_RESIDENT" : "ROLE_RESIDENT_SUDO")
-                .residence(resident.getResidence())
+                .residence(resident.getResidence() != null ? ResidenceSimpleDto.from(resident.getResidence()) : null)
                 .build();
     }
 }
