@@ -19,6 +19,11 @@ public class InvitedUserServiceImpl implements InvitedUserService {
     InvitedUserRepository repository;
 
     @Override
+    public Optional<InvitedUser> findByIdentifier(String identifier) {
+        return repository.findByIdentifier(identifier);
+    }
+
+    @Override
     public Optional<InvitedUser> findByEmail(String email) {
         return repository.findByEmail(email);
     }

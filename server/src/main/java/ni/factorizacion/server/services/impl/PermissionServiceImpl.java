@@ -1,14 +1,19 @@
 package ni.factorizacion.server.services.impl;
 
+import ni.factorizacion.server.domain.dtos.input.SavePermissionDto;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.Permission;
+import ni.factorizacion.server.domain.entities.Residence;
+import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.repositories.PermissionRepository;
 import ni.factorizacion.server.services.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
@@ -16,8 +21,53 @@ public class PermissionServiceImpl implements PermissionService {
     PermissionRepository permissionRepository;
 
     @Override
+    public List<Permission> findAll() {
+        return permissionRepository.findAll();
+    }
+
+    @Override
+    public Optional<Permission> findById(UUID uuid) {
+        return permissionRepository.findById(uuid);
+    }
+
+    @Override
+    public List<Permission> findByResidence(Residence residence) {
+        return permissionRepository.findAllByResidence(residence);
+    }
+
+    @Override
+    public List<Permission> findAllByInvitedUser(InvitedUser user) {
+        return permissionRepository.findAllByInvitedUser(user);
+    }
+
+    @Override
     public Optional<Permission> findByUserNow(InvitedUser user) {
-        var permission = permissionRepository.findByUserAndDate(user, LocalDateTime.now());
-        return Optional.ofNullable(permission);
+        return permissionRepository.findByUserAndDate(user, LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<Permission> createFrom(SavePermissionDto dto, Resident resident, InvitedUser user) {
+        Permission permission = new Permission();
+
+        permission.setCreationDate(LocalDateTime.now());
+        permission.setStartDate(dto.getStartDate());
+        permission.setEndDate(dto.getEndDate());
+
+        permission.setResidence(resident.getResidence());
+        permission.setResident(resident);
+        permission.setInvitedUser(user);
+
+        if (resident.getRole() == 0) {
+            permission.setAuthorized(null);
+        } else {
+            permission.setAuthorized(true);
+        }
+
+        return Optional.of(permission);
+    }
+
+    @Override
+    public Permission save(Permission permission) {
+        return permissionRepository.save(permission);
     }
 }

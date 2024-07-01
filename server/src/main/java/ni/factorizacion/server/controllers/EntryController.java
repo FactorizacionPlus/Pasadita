@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/entry/")
+@RequestMapping("/api/entry")
 public class EntryController {
     @Autowired
     EntryService entryService;

@@ -8,6 +8,8 @@ import ni.factorizacion.server.types.GoogleUserInfo;
 import java.util.Optional;
 
 public interface InvitedUserService {
+    Optional<InvitedUser> findByIdentifier(String identifier);
+
     Optional<InvitedUser> findByEmail(String email);
 
     InvitedUser createUser(GoogleUserInfo userInfo) throws ControlException;
