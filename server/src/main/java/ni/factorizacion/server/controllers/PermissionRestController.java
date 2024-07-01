@@ -35,12 +35,14 @@ public class PermissionRestController {
     AuthenticationService authenticationService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<Permission>>> getPermissions() {
         List<Permission> permissions = permissionService.findAll();
         return GeneralResponse.ok("Permissions found", permissions);
     }
 
     @GetMapping(value = "/residence/{residence}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<Permission>>> getResidencePermissions(@PathVariable String residence) {
         Optional<UUID> uuid = UUIDUtils.fromString(residence);
         if (uuid.isEmpty()) {
@@ -58,6 +60,7 @@ public class PermissionRestController {
     }
 
     @GetMapping("/invited/{identifier}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<Permission>>> getUserPermissions(@PathVariable String identifier) {
         Optional<InvitedUser> invitedUser = invitedUserService.findByIdentifier(identifier);
         if (invitedUser.isEmpty()) {
@@ -96,19 +99,8 @@ public class PermissionRestController {
     }
 
     @PostMapping("/authorize")
-    @PreAuthorize("hasRole('ROLE_RESIDENT')")
+    @PreAuthorize("hasRole('ROLE_RESIDENT_SUDO')")
     public ResponseEntity<GeneralResponse<String>> authorizePermission(@RequestBody AuthorizePermissionDto dto) {
-        Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
-        if (registeredUser.isEmpty()) {
-            return GeneralResponse.error401("Registered user not found");
-        }
-        Resident resident = (Resident) registeredUser.get();
-
-        // TODO: This should be done with PreAuthorize
-        if (resident.getRole() == 0) {
-            return GeneralResponse.error401("Resident is not SUDO");
-        }
-
         Optional<Permission> permission = permissionService.findById(dto.getPermission());
         if (permission.isEmpty()) {
             return GeneralResponse.error404("Permission not found");

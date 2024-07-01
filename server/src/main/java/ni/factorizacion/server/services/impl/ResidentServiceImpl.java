@@ -3,6 +3,7 @@ package ni.factorizacion.server.services.impl;
 import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Resident;
+import ni.factorizacion.server.domain.entities.ResidentRole;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidentService;
@@ -80,7 +81,7 @@ public class ResidentServiceImpl implements ResidentService {
         resident.setImageUrl(user.getImageUrl());
 
         resident.setStatus(Status.ACTIVE);
-        resident.setRole(0);
+        resident.setRole(ResidentRole.NORMAL);
 
         return Optional.of(resident);
     }

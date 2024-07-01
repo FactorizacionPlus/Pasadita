@@ -1,10 +1,7 @@
 package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.domain.dtos.input.SavePermissionDto;
-import ni.factorizacion.server.domain.entities.InvitedUser;
-import ni.factorizacion.server.domain.entities.Permission;
-import ni.factorizacion.server.domain.entities.Residence;
-import ni.factorizacion.server.domain.entities.Resident;
+import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.repositories.PermissionRepository;
 import ni.factorizacion.server.services.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +54,11 @@ public class PermissionServiceImpl implements PermissionService {
         permission.setResident(resident);
         permission.setInvitedUser(user);
 
-        if (resident.getRole() == 0) {
-            permission.setAuthorized(null);
-        } else {
+        // Si es un Residente Encargado, se autoriza automáticamente
+        if (resident.getRole() == ResidentRole.SUDO) {
             permission.setAuthorized(true);
+        } else {
+            permission.setAuthorized(null);
         }
 
         return Optional.of(permission);
