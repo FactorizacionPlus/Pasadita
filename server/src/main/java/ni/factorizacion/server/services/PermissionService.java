@@ -15,7 +15,9 @@ public interface PermissionService {
 
     Optional<Permission> findById(UUID uuid);
 
-    List<Permission> findByResidence(Residence residence);
+    List<Permission> findAllByResidence(Residence residence);
+
+    List<Permission> findAllByResident(Resident resident);
 
     List<Permission> findAllByInvitedUser(InvitedUser user);
 

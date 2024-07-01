@@ -3,6 +3,7 @@ package ni.factorizacion.server.repositories;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.Permission;
 import ni.factorizacion.server.domain.entities.Residence;
+import ni.factorizacion.server.domain.entities.Resident;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +15,8 @@ import java.util.UUID;
 
 public interface PermissionRepository extends JpaRepository<Permission, UUID> {
     List<Permission> findAllByResidence(Residence residence);
+
+    List<Permission> findAllByResident(Resident resident);
 
     List<Permission> findAllByInvitedUser(InvitedUser invitedUser);
 

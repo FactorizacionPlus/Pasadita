@@ -41,6 +41,38 @@ public class PermissionRestController {
         return GeneralResponse.ok("Permissions found", permissions);
     }
 
+    @GetMapping("/own")
+    @PreAuthorize("hasRole('ROLE_INVITED') or hasRole('ROLE_RESIDENT')")
+    public ResponseEntity<GeneralResponse<List<Permission>>> getOwnPermissions() {
+        Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
+        if (registeredUser.isEmpty()) {
+            return GeneralResponse.error401("Registered user not found");
+        }
+        List<Permission> permissions;
+        if (registeredUser.get().getClass().equals(InvitedUser.class)) {
+            InvitedUser invitedUser = (InvitedUser) registeredUser.get();
+            permissions = permissionService.findAllByInvitedUser(invitedUser);
+        } else {
+            Resident resident = (Resident) registeredUser.get();
+            permissions = permissionService.findAllByResident(resident);
+        }
+
+        return GeneralResponse.ok("Permissions found", permissions);
+    }
+
+    @GetMapping("/own-residence")
+    @PreAuthorize("hasRole('ROLE_RESIDENT_SUDO')")
+    public ResponseEntity<GeneralResponse<List<Permission>>> getOwnResidencePermissions() {
+        Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
+        if (registeredUser.isEmpty()) {
+            return GeneralResponse.error401("Registered user not found");
+        }
+        Resident resident = (Resident) registeredUser.get();
+        List<Permission> permissions = permissionService.findAllByResident(resident);
+
+        return GeneralResponse.ok("Permissions found", permissions);
+    }
+
     @GetMapping(value = "/residence/{residence}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<Permission>>> getResidencePermissions(@PathVariable String residence) {
@@ -54,7 +86,7 @@ public class PermissionRestController {
             return GeneralResponse.error404("Residence not found");
         }
 
-        List<Permission> permissions = permissionService.findByResidence(residenceOptional.get());
+        List<Permission> permissions = permissionService.findAllByResidence(residenceOptional.get());
 
         return GeneralResponse.ok("Permissions found", permissions);
     }

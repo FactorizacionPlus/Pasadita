@@ -50,7 +50,7 @@ public class WebSecurityConfiguration {
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy("""
-                ROLE_ADMIN > ROLE_RESIDENT
+                ROLE_RESIDENT_SUDO > ROLE_RESIDENT
                 ROLE_RESIDENT > ROLE_INVITED
                 """);
         return roleHierarchy;

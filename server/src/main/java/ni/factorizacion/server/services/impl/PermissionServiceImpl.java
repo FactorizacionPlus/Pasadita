@@ -28,8 +28,13 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> findByResidence(Residence residence) {
+    public List<Permission> findAllByResidence(Residence residence) {
         return permissionRepository.findAllByResidence(residence);
+    }
+
+    @Override
+    public List<Permission> findAllByResident(Resident resident) {
+        return permissionRepository.findAllByResident(resident);
     }
 
     @Override
