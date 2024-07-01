@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ni.factorizacion.server.domain.entities.ResidentRole;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,5 +16,5 @@ public class SaveResidentDto extends SaveUserDto{
     private String imageUrl;
 
     @NotNull
-    private Integer role;
+    private ResidentRole role;
 }

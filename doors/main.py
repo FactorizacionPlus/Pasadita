@@ -63,6 +63,9 @@ def parse_event(event: bytes):
 
 def main():
     buffer = b""
+    if my_socket is None:
+        return
+
     while (True):
         char = my_socket.read(1)
         if (char is None or char is b""):
@@ -70,8 +73,8 @@ def main():
         buffer += char
 
         # Event sent
-        if (buffer.endswith("\n\n")):
-            if (buffer.startswith("HTTP")):
+        if (buffer.endswith(b"\n\n")):
+            if (buffer.startswith(b"HTTP")):
                 buffer = b""
                 continue
 

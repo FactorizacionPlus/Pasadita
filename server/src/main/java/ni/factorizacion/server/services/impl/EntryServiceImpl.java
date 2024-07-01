@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,7 +16,7 @@ public class EntryServiceImpl implements EntryService {
     EntryRepository entryRepository;
 
     @Override
-    public Optional<Entry> createEntry(User user, Terminal terminal, String description) {
+    public Optional<Entry> createEntry(User user, Terminal terminal, String description, Residence residence) {
         Entry entry = new Entry();
 
         if (user instanceof Administrator) {
@@ -27,9 +27,20 @@ public class EntryServiceImpl implements EntryService {
         entry.setDescription("");
         entry.setUser(user);
         entry.setTerminal(terminal);
+        entry.setResidence(residence);
 
         entryRepository.save(entry);
 
         return Optional.of(entry);
+    }
+
+    @Override
+    public List<Entry> getEntriesByUser(User user) {
+        return entryRepository.getEntriesByUser(user);
+    }
+
+    @Override
+    public List<Entry> getEntriesByResidence(Residence residence) {
+        return entryRepository.getEntriesByResidence(residence);
     }
 }

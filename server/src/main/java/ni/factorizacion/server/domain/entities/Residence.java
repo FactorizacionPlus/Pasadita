@@ -23,7 +23,10 @@ public class Residence {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "residence")
     @JsonIgnore
     private List<Resident> residents;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "residence")
+    private  List<Entry> entries;
 }

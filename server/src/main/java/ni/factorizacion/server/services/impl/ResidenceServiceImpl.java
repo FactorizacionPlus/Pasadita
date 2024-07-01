@@ -1,9 +1,12 @@
 package ni.factorizacion.server.services.impl;
 
+import ni.factorizacion.server.domain.dtos.input.AssignResidentDto;
 import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
+import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidenceRepository;
+import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ import java.util.UUID;
 public class ResidenceServiceImpl implements ResidenceService {
 
     @Autowired
+    private ResidentRepository residentRepository;
+
+    @Autowired
     private ResidenceRepository repository;
 
     public List<Residence> findAll() {
@@ -28,6 +34,12 @@ public class ResidenceServiceImpl implements ResidenceService {
     public Optional<Residence> findByDescription(String description) {
         return repository.findByDescription(description);
     }
+
+    @Override
+    public Optional<Residence> findById(UUID uuid) {
+        return repository.findById(uuid);
+    }
+
 
     @Override
     public void saveResidence(SaveResidenceDto dto) throws ControlException {
@@ -62,5 +74,15 @@ public class ResidenceServiceImpl implements ResidenceService {
                     "Residence with the id +" + uuid + " does not exist");
         }
         repository.deleteById(UUID.fromString(uuid));
+    }
+
+    @Override
+    public void assignResidenteToResidencia(Resident resident, Residence residence) throws ControlException {
+        if (residence.getResidents().size() >= residence.getMaxHabitants()) {
+            throw new ControlException(HttpStatus.CONFLICT, "The residence reached the maximum number of residents allowed");
+        }
+
+        residence.getResidents().add(resident);
+        repository.save(residence);
     }
 }

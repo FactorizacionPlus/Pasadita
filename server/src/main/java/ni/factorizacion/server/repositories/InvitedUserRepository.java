@@ -7,5 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface InvitedUserRepository extends JpaRepository<InvitedUser, UUID> {
+    Optional<InvitedUser> findByIdentifier(String identifier);
+
     Optional<InvitedUser> findByEmail(String email);
 }
