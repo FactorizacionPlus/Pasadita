@@ -69,7 +69,13 @@ public class AccessRestController {
 
         RegisteredUser user = token.get().getUser();
 
-        Optional<Entry> entry = entryService.createEntry(user, terminal.get(), "");
+        // TODO: Obtener la residencia del permiso actual para el Usuario Invitado
+        Residence residence = null;
+        if (user.getClass().equals(Resident.class)) {
+            residence = ((Resident) user).getResidence();
+        }
+
+        Optional<Entry> entry = entryService.createEntry(user, terminal.get(), "", residence);
         if (entry.isEmpty()) {
             return GeneralResponse.error500("Could not create entry");
         }
@@ -93,7 +99,8 @@ public class AccessRestController {
             return GeneralResponse.error404("Anonymous user not found");
         }
 
-        Optional<Entry> entry = entryService.createEntry(user.get(), terminal.get(), actionDto.getDescription());
+        // Ya que un Usuario Anónimo no posee residencia, la entrada no tiene relación con ninguna residencia
+        Optional<Entry> entry = entryService.createEntry(user.get(), terminal.get(), actionDto.getDescription(), null);
         if (entry.isEmpty()) {
             return GeneralResponse.error500("Could not create entry");
         }
