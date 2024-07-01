@@ -26,4 +26,7 @@ public class Entry {
     @NotNull
     @ManyToOne
     private Terminal terminal;
+
+    @ManyToOne
+    private Residence residence;
 }
