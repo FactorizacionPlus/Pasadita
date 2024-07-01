@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,5 +32,14 @@ public class EntryServiceImpl implements EntryService {
         entryRepository.save(entry);
 
         return Optional.of(entry);
+    }
+
+    @Override
+    public List<Entry> getEntriesByUser(User user) {
+        return entryRepository.getEntriesByUser(user);
+    }
+    @Override
+    public List<Entry> getEntriesByResidence(Residence residence) {
+        return entryRepository.getEntriesByResidence(residence);
     }
 }

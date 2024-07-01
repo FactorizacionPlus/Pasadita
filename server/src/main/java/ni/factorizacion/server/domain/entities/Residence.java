@@ -26,4 +26,7 @@ public class Residence {
     @OneToMany
     @JsonIgnore
     private List<Resident> residents;
+
+    @OneToMany
+    private  List<Entry> entries;
 }
