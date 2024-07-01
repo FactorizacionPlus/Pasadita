@@ -20,6 +20,7 @@ public class Terminal {
     @NotNull
     private TerminalType type;
     @NotNull
+    @JsonIgnore
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "terminal")

@@ -1,6 +1,7 @@
 package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.output.EntrySimpleDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,28 +35,32 @@ public class EntryController {
     ResidenceService residenceService;
 
     @GetMapping("/own")
-    public ResponseEntity<GeneralResponse<List<Entry>>> getOwnEntries() {
+    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getOwnEntries() {
         Optional<RegisteredUser> user = authenticationService.getCurrentAuthenticatedUser();
         if (user.isEmpty()) {
             return GeneralResponse.error404("User not found");
         }
         List<Entry> entries = entryService.getEntriesByUser(user.get());
-        return GeneralResponse.ok("Entries found", entries);
+        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+
+        return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/user/{identifier}")
-    public ResponseEntity<GeneralResponse<List<Entry>>> getUserEntries(@PathVariable String identifier) {
+    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getUserEntries(@PathVariable String identifier) {
         Optional<User> user = userService.findByIdentifier(identifier);
         if (user.isEmpty()) {
             return GeneralResponse.error404("User not found");
         }
         List<Entry> entries = entryService.getEntriesByUser(user.get());
-        return GeneralResponse.ok("Entries found", entries);
+        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+
+        return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/own-residence")
     @PreAuthorize("hasRole('ROLE_RESIDENT')")
-    public ResponseEntity<GeneralResponse<List<Entry>>> getOwnResidenceEntries() {
+    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getOwnResidenceEntries() {
         Optional<RegisteredUser> user = authenticationService.getCurrentAuthenticatedUser();
         if (user.isEmpty()) {
             return GeneralResponse.error404("User not found");
@@ -70,12 +75,13 @@ public class EntryController {
         }
 
         List<Entry> entries = entryService.getEntriesByResidence(resident.getResidence());
+        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
 
-        return GeneralResponse.ok("Entries found", entries);
+        return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/residence/{residenceS}")
-    public ResponseEntity<GeneralResponse<List<Entry>>> getResidenceEntries(@PathVariable String residenceS) {
+    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getResidenceEntries(@PathVariable String residenceS) {
         UUID uuid = UUID.fromString(residenceS);
 
         Optional<Residence> residence = residenceService.findById(uuid);
@@ -84,8 +90,9 @@ public class EntryController {
         }
 
         List<Entry> entries = entryService.getEntriesByResidence(residence.get());
+        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
 
-        return GeneralResponse.ok("Entries found", entries);
+        return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
 }
