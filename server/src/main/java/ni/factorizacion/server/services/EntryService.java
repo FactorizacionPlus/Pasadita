@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface EntryService {
     Optional<Entry> createEntry(User user, Terminal terminal, String description);
+
     List<Entry> getEntriesByUser(User user);
+
     List<Entry> getEntriesByResidence(Residence residence);
 }

@@ -10,5 +10,6 @@ import java.util.UUID;
 
 public interface EntryRepository extends JpaRepository<Entry, UUID> {
     List<Entry> getEntriesByUser(User user);
+
     List<Entry> getEntriesByResidence(Residence residence);
 }
