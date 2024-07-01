@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EntryService {
-    Optional<Entry> createEntry(User user, Terminal terminal, String description);
+    Optional<Entry> createEntry(User user, Terminal terminal, String description, Residence residence);
 
     List<Entry> getEntriesByUser(User user);
 
