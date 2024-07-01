@@ -20,6 +20,6 @@ public interface PermissionRepository extends JpaRepository<Permission, UUID> {
 
     List<Permission> findAllByInvitedUser(InvitedUser invitedUser);
 
-    @Query("SELECT p FROM Permission p WHERE p.startDate >= :date AND p.endDate <= :date AND p.invitedUser = :user")
-    Optional<Permission> findByUserAndDate(@Param("user") InvitedUser user, @Param("date") LocalDateTime date);
+    @Query("SELECT p FROM Permission p WHERE p.startDate <= :date AND p.endDate + :timeframe second >= :date AND p.invitedUser = :user")
+    Optional<Permission> findByUserAndDate(@Param("user") InvitedUser user, @Param("date") LocalDateTime date, @Param("timeframe") Long timeframe);
 }
