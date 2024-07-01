@@ -4,16 +4,18 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import ni.factorizacion.server.domain.entities.Residence;
 
+import java.util.UUID;
+
 @Data
 @SuperBuilder
 public class ResidenceSimpleDto {
-    private String uuid;
+    private UUID uuid;
     private String description;
     private Integer maxHabitants;
 
-    static public ResidenceSimpleDto from(Residence residence){
+    static public ResidenceSimpleDto from(Residence residence) {
         return ResidenceSimpleDto.builder()
-                .uuid(residence.getUuid().toString())
+                .uuid(residence.getUuid())
                 .description(residence.getDescription())
                 .maxHabitants(residence.getMaxHabitants())
                 .build();

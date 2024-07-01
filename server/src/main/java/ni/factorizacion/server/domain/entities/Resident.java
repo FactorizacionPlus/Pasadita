@@ -1,8 +1,6 @@
 package ni.factorizacion.server.domain.entities;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +14,8 @@ import java.util.List;
 @Data
 public class Resident extends InvitedUser {
     @NotNull
-    private Integer role;
+    @Enumerated(EnumType.STRING)
+    private ResidentRole role;
 
     @ManyToOne
     private Residence residence;
@@ -24,8 +23,10 @@ public class Resident extends InvitedUser {
     @Override
     @ElementCollection
     public Collection<SimpleGrantedAuthority> getAuthorities() {
-        return List.of(
-                new SimpleGrantedAuthority("ROLE_RESIDENT")
-        );
+        SimpleGrantedAuthority authority = switch (role) {
+            case NORMAL -> new SimpleGrantedAuthority("ROLE_RESIDENT");
+            case SUDO -> new SimpleGrantedAuthority("ROLE_RESIDENT_SUDO");
+        };
+        return List.of(authority);
     }
 }
