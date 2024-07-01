@@ -3,6 +3,7 @@ package ni.factorizacion.server.services.impl;
 import ni.factorizacion.server.domain.dtos.input.SavePermissionDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.repositories.PermissionRepository;
+import ni.factorizacion.server.services.ConfigurationService;
 import ni.factorizacion.server.services.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.UUID;
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     PermissionRepository permissionRepository;
+
+    @Autowired
+    ConfigurationService configurationService;
 
     @Override
     public List<Permission> findAll() {
@@ -44,7 +48,8 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Optional<Permission> findByUserNow(InvitedUser user) {
-        return permissionRepository.findByUserAndDate(user, LocalDateTime.now());
+        Long timeframe = configurationService.getConfiguration().getTimeframe();
+        return permissionRepository.findByUserAndDate(user, LocalDateTime.now(), timeframe);
     }
 
     @Override
