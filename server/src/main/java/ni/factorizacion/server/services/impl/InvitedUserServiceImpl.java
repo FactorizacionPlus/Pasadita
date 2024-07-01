@@ -29,7 +29,7 @@ public class InvitedUserServiceImpl implements InvitedUserService {
     }
 
     @Override
-    public InvitedUser createUser(GoogleUserInfo userInfo) throws ControlException {
+    public InvitedUser createUser(GoogleUserInfo userInfo) {
         InvitedUser user = new InvitedUser();
 
         user.setFirstName(userInfo.getGivenName());
