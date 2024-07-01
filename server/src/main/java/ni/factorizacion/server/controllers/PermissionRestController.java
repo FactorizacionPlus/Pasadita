@@ -3,6 +3,7 @@ package ni.factorizacion.server.controllers;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.AuthorizePermissionDto;
 import ni.factorizacion.server.domain.dtos.input.SavePermissionDto;
+import ni.factorizacion.server.domain.dtos.output.PermissionSimpleDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.services.*;
 import ni.factorizacion.server.utils.UUIDUtils;
@@ -36,14 +37,16 @@ public class PermissionRestController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<Permission>>> getPermissions() {
+    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getPermissions() {
         List<Permission> permissions = permissionService.findAll();
-        return GeneralResponse.ok("Permissions found", permissions);
+        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
+
+        return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @GetMapping("/own")
     @PreAuthorize("hasRole('ROLE_INVITED') or hasRole('ROLE_RESIDENT')")
-    public ResponseEntity<GeneralResponse<List<Permission>>> getOwnPermissions() {
+    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getOwnPermissions() {
         Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error401("Registered user not found");
@@ -56,26 +59,28 @@ public class PermissionRestController {
             Resident resident = (Resident) registeredUser.get();
             permissions = permissionService.findAllByResident(resident);
         }
+        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
 
-        return GeneralResponse.ok("Permissions found", permissions);
+        return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @GetMapping("/own-residence")
     @PreAuthorize("hasRole('ROLE_RESIDENT_SUDO')")
-    public ResponseEntity<GeneralResponse<List<Permission>>> getOwnResidencePermissions() {
+    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getOwnResidencePermissions() {
         Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error401("Registered user not found");
         }
         Resident resident = (Resident) registeredUser.get();
         List<Permission> permissions = permissionService.findAllByResident(resident);
+        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
 
-        return GeneralResponse.ok("Permissions found", permissions);
+        return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @GetMapping(value = "/residence/{residence}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<Permission>>> getResidencePermissions(@PathVariable String residence) {
+    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getResidencePermissions(@PathVariable String residence) {
         Optional<UUID> uuid = UUIDUtils.fromString(residence);
         if (uuid.isEmpty()) {
             return GeneralResponse.error400("Incorrect UUID");
@@ -87,21 +92,23 @@ public class PermissionRestController {
         }
 
         List<Permission> permissions = permissionService.findAllByResidence(residenceOptional.get());
+        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
 
-        return GeneralResponse.ok("Permissions found", permissions);
+        return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @GetMapping("/invited/{identifier}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<Permission>>> getUserPermissions(@PathVariable String identifier) {
+    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getUserPermissions(@PathVariable String identifier) {
         Optional<InvitedUser> invitedUser = invitedUserService.findByIdentifier(identifier);
         if (invitedUser.isEmpty()) {
             return GeneralResponse.error404("Invited User not found");
         }
 
         List<Permission> permissions = permissionService.findAllByInvitedUser(invitedUser.get());
+        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
 
-        return GeneralResponse.ok("Permissions found", permissions);
+        return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @PostMapping
