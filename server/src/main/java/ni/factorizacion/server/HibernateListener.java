@@ -33,7 +33,8 @@ public class HibernateListener implements PostInsertEventListener {
     public void onPostInsert(PostInsertEvent event) {
         final Object entity = event.getEntity();
         if (entity instanceof Entry) {
-            sseService.sendEvent(((Entry) entity).getTerminal().getUuid().toString(), "entry-added");
+            // Send TerminalType with "entry-added" event to all SSE clients
+            sseService.sendEvent(((Entry) entity).getTerminal().getType().toString(), "entry-added");
         }
     }
 
