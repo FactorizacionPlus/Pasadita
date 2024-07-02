@@ -11,7 +11,7 @@ const props = defineProps<{ user: User | Resident | Invited }>();
 <template>
   <li class="flex flex-col gap-2">
     <div class="flex items-center gap-1 rounded-t-lg">
-      <UserImage class="size-9" :image="props.user.imageUrl" size="25" padding="0px" />
+      <UserImage class="size-9" :image="(props.user as Resident)?.imageUrl" size="25" padding="0px" />
       <div class="flex-1">
         <div class="flex items-center gap-0.5 text-sm text-blue-500">
           <IdentityCard class="h-2.5" />

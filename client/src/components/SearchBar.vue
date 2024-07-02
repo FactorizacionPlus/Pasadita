@@ -31,6 +31,7 @@ const clearSearch = () => {
 
 <template>
   <form @submit.prevent="handleSubmit" class=" ml-auto flex w-full max-w-screen-sm justify-end gap-1 overflow-auto">
+    <slot/>
     <div class="relative w-full">
       <input v-model="searchText" type="text"
         class="peer h-10 w-full rounded-md border-x border-b-2 border-t border-shades-400 bg-shades-100 px-8 text-blue-500 outline-none transition-all placeholder:text-shades-400 hover:bg-blue-100 focus:border-blue-400 focus:bg-blue-200 focus:text-blue-400 focus:placeholder:text-blue-300 disabled:opacity-40"
@@ -45,9 +46,10 @@ const clearSearch = () => {
       </button>
     </div>
     <button @click="handleToggleHideNoResults" type="button"
-      class="grid aspect-square h-10 w-auto place-items-center rounded-lg p-2 transition-all hover:rounded-xl active:scale-95"
+      class="flex aspect-square h-10 w-auto place-items-center items-center justify-center gap-1 rounded-lg p-2 transition-all hover:rounded-xl active:scale-95"
       :class="hideNoResults ? 'bg-red-200 text-red-400 hover:bg-red-300' : 'bg-green-200 text-green-400 hover:bg-green-300'">
       <VueFeather :type="hideNoResults ? 'eye-off' : 'eye'" class="size-4" />
+      <span class="hidden">{{ hideNoResults ? dic.HIDE : dic.SHOW }}</span>
     </button>
   </form>
 </template>

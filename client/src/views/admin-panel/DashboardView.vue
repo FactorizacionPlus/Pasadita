@@ -11,6 +11,8 @@ import VueFeather from "vue-feather";
 
 enum dic {
     TITLE = "Dashboard",
+    ACTIVE_TERMINALS  = "Terminales Activas",
+    RECENT_ENTRIES = "Entradas Recientes"
 }
 
 const user: Administrator = {
@@ -140,13 +142,17 @@ const rows = [
         <article class="flex flex-col gap-2 rounded-lg bg-white p-4">
             <div class="flex items-center gap-1 font-medium text-blue-500">
                 <VueFeather type="tablet" class="size-[18px]" />
-                <h2 class="text-xl">Terminales Activas</h2>
+                <h2 class="text-xl">{{ dic.ACTIVE_TERMINALS }}</h2>
             </div>
             <ul class="grid grid-cols-2 gap-2">
                 <AdministratorTerminalCard :terminal="item" v-for="(item, index) in terminals" :key="index" />
             </ul>
         </article>
-        <article class="row-span-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2">
+        <article class="row-span-2 flex flex-col gap-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2">
+            <div class="flex items-center gap-1 font-medium text-blue-500">
+                <VueFeather type="tablet" class="size-[18px]" />
+                <h2 class="text-xl">{{ dic.RECENT_ENTRIES }}</h2>
+            </div>
             <GenericTable :table="rows" />
         </article>
     </section>

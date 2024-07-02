@@ -5,13 +5,20 @@ import PaginationItem from "@/components/PaginationItem.vue";
 import type User from "@/types/User";
 import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
+import { ref } from "vue";
+import { matchSearch } from "@/utils/matchSearch";
 
 enum dic {
   TITLE = "Entradas",
   SINGULAR = "Residencia",
   PEOPLE = "Habitantes",
-  DESCRIPTION = "Descripción"
+  DESCRIPTION = "Descripción",
+  SEARCH_BY = "Buscando por el término: "
 }
+
+const searchText = ref('')
+const hideNoResults = ref(false)
+const fieldsToSearch = ["description", "user.firstName", "user.lastName", "user.identifier"]
 
 const entryList: EntryType[] = [
   {
@@ -36,7 +43,7 @@ const entryList: EntryType[] = [
     uuid: "",
     user: {
       identifier: "0011904041016S",
-      imageUrl: "https://www.github.com/poncka.png",
+      imageUrl: "",
       firstName: "David",
       lastName: "Parrales Ponce",
       identifierType: "PASSPORT",
@@ -50,15 +57,19 @@ const entryList: EntryType[] = [
     }
   },
 ];
+
 </script>
 
 <template>
   <CurrentPageInfo :title="dic.TITLE" icon="folder" action="read_only" />
   <article class="flex w-full flex-col gap-8 rounded-lg  bg-white p-4">
-    <SearchBar />
+    <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
+    <p v-if="searchText.length > 2" class="font-medium">{{ dic.SEARCH_BY }} <span class="font-normal">{{ searchText }}</span></p>
     <ul class="grid gap-4 lg:grid-cols-2">
-      <EntryCard :entry="entry" v-for="entry, index in entryList" :key="index" />
+      <EntryCard
+        :class="{ 'animate-scale-up border-2 border-blue-400': matchSearch(entry, searchText, fieldsToSearch) && searchText.length > 2, 'hidden': !matchSearch(entry, searchText, fieldsToSearch) && hideNoResults && searchText.length > 2 }"
+        :entry="entry" v-for="entry, index in entryList" :key="index" />
     </ul>
-    <PaginationItem :total-pages="6"  />
+    <PaginationItem :total-pages="6" />
   </article>
 </template>

@@ -10,6 +10,15 @@ export default {
         header: "0px 2px 12px 0px rgba(0,52,116,0.15);",
         glow: "0px 4px 30px 0px rgba(154, 201,255,0.7);",
       },
+      animation: {
+        'scale-up': 'scale_up 0.3s'
+      },
+      keyframes: {
+        scale_up: {
+          '0%': { transform: 'scale(1.10)'},
+          '100%': { transform: 'scale(1)'}
+        }
+      },
       colors: {
         yellow: {
           100: "#FFFFF0",
