@@ -11,15 +11,15 @@ enum dic {
 const terminalList: Terminal[] = [
   {
     type: "Peatonal",
-    uuid: "",
+    uuid: "xdxdxd",
   },
   {
     type: "Vehicular",
-    uuid: "",
+    uuid: "xdxdxdxd",
   },
   {
     type: "Vigilante",
-    uuid: "",
+    uuid: "xdxdxd",
   },
 ];
 </script>

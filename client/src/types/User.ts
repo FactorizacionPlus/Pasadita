@@ -3,7 +3,5 @@ export default interface User {
   identifier: string;
   firstName: string;
   lastName: string;
-  imageUrl: string;
   identifierType: "DUI" | "PASSPORT";
-  role: string
 }

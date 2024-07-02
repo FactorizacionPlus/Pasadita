@@ -55,6 +55,10 @@ const currentResidents = 0;
         @click="modalSee?.show()">
         <VueFeather type="eye" stroke-width="2.5" size="16"></VueFeather>
       </button>
+      <a href=""
+        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95">
+        <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather>
+      </a>
     </div>
   </li>
   <ModalDelete reason="¿Desea eliminar esta residencia?" ref="modalDel"> Hola </ModalDelete>

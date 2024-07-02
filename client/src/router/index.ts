@@ -81,6 +81,11 @@ const router = createRouter({
           component: () => import("../views/admin-panel/TerminalsView.vue"),
         },
         {
+          path: "terminal/:terminal",
+          name: "admin-terminal-history",
+          component: () => import("../views/admin-panel/TerminalHistoryView.vue"),
+        },
+        {
           path: "residencias",
           name: "admin-residence",
           component: () => import("../views/admin-panel/ResidencyView.vue"),

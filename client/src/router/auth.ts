@@ -6,6 +6,7 @@ const allowedAnonymous: RouteRecordName[] = ["login", "login-google", "register-
 export function applyAuthRouting(router: Router) {
   const auth = useAuth();
 
+  return;
   router.beforeEach((to, from, next) => {
     console.log({ to, from });
     const isLoggedIn = auth.token != null;

@@ -1,38 +1,28 @@
 <script setup lang="ts">
-import AdministratorCurrentUserCard from "@/components/Cards/AdministratorCurrentUserCard.vue";
-import AdministratorTerminalCard from "@/components/Cards/AdministratorTerminalCard.vue"
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import GenericTable from "@/components/GenericTable.vue";
-import type Administrator from "@/types/Administrator";
 import type Entry from "@/types/Entry";
 import type Terminal from "@/types/Terminal";
 import type User from "@/types/User";
+import SearchBar from "@/components/SearchBar.vue";
+import TerminalMinimalCard from "@/components/Cards/TerminalMinimalCard.vue"
 import VueFeather from "vue-feather";
+import { ref } from "vue";
+
+const searchText = ref('');
+const hideNoResults = ref(false);
+
 
 enum dic {
-    TITLE = "Dashboard",
+  TITLE = "Terminal",
+  RELOAD_TEXT = "Recargar"
 }
 
-const user: Administrator = {
-    firstName: "Juan Daniel",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    imageUrl: "https://www.github.com/davidquintr.png",
-    lastName: "Treminio",
-    status: "ACTIVE",
-    uuid: "xd"
-}
-
-const terminals: Terminal[] = [
+const terminal: Terminal =
     {
         type: "Peatonal",
         uuid: "xd"
-    },
-    {
-        type: "Vehicular",
-        uuid: "xd"
     }
-]
 
 const users: User[] = [
     {
@@ -51,7 +41,7 @@ const users: User[] = [
     },
     {
         firstName: "Jezer",
-        identifier: "C137",
+        identifier: "C137342343",
         identifierType: "PASSPORT",
         lastName: "Mejía Otero",
         uuid: "xddddd"
@@ -71,17 +61,25 @@ const entries: Entry[] = [
         uuid: "xdddddd",
         accessDate: new Date(),
         description: "Alguna descripción",
-        terminal: terminals[0],
+        terminal: terminal,
         user: users[0],
     },
     {
         uuid: "xdddddd",
         accessDate: new Date(),
         description: "Alguna descripción",
-        terminal: terminals[1],
+        terminal: terminal,
         user: users[1],
+    },
+    {
+        uuid: "xdddddd",
+        accessDate: new Date(),
+        description: "Alguna descripción",
+        terminal: terminal,
+        user: users[2],
     }
 ]
+
 
 const rows = [
     {
@@ -106,13 +104,6 @@ const rows = [
         ]
     },
     {
-        name: "Terminal",
-        icon: "tablet",
-        items: [
-            ...entries.map((item) => item.terminal.type)
-        ]
-    },
-    {
         name: "Descripción",
         icon: 'align-left',
         items: [
@@ -132,22 +123,19 @@ const rows = [
 
 </script>
 <template>
-    <CurrentPageInfo :title="dic.TITLE" icon="grid" />
-    <section class="grid flex-1 grid-rows-3 gap-4 lg:grid-cols-2">
-        <article class="grid place-items-center rounded-lg bg-white p-4">
-            <AdministratorCurrentUserCard :admin="user" />
-        </article>
-        <article class="flex flex-col gap-2 rounded-lg bg-white p-4">
-            <div class="flex items-center gap-1 font-medium text-blue-500">
-                <VueFeather type="tablet" class="size-[18px]" />
-                <h2 class="text-xl">Terminales Activas</h2>
-            </div>
-            <ul class="grid grid-cols-2 gap-2">
-                <AdministratorTerminalCard :terminal="item" v-for="(item, index) in terminals" :key="index" />
-            </ul>
-        </article>
-        <article class="row-span-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2">
-            <GenericTable :table="rows" />
-        </article>
+  <CurrentPageInfo :title="dic.TITLE" icon="tablet" action="history" />
+  <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
+    <SearchBar @toggle-no-results="hideNoResults = $event" @search="searchText = $event" />
+    <section class="overflow-x-auto rounded-xl pb-1">
+      <GenericTable :hide-no-results="hideNoResults" :table="rows" :search-term="searchText">
+        <div class="flex items-center justify-between p-2">
+            <TerminalMinimalCard :terminal="terminal"  />
+            <button class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95">
+                <VueFeather type="loader" stroke-width="2.5" size="16" />
+                <span>{{ dic.RELOAD_TEXT }}</span>
+            </button>
+        </div>
+      </GenericTable>
     </section>
+  </article>
 </template>

@@ -28,6 +28,10 @@ create: {
     icon: "plus",
     name: "Agregar",
   },
+  history: {
+    icon: "file-text",
+    name: "Historial de Entradas"
+  }
 };
 
-export type Actions = "create" | "view" | "edit" | "delete" | "add" | "read_only"
+export type Actions = "create" | "view" | "edit" | "delete" | "add" | "read_only" | "history"

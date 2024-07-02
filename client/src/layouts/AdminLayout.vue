@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto box-border flex flex-col gap-4 p-4 md:h-screen md:flex-row">
     <AdminNavigationMenu class="shrink-0" />
-    <main class="flex shrink-0 grow flex-col overflow-x-visible rounded-lg md:w-min md:overflow-y-auto">
+    <main class="flex grow flex-col overflow-x-visible rounded-lg md:w-min md:overflow-y-auto">
       <router-view />
     </main>
   </div>
