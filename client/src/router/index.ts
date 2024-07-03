@@ -129,6 +129,11 @@ const router = createRouter({
           name: "resident-home",
           component: () => import("../views/resident-panel/HomeView.vue"),
         },
+        {
+          path: "historial-solicitudes",
+          name: "resident-requests-history",
+          component: () => import("../views/resident-panel/AccessRequestsView.vue"),
+        },
       ],
     },
     {

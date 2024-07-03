@@ -1,5 +1,5 @@
 <template>
-  <nav class="sticky top-4 z-10 flex flex-col rounded-lg bg-white p-2 shadow-header transition-all md:relative md:top-0 md:p-4" :class="isFullNav ? 'md:w-[360px]' : 'md:w-[80px]'">
+  <nav class="sticky z-10 flex flex-col bg-white p-2 shadow-header transition-all sm:top-4 sm:rounded-lg md:relative md:top-0 md:p-4" :class="isFullNav ? 'md:w-[360px]' : 'md:w-[80px]'">
     <div class="relative flex justify-between gap-4 md:flex-col md:justify-start">
       <img v-if="isFullNav" class="mx-auto hidden h-[45px] w-auto md:block" src="/identity/pasaditaLogo.svg" />
       <img v-else class="hidden h-8 w-auto md:block" src="/identity/pasaditaLogoMin.svg" />
@@ -49,7 +49,7 @@
 
       <RouterLink :key="index" v-for="(route, index) in routes" :class="[currentPath == ADMIN_ROUTE + route.link
         ? 'translate-x-1 rounded-xl bg-blue-200 font-medium hover:bg-blue-100'
-        : 'rounded-md hover:bg-blue-100', isFullNav ? 'min-w-[328px]' : 'md:aspect-square md:justify-center']
+        : 'rounded-md hover:bg-blue-100', isFullNav ? 'min-w-full' : 'md:aspect-square md:justify-center']
         "
         class="flex items-center gap-1.5 p-3 text-xl text-blue-400 transition-all last:mt-auto hover:rounded-xl active:scale-95"
         :to="`${ADMIN_ROUTE}${route.link}`">

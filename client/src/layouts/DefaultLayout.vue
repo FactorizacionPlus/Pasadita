@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto flex h-screen flex-col">
+  <div class="mx-auto flex h-screen flex-col p-4">
     <DefaultNavigationMenu />
-    <main class="mx-auto w-full max-w-screen-2xl shrink-0 grow overflow-y-auto p-4">
+    <main class="mx-auto flex w-full max-w-screen-2xl shrink-0 grow flex-col overflow-y-auto">
       <router-view />
     </main>
   </div>

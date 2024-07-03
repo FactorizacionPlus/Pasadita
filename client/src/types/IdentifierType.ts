@@ -1,1 +1,1 @@
-export type Identifier = "PASSPORT" | "DUI";
+export type identifierType = "PASSPORT" | "DUI";

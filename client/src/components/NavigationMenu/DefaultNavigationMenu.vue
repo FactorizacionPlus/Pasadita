@@ -1,15 +1,15 @@
 <template>
   <header
-    class="flex flex-col justify-between border-b border-b-pasadita-shade-2 bg-pasadita-shade-3 py-2"
+    class="sticky top-0 z-50 mx-auto flex w-full max-w-screen-2xl items-center justify-between bg-white px-4 py-2 shadow-header sm:top-4 sm:rounded-xl"
   >
-    <div class="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4">
-      <img class="h-8 w-auto" src="/identity/pasaditaLogo.svg" />
+      <img class="hidden h-8 w-auto md:block" src="/identity/pasaditaLogo.svg" />
+      <img class="block h-8 w-auto md:hidden" src="/identity/pasaditaLogoMin.svg" />
       <div class="flex items-center gap-1">
         <div
-          class="flex cursor-pointer items-center gap-1 rounded-lg p-2 text-pasadita-blue-2 transition-all hover:bg-black/5 active:scale-95"
+          class="flex cursor-pointer items-center gap-1 rounded-lg p-2 text-blue-400 transition-all hover:bg-shades-100 active:scale-95"
         >
           <div
-            class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
+            class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-white"
           >
             <VueFeather type="user" size="25" stroke="#004f82" stroke-width="1.5"></VueFeather>
           </div>
@@ -29,13 +29,12 @@
           </div>
         </div>
         <RouterLink
-          class="grid size-10 place-items-center gap-2 rounded-md text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-2 hover:text-white active:scale-95"
+          class="grid size-10 place-items-center gap-2 rounded-md text-blue-400 transition-all hover:bg-shades-100 active:scale-95"
           to="configuraciones"
         >
           <VueFeather type="settings" size="25" stroke-width="1.5"></VueFeather>
         </RouterLink>
       </div>
-    </div>
   </header>
 </template>
 

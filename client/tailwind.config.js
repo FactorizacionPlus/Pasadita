@@ -24,7 +24,7 @@ export default {
           100: "#FFFFF0",
           200: "#FFFFD7",
           300: "#FFFF9A",
-          400: "#B6B65D",
+          400: "#825C24",
         },
         green: {
           100: "#F0FFF7",

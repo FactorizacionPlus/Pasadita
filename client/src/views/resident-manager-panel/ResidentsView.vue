@@ -11,39 +11,19 @@ const modalAdd = ref<typeof ModalAdd>();
 
 const residentHistory: Resident[] = [
   {
-    image: "https://www.github.com/davidquintr.png",
-    name: "David",
-    secondName: "Quintanilla",
-    identification: "0011904041016S",
-    entries: 12,
-  },
-  {
-    name: "David",
-    secondName: "Parrales Ponce",
-    identification: "C3049392",
-    entries: 0,
-    image: "https://www.github.com/poncka.png",
-  },
-  {
-    name: "Jezer",
-    secondName: "Mejía Otero",
-    identification: "C3049392",
-    entries: 0,
-    image: "https://www.github.com/JezerM.png",
-  },
-  {
-    name: "Marcelo",
-    secondName: "Rivera Soto",
-    identification: "C3049392",
-    entries: 0,
-    image: "https://www.github.com/Mrsty21.png",
-  },
-  {
-    name: "Leo",
-    secondName: "Corea Navarrete",
-    identification: "C3049392",
-    entries: 0,
-    image: "https://www.github.com/leocorea.png",
+    imageUrl: "https://www.github.com/davidquintr.png",
+    firstName: "David",
+    lastName: "Quintanilla",
+    identifier: "0011904041016S",
+    email: "",
+    identifierType: "PASSPORT",
+    residence: {
+      description: "Casa de los olivos",
+      maxHabitants: 32,
+      status: "ACTIVE"
+    },
+    role: "quien sabe",
+    status: "ACTIVE"
   },
 ];
 </script>
@@ -62,8 +42,8 @@ const residentHistory: Resident[] = [
   <ul class="grid w-full gap-4 py-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
     <ResidentCard
       :resident="resident"
-      v-for="resident in residentHistory"
-      :key="resident.identification"
+      v-for="(resident,index) in residentHistory"
+      :key="index"
     />
   </ul>
   <Pagination class="py-4" :total-pages="6" />

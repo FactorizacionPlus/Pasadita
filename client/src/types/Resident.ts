@@ -1,14 +1,15 @@
-import type { Identifier } from "typescript";
 import type { StatusType } from "./StatusType";
+import type Residence from "./Residence";
+import type { identifierType } from "./IdentifierType";
 
 export default interface Resident {
   firstName: string;
   lastName: string;
   identifier: string;
-  identifierType: Identifier;
+  identifierType: identifierType;
   email: string;
   imageUrl: string;
   status: StatusType;
   role: string;
-  residence_uuid: string;
+  residence: Residence;
 }
