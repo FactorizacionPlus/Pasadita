@@ -69,11 +69,6 @@ const router = createRouter({
           component: () => import("../views/admin-panel/EntriesView.vue"),
         },
         {
-          path: "permisos",
-          name: "admin-history",
-          component: () => import("../views/admin-panel/PermissionsView.vue"),
-        },
-        {
           path: "terminales",
           name: "admin-terminales",
           component: () => import("../views/admin-panel/TerminalsView.vue"),

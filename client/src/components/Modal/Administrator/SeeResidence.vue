@@ -4,19 +4,26 @@ import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
-import type User from "@/types/User";
 import type Residence from "@/types/Residence";
+import type Resident from "@/types/Resident";
 
 const modal = ref<typeof Modal>();
 
-const residents: User[] = [
+const residents: Resident[] = [
   {
     identifier: "0011904041016S",
     firstName: "Juan Daniel",
     lastName: "Treminio",
-    imageUrl:
-      "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
+    imageUrl: "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
     role: "Administrador",
+    identifierType: "PASSPORT",
+    email: "",
+    status: "ACTIVE",
+    residence: {
+      description: "",
+      maxHabitants: 0,
+      status: "ACTIVE"
+    }
   },
   {
     identifier: "0011904041016S",
@@ -24,20 +31,35 @@ const residents: User[] = [
     lastName: "Maduro Moros",
     imageUrl: "https://pasadita.vercel.app/madurito.png",
     role: "Dictador",
-  },
+    identifierType: "PASSPORT",
+    email: "",
+    status: "ACTIVE",
+    residence: {
+      description: "",
+      maxHabitants: 0,
+      status: "ACTIVE"
+    }  },
   {
     identifier: "0011904041016S",
     firstName: "David Sebastián",
     lastName: "Parrales Ponce",
     imageUrl: "https://github.com/poncka.png",
     role: "Residente",
+    identifierType: "PASSPORT",
+    email: "",
+    status: "ACTIVE",
+    residence: {
+      description: "",
+      maxHabitants: 0,
+      status: "ACTIVE"
+    }
   },
 ];
 
 const residence: Residence = {
-  currentResidents: residents.length,
   description: "Palacio de Miraflores, República Bolivariana de Venezuela",
   maxHabitants: 5,
+  status: "ACTIVE"
 };
 
 defineExpose({
@@ -56,7 +78,7 @@ defineExpose({
           <div class="flex-1">
             <p class="text-base font-medium">Residencia</p>
             <p class="text-base font-normal">
-              {{ residence.currentResidents }} / {{ residence.maxHabitants }} Habitantes
+              {{ residents.length }} / {{ residence.maxHabitants }} Habitantes
             </p>
           </div>
         </div>

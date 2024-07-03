@@ -6,4 +6,5 @@ export default interface User {
   firstName: string;
   lastName: string;
   identifierType: identifierType;
+  imageUrl?: string;
 }
