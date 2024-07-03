@@ -1,34 +1,33 @@
 <script setup lang="ts">
-import VueFeather from "vue-feather";
+import SquareButton from '@/components/SquareButton.vue';
+import type { SquareButtonIconsType } from '@/types/SquareButtonIconsType';
 
-const ROUTE = "/residente-encargado/";
-const routes = [
+const RESIDENT_ROOT = "/residente-encargado/"
+
+interface RouteProp {
+  title: string,
+  icon: SquareButtonIconsType,
+  href: string,
+}
+
+const routes : RouteProp[] = [
   {
-    text: "Gestionar permisos",
-    link: "permisos",
-    icon: "file-minus",
+    title: "Gestionar Permisos",
+    icon: "custom-history-paper",
+    href: "permisos",
   },
   {
-    text: "Gestionar residentes",
-    link: "residentes",
-    icon: "users",
+    title: "Gestionar Residentes",
+    icon: "custom-people",
+    href: "residentes",
   },
-];
+]
+
+
 </script>
 
 <template>
-  <div class="flex h-full flex-col items-center justify-center gap-8 md:flex-row">
-    <RouterLink
-      :key="index"
-      v-for="(route, index) in routes"
-      class="flex aspect-square size-full h-auto max-w-[480px] flex-col items-center justify-center gap-2 rounded-md bg-pasadita-blue-4 text-2xl font-semibold text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-2 hover:text-pasadita-blue-4 active:scale-95"
-      :to="`${ROUTE}${route.link}`"
-    >
-      <div class="ml-1 flex shrink-0 items-center justify-center">
-        <VueFeather :type="route.icon" size="150" stroke-width="1.5"></VueFeather>
-      </div>
-
-      {{ route.text }}
-    </RouterLink>
-  </div>
+  <section class="flex size-full items-center justify-center gap-4">
+    <SquareButton type="link" :icon="item.icon" :title="item.title" :href="RESIDENT_ROOT + item.href" :key="index" v-for="(item, index) in routes" />
+  </section>
 </template>

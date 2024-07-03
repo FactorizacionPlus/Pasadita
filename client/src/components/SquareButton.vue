@@ -9,9 +9,12 @@ const dynamicLoadComponent = shallowRef();
 
 const props = defineProps<{
   title: string;
-  href: string;
+  href?: string;
   icon: SquareButtonIconsType;
+  type: "button" | "link"
 }>();
+
+const emit = defineEmits(['click']);
 
 const loadSvgComponent = async (icon: string) => {
   try {
@@ -30,15 +33,20 @@ onMounted(async () => {
   }
 });
 
+const handleClick = () => {
+  if (props.type === 'button') {
+    emit('click');
+  }
+}
 </script>
 
 <template>
-  <a
-    class="flex size-80 flex-col items-center justify-center gap-6 rounded-md bg-white p-4 text-blue-400 transition-all hover:bg-blue-400 hover:text-white hover:shadow-glow active:scale-95"
-    :href="props.href"
-  >
-    <component v-if="isCustomIcon" :is="dynamicLoadComponent" ></component>
+  <component :is="props.type === 'button' ? 'button' : 'a'" :class="{
+    'flex size-80 flex-col items-center justify-center gap-6 rounded-md bg-white p-4 text-blue-400 transition-all hover:bg-blue-400 hover:text-white hover:shadow-glow active:scale-95': true,
+    'text-center': true
+  }" :href="props.href" @click="handleClick">
+    <component v-if="isCustomIcon" :is="dynamicLoadComponent"></component>
     <VueFeather v-else :type="props.icon" class="size-[7.5rem]" />
     <span class="text-2xl font-medium">{{ props.title }}</span>
-  </a>
+  </component>
 </template>

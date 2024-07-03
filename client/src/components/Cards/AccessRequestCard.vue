@@ -56,7 +56,7 @@ const currentState = props.permission.authorized != undefined ? props.permission
         </div>
       </li>
     </ul>
-    <div class="flex items-center gap-1 p-2" v-if="props.showRequestedBy && props.permission.authorized != undefined">
+    <div class="flex items-center gap-1 p-2" v-if="props.showRequestedBy">
       <UserImage class="size-8" />
       <div class="flex-1 text-blue-400">
         <p class="text-xs font-medium leading-none text-blue-500">
@@ -81,7 +81,7 @@ const currentState = props.permission.authorized != undefined ? props.permission
       </button>
       <button type="button"
         v-if="props.showControls"
-        class="inline-flex items-center gap-0.5 rounded-lg bg-green-200 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95">
+        class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
         <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
         <span>{{ dic.BUTTON_APPROVE }}</span>
       </button>

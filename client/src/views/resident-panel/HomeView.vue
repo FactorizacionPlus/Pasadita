@@ -23,6 +23,6 @@ const routes : RouteProp[] = [
 
 <template>
   <section class="flex size-full items-center justify-center gap-4">
-    <SquareButton :icon="item.icon" :title="item.title" :href="RESIDENT_ROOT + item.href" :key="index" v-for="(item, index) in routes" />
+    <SquareButton type="link" :icon="item.icon" :title="item.title" :href="RESIDENT_ROOT + item.href" :key="index" v-for="(item, index) in routes" />
   </section>
 </template>

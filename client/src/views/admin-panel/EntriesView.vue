@@ -13,7 +13,6 @@ enum dic {
   SINGULAR = "Residencia",
   PEOPLE = "Habitantes",
   DESCRIPTION = "Descripción",
-  SEARCH_BY = "Buscando por el término: "
 }
 
 const searchText = ref('')
@@ -64,7 +63,6 @@ const entryList: EntryType[] = [
   <CurrentPageInfo :title="dic.TITLE" icon="folder" action="read_only" />
   <article class="flex w-full flex-col gap-8 rounded-lg  bg-white p-4">
     <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
-    <p v-if="searchText.length > 2" class="font-medium">{{ dic.SEARCH_BY }} <span class="font-normal">{{ searchText }}</span></p>
     <ul class="grid gap-4 lg:grid-cols-2">
       <EntryCard
         :class="{ 'animate-scale-up border-2 border-blue-400': matchSearch(entry, searchText, fieldsToSearch) && searchText.length > 2, 'hidden': !matchSearch(entry, searchText, fieldsToSearch) && hideNoResults && searchText.length > 2 }"

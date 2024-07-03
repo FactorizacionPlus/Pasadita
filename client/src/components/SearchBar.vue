@@ -4,17 +4,20 @@ import VueFeather from 'vue-feather';
 
 enum dic {
   HIDE = "Ocultar",
-  SHOW = "Mostrar"
+  SHOW = "Mostrar",
+  SEARCH_BY = "Buscando por el término: "
 }
 
 const searchText = ref('');
 const hideNoResults = ref(false);
+const prev = ref('')
 
 const emit = defineEmits(['search', 'toggleNoResults']);
 
 const handleSubmit = (event: Event) => {
   event.preventDefault();
   emit('search', searchText.value);
+  prev.value = searchText.value
 };
 
 const handleToggleHideNoResults = (event: Event) => {
@@ -26,6 +29,7 @@ const handleToggleHideNoResults = (event: Event) => {
 const clearSearch = () => {
   searchText.value = '';
   emit('search', searchText.value);
+  prev.value = searchText.value
 };
 </script>
 
@@ -52,4 +56,5 @@ const clearSearch = () => {
       <span class="hidden">{{ hideNoResults ? dic.HIDE : dic.SHOW }}</span>
     </button>
   </form>
+  <p v-if="prev.length > 2" class="font-medium">{{ dic.SEARCH_BY }} <span class="font-normal">{{ prev }}</span></p>
 </template>

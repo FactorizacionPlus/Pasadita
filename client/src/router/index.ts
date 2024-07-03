@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
-import ResidentLayout from "@/layouts/ResidentLayout.vue";
-import ResidentManagerLayout from "@/layouts/ResidentManagerLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -100,7 +98,8 @@ const router = createRouter({
     {
       path: "/invitado",
       name: "guest",
-      component: GuestLayout,
+      component: DefaultLayout,
+      meta: { rootPath: "/invitado", roleToShow: "Invitado" },
       children: [
         {
           path: "login",
@@ -122,7 +121,8 @@ const router = createRouter({
     {
       path: "/residente",
       name: "resident",
-      component: ResidentLayout,
+      component: DefaultLayout,
+      meta: { rootPath: "/residente", roleToShow: "Residente" },
       children: [
         {
           path: "",
@@ -139,7 +139,8 @@ const router = createRouter({
     {
       path: "/residente-encargado",
       name: "resident-chief",
-      component: ResidentManagerLayout,
+      component: DefaultLayout,
+      meta: { rootPath: "/residente-encargado", roleToShow: "Residente Encargado" },
       children: [
         {
           path: "",
@@ -161,7 +162,7 @@ const router = createRouter({
     {
       path: "/terminal",
       name: "terminal",
-      component: ResidentManagerLayout,
+      component: DefaultLayout,
       children: [
         {
           path: "login",
