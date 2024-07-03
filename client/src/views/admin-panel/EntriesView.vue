@@ -1,79 +1,82 @@
 <script setup lang="ts">
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
-import Entry from "@/components/Cards/EntryCard.vue";
-import type EntryCard from "@/types/EntryCard";
 import SearchBar from "@/components/SearchBar.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
+import type User from "@/types/User";
+import type EntryType from "@/types/Entry";
+import EntryCard from "@/components/Cards/EntryCard.vue";
+import { ref } from "vue";
+import { matchSearch } from "@/utils/matchSearch";
 
-const entryList: EntryCard[] = [
+enum dic {
+  TITLE = "Entradas",
+  SINGULAR = "Residencia",
+  PEOPLE = "Habitantes",
+  DESCRIPTION = "Descripción",
+}
+
+const searchText = ref("");
+const hideNoResults = ref(false);
+const fieldsToSearch = ["description", "user.firstName", "user.lastName", "user.identifier"];
+
+const entryList: EntryType[] = [
   {
-    id: 0,
+    uuid: "",
     user: {
       identifier: "0011904041016S",
       imageUrl: "https://www.github.com/davidquintr.png",
       firstName: "David",
       lastName: "Quintanilla",
-      role: "Residente Encargado",
-    },
+      identifierType: "PASSPORT",
+      role: "Residente",
+      status: "ACTIVE",
+    } as unknown as User,
     description: "Rumbo a la casas de los pueblos",
-    entryDate: new Date("10-04-2005"),
+    accessDate: new Date("10-04-2005"),
+    terminal: {
+      type: "",
+      uuid: "",
+    },
   },
   {
-    id: 1,
+    uuid: "",
     user: {
       identifier: "0011904041016S",
-      imageUrl: "https://www.github.com/poncka.png",
+      imageUrl: "",
       firstName: "David",
       lastName: "Parrales Ponce",
-      role: "Residente",
-    },
+      identifierType: "PASSPORT",
+      status: "ACTIVE",
+    } as unknown as User,
     description: "Rumbo a la casas de los pueblos",
-    entryDate: new Date("10-04-2015 12:00"),
-  },
-  {
-    id: 2,
-    user: {
-      identifier: "0011904041016S",
-      imageUrl: "https://www.github.com/JezerM.png",
-      firstName: "Jezer",
-      lastName: "Mejía Otero",
-      role: "Residente",
+    accessDate: new Date("10-04-2015 12:00"),
+    terminal: {
+      type: "",
+      uuid: "",
     },
-    description: "Rumbo a la casas de los pueblos",
-    entryDate: new Date("10-04-2015 12:00"),
-  },
-  {
-    id: 3,
-    user: {
-      identifier: "0011904041016S",
-      imageUrl: "https://www.github.com/Mrsty21.png",
-      firstName: "Marcelo",
-      lastName: "Rivera Soto",
-      role: "Residente",
-    },
-    description: "Rumbo a la casas de los pueblos",
-    entryDate: new Date("10-04-2015 12:00"),
-  },
-  {
-    id: 4,
-    user: {
-      identifier: "0011904041016S",
-      imageUrl: "https://www.github.com/leocorea.png",
-      firstName: "Leo",
-      lastName: "Corea Navarrete",
-      role: "Residente",
-    },
-    description: "Rumbo a la casas de los pueblos",
-    entryDate: new Date("10-04-2015 12:00"),
   },
 ];
 </script>
 
 <template>
-  <CurrentPageInfo title="Entradas" icon="folder" />
-  <SearchBar class="py-4" />
-  <ul class="grid w-full gap-4 pt-4 lg:grid-cols-2">
-    <Entry :entryCard="entry" v-for="entry in entryList" :key="entry.id" />
-  </ul>
-  <PaginationItem class="pt-4" :total-pages="6" />
+  <CurrentPageInfo :title="dic.TITLE" icon="folder" action="read_only" />
+  <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
+    <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
+    <ul class="grid gap-4 lg:grid-cols-2">
+      <EntryCard
+        :class="{
+          'animate-scale-up border-2 border-blue-400':
+            matchSearch(entry, searchText, fieldsToSearch) && searchText.length > 2,
+          hidden:
+            !matchSearch(entry, searchText, fieldsToSearch) &&
+            hideNoResults &&
+            searchText.length > 2,
+        }"
+        :entry="entry"
+        v-for="(entry, index) in entryList"
+        :key="index"
+      />
+    </ul>
+    <PaginationItem :total-pages="6" />
+  </article>
 </template>

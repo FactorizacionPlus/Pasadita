@@ -2,8 +2,55 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
+    fontFamily:{
+      'rubik': ['Rubik Variable', 'sans-serif']
+    },
     extend: {
+      boxShadow: {
+        header: "0px 2px 12px 0px rgba(0,52,116,0.15);",
+        glow: "0px 4px 30px 0px rgba(154, 201,255,0.7);",
+      },
+      animation: {
+        'scale-up': 'scale_up 0.3s'
+      },
+      keyframes: {
+        scale_up: {
+          '0%': { transform: 'scale(1.10)'},
+          '100%': { transform: 'scale(1)'}
+        }
+      },
       colors: {
+        yellow: {
+          100: "#FFFFF0",
+          200: "#FFFFD7",
+          300: "#FFFF9A",
+          400: "#825C24",
+        },
+        green: {
+          100: "#F0FFF7",
+          200: "#D7FFEB",
+          300: "#9AFFCD",
+          400: "#00743A",
+        },
+        red: {
+          100: "#FFF0F0",
+          200: "#FFD7D7",
+          300: "#FF9A9A",
+          400: "#740000",
+        },
+        blue: {
+          100: "#f0f6ff",
+          200: "#d7e9ff",
+          300: "#9ac9ff",
+          400: "#003474",
+          500: "#001024",
+        },
+        shades: {
+          100: "#F6F8FA",
+          200: "#E6E6E6",
+          300: "#B5B5B5",
+          400: "#747474",
+        },
         pasadita: {
           blue: {
             0: "#000D1F",
@@ -12,7 +59,7 @@ export default {
             3: "#17a4fe",
             4: "#f3faff",
             5: "#f6f8fa",
-            6: "#dcf0ff"
+            6: "#dcf0ff",
           },
           green: {
             0: "#008209",

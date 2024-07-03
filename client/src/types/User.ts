@@ -1,9 +1,10 @@
+import type { identifierType } from "./IdentifierType";
+
 export default interface User {
+  uuid: string;
   identifier: string;
-  role: string;
   firstName: string;
   lastName: string;
-  imageUrl: string;
-  // email: string;
-  // identifierType: "DUI" | "PASSPORT";
+  identifierType: identifierType;
+  imageUrl?: string;
 }

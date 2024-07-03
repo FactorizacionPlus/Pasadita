@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, onMounted } from "vue";
 import toSlug from "@/utils/toSlug";
+import type Alert from "@/types/Alert";
+import SimpleAlert from "../SimpleAlert.vue";
 
 type InputType =
   | "text"
@@ -20,12 +22,12 @@ type InputType =
 
 interface Props {
   title?: string;
-  likes?: number;
   placeholder?: string;
   type?: InputType;
   disabled?: boolean;
   name?: string;
   value?: string;
+  alert?: Alert;
 }
 
 const props = defineProps<Props>();
@@ -35,6 +37,7 @@ const emitValue = defineEmits(["update:value"]);
 
 const handleChange = (event: Event) => {
   const inputElement = event.target as HTMLInputElement;
+  console.log("change");
   emitValue("update:value", inputElement.value);
 };
 
@@ -50,18 +53,19 @@ onMounted(() => {
         :type="props.type"
         :id="titleSlug"
         :name="props.name"
-        class="peer h-10 w-full rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 ring-1 ring-pasadita-shade-2 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
-        :placeholder="props.placeholder"
+        class="peer h-10 w-full rounded-md border-b-2 border-b-shades-300 bg-transparent px-2 text-base text-blue-500 ring-1 ring-shades-400 transition-all placeholder:text-transparent hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:ring-blue-300 disabled:opacity-40"
+        :placeholder="props.name"
         :disabled="props.disabled"
         :value="props.value"
         @input="handleChange"
       />
-      <label
+      <span
         :for="titleSlug"
-        class="absolute -top-3 left-0 mx-1 cursor-text bg-inherit px-1 text-xs text-pasadita-shade-1 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-pasadita-shade-0 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-pasadita-blue-3 peer-disabled:opacity-40"
+        class="pointer-events-none absolute -top-3 left-0 mx-1 cursor-text bg-inherit px-1 text-xs font-medium text-blue-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:text-shades-400 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-500 peer-disabled:opacity-40"
       >
         {{ props.title }}
-      </label>
+      </span>
     </div>
+    <SimpleAlert v-if="props.alert !== undefined" class="mt-2" :alert="props.alert" />
   </div>
 </template>

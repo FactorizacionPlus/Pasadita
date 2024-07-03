@@ -1,7 +1,15 @@
+import type { StatusType } from "./StatusType";
+import type Residence from "./Residence";
+import type { identifierType } from "./IdentifierType";
+
 export default interface Resident {
-  name: string;
-  secondName: string;
-  identification: string;
-  entries: number;
-  image?: string;
+  firstName: string;
+  lastName: string;
+  identifier: string;
+  identifierType: identifierType;
+  email: string;
+  imageUrl: string;
+  status: StatusType;
+  role: string;
+  residence: Residence;
 }

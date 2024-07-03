@@ -1,26 +1,35 @@
 <script setup lang="ts">
-import VueFeather from "vue-feather";
-import UserEntryCard from "@/components/Cards/UserEntryCard.vue";
-import type EntryCard from "@/types/EntryCard";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
+import type Entry from "@/types/Entry";
+import UserInfoCard from "./UserInfoCard.vue";
+
+enum dic {
+  TITLE = "Entradas",
+  SINGULAR = "Entrada",
+  ACCESS_DATE = "Fecha y Hora de Entrada",
+  DESCRIPTION = "Descripción",
+}
 
 const props = defineProps<{
-  entryCard: EntryCard;
+  entry: Entry;
 }>();
 </script>
 
 <template>
-  <li class="flex flex-col gap-4 rounded-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4">
-    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-      <UserEntryCard :user="entryCard.user" />
-      <div class="flex flex-col text-pasadita-blue-1 sm:text-right">
-        <p class="font-semibold">Fecha y hora de entrada</p>
-        <p>{{ getFormattedDateTime(props.entryCard.entryDate) }}</p>
+  <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200 bg-blue-100">
+    <div class="flex flex-1 flex-col gap-1 p-2">
+      <h2 class="font-medium leading-5">{{ dic.SINGULAR }}</h2>
+      <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+        <UserInfoCard :user="entry.user" />
+        <div class="flex flex-col leading-none sm:text-right">
+          <h3 class="text-xs font-semibold text-blue-500">{{ dic.ACCESS_DATE }}</h3>
+          <p class="text-blue-400">{{ getFormattedDateTime(props.entry.accessDate) }}</p>
+        </div>
       </div>
     </div>
-    <div class="flex flex-row items-center gap-1">
-      <VueFeather type="home" size="24" stroke="#01193F" stroke-width="1.5"></VueFeather>
-      <p>{{ props.entryCard.description }}</p>
+    <div class="flex flex-col gap-1 bg-white p-2 text-blue-500">
+      <h3 class="text-xs font-medium">{{ dic.DESCRIPTION }}</h3>
+      <p class="leading-tight">{{ props.entry.description }}</p>
     </div>
   </li>
 </template>

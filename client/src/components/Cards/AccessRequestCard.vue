@@ -1,83 +1,119 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
-import type AccessRequest from "../../types/AccessRequest.ts";
 import UserImage from "@/components/UserImage.vue";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
+import type Permission from "@/types/Permission";
 
-const props = defineProps<{ accessRequest: AccessRequest; controls?: boolean }>();
-const isPending = props.accessRequest.status == "PENDING";
+enum dic {
+  TITLE = "Solicitud de Acceso",
+  PERMISSION_APPROVED = "Aprobado",
+  PERMISSION_REJECTED = "Rechazado",
+  PERMISSION_PENDING = "Pendiente",
+  START_DATE = "Fecha de Inicio",
+  END_DATE = "Fecha de Fin",
+  REQUESTED_BY = "A solicitud de",
+  BUTTON_APPROVE = "Aprobar",
+  BUTTON_REJECT = "Rechazar",
+}
+
+const props = defineProps<{
+  permission: Permission;
+  showControls?: boolean;
+  showRequestedBy?: boolean;
+}>();
+
+const currentState =
+  props.permission.authorized != undefined
+    ? props.permission.authorized
+      ? dic.PERMISSION_APPROVED
+      : dic.PERMISSION_REJECTED
+    : dic.PERMISSION_PENDING;
 </script>
 
 <template>
-  <li class="flex flex-col bg-white">
+  <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200 bg-white">
     <!--Information-->
-    <div
-      class="flex flex-col gap-2 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-blue-5 p-2"
-    >
-      <p class="text-xl font-semibold text-pasadita-blue-1">Solicitud de acceso</p>
-      <div class="flex items-center gap-2">
-        <UserImage class="size-12" :image="accessRequest.image" size="25" padding="0px" />
-        <div class="flex-1">
-          <p class="text-base leading-none text-pasadita-blue-1/80">
-            {{ props.accessRequest.residentId }}
+    <div class="flex flex-col gap-2 bg-shades-100 p-2">
+      <h2 class="font-semibold text-blue-500">{{ dic.TITLE }}</h2>
+      <div class="flex items-center gap-1">
+        <UserImage class="size-8" />
+        <div class="flex-1 text-blue-400">
+          <p class="text-xs leading-none">
+            {{ props.permission.invitedUser.identifier }}
           </p>
-          <p class="text-lg font-medium text-pasadita-blue-1">
-            {{ props.accessRequest.residentName }}
+          <p>
+            {{ props.permission.invitedUser.firstName }} {{ props.permission.invitedUser.lastName }}
           </p>
         </div>
       </div>
     </div>
     <!--Description-->
-    <div class="flex flex-1 flex-row border-x border-pasadita-shade-2 p-4">
-      <ul class="flex w-full flex-col justify-center gap-2 text-pasadita-blue-1">
-        <li class="flex items-center gap-2">
-          <VueFeather type="calendar" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
-          <div class="flex flex-col">
-            <p class="font-semibold">Fecha de inicio</p>
-            <p>{{ getFormattedDateTime(props.accessRequest.startDate) }}</p>
-          </div>
-        </li>
-        <li class="flex items-center gap-2">
-          <VueFeather type="calendar" size="40" stroke="#01193F" stroke-width="1.5"></VueFeather>
-          <div class="flex flex-col">
-            <p class="font-semibold">Fecha de fin</p>
-            <p>{{ getFormattedDateTime(props.accessRequest.endDate) }}</p>
-          </div>
-        </li>
-      </ul>
+    <ul class="flex w-full flex-1 flex-col justify-center gap-2 p-2 text-blue-500">
+      <li class="flex flex-col gap-1">
+        <p class="text-xs font-medium">{{ dic.START_DATE }}</p>
+        <div class="flex items-center gap-1 text-blue-400">
+          <VueFeather type="calendar" class="size-6 min-w-6" stroke-width="1.5"></VueFeather>
+          <p class="text-sm">{{ getFormattedDateTime(props.permission.startDate) }}</p>
+        </div>
+      </li>
+      <li class="flex flex-col gap-1">
+        <p class="text-xs font-medium">{{ dic.END_DATE }}</p>
+        <div class="flex items-center gap-1 text-blue-400">
+          <VueFeather type="calendar" class="size-6 min-w-6" stroke-width="1.5"></VueFeather>
+          <p class="text-sm">{{ getFormattedDateTime(props.permission.endDate) }}</p>
+        </div>
+      </li>
+    </ul>
+    <div class="flex items-center gap-1 p-2" v-if="props.showRequestedBy">
+      <UserImage class="size-8" />
+      <div class="flex-1 text-blue-400">
+        <p class="text-xs font-medium leading-none text-blue-500">
+          {{ dic.REQUESTED_BY }}
+        </p>
+        <p>{{ props.permission.resident.firstName }} {{ props.permission.resident.lastName }}</p>
+      </div>
     </div>
     <!--CRUD-->
-    <div class="flex flex-row gap-2 rounded-b-lg border border-pasadita-shade-2 p-2">
+    <div
+      :data-state="currentState"
+      class="mt-auto inline-flex w-full items-center justify-center p-2.5 text-center text-sm font-medium transition-all data-[state=Aprobado]:bg-green-100 data-[state=Pendiente]:bg-blue-100 data-[state=Rechazado]:bg-red-100 data-[state=Aprobado]:text-green-400 data-[state=Pendiente]:text-blue-400 data-[state=Rechazado]:text-red-400"
+    >
+      <span class="capitalize">{{ currentState.toLocaleLowerCase() }}</span>
+    </div>
+    <div
+      class="flex flex-row justify-end gap-2 p-2"
+      v-if="props.permission.authorized == undefined"
+    >
       <button
         type="button"
-        :data-state="props.accessRequest.status"
-        :disabled="!isPending"
-        :hover="isPending"
-        :active="isPending"
-        for="text"
-        class="inline-flex w-full items-center justify-center rounded-lg bg-pasadita-yellow-0 p-2.5 text-center text-sm font-normal text-pasadita-yellow-2 transition-all hover:rounded-xl hover:bg-pasadita-yellow-1 active:scale-95 disabled:scale-100 disabled:rounded-lg disabled:bg-pasadita-yellow-0/30 data-[state=ACCEPTED]:bg-pasadita-green-2 data-[state=REJECTED]:bg-pasadita-red-1 data-[state=ACCEPTED]:text-pasadita-green-1 data-[state=REJECTED]:text-pasadita-red-0 data-[state=ACCEPTED]:opacity-60 data-[state=REJECTED]:opacity-60"
+        v-if="props.showControls"
+        class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
-        <p>
-          Estado:
-          <span class="capitalize">{{ props.accessRequest.status.toLocaleLowerCase() }}</span>
-        </p>
+        <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
+        <span>{{ dic.BUTTON_REJECT }}</span>
       </button>
-      <div v-if="props.controls" class="flex flex-row gap-2">
-        <button
-          v-if="isPending"
-          type="button"
-          class="inline-flex w-[2.625rem] items-center justify-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
-        >
-          <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
-        </button>
-        <button
-          v-if="isPending"
-          type="button"
-          class="inline-flex w-[2.625rem] items-center justify-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-normal text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-6 active:scale-95"
-        >
-          <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
-        </button>
-      </div>
+      <button
+        type="button"
+        v-if="props.showControls"
+        class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
+      >
+        <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
+        <span>{{ dic.BUTTON_APPROVE }}</span>
+      </button>
+      <button
+        type="button"
+        v-if="!props.showControls"
+        class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
+      >
+        <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
+      </button>
+      <button
+        type="button"
+        v-if="!props.showControls"
+        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
+      >
+        <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
+      </button>
     </div>
   </li>
 </template>

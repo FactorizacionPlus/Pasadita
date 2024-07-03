@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
-import ResidentLayout from "@/layouts/ResidentLayout.vue";
-import ResidentManagerLayout from "@/layouts/ResidentManagerLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +49,16 @@ const router = createRouter({
       component: AdminLayout,
       children: [
         {
+          path: "",
+          name: "admin-dashboard",
+          component: () => import("../views/admin-panel/DashboardView.vue"),
+        },
+        {
+          path: "configuraciones",
+          name: "admin-settings",
+          component: () => import("../views/admin-panel/SettingsView.vue"),
+        },
+        {
           path: "about",
           name: "admin-about",
           component: () => import("../views/guest/AboutView.vue"),
@@ -61,14 +69,14 @@ const router = createRouter({
           component: () => import("../views/admin-panel/EntriesView.vue"),
         },
         {
-          path: "permisos",
-          name: "admin-history",
-          component: () => import("../views/admin-panel/PermissionsView.vue"),
-        },
-        {
           path: "terminales",
           name: "admin-terminales",
           component: () => import("../views/admin-panel/TerminalsView.vue"),
+        },
+        {
+          path: "terminal/:terminal",
+          name: "admin-terminal-history",
+          component: () => import("../views/admin-panel/TerminalHistoryView.vue"),
         },
         {
           path: "residencias",
@@ -76,21 +84,17 @@ const router = createRouter({
           component: () => import("../views/admin-panel/ResidencyView.vue"),
         },
         {
-          path: "residentes",
-          name: "admin-resident",
-          component: () => import("../views/admin-panel/ResidentsView.vue"),
-        },
-        {
-          path: "invitados",
-          name: "admin-guest",
-          component: () => import("../views/admin-panel/GuestsUsersView.vue"),
+          path: "usuarios",
+          name: "admin-users",
+          component: () => import("../views/admin-panel/UserView.vue"),
         },
       ],
     },
     {
       path: "/invitado",
       name: "guest",
-      component: GuestLayout,
+      component: DefaultLayout,
+      meta: { rootPath: "/invitado", roleToShow: "Invitado" },
       children: [
         {
           path: "login",
@@ -112,19 +116,26 @@ const router = createRouter({
     {
       path: "/residente",
       name: "resident",
-      component: ResidentLayout,
+      component: DefaultLayout,
+      meta: { rootPath: "/residente", roleToShow: "Residente" },
       children: [
         {
           path: "",
           name: "resident-home",
           component: () => import("../views/resident-panel/HomeView.vue"),
         },
+        {
+          path: "historial-solicitudes",
+          name: "resident-requests-history",
+          component: () => import("../views/resident-panel/AccessRequestsView.vue"),
+        },
       ],
     },
     {
       path: "/residente-encargado",
       name: "resident-chief",
-      component: ResidentManagerLayout,
+      component: DefaultLayout,
+      meta: { rootPath: "/residente-encargado", roleToShow: "Residente Encargado" },
       children: [
         {
           path: "",
@@ -146,7 +157,7 @@ const router = createRouter({
     {
       path: "/terminal",
       name: "terminal",
-      component: ResidentManagerLayout,
+      component: DefaultLayout,
       children: [
         {
           path: "login",

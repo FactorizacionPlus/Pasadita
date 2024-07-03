@@ -5,13 +5,16 @@ import type User from "@/types/User";
 const props = defineProps<{
   user: User;
 }>();
+
+/**
+ * <p class="text-base font-semibold text-pasadita-blue-1">
+      {{ props.user.role }}
+    </p>
+ */
 </script>
 
 <template>
   <li class="flex max-w-sm flex-col">
-    <p class="text-base font-semibold text-pasadita-blue-1">
-      {{ props.user.role }}
-    </p>
     <div class="flex items-center gap-2 rounded-t-lg p-2">
       <div
         class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"

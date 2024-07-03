@@ -1,3 +1,5 @@
+@import "@fontsource-variable/rubik";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +8,17 @@ html,
 body {
   width: 100%;
   height: 100%;
+}
+
+.mierda-anim {
+  animation: mierda 1s;
+}
+
+@keyframes mierda {
+  0% {
+    background-color: black;
+  }
+  100% {
+    background-color: transparent;
+  }
 }

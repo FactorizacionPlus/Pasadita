@@ -1,53 +1,56 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import VueFeather from "vue-feather";
 import UserImage from "@/components/UserImage.vue";
-import ModalDelete from "@/components/Modal/Resident/DeleteResident.vue";
 import type Resident from "@/types/Resident";
-const modalDel = ref<typeof ModalDelete>();
+import IdentityCard from "@/IdentityCard.svg?component";
 
+enum dic {
+  TITLE = "Residente",
+  ACCESS_QUANTITY = "Cantidad de Entradas: ",
+}
+const accessCount = 0;
 const props = defineProps<{ resident: Resident }>();
 </script>
 
 <template>
-  <li class="flex flex-col bg-white">
-    <!--Information-->
-    <div
-      class="flex flex-col gap-1 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-blue-5 p-2"
-    >
-      <p class="text-xl font-semibold text-pasadita-blue-1">Residente</p>
-    </div>
-    <!--Description-->
-    <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
-      <div class="flex w-full flex-col justify-center gap-2">
-        <div class="flex items-center gap-3">
-          <UserImage class="size-36" :image="props.resident.image" size="84" padding="16px" />
-          <div class="flex flex-col text-pasadita-blue-1">
-            <p class="text-sm font-semibold leading-none">Nombre</p>
-            <p class="text-lg leading-relaxed">{{ props.resident.name }}</p>
-            <p class="text-sm font-semibold leading-none">Apellido</p>
-            <p class="text-lg leading-relaxed">{{ props.resident.secondName }}</p>
-            <p class="text-sm font-semibold leading-none">Identificacion</p>
-            <p class="text-lg leading-relaxed">{{ props.resident.identification }}</p>
+  <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200 bg-white">
+    <div class="flex flex-col gap-2 bg-shades-100 p-2 text-blue-400">
+      <h2 class="text-xl font-semibold text-blue-500">{{ dic.TITLE }}</h2>
+      <div class="flex items-center gap-1">
+        <UserImage class="size-16" :image="props.resident.imageUrl" />
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1">
+            <IdentityCard class="aspect-square h-4 w-auto" />
+            <p class="leading-none">{{ props.resident.identifier }}</p>
           </div>
+          <p class="text-xl font-medium">
+            {{ props.resident.firstName }} {{ props.resident.lastName }}
+          </p>
+          <p class="text-xs font-medium text-blue-500">
+            {{ dic.ACCESS_QUANTITY }}
+            <span class="font-normal text-blue-400">{{ accessCount }}</span>
+          </p>
         </div>
-        <p class="font-semibold text-pasadita-blue-1">
-          Numero de entradas: {{ props.resident.entries }}
-        </p>
       </div>
     </div>
-    <!--CRUD-->
-    <div class="flex flex-row justify-end gap-2 rounded-b-lg border border-pasadita-shade-2 p-2">
+    <div class="flex items-center gap-1 p-2 text-blue-400">
+      <VueFeather type="home" class="size-6" />
+      <p class="leading-tight">{{ props.resident.residence.description }}</p>
+    </div>
+    <div class="flex flex-row justify-end gap-2 p-2">
       <button
         type="button"
-        class="inline-flex items-center rounded-lg bg-pasadita-red-2 p-2.5 text-center text-sm font-normal text-pasadita-red-0 transition-all hover:rounded-xl hover:bg-pasadita-red-1 active:scale-95"
-        @click="modalDel?.show()"
+        class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
+
+      <button
+        type="button"
+        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
+      >
+        <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather>
+      </button>
     </div>
   </li>
-  <ModalDelete :name="resident.name" :lastname="resident.secondName" ref="modalDel">
-    Hola
-  </ModalDelete>
 </template>

@@ -2,7 +2,7 @@
   <p class="text-3xl font-bold text-pasadita-blue-1">Pasadita: Rutas disponibles</p>
   <ul class="mt-4 grid gap-4 md:grid-cols-3">
     <li
-      class="rounded-lg bg-pasadita-blue-4 transition-all hover:bg-pasadita-blue-6 active:scale-95"
+      class="rounded-lg bg-white transition-all hover:bg-shades-100 active:scale-95"
       v-for="(route, index) in availableRoutes"
       :key="index"
     >
