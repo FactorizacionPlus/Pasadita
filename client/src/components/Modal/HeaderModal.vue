@@ -60,15 +60,15 @@ switch (props.action) {
 
 <template>
   <header
-    class="flex gap-2 border-b border-b-pasadita-shade-2 bg-pasadita-blue-5 p-2 text-pasadita-shade-0"
+    class="flex gap-2 bg-shades-100 p-2 text-blue-400"
   >
     <div class="flex items-center gap-1">
-      <VueFeather stroke-width="1.5" size="28" :type="props.icon" />
+      <VueFeather stroke-width="2" class="size-6" :type="props.icon" />
       <p class="text-2xl font-bold">{{ props.title }}</p>
     </div>
     <div class="flex items-center gap-1" v-if="currentAction">
-      <VueFeather stroke-width="1.5" size="20" :type="currentAction.icon" />
-      <p class="font-medium">{{ currentAction.name }}</p>
+      <VueFeather stroke-width="1.5" class="size-4" :type="currentAction.icon" />
+      <p>{{ currentAction.name }}</p>
     </div>
   </header>
 </template>

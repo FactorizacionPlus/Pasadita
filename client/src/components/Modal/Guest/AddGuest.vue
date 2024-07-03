@@ -1,28 +1,34 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
-import Passport from "@/Passport.svg?component";
-import Identity from "@/Identity.svg?component";
+
+import BodyModal from "@/components/Modal/BodyModal.vue"
+import ControlsModal from "../ControlsModal.vue";
+import IdentityTypeSelection from "../IdentityTypeSelection.vue";
+import SimpleAlert from "@/components/SimpleAlert.vue";
+import type Alert from "@/types/Alert";
+import { AlertType } from "@/types/Alert";
+import checkIsValidIdentifier from "@/utils/checkIsValidIdentifier";
+import type { identifierType } from "@/types/IdentifierType";
+import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
 
 const modal = ref<typeof Modal>();
-const passportSelected = ref(false);
-const identitySelected = ref(false);
 
-// Computed property to determine if the input should be enabled
-const isIdentificationEnabled = computed(() => passportSelected.value || identitySelected.value);
+const alertForIdentifier =  ref<Alert | undefined>()
 
-function passportSelection() {
-  identitySelected.value = false;
-  passportSelected.value = true;
-}
+const data = ref({
+  identifierType: "",
+  identifier: ""
+})
 
-function identitySelection() {
-  passportSelected.value = false;
-  identitySelected.value = true;
+enum dic {
+  BUTTON_ACCEPT = "Aceptar",
+  BUTTON_CANCEL = "Cancelar",
+  ACCOUNT = "Cuenta"
 }
 
 defineExpose({
@@ -30,80 +36,77 @@ defineExpose({
   close: () => modal.value?.close(),
 });
 
-// Show the modal when the component is mounted
 onMounted(() => {
   modal.value?.show();
 });
-</script>
 
+const alertFillData: Alert = {
+  message: "Para cambiar los demás datos, debes ir a la configuración.",
+  type: AlertType.INFO
+}
+
+
+function handleSubmit(event: Event){
+  event.preventDefault();
+  
+  if(!data.value.identifier){
+    const alert : Alert = {
+      message: "Llena esta mierda hpta",
+      type: AlertType.WARNING
+    }
+    alertForIdentifier.value = alert;
+    return;
+  }
+
+  if(!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as identifierType)){
+    const alert : Alert = {
+      message: "Esta mierda no calza con el formato de la turca que se usa hpta",
+      type: AlertType.WARNING
+    }
+    alertForIdentifier.value = alert;
+    return;
+  }
+  resetValues();
+  modal.value?.close()
+}
+
+function resetValues(){
+  data.value.identifier = ""
+  alertForIdentifier.value = undefined;
+}
+
+
+</script>
 <template>
   <Modal ref="modal">
-    <form class="overflow-hidden rounded-md bg-white">
-      <HeaderModal title="Cuenta" icon="user" action="add" />
+    <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit" >
+      <HeaderModal :title="dic.ACCOUNT" icon="user" action="create" />
+      <BodyModal>
+        <UserImage image="" class="size-36 self-center" />
 
-      <div class="flex flex-col gap-4 p-4">
-        <UserImage image="" size="56" padding="0px" class="size-36 self-center" />
-
-        <div class="flex items-center gap-3 text-xl text-pasadita-blue-1">
-          <InputForm name="nombre" title="Nombre" type="text" placeholder="Nombre" />
-          <InputForm name="apellido" title="Apellido" type="text" placeholder="Apellido" />
+        <div class="flex w-full items-center gap-3 text-xl text-pasadita-blue-1">
+          <InputForm name="firstName" title="Nombre" type="text" class="flex-1" />
+          <InputForm name="lastName" title="Apellido" type="text" class="flex-1" />
         </div>
+        
+        <SimpleAlert :alert="alertFillData" />
+        <IdentityTypeSelection @identity-type="data.identifierType = $event" />
+        <InputForm :value="data.identifier" :alert="alertForIdentifier" name="identifier" @update:value="data.identifier = $event" title="Identificación" type="text" />
+        <TextAreaForm class="mt-1" name="why-are-you-gay" title="Explícanos por qué eres gay" />
+      </BodyModal>
 
-        <div class="flex items-center gap-2 rounded bg-pasadita-yellow-0 px-2 py-1">
-          <VueFeather
-            type="alert-triangle"
-            stroke-width="2.5"
-            size="18"
-            class="text-pasadita-yellow-2"
-          />
-          <p class="text-pasadita-yellow-2">
-            Para cambiar demás datos, ir después a configuración.
-          </p>
-        </div>
-
-        <div class="flex flex-col gap-1">
-          <p class="text-sm leading-none text-pasadita-blue-3">
-            Seleccione el tipo de identificacion
-          </p>
-          <div class="grid w-full grid-cols-2 gap-2">
-            <button
-              type="button"
-              :data-state="identitySelected"
-              class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-              @click="identitySelection()"
-            >
-              <Identity class="inline" />
-            </button>
-            <button
-              type="button"
-              :data-state="passportSelected"
-              class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-              @click="passportSelection()"
-            >
-              <Passport class="inline" />
-            </button>
-          </div>
-        </div>
-
-        <InputForm
-          :disabled="!isIdentificationEnabled"
-          name="identificacion"
-          title="Identificación"
-          type="text"
-          placeholder="Identificación"
-        />
-      </div>
-
-      <div class="flex justify-end gap-2 border-t border-t-pasadita-shade-2 p-2">
-        <button
-          @click="modal?.close()"
-          type="button"
-          class="inline-flex items-center rounded-lg bg-pasadita-green-2 p-2 text-center text-sm font-normal text-pasadita-green-1 transition-all hover:rounded-xl hover:bg-pasadita-green-1 hover:text-white active:scale-95"
-        >
+      <ControlsModal>
+        <button type="submit"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
-          <span>Aceptar</span>
+          <span>{{ dic.BUTTON_ACCEPT }}</span>
         </button>
-      </div>
+        <button type="button" @click="modal?.close()"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
+          <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
+          <span>{{ dic.BUTTON_CANCEL }}</span>
+        </button>
+      </ControlsModal>
     </form>
   </Modal>
 </template>

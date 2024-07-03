@@ -22,7 +22,7 @@ const modalAdd = ref<typeof ModalAdd>();
       </div>
     </button>
   </div>
-  <ModalActive ref="modalActive">Hola</ModalActive>
-  <ModalNoActive ref="modalNoActive">Hola</ModalNoActive>
-  <ModalAdd ref="modalAdd">Hola</ModalAdd>
+  <ModalActive ref="modalActive" />
+  <ModalNoActive ref="modalNoActive" />
+  <ModalAdd ref="modalAdd" />
 </template>
