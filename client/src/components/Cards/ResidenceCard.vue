@@ -16,11 +16,10 @@ const props = defineProps<{
 enum dic {
   SINGULAR = "Residencia",
   PEOPLE = "Habitantes",
-  DESCRIPTION = "Descripción"
+  DESCRIPTION = "Descripción",
 }
 
 const currentResidents = 0;
-
 </script>
 
 <template>
@@ -40,23 +39,31 @@ const currentResidents = 0;
       </p>
     </div>
     <div class="flex flex-row justify-end gap-2 bg-white p-2">
-      <button type="button"
+      <button
+        type="button"
         class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
-        @click="modalDel?.show()">
+        @click="modalDel?.show()"
+      >
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <button type="button"
+      <button
+        type="button"
         class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
-        @click="modalEdit?.show()">
+        @click="modalEdit?.show()"
+      >
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <button type="button"
+      <button
+        type="button"
         class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
-        @click="modalSee?.show()">
+        @click="modalSee?.show()"
+      >
         <VueFeather type="eye" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <a href=""
-        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95">
+      <a
+        href=""
+        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
+      >
         <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather>
       </a>
     </div>

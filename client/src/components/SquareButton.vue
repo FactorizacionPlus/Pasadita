@@ -11,10 +11,10 @@ const props = defineProps<{
   title: string;
   href?: string;
   icon: SquareButtonIconsType;
-  type: "button" | "link"
+  type: "button" | "link";
 }>();
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(["click"]);
 
 const loadSvgComponent = async (icon: string) => {
   try {
@@ -29,22 +29,27 @@ isCustomIcon.value = props.icon.includes(CUSTOM_SLUG);
 
 onMounted(async () => {
   if (props.icon.includes(CUSTOM_SLUG)) {
-    await loadSvgComponent(props.icon.replace(CUSTOM_SLUG, ''));
+    await loadSvgComponent(props.icon.replace(CUSTOM_SLUG, ""));
   }
 });
 
 const handleClick = () => {
-  if (props.type === 'button') {
-    emit('click');
+  if (props.type === "button") {
+    emit("click");
   }
-}
+};
 </script>
 
 <template>
-  <component :is="props.type === 'button' ? 'button' : 'a'" :class="{
-    'flex size-80 flex-col items-center justify-center gap-6 rounded-md bg-white p-4 text-blue-400 transition-all hover:bg-blue-400 hover:text-white hover:shadow-glow active:scale-95': true,
-    'text-center': true
-  }" :href="props.href" @click="handleClick">
+  <component
+    :is="props.type === 'button' ? 'button' : 'a'"
+    :class="{
+      'flex size-80 flex-col items-center justify-center gap-6 rounded-md bg-white p-4 text-blue-400 transition-all hover:bg-blue-400 hover:text-white hover:shadow-glow active:scale-95': true,
+      'text-center': true,
+    }"
+    :href="props.href"
+    @click="handleClick"
+  >
     <component v-if="isCustomIcon" :is="dynamicLoadComponent"></component>
     <VueFeather v-else :type="props.icon" class="size-[7.5rem]" />
     <span class="text-2xl font-medium">{{ props.title }}</span>

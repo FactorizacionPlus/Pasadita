@@ -14,7 +14,8 @@ const residents: Resident[] = [
     identifier: "0011904041016S",
     firstName: "Juan Daniel",
     lastName: "Treminio",
-    imageUrl: "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
+    imageUrl:
+      "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
     role: "Administrador",
     identifierType: "PASSPORT",
     email: "",
@@ -22,8 +23,8 @@ const residents: Resident[] = [
     residence: {
       description: "",
       maxHabitants: 0,
-      status: "ACTIVE"
-    }
+      status: "ACTIVE",
+    },
   },
   {
     identifier: "0011904041016S",
@@ -37,8 +38,9 @@ const residents: Resident[] = [
     residence: {
       description: "",
       maxHabitants: 0,
-      status: "ACTIVE"
-    }  },
+      status: "ACTIVE",
+    },
+  },
   {
     identifier: "0011904041016S",
     firstName: "David Sebastián",
@@ -51,15 +53,15 @@ const residents: Resident[] = [
     residence: {
       description: "",
       maxHabitants: 0,
-      status: "ACTIVE"
-    }
+      status: "ACTIVE",
+    },
   },
 ];
 
 const residence: Residence = {
   description: "Palacio de Miraflores, República Bolivariana de Venezuela",
   maxHabitants: 5,
-  status: "ACTIVE"
+  status: "ACTIVE",
 };
 
 defineExpose({

@@ -9,13 +9,11 @@
 
 <script setup lang="ts">
 import DefaultNavigationMenu from "@/components/NavigationMenu/DefaultNavigationMenu.vue";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 
 const route = useRoute();
 const role = route.meta.roleToShow;
 const root = route.meta.rootPath;
-
-
 </script>
 
 <style scoped></style>

@@ -1,4 +1,4 @@
-@import '@fontsource-variable/rubik';
+@import "@fontsource-variable/rubik";
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +10,7 @@ body {
   height: 100%;
 }
 
-.mierda-anim { 
+.mierda-anim {
   animation: mierda 1s;
 }
 

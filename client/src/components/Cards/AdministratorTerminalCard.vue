@@ -5,7 +5,6 @@ import type Terminal from "../../types/AdminTerminal";
 const props = defineProps<{
   terminal: Terminal;
 }>();
-
 </script>
 
 <template>

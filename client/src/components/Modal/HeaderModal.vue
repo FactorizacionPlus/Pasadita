@@ -59,9 +59,7 @@ switch (props.action) {
 </script>
 
 <template>
-  <header
-    class="flex gap-2 bg-shades-100 p-2 text-blue-400"
-  >
+  <header class="flex gap-2 bg-shades-100 p-2 text-blue-400">
     <div class="flex items-center gap-1">
       <VueFeather stroke-width="2" class="size-6" :type="props.icon" />
       <p class="text-2xl font-bold">{{ props.title }}</p>

@@ -11,7 +11,12 @@ const modalAdd = ref<typeof ModalAdd>();
 
 <template>
   <div class="flex h-screen items-center justify-center">
-    <SquareButton type="button" icon="custom-days-clock" title="Ver Permiso Activo" @click="modalActive?.show()" />
+    <SquareButton
+      type="button"
+      icon="custom-days-clock"
+      title="Ver Permiso Activo"
+      @click="modalActive?.show()"
+    />
   </div>
   <ModalActive ref="modalActive" />
   <ModalNoActive ref="modalNoActive" />

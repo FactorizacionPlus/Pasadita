@@ -6,7 +6,7 @@ import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
 
-import BodyModal from "@/components/Modal/BodyModal.vue"
+import BodyModal from "@/components/Modal/BodyModal.vue";
 import ControlsModal from "../ControlsModal.vue";
 import IdentityTypeSelection from "../IdentityTypeSelection.vue";
 import SimpleAlert from "@/components/SimpleAlert.vue";
@@ -18,17 +18,17 @@ import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
 
 const modal = ref<typeof Modal>();
 
-const alertForIdentifier =  ref<Alert | undefined>()
+const alertForIdentifier = ref<Alert | undefined>();
 
 const data = ref({
   identifierType: "",
-  identifier: ""
-})
+  identifier: "",
+});
 
 enum dic {
   BUTTON_ACCEPT = "Aceptar",
   BUTTON_CANCEL = "Cancelar",
-  ACCOUNT = "Cuenta"
+  ACCOUNT = "Cuenta",
 }
 
 defineExpose({
@@ -42,44 +42,41 @@ onMounted(() => {
 
 const alertFillData: Alert = {
   message: "Para cambiar los demás datos, debes ir a la configuración.",
-  type: AlertType.INFO
-}
+  type: AlertType.INFO,
+};
 
-
-function handleSubmit(event: Event){
+function handleSubmit(event: Event) {
   event.preventDefault();
-  
-  if(!data.value.identifier){
-    const alert : Alert = {
+
+  if (!data.value.identifier) {
+    const alert: Alert = {
       message: "Llena esta mierda hpta",
-      type: AlertType.WARNING
-    }
+      type: AlertType.WARNING,
+    };
     alertForIdentifier.value = alert;
     return;
   }
 
-  if(!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as identifierType)){
-    const alert : Alert = {
+  if (!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as identifierType)) {
+    const alert: Alert = {
       message: "Esta mierda no calza con el formato de la turca que se usa hpta",
-      type: AlertType.WARNING
-    }
+      type: AlertType.WARNING,
+    };
     alertForIdentifier.value = alert;
     return;
   }
   resetValues();
-  modal.value?.close()
+  modal.value?.close();
 }
 
-function resetValues(){
-  data.value.identifier = ""
+function resetValues() {
+  data.value.identifier = "";
   alertForIdentifier.value = undefined;
 }
-
-
 </script>
 <template>
   <Modal ref="modal">
-    <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit" >
+    <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
       <HeaderModal :title="dic.ACCOUNT" icon="user" action="create" />
       <BodyModal>
         <UserImage image="" class="size-36 self-center" />
@@ -88,21 +85,33 @@ function resetValues(){
           <InputForm name="firstName" title="Nombre" type="text" class="flex-1" />
           <InputForm name="lastName" title="Apellido" type="text" class="flex-1" />
         </div>
-        
+
         <SimpleAlert :alert="alertFillData" />
         <IdentityTypeSelection @identity-type="data.identifierType = $event" />
-        <InputForm :value="data.identifier" :alert="alertForIdentifier" name="identifier" @update:value="data.identifier = $event" title="Identificación" type="text" />
+        <InputForm
+          :value="data.identifier"
+          :alert="alertForIdentifier"
+          name="identifier"
+          @update:value="data.identifier = $event"
+          title="Identificación"
+          type="text"
+        />
         <TextAreaForm class="mt-1" name="why-are-you-gay" title="Explícanos por qué eres gay" />
       </BodyModal>
 
       <ControlsModal>
-        <button type="submit"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
+        <button
+          type="submit"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
+        >
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ dic.BUTTON_ACCEPT }}</span>
         </button>
-        <button type="button" @click="modal?.close()"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
+        <button
+          type="button"
+          @click="modal?.close()"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
+        >
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ dic.BUTTON_CANCEL }}</span>
         </button>

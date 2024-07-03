@@ -10,7 +10,6 @@ enum dic {
   TITLE = "Usuarios",
 }
 
-
 const entryList: EntryType[] = [
   {
     uuid: "",
@@ -27,8 +26,8 @@ const entryList: EntryType[] = [
     accessDate: new Date("10-04-2005"),
     terminal: {
       type: "",
-      uuid: ""
-    }
+      uuid: "",
+    },
   },
   {
     uuid: "",
@@ -44,19 +43,19 @@ const entryList: EntryType[] = [
     accessDate: new Date("10-04-2015 12:00"),
     terminal: {
       type: "",
-      uuid: ""
-    }
+      uuid: "",
+    },
   },
 ];
 </script>
 
 <template>
   <CurrentPageInfo :title="dic.TITLE" icon="user" />
-  <article class="flex w-full flex-col gap-8 rounded-lg  bg-white p-4">
+  <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar />
     <ul class="grid gap-4 lg:grid-cols-2">
-      <EntryCard :entry="entry" v-for="entry, index in entryList" :key="index" />
+      <EntryCard :entry="entry" v-for="(entry, index) in entryList" :key="index" />
     </ul>
-    <PaginationItem :total-pages="6"  />
+    <PaginationItem :total-pages="6" />
   </article>
 </template>

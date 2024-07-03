@@ -1,5 +1,5 @@
 export interface GenericTableType {
-    name: string,
-    icon?: string
-    items: any[]
+  name: string;
+  icon?: string;
+  items: any[];
 }

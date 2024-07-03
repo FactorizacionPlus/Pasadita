@@ -1,10 +1,10 @@
-export interface actionUI  {
-    icon: string,
-    name: string
+export interface actionUI {
+  icon: string;
+  name: string;
 }
 
 export const actions: Record<string, actionUI> = {
-create: {
+  create: {
     icon: "file-plus",
     name: "Crear",
   },
@@ -30,8 +30,8 @@ create: {
   },
   history: {
     icon: "file-text",
-    name: "Historial de Entradas"
-  }
+    name: "Historial de Entradas",
+  },
 };
 
-export type Actions = "create" | "view" | "edit" | "delete" | "add" | "read_only" | "history"
+export type Actions = "create" | "view" | "edit" | "delete" | "add" | "read_only" | "history";

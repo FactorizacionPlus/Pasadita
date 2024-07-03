@@ -4,16 +4,15 @@ import type Entry from "@/types/Entry";
 import UserInfoCard from "./UserInfoCard.vue";
 
 enum dic {
-    TITLE = "Entradas",
-    SINGULAR = "Entrada",
-    ACCESS_DATE = "Fecha y Hora de Entrada",
-    DESCRIPTION = "Descripción"
+  TITLE = "Entradas",
+  SINGULAR = "Entrada",
+  ACCESS_DATE = "Fecha y Hora de Entrada",
+  DESCRIPTION = "Descripción",
 }
 
 const props = defineProps<{
   entry: Entry;
 }>();
-
 </script>
 
 <template>
@@ -28,7 +27,7 @@ const props = defineProps<{
         </div>
       </div>
     </div>
-  <div class="flex flex-col gap-1 bg-white p-2 text-blue-500">
+    <div class="flex flex-col gap-1 bg-white p-2 text-blue-500">
       <h3 class="text-xs font-medium">{{ dic.DESCRIPTION }}</h3>
       <p class="leading-tight">{{ props.entry.description }}</p>
     </div>

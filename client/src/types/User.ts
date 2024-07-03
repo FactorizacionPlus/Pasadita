@@ -1,7 +1,7 @@
 import type { identifierType } from "./IdentifierType";
 
 export default interface User {
-  uuid: string,
+  uuid: string;
   identifier: string;
   firstName: string;
   lastName: string;
