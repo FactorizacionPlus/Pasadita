@@ -32,7 +32,7 @@ if (!isLogin) {
   message.value = Message.LOADING_REGISTER;
 }
 
-const registerUrl = useRegisterUrl("none");
+const registerUrl = useRegisterUrl("select_account");
 
 async function doUserData() {
   message.value = Message.LOADING_USER;
