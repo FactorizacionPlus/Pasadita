@@ -50,20 +50,40 @@ onMounted(() => {
 </script>
 
 <template>
-  <li ref="li"
+  <li
+    ref="li"
     class="my-2 flex animate-slide-left flex-row items-center justify-between gap-2 rounded-md border-2 border-b-4"
-    :class="[toastBackground[props.toast.type], toastBorder[props.toast.type]]">
+    :class="[toastBackground[props.toast.type], toastBorder[props.toast.type]]"
+  >
     <div class="flex flex-row items-center gap-1 p-2" :class="toastColor[props.toast.type]">
-      <VueFeather :type="toastIcons[props.toast.type]" class="aspect-square size-5 min-w-5" stroke-width="1.5">
+      <VueFeather
+        :type="toastIcons[props.toast.type]"
+        class="aspect-square size-5 min-w-5"
+        stroke-width="1.5"
+      >
       </VueFeather>
       <p>{{ props.toast.message }}</p>
     </div>
 
-    <button @click="() => { li?.remove() }" class="group relative flex flex-row items-center justify-center border-l-2 px-3"
-      :class="[toastColor[props.toast.type], toastBorder[props.toast.type]]">
-      <div class="absolute left-1/2 top-1/2 size-8 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors"
-        :class="toastBackgroundDark[props.toast.type]"></div>
-      <VueFeather type="x" size="16" stroke-width="3.5" class="z-10 ml-[1.5px] transition-all group-active:scale-90">
+    <button
+      @click="
+        () => {
+          li?.remove();
+        }
+      "
+      class="group relative flex flex-row items-center justify-center border-l-2 px-3"
+      :class="[toastColor[props.toast.type], toastBorder[props.toast.type]]"
+    >
+      <div
+        class="absolute left-1/2 top-1/2 size-8 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors"
+        :class="toastBackgroundDark[props.toast.type]"
+      ></div>
+      <VueFeather
+        type="x"
+        size="16"
+        stroke-width="3.5"
+        class="z-10 ml-[1.5px] transition-all group-active:scale-90"
+      >
       </VueFeather>
     </button>
   </li>

@@ -15,7 +15,10 @@
     </li>
   </ul>
   <div class="flex justify-center py-6">
-    <button @click="handleClick" class="border border-blue-300 p-4 text-blue-400 hover:bg-blue-400 hover:text-white active:scale-95">
+    <button
+      @click="handleClick"
+      class="border border-blue-300 p-4 text-blue-400 hover:bg-blue-400 hover:text-white active:scale-95"
+    >
       <span>Agregar Toast</span>
     </button>
   </div>
@@ -29,7 +32,6 @@ import { useToast } from "@/stores/toast";
 
 const { addToast } = useToast();
 
-
 const router = useRouter();
 const availableRoutes = router
   .getRoutes()
@@ -42,31 +44,29 @@ const availableRoutes = router
     path: route.path,
   }));
 
-  const handleClick = () => {
-    let type = ToastType.ERROR
+const handleClick = () => {
+  let type = ToastType.ERROR;
 
-    switch(Math.round((Math.random() * 3))) {
-      case 0:
-        type = ToastType.ERROR
-      break
-      case 1:
-        type = ToastType.INFO
-      break
-      case 2: 
-        type = ToastType.SUCCESS
-      break
-      case 3:
-        type = ToastType.WARNING
-      break
-    }
-
-    const toast : Toast = {
-      message: "Lamentablemente hemos detectado tu homosexualidad, así que negaremos tu acceso a esta plataforma.",
-      type: type
-    }
-    addToast(toast);
+  switch (Math.round(Math.random() * 3)) {
+    case 0:
+      type = ToastType.ERROR;
+      break;
+    case 1:
+      type = ToastType.INFO;
+      break;
+    case 2:
+      type = ToastType.SUCCESS;
+      break;
+    case 3:
+      type = ToastType.WARNING;
+      break;
   }
 
+  const toast: Toast = {
+    message:
+      "Lamentablemente hemos detectado tu homosexualidad, así que negaremos tu acceso a esta plataforma.",
+    type: type,
+  };
+  addToast(toast);
+};
 </script>
-
-
