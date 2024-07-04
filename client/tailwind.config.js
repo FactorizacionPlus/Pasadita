@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  safelist: [
+    'animate-slide-from-left'
+  ],
   theme: {
     fontFamily:{
       'rubik': ['Rubik Variable', 'sans-serif']
@@ -11,12 +14,17 @@ export default {
         glow: "0px 4px 30px 0px rgba(154, 201,255,0.7);",
       },
       animation: {
-        'scale-up': 'scale_up 0.3s'
+        'scale-up': 'scale_up 0.3s',
+        'slide-left': 'slide_from_left 1s'
       },
       keyframes: {
         scale_up: {
           '0%': { transform: 'scale(1.10)'},
           '100%': { transform: 'scale(1)'}
+        },
+        slide_from_left: {
+          '0%': { trasform: 'translateX(110%)' },
+          '100%': { trasform: 'translateX(0)' },
         }
       },
       colors: {
