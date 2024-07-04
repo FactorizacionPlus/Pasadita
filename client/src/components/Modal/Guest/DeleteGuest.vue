@@ -3,7 +3,9 @@ import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
-const props = defineProps<{ name: string; lastname: string }>();
+import type RegisteredUser from "@/types/User/RegisteredUser";
+
+const props = defineProps<{ user: RegisteredUser }>();
 
 const modal = ref<typeof Modal>();
 
@@ -19,7 +21,8 @@ defineExpose({
       <HeaderModal title="Invitado" icon="grid" action="delete" />
 
       <div class="flex max-h-[80vh] flex-col gap-4 p-4 text-xl text-pasadita-blue-1">
-        ¿Deseas expulsar a {{ props.name }} {{ props.lastname }} de la residencia y del sistema?
+        ¿Deseas expulsar a {{ props.user.firstName }} {{ props.user.lastName }} de la residencia y
+        del sistema?
       </div>
 
       <!-- Botones -->

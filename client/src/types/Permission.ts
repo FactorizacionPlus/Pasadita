@@ -1,5 +1,6 @@
 import type Residence from "./Residence";
-import type User from "./User";
+import type RegisteredUser from "./User/RegisteredUser";
+import type Resident from "./User/Resident";
 
 export default interface Permission {
   uuid: string;
@@ -7,7 +8,7 @@ export default interface Permission {
   creationDate: Date;
   endDate: Date;
   startDate: Date;
-  invitedUser: User;
+  invitedUser: RegisteredUser;
   residence: Residence;
-  resident: User;
+  resident: Resident;
 }

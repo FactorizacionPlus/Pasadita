@@ -3,7 +3,6 @@ import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import GenericTable from "@/components/GenericTable.vue";
 import type Entry from "@/types/Entry";
 import type Terminal from "@/types/Terminal";
-import type User from "@/types/User";
 import SearchBar from "@/components/SearchBar.vue";
 import TerminalMinimalCard from "@/components/Cards/TerminalMinimalCard.vue";
 import VueFeather from "vue-feather";
@@ -22,60 +21,7 @@ const terminal: Terminal = {
   uuid: "xd",
 };
 
-const users: User[] = [
-  {
-    firstName: "Juan Daniel",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    lastName: "Treminio",
-    uuid: "xddddd",
-  },
-  {
-    firstName: "David",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    lastName: "Quintanilla Ruiz",
-    uuid: "xddddd",
-  },
-  {
-    firstName: "Jezer",
-    identifier: "C137342343",
-    identifierType: "PASSPORT",
-    lastName: "Mejía Otero",
-    uuid: "xddddd",
-  },
-  {
-    firstName: "Marcelo",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    lastName: "Rivera Soto",
-    uuid: "xddddd",
-  },
-];
-
-const entries: Entry[] = [
-  {
-    uuid: "xdddddd",
-    accessDate: new Date(),
-    description: "Alguna descripción",
-    terminal: terminal,
-    user: users[0],
-  },
-  {
-    uuid: "xdddddd",
-    accessDate: new Date(),
-    description: "Alguna descripción",
-    terminal: terminal,
-    user: users[1],
-  },
-  {
-    uuid: "xdddddd",
-    accessDate: new Date(),
-    description: "Alguna descripción",
-    terminal: terminal,
-    user: users[2],
-  },
-];
+const entries: Entry[] = [];
 
 const rows = [
   {

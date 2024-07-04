@@ -1,5 +1,5 @@
 import type Terminal from "./Terminal";
-import type User from "./User";
+import type User from "./User/User";
 
 export default interface Entry {
   uuid: string;

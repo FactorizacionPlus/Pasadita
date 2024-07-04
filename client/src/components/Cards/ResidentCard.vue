@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 import UserImage from "@/components/UserImage.vue";
-import type Resident from "@/types/Resident";
 import IdentityCard from "@/IdentityCard.svg?component";
+import type Resident from "@/types/User/Resident";
 
 enum dic {
   TITLE = "Residente",
@@ -33,7 +33,7 @@ const props = defineProps<{ resident: Resident }>();
         </div>
       </div>
     </div>
-    <div class="flex items-center gap-1 p-2 text-blue-400">
+    <div class="flex items-center gap-1 p-2 text-blue-400" v-if="props.resident.residence">
       <VueFeather type="home" class="size-6" />
       <p class="leading-tight">{{ props.resident.residence.description }}</p>
     </div>

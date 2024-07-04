@@ -1,0 +1,1 @@
+export type UserRole = "ROLE_INVITED" | "ROLE_RESIDENT" | "ROLE_RESIDENT_SUDO" | "ROLE_ADMIN";

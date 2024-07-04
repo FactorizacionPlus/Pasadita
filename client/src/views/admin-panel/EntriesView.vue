@@ -2,11 +2,11 @@
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
-import type User from "@/types/User";
 import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
 import { ref } from "vue";
 import { matchSearch } from "@/utils/matchSearch";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 
 enum dic {
   TITLE = "Entradas",
@@ -30,7 +30,7 @@ const entryList: EntryType[] = [
       identifierType: "PASSPORT",
       role: "Residente",
       status: "ACTIVE",
-    } as unknown as User,
+    } as unknown as RegisteredUser,
     description: "Rumbo a la casas de los pueblos",
     accessDate: new Date("10-04-2005"),
     terminal: {
@@ -47,7 +47,7 @@ const entryList: EntryType[] = [
       lastName: "Parrales Ponce",
       identifierType: "PASSPORT",
       status: "ACTIVE",
-    } as unknown as User,
+    } as unknown as RegisteredUser,
     description: "Rumbo a la casas de los pueblos",
     accessDate: new Date("10-04-2015 12:00"),
     terminal: {

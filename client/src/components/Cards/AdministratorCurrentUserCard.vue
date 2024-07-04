@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type Administrator from "@/types/Administrator";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 import UserImage from "../UserImage.vue";
 
 enum dic {
   ADMINISTRATOR_NAME = "Administrador del Sistema",
 }
 
-const props = defineProps<{ admin: Administrator }>();
+const props = defineProps<{ admin: RegisteredUser }>();
 </script>
 
 <template>

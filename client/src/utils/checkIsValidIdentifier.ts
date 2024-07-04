@@ -1,6 +1,6 @@
-import type { identifierType } from "@/types/IdentifierType";
+import type { IdentifierType } from "@/types/User/IdentifierType";
 
-export default function checkIsValidIdentifier(identifier: string, identifierType: identifierType) {
+export default function checkIsValidIdentifier(identifier: string, identifierType: IdentifierType) {
   let regex: RegExp;
 
   switch (identifierType) {

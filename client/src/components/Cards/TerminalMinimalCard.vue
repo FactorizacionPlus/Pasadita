@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type Terminal from "@/types/Terminal";
 import VueFeather from "vue-feather";
-import type Terminal from "../../types/AdminTerminal";
 
 const props = defineProps<{
   terminal: Terminal;

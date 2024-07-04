@@ -5,8 +5,8 @@ import ResidentCard from "@/components/Cards/ResidentCard.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import VueFeather from "vue-feather";
 import ModalAdd from "@/components/Modal/ResidentManager/AddResident.vue";
-import type Resident from "@/types/Resident";
 import { matchSearch } from "@/utils/matchSearch";
+import type Resident from "@/types/User/Resident";
 
 const modalAdd = ref<typeof ModalAdd>();
 
@@ -31,7 +31,9 @@ const residents: Resident[] = [
       maxHabitants: 32,
       status: "ACTIVE",
     },
-    role: "quien sabe",
+    role: "ROLE_ADMIN",
+    uuid: "",
+    entryCount: 0,
     status: "ACTIVE",
   },
 ];
