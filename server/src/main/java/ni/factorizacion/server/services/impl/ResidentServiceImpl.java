@@ -87,6 +87,12 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
+    public void changeResidentRole(Resident resident, ResidentRole role) {
+        resident.setRole(role);
+        repository.save(resident);
+    }
+
+    @Override
     public void save(Resident resident) {
         repository.save(resident);
     }
