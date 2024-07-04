@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, onMounted, ref } from "vue";
 import VueFeather from "vue-feather";
 import type Toast from "../types/Toast";
 import { ToastType } from "../types/Toast";
 
 const toastBackground: { [key in ToastType]: string } = {
-  [ToastType.INFO]: "bg-pasadita-blue-4",
-  [ToastType.ERROR]: "bg-pasadita-red-2",
-  [ToastType.SUCCESS]: "bg-pasadita-green-3",
-  [ToastType.WARNING]: "bg-pasadita-yellow-0",
+  [ToastType.INFO]: "bg-white",
+  [ToastType.ERROR]: "bg-red-100",
+  [ToastType.SUCCESS]: "bg-green-100",
+  [ToastType.WARNING]: "bg-yellow-100",
 };
 
 const toastBackgroundDark: { [key in ToastType]: string } = {
-  [ToastType.INFO]: "group-hover:bg-pasadita-blue-3",
-  [ToastType.ERROR]: "group-hover:bg-pasadita-red-0",
-  [ToastType.SUCCESS]: "group-hover:bg-pasadita-green-1",
-  [ToastType.WARNING]: "group-hover:bg-pasadita-yellow-2",
+  [ToastType.INFO]: "group-hover:bg-blue-300",
+  [ToastType.ERROR]: "group-hover:bg-red-300",
+  [ToastType.SUCCESS]: "group-hover:bg-green-300",
+  [ToastType.WARNING]: "group-hover:bg-yellow-300",
 };
 
 const toastBorder: { [key in ToastType]: string } = {
-  [ToastType.INFO]: "border-pasadita-blue-3",
-  [ToastType.ERROR]: "border-pasadita-red-0",
-  [ToastType.SUCCESS]: "border-pasadita-green-1",
-  [ToastType.WARNING]: "border-pasadita-yellow-2",
+  [ToastType.INFO]: "border-blue-200",
+  [ToastType.ERROR]: "border-red-200",
+  [ToastType.SUCCESS]: "border-green-200",
+  [ToastType.WARNING]: "border-yellow-200",
 };
 
 const toastIcons: { [key in ToastType]: string } = {
@@ -33,29 +33,44 @@ const toastIcons: { [key in ToastType]: string } = {
 };
 
 const toastColor: { [key in ToastType]: string } = {
-  [ToastType.INFO]: "text-pasadita-blue-3",
-  [ToastType.ERROR]: "text-pasadita-red-0",
-  [ToastType.SUCCESS]: "text-pasadita-green-1",
-  [ToastType.WARNING]: "text-pasadita-yellow-2",
+  [ToastType.INFO]: "text-blue-400",
+  [ToastType.ERROR]: "text-red-400",
+  [ToastType.SUCCESS]: "text-green-400",
+  [ToastType.WARNING]: "text-yellow-400",
 };
 
 const props = defineProps<{ toast: Toast }>();
+
+const li = ref<HTMLLIElement | undefined>();
+onMounted(() => {
+  setTimeout(() => {
+    li.value?.remove();
+  }, 10000);
+});
 </script>
 
 <template>
-  <div
-    class="my-2 flex flex-row items-center justify-between gap-2 rounded-md border-2"
+  <li
+    ref="li"
+    class="my-2 flex animate-slide-left flex-row items-center justify-between gap-2 rounded-md border-2 border-b-4"
     :class="[toastBackground[props.toast.type], toastBorder[props.toast.type]]"
   >
-    <div class="flex flex-row items-center p-2" :class="toastColor[props.toast.type]">
-      <div class="flex size-10 shrink-0 items-center justify-center">
-        <VueFeather :type="toastIcons[props.toast.type]" size="25" stroke-width="1.5"></VueFeather>
-      </div>
-
-      <p class="font-semibold">{{ props.toast.message }}</p>
+    <div class="flex flex-row items-center gap-1 p-2" :class="toastColor[props.toast.type]">
+      <VueFeather
+        :type="toastIcons[props.toast.type]"
+        class="aspect-square size-5 min-w-5"
+        stroke-width="1.5"
+      >
+      </VueFeather>
+      <p>{{ props.toast.message }}</p>
     </div>
 
     <button
+      @click="
+        () => {
+          li?.remove();
+        }
+      "
       class="group relative flex flex-row items-center justify-center border-l-2 px-3"
       :class="[toastColor[props.toast.type], toastBorder[props.toast.type]]"
     >
@@ -67,8 +82,9 @@ const props = defineProps<{ toast: Toast }>();
         type="x"
         size="16"
         stroke-width="3.5"
-        class="z-10 ml-[1.5px] transition-colors group-hover:text-white"
-      ></VueFeather>
+        class="z-10 ml-[1.5px] transition-all group-active:scale-90"
+      >
+      </VueFeather>
     </button>
-  </div>
+  </li>
 </template>
