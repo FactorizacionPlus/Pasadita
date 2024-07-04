@@ -13,7 +13,7 @@ const props = defineProps<{
   residence: Residence;
 }>();
 
-enum dic {
+enum Message {
   SINGULAR = "Residencia",
   PEOPLE = "Habitantes",
   DESCRIPTION = "Descripción",
@@ -25,11 +25,11 @@ const currentResidents = 0;
 <template>
   <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200">
     <div class="flex flex-col gap-1 bg-blue-100 p-2">
-      <h2 class="text-base font-medium text-pasadita-blue-1">{{ dic.SINGULAR }}</h2>
+      <h2 class="text-base font-medium text-pasadita-blue-1">{{ Message.SINGULAR }}</h2>
       <div class="flex items-center gap-2 text-blue-400">
         <VueFeather type="home" size="24" stroke-width="1.5"></VueFeather>
         <p class="text-base font-normal">
-          {{ currentResidents }} / {{ props.residence.maxHabitants }} {{ dic.PEOPLE }}
+          {{ currentResidents }} / {{ props.residence.maxHabitants }} {{ Message.PEOPLE }}
         </p>
       </div>
     </div>

@@ -6,7 +6,7 @@ import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
 import type RegisteredUser from "@/types/User/RegisteredUser";
 
-enum dic {
+enum Message {
   TITLE = "Usuarios",
 }
 
@@ -50,7 +50,7 @@ const entryList: EntryType[] = [
 </script>
 
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="user" />
+  <CurrentPageInfo :title="Message.TITLE" icon="user" />
   <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar />
     <ul class="grid gap-4 lg:grid-cols-2">

@@ -8,7 +8,7 @@ import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
 import type Permission from "@/types/Permission";
 import { matchSearch } from "@/utils/matchSearch";
 
-enum dic {
+enum Message {
   TITLE = "Mis Solicitudes",
 }
 
@@ -27,7 +27,7 @@ const permissions: Permission[] = [];
 
 <template>
   <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
-    <CurrentPageInfo class="p-0" :title="dic.TITLE" icon="folder">
+    <CurrentPageInfo class="p-0" :title="Message.TITLE" icon="folder">
       <button
         class="inline-flex items-center rounded-lg bg-blue-100 p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
         @click="modalAdd?.show()"

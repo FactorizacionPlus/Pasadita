@@ -4,7 +4,7 @@ import Identity from "@/Identity.svg?component";
 import { onMounted, ref, type Component } from "vue";
 import type { IdentifierType } from "@/types/User/IdentifierType";
 
-enum dic {
+enum Message {
   SELECT_TYPE = "Seleccione el tipo de identificación",
 }
 
@@ -42,7 +42,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-1">
-    <p class="text-sm font-medium leading-none text-blue-500">{{ dic.SELECT_TYPE }}</p>
+    <p class="text-sm font-medium leading-none text-blue-500">{{ Message.SELECT_TYPE }}</p>
     <div class="grid w-full grid-cols-2 gap-2">
       <button
         v-for="(item, index) in identityTypes"

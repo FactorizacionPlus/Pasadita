@@ -8,7 +8,7 @@ import type Entry from "@/types/Entry";
 import type Terminal from "@/types/Terminal";
 import VueFeather from "vue-feather";
 
-enum dic {
+enum Message {
   TITLE = "Dashboard",
   ACTIVE_TERMINALS = "Terminales Activas",
   RECENT_ENTRIES = "Entradas Recientes",
@@ -52,7 +52,7 @@ const rows = [
 ];
 </script>
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="grid" />
+  <CurrentPageInfo :title="Message.TITLE" icon="grid" />
   <section class="grid flex-1 grid-rows-3 gap-4 lg:grid-cols-2">
     <article class="grid place-items-center rounded-lg bg-white p-4">
       <AdministratorCurrentUserCard :admin="user.user" v-if="user.user" />
@@ -60,7 +60,7 @@ const rows = [
     <article class="flex flex-col gap-2 rounded-lg bg-white p-4">
       <div class="flex items-center gap-1 font-medium text-blue-500">
         <VueFeather type="tablet" class="size-[18px]" />
-        <h2 class="text-xl">{{ dic.ACTIVE_TERMINALS }}</h2>
+        <h2 class="text-xl">{{ Message.ACTIVE_TERMINALS }}</h2>
       </div>
       <ul class="grid grid-cols-2 gap-2">
         <AdministratorTerminalCard
@@ -75,7 +75,7 @@ const rows = [
     >
       <div class="flex items-center gap-1 font-medium text-blue-500">
         <VueFeather type="tablet" class="size-[18px]" />
-        <h2 class="text-xl">{{ dic.RECENT_ENTRIES }}</h2>
+        <h2 class="text-xl">{{ Message.RECENT_ENTRIES }}</h2>
       </div>
       <GenericTable :table="rows" />
     </article>

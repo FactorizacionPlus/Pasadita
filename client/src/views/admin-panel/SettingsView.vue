@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 
-enum dic {
+enum Message {
   TITLE = "Configuraciones",
 }
 </script>
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="settings" />
+  <CurrentPageInfo :title="Message.TITLE" icon="settings" />
 </template>

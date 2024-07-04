@@ -8,7 +8,7 @@ const props = defineProps<{
 
 const entriesQuantity = 0;
 
-enum dic {
+enum Message {
   SINGULAR = "Terminal",
   ENTRIES_QUANTITY = "Cantidad de Entradas: ",
   DESCRIPTION = "Descripción",
@@ -18,7 +18,7 @@ enum dic {
 <template>
   <div class="flex flex-col rounded-lg">
     <div class="flex flex-col gap-1 p-2">
-      <h2 class="text-base font-medium text-blue-500">{{ dic.SINGULAR }}</h2>
+      <h2 class="text-base font-medium text-blue-500">{{ Message.SINGULAR }}</h2>
       <div class="flex items-center gap-2">
         <VueFeather
           type="tablet"
@@ -31,7 +31,7 @@ enum dic {
             {{ props.terminal.type }}
           </p>
           <p>
-            <span class="font-medium">{{ dic.ENTRIES_QUANTITY }}</span> {{ entriesQuantity }}
+            <span class="font-medium">{{ Message.ENTRIES_QUANTITY }}</span> {{ entriesQuantity }}
           </p>
         </div>
       </div>

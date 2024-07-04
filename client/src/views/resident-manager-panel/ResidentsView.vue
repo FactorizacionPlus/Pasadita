@@ -10,7 +10,7 @@ import type Resident from "@/types/User/Resident";
 
 const modalAdd = ref<typeof ModalAdd>();
 
-enum dic {
+enum Message {
   TITLE = "Lista de Residentes",
 }
 
@@ -41,7 +41,7 @@ const residents: Resident[] = [
 
 <template>
   <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
-    <CurrentPageInfo class="p-0" :title="dic.TITLE" icon="user">
+    <CurrentPageInfo class="p-0" :title="Message.TITLE" icon="user">
       <button
         class="inline-flex items-center rounded-lg bg-blue-100 p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
         @click="modalAdd?.show()"

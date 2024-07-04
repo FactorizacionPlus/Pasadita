@@ -6,9 +6,8 @@ import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
 import { ref } from "vue";
 import { matchSearch } from "@/utils/matchSearch";
-import type RegisteredUser from "@/types/User/RegisteredUser";
 
-enum dic {
+enum Message {
   TITLE = "Entradas",
   SINGULAR = "Residencia",
   PEOPLE = "Habitantes",
@@ -19,47 +18,11 @@ const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = ["description", "user.firstName", "user.lastName", "user.identifier"];
 
-const entryList: EntryType[] = [
-  {
-    uuid: "",
-    user: {
-      identifier: "0011904041016S",
-      imageUrl: "https://www.github.com/davidquintr.png",
-      firstName: "David",
-      lastName: "Quintanilla",
-      identifierType: "PASSPORT",
-      role: "Residente",
-      status: "ACTIVE",
-    } as unknown as RegisteredUser,
-    description: "Rumbo a la casas de los pueblos",
-    accessDate: new Date("10-04-2005"),
-    terminal: {
-      type: "",
-      uuid: "",
-    },
-  },
-  {
-    uuid: "",
-    user: {
-      identifier: "0011904041016S",
-      imageUrl: "",
-      firstName: "David",
-      lastName: "Parrales Ponce",
-      identifierType: "PASSPORT",
-      status: "ACTIVE",
-    } as unknown as RegisteredUser,
-    description: "Rumbo a la casas de los pueblos",
-    accessDate: new Date("10-04-2015 12:00"),
-    terminal: {
-      type: "",
-      uuid: "",
-    },
-  },
-];
+const entryList: EntryType[] = [];
 </script>
 
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="folder" action="read_only" />
+  <CurrentPageInfo :title="Message.TITLE" icon="folder" action="read_only" />
   <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
     <ul class="grid gap-4 lg:grid-cols-2">

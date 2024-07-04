@@ -11,7 +11,7 @@ import { ref } from "vue";
 const searchText = ref("");
 const hideNoResults = ref(false);
 
-enum dic {
+enum Message {
   TITLE = "Terminal",
   RELOAD_TEXT = "Recargar",
 }
@@ -52,7 +52,7 @@ const rows = [
 ];
 </script>
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="tablet" action="history" />
+  <CurrentPageInfo :title="Message.TITLE" icon="tablet" action="history" />
   <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @toggle-no-results="hideNoResults = $event" @search="searchText = $event" />
     <section class="overflow-x-auto rounded-xl pb-1">
@@ -63,7 +63,7 @@ const rows = [
             class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95"
           >
             <VueFeather type="loader" stroke-width="2.5" size="16" />
-            <span>{{ dic.RELOAD_TEXT }}</span>
+            <span>{{ Message.RELOAD_TEXT }}</span>
           </button>
         </div>
       </GenericTable>
