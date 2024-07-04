@@ -1,6 +1,48 @@
+<script setup lang="ts">
+import Passport from "@/Passport.svg?component";
+import Identity from "@/Identity.svg?component";
+import { onMounted, ref, type Component } from "vue";
+import type { IdentifierType } from "@/types/User/IdentifierType";
+
+enum Message {
+  SELECT_TYPE = "Seleccione el tipo de identificación",
+}
+
+interface IdentityTypeProps {
+  type: IdentifierType;
+  icon: Component;
+}
+
+const identityTypes: IdentityTypeProps[] = [
+  {
+    type: "DUI",
+    icon: Identity,
+  },
+  {
+    type: "PASSPORT",
+    icon: Passport,
+  },
+];
+
+const emit = defineEmits(["identityType"]);
+const props = defineProps<{ identityType?: IdentifierType }>();
+const selection = ref<IdentifierType>(
+  props.identityType != undefined ? props.identityType : identityTypes[0].type
+);
+
+function handleSelection(type: IdentifierType) {
+  selection.value = type;
+  emit("identityType", selection.value);
+}
+
+onMounted(() => {
+  emit("identityType", selection.value);
+});
+</script>
+
 <template>
   <div class="flex flex-col gap-1">
-    <p class="text-sm font-medium leading-none text-blue-500">{{ dic.SELECT_TYPE }}</p>
+    <p class="text-sm font-medium leading-none text-blue-500">{{ Message.SELECT_TYPE }}</p>
     <div class="grid w-full grid-cols-2 gap-2">
       <button
         v-for="(item, index) in identityTypes"
@@ -22,42 +64,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-enum dic {
-  SELECT_TYPE = "Seleccione el tipo de identificación",
-}
-
-interface identityTypeProps {
-  type: identifierType;
-  icon: Component;
-}
-
-const identityTypes: identityTypeProps[] = [
-  {
-    type: "DUI",
-    icon: Identity,
-  },
-  {
-    type: "PASSPORT",
-    icon: Passport,
-  },
-];
-const emit = defineEmits(["identityType"]);
-const props = defineProps<{ identityType?: identifierType }>();
-const selection = ref<identifierType>(
-  props.identityType != undefined ? props.identityType : identityTypes[0].type
-);
-import Passport from "@/Passport.svg?component";
-import Identity from "@/Identity.svg?component";
-import { onMounted, ref, type Component } from "vue";
-import type { identifierType } from "@/types/IdentifierType";
-
-function handleSelection(type: identifierType) {
-  selection.value = type;
-  emit("identityType", selection.value);
-}
-
-onMounted(() => {
-  emit("identityType", selection.value);
-});
-</script>

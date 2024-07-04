@@ -3,7 +3,6 @@ import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import GenericTable from "@/components/GenericTable.vue";
 import type Entry from "@/types/Entry";
 import type Terminal from "@/types/Terminal";
-import type User from "@/types/User";
 import SearchBar from "@/components/SearchBar.vue";
 import TerminalMinimalCard from "@/components/Cards/TerminalMinimalCard.vue";
 import VueFeather from "vue-feather";
@@ -12,7 +11,7 @@ import { ref } from "vue";
 const searchText = ref("");
 const hideNoResults = ref(false);
 
-enum dic {
+enum Message {
   TITLE = "Terminal",
   RELOAD_TEXT = "Recargar",
 }
@@ -22,60 +21,7 @@ const terminal: Terminal = {
   uuid: "xd",
 };
 
-const users: User[] = [
-  {
-    firstName: "Juan Daniel",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    lastName: "Treminio",
-    uuid: "xddddd",
-  },
-  {
-    firstName: "David",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    lastName: "Quintanilla Ruiz",
-    uuid: "xddddd",
-  },
-  {
-    firstName: "Jezer",
-    identifier: "C137342343",
-    identifierType: "PASSPORT",
-    lastName: "Mejía Otero",
-    uuid: "xddddd",
-  },
-  {
-    firstName: "Marcelo",
-    identifier: "C137",
-    identifierType: "PASSPORT",
-    lastName: "Rivera Soto",
-    uuid: "xddddd",
-  },
-];
-
-const entries: Entry[] = [
-  {
-    uuid: "xdddddd",
-    accessDate: new Date(),
-    description: "Alguna descripción",
-    terminal: terminal,
-    user: users[0],
-  },
-  {
-    uuid: "xdddddd",
-    accessDate: new Date(),
-    description: "Alguna descripción",
-    terminal: terminal,
-    user: users[1],
-  },
-  {
-    uuid: "xdddddd",
-    accessDate: new Date(),
-    description: "Alguna descripción",
-    terminal: terminal,
-    user: users[2],
-  },
-];
+const entries: Entry[] = [];
 
 const rows = [
   {
@@ -106,7 +52,7 @@ const rows = [
 ];
 </script>
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="tablet" action="history" />
+  <CurrentPageInfo :title="Message.TITLE" icon="tablet" action="history" />
   <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @toggle-no-results="hideNoResults = $event" @search="searchText = $event" />
     <section class="overflow-x-auto rounded-xl pb-1">
@@ -117,7 +63,7 @@ const rows = [
             class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95"
           >
             <VueFeather type="loader" stroke-width="2.5" size="16" />
-            <span>{{ dic.RELOAD_TEXT }}</span>
+            <span>{{ Message.RELOAD_TEXT }}</span>
           </button>
         </div>
       </GenericTable>

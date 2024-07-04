@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import VueFeather from "vue-feather";
-import type InvitedResident from "@/types/InvitedResident";
 import UserImage from "@/components/UserImage.vue";
 import ModalDelete from "@/components/Modal/Guest/DeleteGuest.vue";
 import ModalSee from "@/components/Modal/Administrator/SeeGuest.vue";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 const modalDel = ref<typeof ModalDelete>();
 const modalSee = ref<typeof ModalSee>();
 
-const props = defineProps<{ invitedResident: InvitedResident }>();
+const props = defineProps<{ user: RegisteredUser }>();
 </script>
 
 <template>
@@ -23,23 +23,18 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
     <div class="flex flex-row border-x border-pasadita-shade-2 p-4">
       <div class="flex w-full flex-col justify-center gap-2">
         <div class="flex items-center gap-3">
-          <UserImage
-            class="size-36"
-            :image="props.invitedResident.image"
-            size="84"
-            padding="16px"
-          />
+          <UserImage class="size-36" :image="props.user.imageUrl" size="84" padding="16px" />
           <div class="flex flex-col text-pasadita-blue-1">
             <p class="text-sm font-semibold leading-none">Nombre</p>
-            <p class="text-lg leading-relaxed">{{ props.invitedResident.name }}</p>
+            <p class="text-lg leading-relaxed">{{ props.user.firstName }}</p>
             <p class="text-sm font-semibold leading-none">Apellido</p>
-            <p class="text-lg leading-relaxed">{{ props.invitedResident.secondName }}</p>
+            <p class="text-lg leading-relaxed">{{ props.user.lastName }}</p>
             <p class="text-sm font-semibold leading-none">Identificacion</p>
-            <p class="text-lg leading-relaxed">{{ props.invitedResident.identification }}</p>
+            <p class="text-lg leading-relaxed">{{ props.user.identifier }}</p>
           </div>
         </div>
         <p class="font-semibold text-pasadita-blue-1">
-          Numero de entradas: {{ props.invitedResident.entries }}
+          Numero de entradas: {{ props.user.entryCount }}
         </p>
       </div>
     </div>
@@ -54,17 +49,7 @@ const props = defineProps<{ invitedResident: InvitedResident }>();
       </button>
     </div>
   </li>
-  <ModalDelete :name="invitedResident.name" :lastname="invitedResident.secondName" ref="modalDel">
-    Hola
-  </ModalDelete>
-  <ModalSee
-    :image="props.invitedResident.image || ''"
-    :name="props.invitedResident.name"
-    :secondname="props.invitedResident.secondName"
-    :identification="props.invitedResident.identification"
-    :entries="props.invitedResident.entries"
-    ref="modalSee"
-  >
-    Hola
-  </ModalSee>
+
+  <ModalDelete :user="props.user" ref="modalDel" />
+  <ModalSee :user="props.user" ref="modalSee" />
 </template>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import VueFeather from "vue-feather";
 import UserImage from "@/components/UserImage.vue";
-import type Resident from "@/types/Resident";
 import IdentityCard from "@/IdentityCard.svg?component";
+import type Resident from "@/types/User/Resident";
 
-enum dic {
+enum Message {
   TITLE = "Residente",
   ACCESS_QUANTITY = "Cantidad de Entradas: ",
 }
@@ -15,7 +15,7 @@ const props = defineProps<{ resident: Resident }>();
 <template>
   <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200 bg-white">
     <div class="flex flex-col gap-2 bg-shades-100 p-2 text-blue-400">
-      <h2 class="text-xl font-semibold text-blue-500">{{ dic.TITLE }}</h2>
+      <h2 class="text-xl font-semibold text-blue-500">{{ Message.TITLE }}</h2>
       <div class="flex items-center gap-1">
         <UserImage class="size-16" :image="props.resident.imageUrl" />
         <div class="flex flex-col">
@@ -27,13 +27,13 @@ const props = defineProps<{ resident: Resident }>();
             {{ props.resident.firstName }} {{ props.resident.lastName }}
           </p>
           <p class="text-xs font-medium text-blue-500">
-            {{ dic.ACCESS_QUANTITY }}
+            {{ Message.ACCESS_QUANTITY }}
             <span class="font-normal text-blue-400">{{ accessCount }}</span>
           </p>
         </div>
       </div>
     </div>
-    <div class="flex items-center gap-1 p-2 text-blue-400">
+    <div class="flex items-center gap-1 p-2 text-blue-400" v-if="props.resident.residence">
       <VueFeather type="home" class="size-6" />
       <p class="leading-tight">{{ props.resident.residence.description }}</p>
     </div>

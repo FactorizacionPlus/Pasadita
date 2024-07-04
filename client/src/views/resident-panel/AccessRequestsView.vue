@@ -8,7 +8,7 @@ import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
 import type Permission from "@/types/Permission";
 import { matchSearch } from "@/utils/matchSearch";
 
-enum dic {
+enum Message {
   TITLE = "Mis Solicitudes",
 }
 
@@ -22,91 +22,12 @@ const fieldsToSearch = [
   "residence.description",
 ];
 
-const permissions: Permission[] = [
-  {
-    authorized: false,
-    creationDate: new Date(),
-    endDate: new Date(),
-    invitedUser: {
-      firstName: "Juan Daniel",
-      identifier: "C137",
-      identifierType: "PASSPORT",
-      lastName: "Gaturrón Treminio",
-      uuid: "00000000000000",
-    },
-    residence: {
-      description: "Casa de los Pueblos",
-      maxHabitants: 32,
-      status: "ACTIVE",
-    },
-    resident: {
-      firstName: "David",
-      identifier: "C137",
-      identifierType: "PASSPORT",
-      lastName: "Quintanilla Ruiz",
-      uuid: "00000000000000",
-    },
-    startDate: new Date(),
-    uuid: "0000000000",
-  },
-  {
-    authorized: undefined,
-    creationDate: new Date(),
-    endDate: new Date(),
-    invitedUser: {
-      firstName: "Marcelo",
-      identifier: "C137",
-      identifierType: "PASSPORT",
-      lastName: "Rivera Soto",
-      uuid: "00000000000000",
-    },
-    residence: {
-      description: "Casa de los Pueblos",
-      maxHabitants: 32,
-      status: "ACTIVE",
-    },
-    resident: {
-      firstName: "David",
-      identifier: "C137",
-      identifierType: "PASSPORT",
-      lastName: "Quintanilla Ruiz",
-      uuid: "00000000000000",
-    },
-    startDate: new Date(),
-    uuid: "0000000000",
-  },
-  {
-    authorized: true,
-    creationDate: new Date(),
-    endDate: new Date(),
-    invitedUser: {
-      firstName: "Juan Daniel",
-      identifier: "C137",
-      identifierType: "PASSPORT",
-      lastName: "Gaturrón Treminio",
-      uuid: "00000000000000",
-    },
-    residence: {
-      description: "Casa de los Pueblos",
-      maxHabitants: 32,
-      status: "ACTIVE",
-    },
-    resident: {
-      firstName: "David",
-      identifier: "C137",
-      identifierType: "PASSPORT",
-      lastName: "Quintanilla Ruiz",
-      uuid: "00000000000000",
-    },
-    startDate: new Date(),
-    uuid: "0000000000",
-  },
-];
+const permissions: Permission[] = [];
 </script>
 
 <template>
   <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
-    <CurrentPageInfo class="p-0" :title="dic.TITLE" icon="folder">
+    <CurrentPageInfo class="p-0" :title="Message.TITLE" icon="folder">
       <button
         class="inline-flex items-center rounded-lg bg-blue-100 p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
         @click="modalAdd?.show()"

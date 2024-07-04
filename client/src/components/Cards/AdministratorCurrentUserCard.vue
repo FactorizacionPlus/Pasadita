@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type Administrator from "@/types/Administrator";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 import UserImage from "../UserImage.vue";
 
-enum dic {
+enum Message {
   ADMINISTRATOR_NAME = "Administrador del Sistema",
 }
 
-const props = defineProps<{ admin: Administrator }>();
+const props = defineProps<{ admin: RegisteredUser }>();
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const props = defineProps<{ admin: Administrator }>();
   >
     <UserImage class="size-20" :image="props.admin.imageUrl" />
     <div class="text-blue-400">
-      <span class="text-2xl">{{ dic.ADMINISTRATOR_NAME }}</span>
+      <span class="text-2xl">{{ Message.ADMINISTRATOR_NAME }}</span>
       <h2 class="text-[32px] font-semibold">
         {{ props.admin.firstName }} {{ props.admin.lastName }}
       </h2>

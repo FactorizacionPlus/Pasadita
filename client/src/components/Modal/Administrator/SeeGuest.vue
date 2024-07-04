@@ -4,13 +4,9 @@ import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
-const props = defineProps<{
-  image: string;
-  name: string;
-  secondname: string;
-  identification: string;
-  entries: number;
-}>();
+import type RegisteredUser from "@/types/User/RegisteredUser";
+
+const props = defineProps<{ user: RegisteredUser }>();
 const modal = ref<typeof Modal>();
 
 defineExpose({
@@ -30,19 +26,19 @@ defineExpose({
               <div
                 class="flex size-24 items-center justify-center rounded-full border-2 border-pasadita-blue-2 bg-pasadita-blue-4"
               >
-                <UserImage :image="props.image" size="70" padding="16px" />
+                <UserImage :image="props.user.imageUrl" size="70" padding="16px" />
               </div>
               <div class="flex flex-col text-pasadita-blue-1">
                 <p class="font-semibold">Nombre</p>
-                <p>{{ props.name }}</p>
+                <p>{{ props.user.firstName }}</p>
                 <p class="font-semibold">Apellido</p>
-                <p>{{ props.secondname }}</p>
+                <p>{{ props.user.lastName }}</p>
                 <p class="font-semibold">Identificacion</p>
-                <p>{{ props.identification }}</p>
+                <p>{{ props.user.identifier }}</p>
               </div>
             </div>
             <p class="font-semibold text-pasadita-blue-1">
-              Numero de entradas: {{ props.entries }}
+              Numero de entradas: {{ props.user.entryCount }}
             </p>
           </div>
         </div>

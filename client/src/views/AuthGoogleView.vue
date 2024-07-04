@@ -8,7 +8,7 @@ import {
 import { useAuth } from "@/stores/auth";
 import { useUser } from "@/stores/user";
 import type GeneralResponse from "@/types/GeneralResponse";
-import type User from "@/types/User";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -37,7 +37,8 @@ const registerUrl = useRegisterUrl("none");
 async function doUserData() {
   message.value = Message.LOADING_USER;
 
-  const { data } = await useAuthenticatedFetch("/auth/self").json<GeneralResponse<User>>();
+  const { data } =
+    await useAuthenticatedFetch("/auth/self").json<GeneralResponse<RegisteredUser>>();
   if (data.value == null) {
     message.value = Message.ERROR_USER;
     return;

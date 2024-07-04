@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type RegisteredUser from "@/types/User/RegisteredUser";
 import VueFeather from "vue-feather";
-import type User from "@/types/User";
 
 const props = defineProps<{
-  user: User;
+  user: RegisteredUser;
 }>();
 
 /**

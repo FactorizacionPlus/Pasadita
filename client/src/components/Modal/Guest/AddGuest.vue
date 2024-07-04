@@ -13,8 +13,8 @@ import SimpleAlert from "@/components/SimpleAlert.vue";
 import type Alert from "@/types/Alert";
 import { AlertType } from "@/types/Alert";
 import checkIsValidIdentifier from "@/utils/checkIsValidIdentifier";
-import type { identifierType } from "@/types/IdentifierType";
 import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
+import type { IdentifierType } from "@/types/User/IdentifierType";
 
 const modal = ref<typeof Modal>();
 
@@ -25,7 +25,7 @@ const data = ref({
   identifier: "",
 });
 
-enum dic {
+enum Message {
   BUTTON_ACCEPT = "Aceptar",
   BUTTON_CANCEL = "Cancelar",
   ACCOUNT = "Cuenta",
@@ -57,7 +57,7 @@ function handleSubmit(event: Event) {
     return;
   }
 
-  if (!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as identifierType)) {
+  if (!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as IdentifierType)) {
     const alert: Alert = {
       message: "Esta mierda no calza con el formato de la turca que se usa hpta",
       type: AlertType.WARNING,
@@ -77,7 +77,7 @@ function resetValues() {
 <template>
   <Modal ref="modal">
     <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
-      <HeaderModal :title="dic.ACCOUNT" icon="user" action="create" />
+      <HeaderModal :title="Message.ACCOUNT" icon="user" action="create" />
       <BodyModal>
         <UserImage image="" class="size-36 self-center" />
 
@@ -105,7 +105,7 @@ function resetValues() {
           class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
         >
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
-          <span>{{ dic.BUTTON_ACCEPT }}</span>
+          <span>{{ Message.BUTTON_ACCEPT }}</span>
         </button>
         <button
           type="button"
@@ -113,7 +113,7 @@ function resetValues() {
           class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
         >
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
-          <span>{{ dic.BUTTON_CANCEL }}</span>
+          <span>{{ Message.BUTTON_CANCEL }}</span>
         </button>
       </ControlsModal>
     </form>

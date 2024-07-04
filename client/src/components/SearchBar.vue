@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import VueFeather from "vue-feather";
 
-enum dic {
+enum Message {
   HIDE = "Ocultar",
   SHOW = "Mostrar",
   SEARCH_BY = "Buscando por el término: ",
@@ -70,10 +70,10 @@ const clearSearch = () => {
       "
     >
       <VueFeather :type="hideNoResults ? 'eye-off' : 'eye'" class="size-4" />
-      <span class="hidden">{{ hideNoResults ? dic.HIDE : dic.SHOW }}</span>
+      <span class="hidden">{{ hideNoResults ? Message.HIDE : Message.SHOW }}</span>
     </button>
   </form>
   <p v-if="prev.length > 2" class="font-medium">
-    {{ dic.SEARCH_BY }} <span class="font-normal">{{ prev }}</span>
+    {{ Message.SEARCH_BY }} <span class="font-normal">{{ prev }}</span>
   </p>
 </template>

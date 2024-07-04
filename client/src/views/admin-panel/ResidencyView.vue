@@ -9,7 +9,7 @@ import ModalAdd from "@/components/Modal/Residence/ManageResidence.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 const modalAdd = ref<typeof ModalAdd>();
 
-enum dic {
+enum Message {
   TITLE = "Residencias",
   CREATE_RESIDENCE = "Crear Residencia",
 }
@@ -34,13 +34,13 @@ const residenceList: Residence[] = [
 </script>
 
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="home">
+  <CurrentPageInfo :title="Message.TITLE" icon="home">
     <button
       class="inline-flex items-center rounded-lg bg-white p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-shades-100 active:scale-95"
       @click="modalAdd?.show()"
     >
       <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
-      <span>{{ dic.CREATE_RESIDENCE }}</span>
+      <span>{{ Message.CREATE_RESIDENCE }}</span>
     </button>
   </CurrentPageInfo>
   <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">

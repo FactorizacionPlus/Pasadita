@@ -5,58 +5,11 @@ import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
 import type Residence from "@/types/Residence";
-import type Resident from "@/types/Resident";
+import type Resident from "@/types/User/Resident";
 
 const modal = ref<typeof Modal>();
 
-const residents: Resident[] = [
-  {
-    identifier: "0011904041016S",
-    firstName: "Juan Daniel",
-    lastName: "Treminio",
-    imageUrl:
-      "https://laverdadnoticias.com/img/2018/05/02/picozapato.jpg?__scale=c:transparent,w:480,h:680,t:3",
-    role: "Administrador",
-    identifierType: "PASSPORT",
-    email: "",
-    status: "ACTIVE",
-    residence: {
-      description: "",
-      maxHabitants: 0,
-      status: "ACTIVE",
-    },
-  },
-  {
-    identifier: "0011904041016S",
-    firstName: "Nicolás",
-    lastName: "Maduro Moros",
-    imageUrl: "https://pasadita.vercel.app/madurito.png",
-    role: "Dictador",
-    identifierType: "PASSPORT",
-    email: "",
-    status: "ACTIVE",
-    residence: {
-      description: "",
-      maxHabitants: 0,
-      status: "ACTIVE",
-    },
-  },
-  {
-    identifier: "0011904041016S",
-    firstName: "David Sebastián",
-    lastName: "Parrales Ponce",
-    imageUrl: "https://github.com/poncka.png",
-    role: "Residente",
-    identifierType: "PASSPORT",
-    email: "",
-    status: "ACTIVE",
-    residence: {
-      description: "",
-      maxHabitants: 0,
-      status: "ACTIVE",
-    },
-  },
-];
+const residents: Resident[] = [];
 
 const residence: Residence = {
   description: "Palacio de Miraflores, República Bolivariana de Venezuela",

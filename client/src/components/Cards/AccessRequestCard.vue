@@ -4,7 +4,7 @@ import UserImage from "@/components/UserImage.vue";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
 import type Permission from "@/types/Permission";
 
-enum dic {
+enum Message {
   TITLE = "Solicitud de Acceso",
   PERMISSION_APPROVED = "Aprobado",
   PERMISSION_REJECTED = "Rechazado",
@@ -25,16 +25,16 @@ const props = defineProps<{
 const currentState =
   props.permission.authorized != undefined
     ? props.permission.authorized
-      ? dic.PERMISSION_APPROVED
-      : dic.PERMISSION_REJECTED
-    : dic.PERMISSION_PENDING;
+      ? Message.PERMISSION_APPROVED
+      : Message.PERMISSION_REJECTED
+    : Message.PERMISSION_PENDING;
 </script>
 
 <template>
   <li class="flex flex-col overflow-hidden rounded-lg border border-blue-200 bg-white">
     <!--Information-->
     <div class="flex flex-col gap-2 bg-shades-100 p-2">
-      <h2 class="font-semibold text-blue-500">{{ dic.TITLE }}</h2>
+      <h2 class="font-semibold text-blue-500">{{ Message.TITLE }}</h2>
       <div class="flex items-center gap-1">
         <UserImage class="size-8" />
         <div class="flex-1 text-blue-400">
@@ -50,14 +50,14 @@ const currentState =
     <!--Description-->
     <ul class="flex w-full flex-1 flex-col justify-center gap-2 p-2 text-blue-500">
       <li class="flex flex-col gap-1">
-        <p class="text-xs font-medium">{{ dic.START_DATE }}</p>
+        <p class="text-xs font-medium">{{ Message.START_DATE }}</p>
         <div class="flex items-center gap-1 text-blue-400">
           <VueFeather type="calendar" class="size-6 min-w-6" stroke-width="1.5"></VueFeather>
           <p class="text-sm">{{ getFormattedDateTime(props.permission.startDate) }}</p>
         </div>
       </li>
       <li class="flex flex-col gap-1">
-        <p class="text-xs font-medium">{{ dic.END_DATE }}</p>
+        <p class="text-xs font-medium">{{ Message.END_DATE }}</p>
         <div class="flex items-center gap-1 text-blue-400">
           <VueFeather type="calendar" class="size-6 min-w-6" stroke-width="1.5"></VueFeather>
           <p class="text-sm">{{ getFormattedDateTime(props.permission.endDate) }}</p>
@@ -68,7 +68,7 @@ const currentState =
       <UserImage class="size-8" />
       <div class="flex-1 text-blue-400">
         <p class="text-xs font-medium leading-none text-blue-500">
-          {{ dic.REQUESTED_BY }}
+          {{ Message.REQUESTED_BY }}
         </p>
         <p>{{ props.permission.resident.firstName }} {{ props.permission.resident.lastName }}</p>
       </div>
@@ -90,7 +90,7 @@ const currentState =
         class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
         <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
-        <span>{{ dic.BUTTON_REJECT }}</span>
+        <span>{{ Message.BUTTON_REJECT }}</span>
       </button>
       <button
         type="button"
@@ -98,7 +98,7 @@ const currentState =
         class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
       >
         <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
-        <span>{{ dic.BUTTON_APPROVE }}</span>
+        <span>{{ Message.BUTTON_APPROVE }}</span>
       </button>
       <button
         type="button"

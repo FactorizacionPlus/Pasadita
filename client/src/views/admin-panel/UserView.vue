@@ -2,11 +2,11 @@
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
-import type User from "@/types/User";
 import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 
-enum dic {
+enum Message {
   TITLE = "Usuarios",
 }
 
@@ -21,7 +21,7 @@ const entryList: EntryType[] = [
       identifierType: "PASSPORT",
       role: "Residente",
       status: "ACTIVE",
-    } as unknown as User,
+    } as unknown as RegisteredUser,
     description: "Rumbo a la casas de los pueblos",
     accessDate: new Date("10-04-2005"),
     terminal: {
@@ -38,7 +38,7 @@ const entryList: EntryType[] = [
       lastName: "Parrales Ponce",
       identifierType: "PASSPORT",
       status: "ACTIVE",
-    } as unknown as User,
+    } as unknown as RegisteredUser,
     description: "Rumbo a la casas de los pueblos",
     accessDate: new Date("10-04-2015 12:00"),
     terminal: {
@@ -50,7 +50,7 @@ const entryList: EntryType[] = [
 </script>
 
 <template>
-  <CurrentPageInfo :title="dic.TITLE" icon="user" />
+  <CurrentPageInfo :title="Message.TITLE" icon="user" />
   <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar />
     <ul class="grid gap-4 lg:grid-cols-2">

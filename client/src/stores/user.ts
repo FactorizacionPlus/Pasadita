@@ -1,20 +1,20 @@
-import type User from "@/types/User";
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useAuth } from "./auth";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 
 export const useUser = defineStore("user", () => {
   const auth = useAuth();
 
   const userData = localStorage.getItem("user");
-  const userRef = ref<User | null>(null);
+  const userRef = ref<RegisteredUser | null>(null);
   if (userData) {
     userRef.value = JSON.parse(userData);
   }
 
   const user = computed(() => userRef.value);
 
-  function setUser(user: User) {
+  function setUser(user: RegisteredUser) {
     localStorage.setItem("user", JSON.stringify(user));
     userRef.value = user;
   }

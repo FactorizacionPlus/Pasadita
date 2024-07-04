@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type Terminal from "@/types/Terminal";
 import VueFeather from "vue-feather";
-import type Terminal from "../../types/AdminTerminal";
 
 const props = defineProps<{
   terminal: Terminal;
@@ -8,7 +8,7 @@ const props = defineProps<{
 
 const entriesQuantity = 0;
 
-enum dic {
+enum Message {
   SINGULAR = "Terminal",
   ENTRIES_QUANTITY = "Cantidad de Entradas: ",
   DESCRIPTION = "Descripción",
@@ -20,7 +20,7 @@ const TERMINAL_DETAIL = `/admin/terminal/${props.terminal.uuid}`;
 <template>
   <li class="flex flex-col rounded-lg border border-blue-200 bg-blue-100">
     <div class="flex flex-col gap-1 p-2">
-      <h2 class="text-base font-medium text-blue-500">{{ dic.SINGULAR }}</h2>
+      <h2 class="text-base font-medium text-blue-500">{{ Message.SINGULAR }}</h2>
       <div class="flex items-center gap-2">
         <VueFeather
           type="tablet"
@@ -33,7 +33,7 @@ const TERMINAL_DETAIL = `/admin/terminal/${props.terminal.uuid}`;
             {{ props.terminal.type }}
           </p>
           <p>
-            <span class="font-medium">{{ dic.ENTRIES_QUANTITY }}</span> {{ entriesQuantity }}
+            <span class="font-medium">{{ Message.ENTRIES_QUANTITY }}</span> {{ entriesQuantity }}
           </p>
         </div>
       </div>

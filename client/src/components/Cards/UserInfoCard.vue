@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import UserImage from "@/components/UserImage.vue";
 import IdentityCard from "@/IdentityCard.svg?component";
-import type Invited from "@/types/Invited";
-import type Resident from "@/types/Resident";
-import type User from "@/types/User";
+import type RegisteredUser from "@/types/User/RegisteredUser";
+import type User from "@/types/User/User";
 
-const props = defineProps<{ user: User | Resident | Invited }>();
+const props = defineProps<{ user: User }>();
 </script>
 
 <template>
@@ -13,7 +12,7 @@ const props = defineProps<{ user: User | Resident | Invited }>();
     <div class="flex items-center gap-1 rounded-t-lg">
       <UserImage
         class="size-9"
-        :image="(props.user as Resident)?.imageUrl"
+        :image="(props.user as RegisteredUser).imageUrl"
         size="25"
         padding="0px"
       />
