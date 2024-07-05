@@ -41,6 +41,11 @@ const router = createRouter({
           name: "register-google",
           component: () => import("../views/AuthGoogleView.vue"),
         },
+        {
+          path: "terminal",
+          name: "terminal-login",
+          component: () => import("../views/terminal/LoginView.vue"),
+        },
       ],
     },
     {
@@ -154,11 +159,6 @@ const router = createRouter({
       name: "terminal",
       component: DefaultLayout,
       children: [
-        {
-          path: "login",
-          name: "terminal-login",
-          component: () => import("../views/terminal/LoginView.vue"),
-        },
         {
           path: "",
           name: "terminal-home",
