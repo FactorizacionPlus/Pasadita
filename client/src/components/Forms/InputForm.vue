@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, onMounted } from "vue";
+import { defineProps, ref } from "vue";
 import toSlug from "@/utils/toSlug";
 import type Alert from "@/types/Alert";
 import SimpleAlert from "../SimpleAlert.vue";
+import type InputProps from "@/types/utils/InputProps";
+import { AlertType } from "@/types/Alert";
 
 type InputType =
   | "text"
@@ -20,30 +22,25 @@ type InputType =
   | "url"
   | "week";
 
-interface Props {
-  title?: string;
-  placeholder?: string;
+interface Props extends InputProps {
   type?: InputType;
-  disabled?: boolean;
-  name?: string;
-  value?: string;
-  alert?: Alert;
 }
 
 const props = defineProps<Props>();
+const model = defineModel<string>();
 
 const titleSlug = toSlug(props.title || "");
-const emitValue = defineEmits(["update:value"]);
 
-const handleChange = (event: Event) => {
-  const inputElement = event.target as HTMLInputElement;
-  console.log("change");
-  emitValue("update:value", inputElement.value);
-};
+const alertRef = ref<Alert>();
 
-onMounted(() => {
-  emitValue("update:value", props.value);
-});
+function setAlert(alert: Alert) {
+  alertRef.value = alert;
+}
+function handleInput() {
+  alertRef.value = undefined;
+}
+
+defineExpose({ setAlert, props });
 </script>
 
 <template>
@@ -56,8 +53,8 @@ onMounted(() => {
         class="peer h-10 w-full rounded-md border-b-2 border-b-shades-300 bg-transparent px-2 text-base text-blue-500 ring-1 ring-shades-400 transition-all placeholder:text-transparent hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:ring-blue-300 disabled:opacity-40"
         :placeholder="props.name"
         :disabled="props.disabled"
-        :value="props.value"
-        @input="handleChange"
+        @input="handleInput"
+        v-model="model"
       />
       <span
         :for="titleSlug"
@@ -66,6 +63,11 @@ onMounted(() => {
         {{ props.title }}
       </span>
     </div>
-    <SimpleAlert v-if="props.alert !== undefined" class="mt-2" :alert="props.alert" />
+    <SimpleAlert
+      v-if="props.label"
+      class="mt-2"
+      :alert="{ type: AlertType.INFO, message: props.label }"
+    />
+    <SimpleAlert v-if="alertRef" class="mt-2" :alert="alertRef" />
   </div>
 </template>

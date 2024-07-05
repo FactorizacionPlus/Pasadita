@@ -1,16 +1,12 @@
 package ni.factorizacion.server.domain.dtos.input;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import ni.factorizacion.server.domain.entities.TerminalType;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class TerminalValidateQRDto {
-    @NotNull
-    private TerminalType terminalType;
-    @NotEmpty
-    private String password;
+public class TerminalValidateQRDto extends TerminalLoginDto {
     @NotEmpty
     private String tokenContent;
 }

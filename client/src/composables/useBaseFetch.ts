@@ -10,6 +10,7 @@ export const useAuthenticatedFetch = createFetch({
     mode: "cors",
   },
   options: {
+    updateDataOnError: true,
     async beforeFetch({ options, cancel }) {
       if (!auth.token) {
         cancel();
@@ -50,6 +51,7 @@ export const useBaseFetch = createFetch({
     mode: "cors",
   },
   options: {
+    updateDataOnError: true,
     afterFetch(ctx) {
       if (typeof ctx.data != "object") {
         return ctx;

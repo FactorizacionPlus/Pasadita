@@ -1,50 +1,54 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, onMounted, ref } from "vue";
+import { defineProps, ref } from "vue";
 import type Option from "@/types/Option";
+import type Alert from "@/types/Alert";
+import type InputProps from "@/types/utils/InputProps";
+import { AlertType } from "@/types/Alert";
+import SimpleAlert from "../SimpleAlert.vue";
 
-interface Props {
+interface Props extends InputProps {
   defaultOption: string;
   options: Option[];
-  currentIndex?: number;
-  disabled?: boolean;
-  name: string;
 }
 
 const props = defineProps<Props>();
 
-const currentOption = ref<Option | null>(null);
+const model = defineModel<string>({ default: "" });
 
-const emitValue = defineEmits(["update:value"]);
+const alertRef = ref<Alert>();
 
-const handleChange = (event: Event) => {
-  const selectElement = event.target as HTMLSelectElement;
-  const selectedOptionIndex = selectElement.selectedIndex;
-  currentOption.value = props.options[selectedOptionIndex - 1];
-  emitValue("update:value", currentOption.value);
-};
+function setAlert(alert: Alert) {
+  alertRef.value = alert;
+}
+function handleInput() {
+  requestAnimationFrame(() => {
+    alertRef.value = undefined;
+  });
+}
 
-onMounted(() => {
-  if (props.currentIndex !== undefined && props.options) {
-    emitValue("update:value", props.options[props.currentIndex]);
-  }
-});
+defineExpose({ setAlert, props });
 </script>
 
 <template>
-  <select
-    :name="props.name"
-    class="peer h-10 w-72 rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 accent-pasadita-blue-3 ring-1 ring-pasadita-shade-2 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
-    @change="handleChange"
-    :disabled="props.disabled"
-  >
-    <option disabled selected>{{ props.defaultOption }}</option>
-    <option
-      v-for="(option, index) in props.options"
-      :key="index"
-      :value="option.value"
-      :selected="index === props.currentIndex"
+  <div class="rounded-lg bg-white">
+    <select
+      :name="props.name"
+      class="peer h-10 w-full appearance-none rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 accent-pasadita-blue-3 ring-1 ring-pasadita-shade-2 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
+      @input="handleInput"
+      v-model="model"
+      :disabled="props.disabled"
     >
-      {{ option.text }}
-    </option>
-  </select>
+      <option disabled value="">{{ props.defaultOption }}</option>
+      <option v-for="option in props.options" :key="option.value" :value="option.value">
+        {{ option.text }}
+      </option>
+    </select>
+
+    <SimpleAlert
+      v-if="props.label"
+      class="mt-2"
+      :alert="{ type: AlertType.INFO, message: props.label }"
+    />
+    <SimpleAlert v-if="alertRef" class="mt-2" :alert="alertRef" />
+  </div>
 </template>
