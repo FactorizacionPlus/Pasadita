@@ -121,7 +121,7 @@ async function handleSubmit() {
       @submit.prevent="handleSubmit"
       @input="message = Message.EMPTY"
       autocomplete="on"
-      class="flex flex-col items-stretch gap-5 bg-white p-6 lg:w-[548px]"
+      class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]"
     >
       <img :src="Pasadita" class="mb-12 h-auto w-[360px] self-center" />
 

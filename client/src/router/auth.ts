@@ -1,10 +1,17 @@
 import { useAuth } from "@/stores/auth";
+import { useTerminal } from "@/stores/terminal";
 import type { RouteRecordName, Router } from "vue-router";
 
-const allowedAnonymous: RouteRecordName[] = ["login", "login-google", "register-google"];
+const allowedAnonymous: RouteRecordName[] = [
+  "login",
+  "login-google",
+  "register-google",
+  "terminal-login",
+];
 
 export function applyAuthRouting(router: Router) {
   const auth = useAuth();
+  const terminal = useTerminal();
 
   router.beforeEach((to, from, next) => {
     console.log({ to, from });
@@ -17,6 +24,7 @@ export function applyAuthRouting(router: Router) {
 
       if (to.path.startsWith("/auth/logout")) {
         auth.logout();
+        terminal.logout();
         return next("/auth/login");
       }
 
