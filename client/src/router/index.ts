@@ -106,11 +106,6 @@ const router = createRouter({
           name: "guest-home",
           component: () => import("../views/guest/HomeView.vue"),
         },
-        {
-          path: "terminal",
-          name: "guest-terminal",
-          component: () => import("../views/guest/TerminalView.vue"),
-        },
       ],
     },
     {
@@ -168,6 +163,11 @@ const router = createRouter({
           path: "",
           name: "terminal-home",
           component: () => import("../views/terminal/HomeView.vue"),
+        },
+        {
+          path: "camera",
+          name: "terminal-camera",
+          component: () => import("../views/terminal/CameraView.vue"),
         },
       ],
     },
