@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, onMounted } from "vue";
+import { defineProps } from "vue";
 import toSlug from "@/utils/toSlug";
 type InputType = "datetime-local";
 interface Props {
@@ -9,18 +9,11 @@ interface Props {
   type?: InputType;
   disabled?: boolean;
   name?: string;
-  value?: string;
 }
 const props = defineProps<Props>();
 const titleSlug = toSlug(props.title || "");
-const emitValue = defineEmits(["update:value"]);
-const handleChange = (event: Event) => {
-  const inputElement = event.target as HTMLInputElement;
-  emitValue("update:value", inputElement.value);
-};
-onMounted(() => {
-  emitValue("update:value", props.value);
-});
+
+const model = defineModel();
 </script>
 
 <template>
@@ -33,8 +26,7 @@ onMounted(() => {
         class="peer h-10 w-full rounded-[4px] bg-transparent px-2 text-pasadita-blue-0 ring-1 ring-pasadita-shade-2 transition-all placeholder:text-transparent hover:bg-pasadita-blue-5 focus:bg-pasadita-blue-4 focus:outline-none focus:ring-pasadita-blue-3 disabled:opacity-40"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
-        :value="props.value"
-        @input="handleChange"
+        v-model="model"
       />
       <label
         :for="titleSlug"

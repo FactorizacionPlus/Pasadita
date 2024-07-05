@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, onMounted } from "vue";
+import { defineProps } from "vue";
 import toSlug from "@/utils/toSlug";
 import type Alert from "@/types/Alert";
 import SimpleAlert from "../SimpleAlert.vue";
@@ -26,24 +26,13 @@ interface Props {
   type?: InputType;
   disabled?: boolean;
   name?: string;
-  value?: string;
   alert?: Alert;
 }
 
 const props = defineProps<Props>();
 
 const titleSlug = toSlug(props.title || "");
-const emitValue = defineEmits(["update:value"]);
-
-const handleChange = (event: Event) => {
-  const inputElement = event.target as HTMLInputElement;
-  console.log("change");
-  emitValue("update:value", inputElement.value);
-};
-
-onMounted(() => {
-  emitValue("update:value", props.value);
-});
+const model = defineModel<string>();
 </script>
 
 <template>
@@ -56,8 +45,7 @@ onMounted(() => {
         class="peer h-10 w-full rounded-md border-b-2 border-b-shades-300 bg-transparent px-2 text-base text-blue-500 ring-1 ring-shades-400 transition-all placeholder:text-transparent hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:ring-blue-300 disabled:opacity-40"
         :placeholder="props.name"
         :disabled="props.disabled"
-        :value="props.value"
-        @input="handleChange"
+        v-model="model"
       />
       <span
         :for="titleSlug"
