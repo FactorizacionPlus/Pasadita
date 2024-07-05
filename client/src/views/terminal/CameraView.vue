@@ -54,7 +54,7 @@ async function validateToken(tokenContent: string) {
     password: login.password,
     tokenContent,
   };
-  const { data, response, error } = await useBaseFetch("/api/access/validate").post(validateToken);
+  const { response, error } = await useBaseFetch("/api/access/validate").post(validateToken);
 
   if (error.value) {
     message.value = Message.ERROR;
