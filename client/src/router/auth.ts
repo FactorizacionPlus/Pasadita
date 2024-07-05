@@ -15,7 +15,7 @@ export function applyAuthRouting(router: Router) {
 
   router.beforeEach((to, from, next) => {
     console.log({ to, from });
-    const isLoggedIn = auth.token != null;
+    const isLoggedIn = auth.token != null || terminal.terminalLogin != null;
 
     const isInAnonymous = allowedAnonymous.includes(to.name ?? "");
 
