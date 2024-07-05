@@ -49,7 +49,7 @@ public class ResidentRestController {
     }
 
     @PostMapping(value = "/role", consumes = "application/json")
-    public ResponseEntity<GeneralResponse<String>> updateResidentRole (@RequestBody ResidentChangeRolDto changeRolDto){
+    public ResponseEntity<GeneralResponse<String>> updateResidentRole (@Valid @RequestBody ResidentChangeRolDto changeRolDto){
         Optional<Resident> resident = service.findByIdentifier(changeRolDto.getIdentifier());
 
         if(resident.isEmpty()){
