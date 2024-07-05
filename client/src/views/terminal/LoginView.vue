@@ -4,10 +4,20 @@ import Pasadita from "@/assets/PasaditaLogoV2.svg?url";
 import InputForm from "@/components/Forms/InputForm.vue";
 import SelectForm from "@/components/Forms/SelectForm.vue";
 import type { TerminalType } from "@/types/TerminalType";
-import { ref } from "vue";
+import { onMounted, ref, type Ref } from "vue";
 import { useBaseFetch } from "@/composables/useBaseFetch";
 import type GeneralResponse from "@/types/GeneralResponse";
 import { useTerminal } from "@/stores/terminal";
+import { AlertType } from "@/types/Alert";
+import type { ErrorMap } from "@/types/utils/ErrorMap";
+import {
+  setValidationErrorForm,
+  type AnyInputFormType,
+  type InputFormType,
+  type SelectFormType,
+} from "@/utils/formValidation";
+import SimpleAlert from "@/components/SimpleAlert.vue";
+import { useRouter } from "vue-router";
 
 interface TerminalOptions extends Options {
   value: TerminalType;
@@ -16,23 +26,28 @@ interface TerminalOptions extends Options {
 enum Message {
   EMPTY = "",
   LOADING_LOGIN = "Iniciando sesión...",
-  LOADING_USER = "Cargando datos de usuario...",
-  NO_USER = "No existe un usuario para esta cuenta",
   ERROR_AUTH = "Inicio de sesión incorrecto",
-  ERROR_USER = "No se pudo obtener los datos de este usuario, por favor intente más tarde",
   ERROR = "Ocurrió un error en el sistema, por favor intente más tarde",
 }
 const message = ref<Message>(Message.EMPTY);
 
+const alertType: { [key in Message]: AlertType } = {
+  [Message.EMPTY]: AlertType.INFO,
+  [Message.LOADING_LOGIN]: AlertType.INFO,
+  [Message.ERROR]: AlertType.ERROR,
+  [Message.ERROR_AUTH]: AlertType.ERROR,
+};
+
 const formData = ref<{
-  terminalType: TerminalType | null;
+  terminalType: TerminalType | undefined;
   password: string;
 }>({
-  terminalType: null,
+  terminalType: undefined,
   password: "",
 });
 
 const terminal = useTerminal();
+const router = useRouter();
 
 const options: TerminalOptions[] = [
   {
@@ -49,6 +64,15 @@ const options: TerminalOptions[] = [
   },
 ];
 
+const terminalSelect = ref<SelectFormType>();
+const passwordInput = ref<InputFormType>();
+const inputMap = new Map<string, Ref<AnyInputFormType | undefined>>();
+
+onMounted(() => {
+  inputMap.set(terminalSelect.value!.props.name, terminalSelect);
+  inputMap.set(passwordInput.value!.props.name, passwordInput);
+});
+
 async function doLogin() {
   message.value = Message.LOADING_LOGIN;
   const { data, statusCode } = await useBaseFetch("/auth/login/terminal")
@@ -62,15 +86,11 @@ async function doLogin() {
 
   if (statusCode.value == 400) {
     message.value = Message.EMPTY;
-    // const errorMap = data.value.data as unknown as ErrorMap;
-    // setValidationErrorForm(inputMap, errorMap);
+    const errorMap = data.value.data as unknown as ErrorMap;
+    setValidationErrorForm(inputMap, errorMap);
     return;
   }
 
-  if (statusCode.value == 404) {
-    message.value = Message.NO_USER;
-    return;
-  }
   if (statusCode.value == 401) {
     message.value = Message.ERROR_AUTH;
     return;
@@ -88,31 +108,50 @@ async function doLogin() {
 
 async function handleSubmit() {
   await doLogin();
+
+  if (terminal.terminalLogin != null) {
+    router.push("/terminal/");
+  }
 }
 </script>
 
 <template>
-  <div class="flex h-screen flex-col items-center justify-center gap-5">
-    <img :src="Pasadita" class="size-72" />
-    <form @submit.prevent="handleSubmit" autocomplete="on" class="flex flex-col gap-5">
+  <div class="flex h-full flex-col items-center justify-center">
+    <form
+      @submit.prevent="handleSubmit"
+      @input="message = Message.EMPTY"
+      autocomplete="on"
+      class="flex flex-col items-stretch gap-5 bg-white p-6 lg:w-[548px]"
+    >
+      <img :src="Pasadita" class="mb-12 h-auto w-[360px] self-center" />
+
       <SelectForm
-        name="terminal-type"
+        ref="terminalSelect"
+        name="terminalType"
         defaultOption="Seleccione la Terminal"
         title="Terminales"
         :options="options"
         v-model="formData.terminalType"
       />
       <InputForm
+        ref="passwordInput"
         name="password"
+        :alert="{ type: AlertType.INFO, message: 'Juan' }"
         title="Contraseña"
         type="password"
         placeholder="Contraseña"
         v-model="formData.password"
       />
 
-      <span v-if="message != Message.EMPTY">{{ message }}</span>
+      <SimpleAlert
+        v-if="message != Message.EMPTY"
+        class="mt-2"
+        :alert="{ type: alertType[message], message }"
+      />
 
-      <button type="submit">Ingresar</button>
+      <button type="submit" class="self-end rounded-lg bg-blue-100 px-4 py-2 text-blue-400">
+        Iniciar sesión
+      </button>
     </form>
   </div>
 </template>

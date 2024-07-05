@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import toSlug from "@/utils/toSlug";
 import type Alert from "@/types/Alert";
 import SimpleAlert from "../SimpleAlert.vue";
+import type InputProps from "@/types/utils/InputProps";
+import { AlertType } from "@/types/Alert";
 
 type InputType =
   | "text"
@@ -20,19 +22,25 @@ type InputType =
   | "url"
   | "week";
 
-interface Props {
-  title?: string;
-  placeholder?: string;
+interface Props extends InputProps {
   type?: InputType;
-  disabled?: boolean;
-  name?: string;
-  alert?: Alert;
 }
 
 const props = defineProps<Props>();
+const model = defineModel<string>();
 
 const titleSlug = toSlug(props.title || "");
-const model = defineModel<string>();
+
+const alertRef = ref<Alert>();
+
+function setAlert(alert: Alert) {
+  alertRef.value = alert;
+}
+function handleInput() {
+  alertRef.value = undefined;
+}
+
+defineExpose({ setAlert, props });
 </script>
 
 <template>
@@ -45,6 +53,7 @@ const model = defineModel<string>();
         class="peer h-10 w-full rounded-md border-b-2 border-b-shades-300 bg-transparent px-2 text-base text-blue-500 ring-1 ring-shades-400 transition-all placeholder:text-transparent hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:ring-blue-300 disabled:opacity-40"
         :placeholder="props.name"
         :disabled="props.disabled"
+        @input="handleInput"
         v-model="model"
       />
       <span
@@ -54,6 +63,11 @@ const model = defineModel<string>();
         {{ props.title }}
       </span>
     </div>
-    <SimpleAlert v-if="props.alert !== undefined" class="mt-2" :alert="props.alert" />
+    <SimpleAlert
+      v-if="props.label"
+      class="mt-2"
+      :alert="{ type: AlertType.INFO, message: props.label }"
+    />
+    <SimpleAlert v-if="alertRef" class="mt-2" :alert="alertRef" />
   </div>
 </template>
