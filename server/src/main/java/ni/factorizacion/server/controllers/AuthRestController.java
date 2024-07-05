@@ -1,21 +1,23 @@
 package ni.factorizacion.server.controllers;
 
+import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.input.TerminalLoginDto;
 import ni.factorizacion.server.domain.dtos.output.RegisteredUserSimpleDto;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
+import ni.factorizacion.server.domain.entities.Terminal;
 import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.services.InvitedUserService;
 import ni.factorizacion.server.services.RegisteredUserService;
+import ni.factorizacion.server.services.TerminalService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -29,8 +31,12 @@ public class AuthRestController {
 
     @Autowired
     RegisteredUserService userService;
+
     @Autowired
     InvitedUserService invitedUserService;
+
+    @Autowired
+    TerminalService terminalService;
 
     @RequestMapping("/login/google")
     public ResponseEntity<GeneralResponse<String>> loginGoogle(@RequestParam("code") String code, @RequestParam("redirect_uri") String redirectUri) throws ControlException {
@@ -78,5 +84,14 @@ public class AuthRestController {
         RegisteredUserSimpleDto userSimpleDto = RegisteredUserSimpleDto.from(registeredUser.get());
 
         return GeneralResponse.ok("Found user", userSimpleDto);
+    }
+
+    @PostMapping("/login/terminal")
+    public ResponseEntity<GeneralResponse<String>> loginTerminal(@Valid @RequestBody TerminalLoginDto dto) {
+        Optional<Terminal> terminal = terminalService.findTerminalByType(dto.getTerminalType(), dto.getPassword());
+        if (terminal.isEmpty()) {
+            return GeneralResponse.error401("Invalid auth for Terminal");
+        }
+        return GeneralResponse.ok("Correct login", null);
     }
 }
