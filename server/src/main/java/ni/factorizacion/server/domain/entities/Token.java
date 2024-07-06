@@ -2,6 +2,7 @@ package ni.factorizacion.server.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,8 +23,11 @@ public class Token {
     @Column(updatable = false)
     private Date timestamp;
 
+    @NotNull
     private Boolean active;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
     private TokenType type;
 
     @ManyToOne(fetch = FetchType.EAGER)

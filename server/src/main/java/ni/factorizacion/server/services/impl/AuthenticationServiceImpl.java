@@ -6,6 +6,7 @@ import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.domain.entities.TokenType;
 import ni.factorizacion.server.repositories.TokenRepository;
 import ni.factorizacion.server.services.AuthenticationService;
+import ni.factorizacion.server.services.TokenService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleAccessToken;
 import ni.factorizacion.server.types.GoogleUserInfo;
@@ -42,6 +43,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private TokenRepository tokenRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @Override
     public String getGoogleToken(String code, String redirectUri) throws ControlException {
         // TODO: Validate errors
@@ -70,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     @Transactional(rollbackOn = ControlException.class)
     public Token registerToken(RegisteredUser user) {
-        cleanTokens(user);
+        tokenService.cleanTokens(user);
 
         String tokenString = jwtTools.generateToken(user.getEmail());
         Token token = new Token(tokenString, user, TokenType.AUTH);
@@ -83,7 +87,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Boolean isTokenValid(RegisteredUser user, String token) {
         try {
-            cleanTokens(user);
+            tokenService.cleanTokens(user);
             List<Token> tokens = tokenRepository.findByUserAndActive(user, true);
 
             tokens.stream()
@@ -95,19 +99,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    @Override
-    @Transactional
-    public void cleanTokens(RegisteredUser user) {
-        List<Token> tokens = tokenRepository.findByUserAndActive(user, true);
-
-        tokens.forEach(token -> {
-            if (!jwtTools.verifyToken(token.getContent())) {
-                token.setActive(false);
-                tokenRepository.save(token);
-            }
-        });
     }
 
     @Override
