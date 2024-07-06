@@ -31,6 +31,10 @@ public class GeneralResponse<T> {
         return GeneralResponse.getResponse(HttpStatus.CONFLICT, message, null);
     }
 
+    public static <T> ResponseEntity<GeneralResponse<T>> error409(String message, T data) {
+        return GeneralResponse.getResponse(HttpStatus.CONFLICT, message, data);
+    }
+
     public static <T> ResponseEntity<GeneralResponse<T>> error418(String message) {
         return GeneralResponse.getResponse(HttpStatus.I_AM_A_TEAPOT, message, null);
     }
