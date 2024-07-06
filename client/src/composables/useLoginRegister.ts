@@ -1,5 +1,5 @@
 import type GeneralResponse from "@/types/GeneralResponse";
-import { buildGeneralResponse } from "@/utils/generalResponse";
+import { useBaseFetch } from "./useBaseFetch";
 
 type GOOGLE_PROMPT = "select_account" | "consent" | "none";
 
@@ -35,34 +35,11 @@ function buildParams(code: string) {
   return params;
 }
 
-async function buildAuthRequest(
-  endpoint: string,
-  tempCode: string
-): Promise<GeneralResponse<string> | null> {
-  const loginEndpoint = new URL(endpoint, import.meta.env.VITE_SERVER_ENDPOINT);
-  const params = buildParams(tempCode);
-  loginEndpoint.search = params.toString();
-
-  let response: Response;
-  let json: any;
-  try {
-    response = await fetch(loginEndpoint);
-    json = await response.json();
-    if (!response.ok) {
-      console.error(json);
-      return buildGeneralResponse(json, response.ok);
-    }
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-
-  return buildGeneralResponse(json, response.ok);
-}
-
 export async function makeLoginRequest(tempCode: string) {
-  return buildAuthRequest("/auth/login/google", tempCode);
+  const params = buildParams(tempCode);
+  return useBaseFetch("/auth/login/google?" + params.toString()).json<GeneralResponse<string>>();
 }
 export async function makeRegisterRequest(tempCode: string) {
-  return buildAuthRequest("/auth/register/google", tempCode);
+  const params = buildParams(tempCode);
+  return useBaseFetch("/auth/register/google?" + params.toString()).json<GeneralResponse<string>>();
 }

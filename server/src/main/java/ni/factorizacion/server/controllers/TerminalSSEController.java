@@ -1,6 +1,7 @@
 package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.services.impl.SseService;
+import ni.factorizacion.server.utils.CustomSseEmitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,10 @@ public class TerminalSSEController {
     private SseService sseService;
 
     @GetMapping(path = "/entry", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter getEntry() {
-        SseEmitter emitter = sseService.createEmiter();
-        sseService.sendEvent("init", "init");
+    public CustomSseEmitter getEntry() {
+        CustomSseEmitter emitter = sseService.createEmiter("entry-added");
+        var initEvent = sseService.createEvent("init", "init");
+        emitter.sendEvent(initEvent);
         return emitter;
     }
 }

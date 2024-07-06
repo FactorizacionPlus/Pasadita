@@ -9,12 +9,19 @@ export const useUser = defineStore("user", () => {
   const userData = localStorage.getItem("user");
   const userRef = ref<RegisteredUser | null>(null);
   if (userData) {
-    userRef.value = JSON.parse(userData);
+    try {
+      userRef.value = JSON.parse(userData);
+    } catch (e) {
+      localStorage.removeItem("user");
+    }
   }
 
   const user = computed(() => userRef.value);
 
   function setUser(user: RegisteredUser) {
+    if (user == null || user == undefined) {
+      return;
+    }
     localStorage.setItem("user", JSON.stringify(user));
     userRef.value = user;
   }
