@@ -24,6 +24,7 @@ interface TerminalOptions extends Options {
 }
 
 enum Message {
+  APPLICATION="PASADITA",
   EMPTY = "",
   LOADING_LOGIN = "Iniciando sesión...",
   ERROR_AUTH = "Inicio de sesión incorrecto",
@@ -123,8 +124,15 @@ async function handleSubmit() {
       autocomplete="on"
       class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]"
     >
-      <img :src="Pasadita" class="mb-12 h-auto w-[360px] self-center" />
 
+    <div class="flex flex-col items-center">
+      <img
+        src="/identity/pasaditaLogoMin.svg"
+        alt="Pasadita logo"
+        class="w-[360px] object-contain text-blue-400"
+      />
+        <h1 class="text-[70px] font-bold uppercase text-blue-400">{{Message.APPLICATION}}</h1>
+    </div>
       <SelectForm
         ref="terminalSelect"
         name="terminalType"
