@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface UserService {
     List<User> findAll();
 
+    List<User> findAllNoRole();
+
     Optional<User> findByIdentifier(String identifier);
 
     Optional<User> createFrom(SaveUserDto dto);
