@@ -2,6 +2,7 @@ package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.output.EntrySimpleDto;
+import ni.factorizacion.server.domain.dtos.output.TerminalSimpleDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,16 @@ public class EntryController {
         List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
 
         return GeneralResponse.ok("Entries found", entrySimpleDtos);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getAllEntries() {
+        List<Entry> entries = entryService.findAll();
+        if (entries.isEmpty()) {
+            return GeneralResponse.ok("No entries found", List.of());
+        }
+        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+        return GeneralResponse.ok("Found entries", entrySimpleDtos);
     }
 
 }

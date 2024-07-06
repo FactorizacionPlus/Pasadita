@@ -87,7 +87,7 @@ const props = defineProps<{ role: string; root: string }>();
 
 const user = useUser().user;
 
-const showMenu = ref(true);
+const showMenu = ref(false);
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;

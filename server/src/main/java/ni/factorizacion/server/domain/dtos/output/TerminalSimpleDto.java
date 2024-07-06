@@ -17,9 +17,9 @@ public class TerminalSimpleDto {
                 .uuid(terminal.getUuid())
                 .type(terminal.getType().toString())
                 .build();
+
     }
 }
-
 
 
 
