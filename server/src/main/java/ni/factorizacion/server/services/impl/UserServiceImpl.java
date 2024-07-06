@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllNoRole() {
+        return repository.findAll();
+    }
+
+    @Override
     public Optional<User> findByIdentifier(String identifier) {
         return repository.findByIdentifier(identifier);
     }
