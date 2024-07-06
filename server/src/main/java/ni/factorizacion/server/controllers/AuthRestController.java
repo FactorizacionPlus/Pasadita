@@ -36,6 +36,9 @@ public class AuthRestController {
     InvitedUserService invitedUserService;
 
     @Autowired
+    RegisteredUserService registeredUserService;
+
+    @Autowired
     TerminalService terminalService;
 
     @RequestMapping("/login/google")
@@ -64,6 +67,12 @@ public class AuthRestController {
         Optional<GoogleUserInfo> userInfo = authService.getUserInfoFromToken(googleToken);
         if (userInfo.isEmpty()) {
             return GeneralResponse.error401("No user information found");
+        }
+
+        Optional<RegisteredUser> registeredUser = registeredUserService.findByEmail(userInfo.get().getEmail());
+        if (registeredUser.isPresent()) {
+            Token token = authService.registerToken(registeredUser.get());
+            return GeneralResponse.error409("User already exists", token.getContent());
         }
 
         InvitedUser user = invitedUserService.createUser(userInfo.get());
