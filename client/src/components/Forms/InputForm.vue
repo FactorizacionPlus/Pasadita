@@ -4,7 +4,6 @@ import toSlug from "@/utils/toSlug";
 import type Alert from "@/types/Alert";
 import SimpleAlert from "../SimpleAlert.vue";
 import type InputProps from "@/types/utils/InputProps";
-import { AlertType } from "@/types/Alert";
 
 type InputType =
   | "text"
@@ -17,13 +16,13 @@ type InputType =
   | "radio"
   | "range"
   | "search"
-  | "tel"
   | "time"
   | "url"
   | "week";
 
 interface Props extends InputProps {
   type?: InputType;
+  alert?: Alert;
 }
 
 const props = defineProps<Props>();
@@ -31,16 +30,22 @@ const model = defineModel<string>();
 
 const titleSlug = toSlug(props.title || "");
 
-const alertRef = ref<Alert>();
+const alertRef = ref<Alert | undefined>(); // Modified here
 
 function setAlert(alert: Alert) {
   alertRef.value = alert;
 }
-function handleInput() {
+
+const emitValue = defineEmits(["update:value"]);
+
+function handleInput(event: Event) {
   alertRef.value = undefined;
+  const inputElement = event.target as HTMLInputElement;
+  emitValue("update:value", inputElement.value);
 }
 
 defineExpose({ setAlert, props });
+
 </script>
 
 <template>
@@ -61,12 +66,13 @@ defineExpose({ setAlert, props });
         class="pointer-events-none absolute -top-3 left-0 mx-1 cursor-text bg-inherit px-1 text-xs font-medium text-blue-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:text-shades-400 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-500 peer-disabled:opacity-40"
       >
         {{ props.title }}
+ 
       </span>
     </div>
     <SimpleAlert
-      v-if="props.label"
+      v-if="props.alert"
       class="mt-2"
-      :alert="{ type: AlertType.INFO, message: props.label }"
+      :alert="props.alert"
     />
     <SimpleAlert v-if="alertRef" class="mt-2" :alert="alertRef" />
   </div>

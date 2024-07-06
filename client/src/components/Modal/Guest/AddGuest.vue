@@ -13,17 +13,16 @@ import SimpleAlert from "@/components/SimpleAlert.vue";
 import type Alert from "@/types/Alert";
 import { AlertType } from "@/types/Alert";
 import checkIsValidIdentifier from "@/utils/checkIsValidIdentifier";
-import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
 import type { IdentifierType } from "@/types/User/IdentifierType";
 
 const modal = ref<typeof Modal>();
 
 const alertForIdentifier = ref<Alert | undefined>();
 
-const data = ref({
-  identifierType: "",
-  identifier: "",
-});
+const data = ref<{
+  identifierType: IdentifierType,
+  identifier: string,
+}>({ identifierType: "DUI", identifier: "" });
 
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
@@ -87,31 +86,18 @@ function resetValues() {
         </div>
 
         <SimpleAlert :alert="alertFillData" />
-        <IdentityTypeSelection @identity-type="data.identifierType = $event" />
-        <InputForm
-          :value="data.identifier"
-          :alert="alertForIdentifier"
-          name="identifier"
-          @update:value="data.identifier = $event"
-          title="Identificación"
-          type="text"
-        />
-        <TextAreaForm class="mt-1" name="why-are-you-gay" title="Explícanos por qué eres gay" />
+        <IdentityTypeSelection :identity-type="data.identifierType" @identity-type="data.identifierType = $event" />
+        <InputForm :modelValue="data.identifier" :alert="alertForIdentifier" name="identifier"
+          @update:value="data.identifier = $event" title="Identificación" type="text" />
       </BodyModal>
-
       <ControlsModal>
-        <button
-          type="submit"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
-        >
+        <button type="submit"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_ACCEPT }}</span>
         </button>
-        <button
-          type="button"
-          @click="modal?.close()"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
-        >
+        <button type="button" @click="modal?.close()"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_CANCEL }}</span>
         </button>
