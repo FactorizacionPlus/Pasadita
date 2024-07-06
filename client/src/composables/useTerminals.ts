@@ -4,7 +4,5 @@ import { useAuthenticatedFetch } from "./useBaseFetch";
 import type GeneralResponse from "@/types/GeneralResponse";
 
 export async function getAllTerminals() {
-  return useAuthenticatedFetch("/api/terminals").json<
-    GeneralResponse<Terminal[]>
-  >();
+  return useAuthenticatedFetch("/api/terminals").json<GeneralResponse<Terminal[]>>();
 }

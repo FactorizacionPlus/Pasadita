@@ -54,15 +54,15 @@ AdminNavigationMenu:
           "
           class="flex items-center gap-1 rounded-lg p-2 text-blue-400 transition-all hover:bg-shades-100 active:scale-95"
         >
-          <UserImage 
+          <UserImage
             :class="!isFullNav && 'md:!size-8 md:mx-auto'"
-            class="size-12" 
-            :image="user?.imageUrl" 
+            class="size-12"
+            :image="user?.imageUrl"
           />
 
           <div class="text-left" :class="!isFullNav && 'md:hidden'">
             <span>Administrador del sistema</span>
-            <p class="font-semibold">{{user?.firstName}}</p>
+            <p class="font-semibold">{{ user?.firstName }}</p>
           </div>
           <div :class="!isFullNav && 'md:hidden'" type="button" class="ml-auto">
             <VueFeather class="size-4" type="chevron-down" />
@@ -168,7 +168,6 @@ const routes = [
     icon: "settings",
   },
 ];
-
 </script>
 
 <style scoped></style>
