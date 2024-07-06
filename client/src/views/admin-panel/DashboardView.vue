@@ -50,10 +50,9 @@ async function loadEntries() {
 
   if (!entryData || !entryData.ok) return;
   entries.value = entryData.data ?? [];
-  console.log(entries.value); 
+  console.log(entries.value);
   mapEntriesToRows();
 }
-
 
 function mapEntriesToRows() {
   rows.value = [
@@ -75,7 +74,7 @@ function mapEntriesToRows() {
     {
       name: "Terminal",
       icon: "tablet",
-      items: entries.value.map((item) => item.terminal || 'N/A')
+      items: entries.value.map((item) => item.terminal || "N/A"),
     },
     {
       name: "Descripción",
@@ -94,7 +93,6 @@ function mapEntriesToRows() {
 <template>
   <CurrentPageInfo :title="Message.TITLE" icon="grid" />
   <section class="grid flex-1 grid-rows-3 gap-4 lg:grid-cols-2">
-    
     <article class="grid place-items-center rounded-lg bg-white p-4">
       <AdministratorCurrentUserCard :admin="user.user" v-if="user.user" />
     </article>
@@ -113,13 +111,14 @@ function mapEntriesToRows() {
       </ul>
     </article>
 
-    <article class="row-span-2 flex flex-col gap-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2">
+    <article
+      class="row-span-2 flex flex-col gap-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2"
+    >
       <div class="flex items-center gap-1 font-medium text-blue-500">
         <VueFeather type="tablet" class="size-[18px]" />
         <h2 class="text-xl">{{ Message.RECENT_ENTRIES }}</h2>
       </div>
-      <GenericTable :hide-no-results="hideNoResults" :table="rows"/>
+      <GenericTable :hide-no-results="hideNoResults" :table="rows" />
     </article>
-
   </section>
 </template>
