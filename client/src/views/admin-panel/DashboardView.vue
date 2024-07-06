@@ -1,3 +1,4 @@
+<!-- src/views/DashboardView.vue -->
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import AdministratorCurrentUserCard from "@/components/Cards/AdministratorCurrentUserCard.vue";
@@ -6,7 +7,10 @@ import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import GenericTable from "@/components/GenericTable.vue";
 import { useUser } from "@/stores/user";
 import { getAllTerminals } from "@/composables/useTerminals";
+import { getAllEntries } from "@/composables/useEntries";
 import type Terminal from "@/types/Terminal";
+import type Entry from "@/types/Entry";
+import type { GenericTableType } from "@/types/GenericTableType";
 import VueFeather from "vue-feather";
 
 enum Message {
@@ -16,49 +20,17 @@ enum Message {
 }
 
 const user = useUser();
-
 const terminals = ref<Terminal[]>([]);
-const entries: Entry[] = [];
-
-const rows = [
-  {
-    name: "Nombre y Apellidos",
-    icon: "user",
-    items: [...entries.map((item) => item.user.firstName + " " + item.user.lastName)],
-  },
-  {
-    name: "Tipo",
-    icon: "menu",
-    items: [...entries.map((item) => item.user.identifierType)],
-  },
-  {
-    name: "Identificacion",
-    icon: "user-check",
-    items: [...entries.map((item) => item.user.identifier)],
-  },
-  {
-    name: "Terminal",
-    icon: "tablet",
-    items: [...entries.map((item) => item.terminal.type)],
-  },
-  {
-    name: "Descripción",
-    icon: "align-left",
-    items: [...entries.map((item) => item.description)],
-  },
-  {
-    name: "Fecha de Entrada",
-    icon: "calendar",
-    items: [...entries.map((item) => item.accessDate)],
-  },
-];
+const entries = ref<Entry[]>([]);
+const rows = ref<GenericTableType[]>([]);
+const hideNoResults = ref(false);
 
 onMounted(async () => {
   await loadTerminals();
+  await loadEntries();
 });
 
 async function loadTerminals() {
-  const user = useUser();
   if (!user.user) {
     return;
   }
@@ -67,9 +39,56 @@ async function loadTerminals() {
 
   if (!terminalData || !terminalData.ok) return;
   terminals.value = terminalData.data ?? [];
-  console.log(terminals.value);
 }
 
+async function loadEntries() {
+  if (!user.user) {
+    return;
+  }
+  const { data } = await getAllEntries();
+  const entryData = data.value;
+
+  if (!entryData || !entryData.ok) return;
+  entries.value = entryData.data ?? [];
+  console.log(entries.value); 
+  mapEntriesToRows();
+}
+
+
+function mapEntriesToRows() {
+  rows.value = [
+    {
+      name: "Nombre y Apellidos",
+      icon: "user",
+      items: entries.value.map((item) => item.user.firstName + " " + item.user.lastName),
+    },
+    {
+      name: "Tipo",
+      icon: "menu",
+      items: entries.value.map((item) => item.user.identifierType),
+    },
+    {
+      name: "Identificación",
+      icon: "user-check",
+      items: entries.value.map((item) => item.user.identifier),
+    },
+    {
+      name: "Terminal",
+      icon: "tablet",
+      items: entries.value.map((item) => item.terminal || 'N/A')
+    },
+    {
+      name: "Descripción",
+      icon: "align-left",
+      items: entries.value.map((item) => item.description),
+    },
+    {
+      name: "Fecha de Entrada",
+      icon: "calendar",
+      items: entries.value.map((item) => new Date(item.accessDate).toLocaleString()),
+    },
+  ];
+}
 </script>
 
 <template>
@@ -94,14 +113,12 @@ async function loadTerminals() {
       </ul>
     </article>
 
-    <article
-      class="row-span-2 flex flex-col gap-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2"
-    >
+    <article class="row-span-2 flex flex-col gap-2 overflow-x-auto rounded-lg bg-white p-4 lg:col-span-2">
       <div class="flex items-center gap-1 font-medium text-blue-500">
         <VueFeather type="tablet" class="size-[18px]" />
         <h2 class="text-xl">{{ Message.RECENT_ENTRIES }}</h2>
       </div>
-      <GenericTable :table="rows" />
+      <GenericTable :hide-no-results="hideNoResults" :table="rows"/>
     </article>
 
   </section>
