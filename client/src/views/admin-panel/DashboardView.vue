@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import AdministratorCurrentUserCard from "@/components/Cards/AdministratorCurrentUserCard.vue";
 import AdministratorTerminalCard from "@/components/Cards/AdministratorTerminalCard.vue";
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import GenericTable from "@/components/GenericTable.vue";
 import { useUser } from "@/stores/user";
-import type Entry from "@/types/Entry";
+import { getAllTerminals } from "@/composables/useTerminals";
 import type Terminal from "@/types/Terminal";
 import VueFeather from "vue-feather";
 
@@ -15,7 +16,7 @@ enum Message {
 }
 
 const user = useUser();
-const terminals: Terminal[] = [];
+const terminals = ref<Terminal[]>([]);
 const entries: Entry[] = [];
 
 const rows = [
@@ -50,7 +51,21 @@ const rows = [
     items: [...entries.map((item) => item.accessDate)],
   },
 ];
+
+onMounted(async () => {
+  try {
+    const response = await getAllTerminals();
+    if (response.success) {
+      terminals.value = response.data;
+    } else {
+      console.error("Error fetching terminals:", response.message);
+    }
+  } catch (error) {
+    console.error("Error fetching terminals:", error);
+  }
+});
 </script>
+
 <template>
   <CurrentPageInfo :title="Message.TITLE" icon="grid" />
   <section class="grid flex-1 grid-rows-3 gap-4 lg:grid-cols-2">

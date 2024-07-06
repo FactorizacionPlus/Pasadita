@@ -1,3 +1,4 @@
+AdminNavigationMenu:
 <template>
   <nav
     class="sticky z-10 flex flex-col bg-white p-2 shadow-header transition-all sm:top-4 sm:rounded-lg md:relative md:top-0 md:p-4"
@@ -53,14 +54,15 @@
           "
           class="flex items-center gap-1 rounded-lg p-2 text-blue-400 transition-all hover:bg-shades-100 active:scale-95"
         >
-          <UserImage
+          <UserImage 
             :class="!isFullNav && 'md:!size-8 md:mx-auto'"
-            class="size-12"
-            image="https://www.github.com/davidquintr.png"
+            class="size-12" 
+            :image="user?.imageUrl" 
           />
+
           <div class="text-left" :class="!isFullNav && 'md:hidden'">
-            <span>Administrador del Sistema</span>
-            <p class="font-semibold">Juan Daniel</p>
+            <span>Administrador del sistema</span>
+            <p class="font-semibold">{{user?.firstName}}</p>
           </div>
           <div :class="!isFullNav && 'md:hidden'" type="button" class="ml-auto">
             <VueFeather class="size-4" type="chevron-down" />
@@ -101,6 +103,7 @@
 </template>
 
 <script setup lang="ts">
+import { useUser } from "@/stores/user";
 import { RouterLink, useRoute } from "vue-router";
 import VueFeather from "vue-feather";
 import { ref, watch } from "vue";
@@ -112,6 +115,8 @@ const isUserPresetActive = ref(false);
 
 const route = useRoute();
 const currentPath = ref(route.path);
+
+const user = useUser().user;
 
 watch(route, (newRoute) => {
   currentPath.value = newRoute.path;
@@ -163,6 +168,7 @@ const routes = [
     icon: "settings",
   },
 ];
+
 </script>
 
 <style scoped></style>
