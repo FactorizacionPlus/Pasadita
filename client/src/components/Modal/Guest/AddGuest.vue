@@ -5,7 +5,6 @@ import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
-
 import BodyModal from "@/components/Modal/BodyModal.vue";
 import ControlsModal from "../ControlsModal.vue";
 import IdentityTypeSelection from "../IdentityTypeSelection.vue";
@@ -88,30 +87,19 @@ function resetValues() {
 
         <SimpleAlert :alert="alertFillData" />
         <IdentityTypeSelection @identity-type="data.identifierType = $event" />
-        <InputForm
-          :value="data.identifier"
-          :alert="alertForIdentifier"
-          name="identifier"
-          @update:value="data.identifier = $event"
-          title="Identificación"
-          type="text"
-        />
+        <InputForm :value="data.identifier" :alert="alertForIdentifier" name="identifier"
+          @update:value="data.identifier = $event" title="Identificación" type="text" />
         <TextAreaForm class="mt-1" name="why-are-you-gay" title="Explícanos por qué eres gay" />
       </BodyModal>
 
       <ControlsModal>
-        <button
-          type="submit"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
-        >
+        <button type="submit"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_ACCEPT }}</span>
         </button>
-        <button
-          type="button"
-          @click="modal?.close()"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
-        >
+        <button type="button" @click="modal?.close()"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_CANCEL }}</span>
         </button>
