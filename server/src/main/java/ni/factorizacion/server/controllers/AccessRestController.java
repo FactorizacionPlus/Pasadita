@@ -46,7 +46,7 @@ public class AccessRestController {
             return GeneralResponse.error404("No user found");
         }
         Token token = accessService.getQrToken(user.get());
-        return GeneralResponse.ok("Token generated", token.getContent());
+        return GeneralResponse.ok("Token generated", token.getCode().toString());
     }
 
 

@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import type Options from "@/types/Option";
-import Pasadita from "@/assets/PasaditaLogoV2.svg?url";
-import InputForm from "@/components/Forms/InputForm.vue";
-import SelectForm from "@/components/Forms/SelectForm.vue";
-import type { TerminalType } from "@/types/TerminalType";
 import { onMounted, ref, type Ref } from "vue";
 import { useBaseFetch } from "@/composables/useBaseFetch";
 import type GeneralResponse from "@/types/GeneralResponse";
@@ -18,11 +14,13 @@ import {
 } from "@/utils/formValidation";
 import SimpleAlert from "@/components/SimpleAlert.vue";
 import { useRouter } from "vue-router";
+import type { TerminalType } from "@/types/TerminalType";
+import InputForm from "@/components/Forms/InputForm.vue";
 
 interface TerminalOptions extends Options {
   value: TerminalType;
 }
-
+const APPLICATION = "PASADITA";
 enum Message {
   EMPTY = "",
   LOADING_LOGIN = "Iniciando sesión...",
@@ -123,8 +121,14 @@ async function handleSubmit() {
       autocomplete="on"
       class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]"
     >
-      <img :src="Pasadita" class="mb-12 h-auto w-[360px] self-center" />
-
+      <div class="flex flex-col items-center">
+        <img
+          src="/identity/pasaditaLogoMin.svg"
+          alt="Pasadita logo"
+          class="w-[360px] object-contain text-blue-400"
+        />
+        <h1 class="text-[70px] font-bold uppercase text-blue-400">{{ APPLICATION }}</h1>
+      </div>
       <SelectForm
         ref="terminalSelect"
         name="terminalType"

@@ -1,10 +1,7 @@
 package ni.factorizacion.server.services.impl;
 
 import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
-import ni.factorizacion.server.domain.entities.RegisteredUser;
-import ni.factorizacion.server.domain.entities.Resident;
-import ni.factorizacion.server.domain.entities.ResidentRole;
-import ni.factorizacion.server.domain.entities.Status;
+import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidentService;
 import ni.factorizacion.server.types.ControlException;
@@ -23,6 +20,11 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public List<Resident> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Resident> findAllByResidence(Residence residence) {
+        return repository.findAllByResidence(residence);
     }
 
     @Override

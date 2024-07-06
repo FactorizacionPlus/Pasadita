@@ -5,7 +5,6 @@ import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import UserImage from "@/components/UserImage.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
-
 import BodyModal from "@/components/Modal/BodyModal.vue";
 import ControlsModal from "../ControlsModal.vue";
 import IdentityTypeSelection from "../IdentityTypeSelection.vue";
@@ -84,7 +83,6 @@ function resetValues() {
           <InputForm name="firstName" title="Nombre" type="text" class="flex-1" />
           <InputForm name="lastName" title="Apellido" type="text" class="flex-1" />
         </div>
-
         <SimpleAlert :alert="alertFillData" />
         <IdentityTypeSelection
           :identity-type="data.identifierType"
