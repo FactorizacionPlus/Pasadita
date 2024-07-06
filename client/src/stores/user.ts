@@ -12,7 +12,7 @@ export const useUser = defineStore("user", () => {
     try {
       userRef.value = JSON.parse(userData);
     } catch (e) {
-      auth.logout();
+      localStorage.removeItem("user");
     }
   }
 

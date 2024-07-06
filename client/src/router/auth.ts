@@ -1,8 +1,8 @@
 import { useAuth } from "@/stores/auth";
 import { useTerminal } from "@/stores/terminal";
-import { useUser } from "@/stores/user";
 import type { RouteRecordName, Router } from "vue-router";
-import { RoleRootPath, type CustomRouteMeta, type ViewRole } from ".";
+import { RoleRootPath, type CustomRouteMeta } from ".";
+import { getViewRole } from "@/utils/viewRole";
 
 const allowedAnonymous: RouteRecordName[] = [
   "login",
@@ -13,7 +13,6 @@ const allowedAnonymous: RouteRecordName[] = [
 
 export function applyAuthRouting(router: Router) {
   const auth = useAuth();
-  const user = useUser();
   const terminal = useTerminal();
 
   router.beforeEach((to, from, next) => {
@@ -21,17 +20,7 @@ export function applyAuthRouting(router: Router) {
 
     const isInAnonymous = allowedAnonymous.includes(to.name ?? "");
 
-    let role: ViewRole | null = null;
-    if (user.user) {
-      role = user.user.role;
-    } else if (terminal.terminalLogin) {
-      if (terminal.terminalLogin.type == "MANUAL") {
-        role = "TERMINAL_MANUAL";
-      } else {
-        role = "TERMINAL";
-      }
-    }
-
+    const role = getViewRole();
     if (role != null) {
       // Logged in
       if (to.path.startsWith("/auth/logout")) {
