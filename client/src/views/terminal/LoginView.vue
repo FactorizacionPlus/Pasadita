@@ -115,19 +115,43 @@ async function handleSubmit() {
 
 <template>
   <div class="flex h-full flex-col items-center justify-center">
-    <form @submit.prevent="handleSubmit" @input="message = Message.EMPTY" autocomplete="on"
-      class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]">
-
+    <form
+      @submit.prevent="handleSubmit"
+      @input="message = Message.EMPTY"
+      autocomplete="on"
+      class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]"
+    >
       <div class="flex flex-col items-center">
-        <img src="/identity/pasaditaLogoMin.svg" alt="Pasadita logo" class="w-[360px] object-contain text-blue-400" />
+        <img
+          src="/identity/pasaditaLogoMin.svg"
+          alt="Pasadita logo"
+          class="w-[360px] object-contain text-blue-400"
+        />
         <h1 class="text-[70px] font-bold uppercase text-blue-400">{{ APPLICATION }}</h1>
       </div>
-      <SelectForm ref="terminalSelect" name="terminalType" defaultOption="Seleccione la Terminal" title="Terminales"
-        :options="options" v-model="formData.terminalType" />
-      <InputForm ref="passwordInput" name="password" :alert="{ type: AlertType.INFO, message: 'Juan' }"
-        title="Contraseña" type="password" placeholder="Contraseña" v-model="formData.password" />
+      <SelectForm
+        ref="terminalSelect"
+        name="terminalType"
+        defaultOption="Seleccione la Terminal"
+        title="Terminales"
+        :options="options"
+        v-model="formData.terminalType"
+      />
+      <InputForm
+        ref="passwordInput"
+        name="password"
+        :alert="{ type: AlertType.INFO, message: 'Juan' }"
+        title="Contraseña"
+        type="password"
+        placeholder="Contraseña"
+        v-model="formData.password"
+      />
 
-      <SimpleAlert v-if="message != Message.EMPTY" class="mt-2" :alert="{ type: alertType[message], message }" />
+      <SimpleAlert
+        v-if="message != Message.EMPTY"
+        class="mt-2"
+        :alert="{ type: alertType[message], message }"
+      />
 
       <button type="submit" class="self-end rounded-lg bg-blue-100 px-4 py-2 text-blue-400">
         Iniciar sesión
