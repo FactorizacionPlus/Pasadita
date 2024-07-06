@@ -3,6 +3,7 @@ package ni.factorizacion.server.controllers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
+import ni.factorizacion.server.domain.dtos.input.ResidentChangeRolDto;
 import ni.factorizacion.server.domain.dtos.output.ResidentSimpleDto;
 import ni.factorizacion.server.domain.dtos.input.SaveResidentDto;
 import ni.factorizacion.server.domain.entities.Resident;
@@ -45,5 +46,16 @@ public class ResidentRestController {
     public ResponseEntity<GeneralResponse<User>> saveUser(@Valid @RequestBody SaveResidentDto userDto) throws Exception {
         service.saveUser(userDto);
         return GeneralResponse.ok("Resident saved", null);
+    }
+
+    @PostMapping(value = "/role", consumes = "application/json")
+    public ResponseEntity<GeneralResponse<String>> updateResidentRole (@Valid @RequestBody ResidentChangeRolDto changeRolDto){
+        Optional<Resident> resident = service.findByIdentifier(changeRolDto.getIdentifier());
+
+        if(resident.isEmpty()){
+            return GeneralResponse.error404("Resident not found");
+        }
+        service.changeResidentRole(resident.get(), changeRolDto.getResidentRole());
+        return GeneralResponse.ok("Resident role updated", null);
     }
 }
