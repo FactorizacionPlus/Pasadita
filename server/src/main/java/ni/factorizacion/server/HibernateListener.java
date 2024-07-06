@@ -2,6 +2,7 @@ package ni.factorizacion.server;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManagerFactory;
+import ni.factorizacion.server.domain.dtos.output.EntrySimpleDto;
 import ni.factorizacion.server.domain.entities.Entry;
 import ni.factorizacion.server.services.impl.SseService;
 import org.hibernate.event.service.spi.EventListenerRegistry;
@@ -35,6 +36,10 @@ public class HibernateListener implements PostInsertEventListener {
         if (entity instanceof Entry) {
             // Send TerminalType with "entry-added" event to all SSE clients
             sseService.sendEvent(((Entry) entity).getTerminal().getType().toString(), "entry-added");
+            EntrySimpleDto entryDto = EntrySimpleDto.from((Entry) entity);
+            
+            sseService.sendEvent(entryDto.toString(), "all-entries");
+            sseService.sendEvent();
         }
     }
 
