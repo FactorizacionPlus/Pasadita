@@ -129,7 +129,6 @@ function resetValues() {
           <InputForm :disabled="true" :model-value="data.registeredUser.firstName" name="firstName" title="Nombre" type="text" class="flex-1" />
           <InputForm :disabled="true" :model-value="data.registeredUser.lastName" name="lastName" title="Apellido" type="text" class="flex-1" />
         </div>
-
         <SimpleAlert :alert="alertFillData" />
         <IdentityTypeSelection :identity-type="data.identifierType" @identity-type="data.identifierType = $event" />
         <InputForm ref="identificationInput" :modelValue="data.identifier" :alert="alertForIdentifier" name="identifier"

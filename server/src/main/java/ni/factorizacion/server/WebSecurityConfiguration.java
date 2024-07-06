@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -70,10 +72,12 @@ public class WebSecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //Http login and cors disabled
         http.httpBasic(withDefaults()).csrf(AbstractHttpConfigurer::disable);
+        http.cors(Customizer.withDefaults());
 
         //Route filter
         http.authorizeHttpRequests(auth ->
                 auth
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/api/access/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
