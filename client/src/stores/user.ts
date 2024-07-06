@@ -19,6 +19,9 @@ export const useUser = defineStore("user", () => {
   const user = computed(() => userRef.value);
 
   function setUser(user: RegisteredUser) {
+    if (user == null || user == undefined) {
+      return;
+    }
     localStorage.setItem("user", JSON.stringify(user));
     userRef.value = user;
   }
