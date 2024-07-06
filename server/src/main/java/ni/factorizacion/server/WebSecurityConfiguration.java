@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -74,6 +75,7 @@ public class WebSecurityConfiguration {
         //Route filter
         http.authorizeHttpRequests(auth ->
                 auth
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/api/access/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
