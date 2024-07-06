@@ -35,7 +35,7 @@ public class SseService {
     }
 
     public <T> void sendEvent(T payload, String eventName) {
-        var event = createEvent(payload, eventName);
+        var event = createEvent(payload, "");
 
         for (CustomSseEmitter emitter : emitters) {
             try {
