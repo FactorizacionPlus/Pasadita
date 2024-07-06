@@ -16,9 +16,9 @@ export const useAuthenticatedFetch = createFetch({
         cancel();
       }
 
-      const headers = options?.headers ? new Headers(options.headers) : new Headers();
-      if (!headers.has("Authorization")) {
-        headers.set("Authorization", "Bearer " + auth.token);
+      const headers = (options.headers as { [key: string]: string }) ?? {};
+      if (!headers["Authorization"]) {
+        headers["Authorization"] = "Bearer " + auth.token;
       }
 
       options.headers = headers;
