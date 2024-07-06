@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import type Options from "@/types/Option";
-import Pasadita from "@/assets/PasaditaLogoV2.svg?url";
-import InputForm from "@/components/Forms/InputForm.vue";
-import SelectForm from "@/components/Forms/SelectForm.vue";
-import type { TerminalType } from "@/types/TerminalType";
 import { onMounted, ref, type Ref } from "vue";
 import { useBaseFetch } from "@/composables/useBaseFetch";
 import type GeneralResponse from "@/types/GeneralResponse";
@@ -18,13 +14,14 @@ import {
 } from "@/utils/formValidation";
 import SimpleAlert from "@/components/SimpleAlert.vue";
 import { useRouter } from "vue-router";
+import type { TerminalType } from "@/types/TerminalType";
+import InputForm from "@/components/Forms/InputForm.vue";
 
 interface TerminalOptions extends Options {
   value: TerminalType;
 }
-
+const APPLICATION = "PASADITA";
 enum Message {
-  APPLICATION="PASADITA",
   EMPTY = "",
   LOADING_LOGIN = "Iniciando sesión...",
   ERROR_AUTH = "Inicio de sesión incorrecto",
@@ -118,44 +115,19 @@ async function handleSubmit() {
 
 <template>
   <div class="flex h-full flex-col items-center justify-center">
-    <form
-      @submit.prevent="handleSubmit"
-      @input="message = Message.EMPTY"
-      autocomplete="on"
-      class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]"
-    >
+    <form @submit.prevent="handleSubmit" @input="message = Message.EMPTY" autocomplete="on"
+      class="flex w-full flex-col items-stretch gap-5 bg-white p-6 md:w-[548px]">
 
-    <div class="flex flex-col items-center">
-      <img
-        src="/identity/pasaditaLogoMin.svg"
-        alt="Pasadita logo"
-        class="w-[360px] object-contain text-blue-400"
-      />
-        <h1 class="text-[70px] font-bold uppercase text-blue-400">{{Message.APPLICATION}}</h1>
-    </div>
-      <SelectForm
-        ref="terminalSelect"
-        name="terminalType"
-        defaultOption="Seleccione la Terminal"
-        title="Terminales"
-        :options="options"
-        v-model="formData.terminalType"
-      />
-      <InputForm
-        ref="passwordInput"
-        name="password"
-        :alert="{ type: AlertType.INFO, message: 'Juan' }"
-        title="Contraseña"
-        type="password"
-        placeholder="Contraseña"
-        v-model="formData.password"
-      />
+      <div class="flex flex-col items-center">
+        <img src="/identity/pasaditaLogoMin.svg" alt="Pasadita logo" class="w-[360px] object-contain text-blue-400" />
+        <h1 class="text-[70px] font-bold uppercase text-blue-400">{{ APPLICATION }}</h1>
+      </div>
+      <SelectForm ref="terminalSelect" name="terminalType" defaultOption="Seleccione la Terminal" title="Terminales"
+        :options="options" v-model="formData.terminalType" />
+      <InputForm ref="passwordInput" name="password" :alert="{ type: AlertType.INFO, message: 'Juan' }"
+        title="Contraseña" type="password" placeholder="Contraseña" v-model="formData.password" />
 
-      <SimpleAlert
-        v-if="message != Message.EMPTY"
-        class="mt-2"
-        :alert="{ type: alertType[message], message }"
-      />
+      <SimpleAlert v-if="message != Message.EMPTY" class="mt-2" :alert="{ type: alertType[message], message }" />
 
       <button type="submit" class="self-end rounded-lg bg-blue-100 px-4 py-2 text-blue-400">
         Iniciar sesión
