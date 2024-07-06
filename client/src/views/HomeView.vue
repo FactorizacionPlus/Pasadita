@@ -3,22 +3,18 @@
   <ul class="mt-4 grid gap-4 md:grid-cols-3">
     <li
       class="rounded-lg bg-white text-blue-400 transition-all hover:bg-blue-400 hover:text-white hover:shadow-glow active:scale-95"
-      v-for="(route, index) in availableRoutes"
-      :key="index"
-    >
+      v-for="(route, index) in availableRoutes" :key="index">
       <a :href="route.path" class="flex flex-col p-2">
         <span class="text-xl font-semibold capitalize">{{
           route.name?.toString().replace("-", " ")
-        }}</span>
+          }}</span>
         <span class="text-xs">{{ route.path }}</span>
       </a>
     </li>
   </ul>
   <div class="flex justify-center py-6">
-    <button
-      @click="handleClick"
-      class="border border-blue-300 p-4 text-blue-400 hover:bg-blue-400 hover:text-white active:scale-95"
-    >
+    <button @click="handleClick"
+      class="border border-blue-300 p-4 text-blue-400 hover:bg-blue-400 hover:text-white active:scale-95">
       <span>Agregar Toast</span>
     </button>
   </div>
