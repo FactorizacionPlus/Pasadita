@@ -26,26 +26,26 @@ enum Message {
   RELOAD_TEXT = "Recargar",
 }
 
-const user = ref<RegisteredUser>()
-const rows = ref<GenericTableType[]>([])
+const user = ref<RegisteredUser>();
+const rows = ref<GenericTableType[]>([]);
 const entries = ref<Entry[]>([]);
-const code = ref<number | null>()
+const code = ref<number | null>();
 
 const { addToast } = useToast();
 
 onMounted(async () => {
-  const response = await getUserByIdentifier(identifier)
+  const response = await getUserByIdentifier(identifier);
   const { data } = response;
   user.value = data.value?.data;
   code.value = response.statusCode.value;
-  if(!data.value?.ok) return;
+  if (!data.value?.ok) return;
 
   refreshEntries();
-})
+});
 
-function handleClick(){
-  addToast({message: "Recargando las entradas por Usuario...", type: ToastType.LOADING})
-  refreshEntries()
+function handleClick() {
+  addToast({ message: "Recargando las entradas por Usuario...", type: ToastType.LOADING });
+  refreshEntries();
 }
 
 async function refreshEntries() {
@@ -74,7 +74,7 @@ async function refreshEntries() {
 </script>
 <template>
   <CurrentPageInfo :title="Message.TITLE" icon="user" action="history" />
-  <EventsWarning v-if="code != 200 && code != undefined" :code="code"/>
+  <EventsWarning v-if="code != 200 && code != undefined" :code="code" />
   <article v-if="code == 200" class="flex flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @toggle-no-results="hideNoResults = $event" @search="searchText = $event" />
     <section class="overflow-x-auto rounded-xl pb-1">
@@ -83,7 +83,8 @@ async function refreshEntries() {
           <UserMinimalCard v-if="user" :user="user" />
           <button
             @click="handleClick"
-            class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95">
+            class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95"
+          >
             <VueFeather type="loader" stroke-width="2.5" size="16" />
             <span>{{ Message.RELOAD_TEXT }}</span>
           </button>

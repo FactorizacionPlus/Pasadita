@@ -6,13 +6,12 @@ import Passport from "@/passport-solid.svg?component";
 import getUserRole from "@/utils/getUserRole";
 
 enum MESSAGE {
- ENTRY_QUANTITY = "Cantidad de Entradas: "
+  ENTRY_QUANTITY = "Cantidad de Entradas: ",
 }
 
 const props = defineProps<{
   user: RegisteredUser;
 }>();
-
 </script>
 
 <template>
@@ -22,18 +21,24 @@ const props = defineProps<{
       <div class="flex items-center gap-2">
         <UserImage class="size-[52px]" :image="user.imageUrl" />
         <div class="text-blue-400">
-          <p class="text-xl leading-tight">
-            {{ props.user.firstName }} {{ props.user.lastName }}
-          </p>
+          <p class="text-xl leading-tight">{{ props.user.firstName }} {{ props.user.lastName }}</p>
           <span>{{ props.user.email }}</span>
           <div class="flex items-center gap-1">
-            <IdentityCard v-if="props.user.identifierType == 'DUI' && props.user.identifier" class="h-4" />
-            <Passport v-else-if="props.user.identifierType == 'PASSPORT' && props.user.identifier" class="h-4" />
+            <IdentityCard
+              v-if="props.user.identifierType == 'DUI' && props.user.identifier"
+              class="h-4"
+            />
+            <Passport
+              v-else-if="props.user.identifierType == 'PASSPORT' && props.user.identifier"
+              class="h-4"
+            />
             <span>
               {{ props.user.identifier }}
             </span>
           </div>
-          <p v-if="user.entryCount > 0" class="font-semibold">{{ MESSAGE.ENTRY_QUANTITY }}<span class="font-normal">{{ user.entryCount }}</span></p>
+          <p v-if="user.entryCount > 0" class="font-semibold">
+            {{ MESSAGE.ENTRY_QUANTITY }}<span class="font-normal">{{ user.entryCount }}</span>
+          </p>
         </div>
       </div>
     </div>

@@ -30,8 +30,8 @@ const actions = {
   },
   enable: {
     icon: "check",
-    name: "Habilitar"
-  }
+    name: "Habilitar",
+  },
 };
 
 interface Props {

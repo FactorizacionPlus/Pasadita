@@ -8,5 +8,5 @@ export default interface Entry {
   description: string;
   terminal: Terminal;
   user: User;
-  residence: Residence
+  residence: Residence;
 }

@@ -15,7 +15,7 @@ const modal = ref<typeof Modal>();
 
 const { addToast } = useToast();
 
-const props = defineProps<{user: RegisteredUser}>()
+const props = defineProps<{ user: RegisteredUser }>();
 
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
@@ -28,33 +28,43 @@ defineExpose({
   close: () => modal.value?.close(),
 });
 
-const userState : UserStatus = {
+const userState: UserStatus = {
   identifier: props.user.identifier,
-  status: props.user.status == "ACTIVE" ? "INACTIVE" : "ACTIVE"
-}
+  status: props.user.status == "ACTIVE" ? "INACTIVE" : "ACTIVE",
+};
 
-async function handleSubmit(event: Event){
+async function handleSubmit(event: Event) {
   event.preventDefault();
-  const { data } = await setUserStatus(userState)
-  if(data.value?.ok){
-    addToast({message: "Se ha cambiado el estado del usuario, la página se reiniciará para mostrar los cambios.", type: ToastType.SUCCESS}) 
+  const { data } = await setUserStatus(userState);
+  if (data.value?.ok) {
+    addToast({
+      message:
+        "Se ha cambiado el estado del usuario, la página se reiniciará para mostrar los cambios.",
+      type: ToastType.SUCCESS,
+    });
     modal.value?.close();
-    setTimeout(()=>{
+    setTimeout(() => {
       window.location.reload();
-    }, 2000)
+    }, 2000);
   } else {
-    addToast({message: "Algo salió mal... por favor intente más tarde", type: ToastType.ERROR}) 
+    addToast({ message: "Algo salió mal... por favor intente más tarde", type: ToastType.ERROR });
   }
 }
-
 </script>
 
 <template>
   <Modal ref="modal">
     <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
-      <HeaderModal :title="Message.ACCOUNT" icon="user" :action="props.user.status == 'ACTIVE' ? 'delete' : 'enable'" />
+      <HeaderModal
+        :title="Message.ACCOUNT"
+        icon="user"
+        :action="props.user.status == 'ACTIVE' ? 'delete' : 'enable'"
+      />
       <BodyModal>
-        <p v-if="props.user.status == 'ACTIVE'">¿Deseas eliminar a {{ props.user.firstName }} {{ props.user.lastName }}? Esta acción expulsará al residente del sistema y perderá acceso de forma irrevocable a la plataforma.</p>
+        <p v-if="props.user.status == 'ACTIVE'">
+          ¿Deseas eliminar a {{ props.user.firstName }} {{ props.user.lastName }}? Esta acción
+          expulsará al residente del sistema y perderá acceso de forma irrevocable a la plataforma.
+        </p>
         <p v-else>¿Deseas habilitar a {{ props.user.firstName }} {{ props.user.lastName }}?</p>
       </BodyModal>
       <ControlsModal>

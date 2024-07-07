@@ -11,10 +11,9 @@ import { ref } from "vue";
 
 const setUserState = ref<typeof SetUserState>();
 
-
 enum MESSAGE {
- ENTRY_QUANTITY = "Cantidad de Entradas: ",
- DISABLED_USER = "USUARIO DESHABILITADO"
+  ENTRY_QUANTITY = "Cantidad de Entradas: ",
+  DISABLED_USER = "USUARIO DESHABILITADO",
 }
 
 const props = defineProps<{
@@ -31,19 +30,27 @@ const ADMIN_ROUTE = "/admin/usuario/";
       <div class="flex items-center gap-2">
         <UserImage class="size-[84px]" :image="user.imageUrl" />
         <div class="text-blue-400">
-          <span class="text-xs font-medium text-red-400" v-if="props.user.status == 'INACTIVE'">{{ MESSAGE.DISABLED_USER }}</span>
-          <p class="text-xl leading-tight">
-            {{ props.user.firstName }} {{ props.user.lastName }}
-          </p>
+          <span class="text-xs font-medium text-red-400" v-if="props.user.status == 'INACTIVE'">{{
+            MESSAGE.DISABLED_USER
+          }}</span>
+          <p class="text-xl leading-tight">{{ props.user.firstName }} {{ props.user.lastName }}</p>
           <span>{{ props.user.email }}</span>
           <div class="flex items-center gap-1">
-            <IdentityCard v-if="props.user.identifierType == 'DUI' && props.user.identifier" class="h-4" />
-            <Passport v-else-if="props.user.identifierType == 'PASSPORT' && props.user.identifier" class="h-4" />
+            <IdentityCard
+              v-if="props.user.identifierType == 'DUI' && props.user.identifier"
+              class="h-4"
+            />
+            <Passport
+              v-else-if="props.user.identifierType == 'PASSPORT' && props.user.identifier"
+              class="h-4"
+            />
             <span>
               {{ props.user.identifier }}
             </span>
           </div>
-          <p v-if="user.entryCount > 0" class="font-semibold">{{ MESSAGE.ENTRY_QUANTITY }}<span class="font-normal">{{ user.entryCount }}</span></p>
+          <p v-if="user.entryCount > 0" class="font-semibold">
+            {{ MESSAGE.ENTRY_QUANTITY }}<span class="font-normal">{{ user.entryCount }}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -66,7 +73,9 @@ const ADMIN_ROUTE = "/admin/usuario/";
       <button
         type="button"
         @click="setUserState?.show()"
-        v-if="![undefined, 'ROLE_ADMIN'].includes(props.user.role) && props.user.status == 'INACTIVE'"
+        v-if="
+          ![undefined, 'ROLE_ADMIN'].includes(props.user.role) && props.user.status == 'INACTIVE'
+        "
         class="inline-flex items-center rounded-lg bg-green-100 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
       >
         <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
