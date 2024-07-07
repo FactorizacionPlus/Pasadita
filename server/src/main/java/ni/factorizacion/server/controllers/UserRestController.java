@@ -9,11 +9,12 @@ import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,12 +25,12 @@ public class UserRestController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllUsers() {
-        List<User> users = service.findAllAnonymous();
+    public ResponseEntity<GeneralResponse<Page<UserSimpleDto>>> getAllUsers(Pageable pageable) {
+        Page<User> users = service.findAllAnonymous(pageable);
         if (users.isEmpty()) {
-            return GeneralResponse.ok("No anonymous users found", List.of());
+            return GeneralResponse.ok("No anonymous users found", Page.empty());
         }
-        List<UserSimpleDto> userSimpleDtos = users.stream().map(UserSimpleDto::from).toList();
+        Page<UserSimpleDto> userSimpleDtos = users.map(UserSimpleDto::from);
         return GeneralResponse.ok("Anonymous users found", userSimpleDtos);
     }
 
@@ -39,22 +40,27 @@ public class UserRestController {
         if (user.isEmpty()) {
             return GeneralResponse.error404("Anonymous user not found");
         }
-        UserSimpleDto userSimpleDto = UserSimpleDto.from(user.get());
+        UserSimpleDto userSimpleDto;
+        if (user.get() instanceof RegisteredUser) {
+            userSimpleDto = RegisteredUserSimpleDto.from((RegisteredUser) user.get());
+        } else {
+            userSimpleDto = UserSimpleDto.from(user.get());
+        }
         return GeneralResponse.ok("User found", userSimpleDto);
     }
 
     @GetMapping(value = "/everything/everywhere/all-at-once")
-    public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllEverythingUsers() {
-        List<User> users = service.findAll();
+    public ResponseEntity<GeneralResponse<Page<UserSimpleDto>>> getAllEverythingUsers(Pageable pageable) {
+        Page<User> users = service.findAll(pageable);
         if (users.isEmpty()) {
-            return GeneralResponse.ok("No users found", List.of());
+            return GeneralResponse.ok("No users found", Page.empty());
         }
-        List<UserSimpleDto> userSimpleDtos = users.stream().map((v) -> {
+        Page<UserSimpleDto> userSimpleDtos = users.map((v) -> {
             if (v instanceof RegisteredUser) {
                 return RegisteredUserSimpleDto.from((RegisteredUser) v);
             }
             return UserSimpleDto.from(v);
-        }).toList();
+        });
         return GeneralResponse.ok("Users found", userSimpleDtos);
     }
 

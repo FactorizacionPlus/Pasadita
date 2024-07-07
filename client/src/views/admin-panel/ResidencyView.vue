@@ -68,7 +68,7 @@ console.log(residence.value);
         :residence="residence"
       />
     </ul>
-    <PaginationItem class="pt-4" :total-pages="6" />
+    <PaginationItem v-bind="page" v-model="pagination.page" v-if="page" />
     <ModalAdd ref="modalAdd" />
   </article>
 </template>

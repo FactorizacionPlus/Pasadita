@@ -6,13 +6,13 @@ import ni.factorizacion.server.domain.dtos.input.SavePermissionDto;
 import ni.factorizacion.server.domain.dtos.output.PermissionSimpleDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.services.*;
-import ni.factorizacion.server.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,29 +37,29 @@ public class PermissionRestController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getPermissions() {
-        List<Permission> permissions = permissionService.findAll();
-        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
+    public ResponseEntity<GeneralResponse<Page<PermissionSimpleDto>>> getPermissions(Pageable pageable) {
+        Page<Permission> permissions = permissionService.findAll(pageable);
+        Page<PermissionSimpleDto> permissionSimpleDtos = permissions.map(PermissionSimpleDto::from);
 
         return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @GetMapping("/own")
     @PreAuthorize("hasRole('ROLE_INVITED') or hasRole('ROLE_RESIDENT')")
-    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getOwnPermissions() {
+    public ResponseEntity<GeneralResponse<Page<PermissionSimpleDto>>> getOwnPermissions(Pageable pageable) {
         Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error401("Registered user not found");
         }
-        List<Permission> permissions;
+        Page<Permission> permissions;
         if (registeredUser.get().getClass().equals(InvitedUser.class)) {
             InvitedUser invitedUser = (InvitedUser) registeredUser.get();
-            permissions = permissionService.findAllByInvitedUser(invitedUser);
+            permissions = permissionService.findAllByInvitedUser(invitedUser, pageable);
         } else {
             Resident resident = (Resident) registeredUser.get();
-            permissions = permissionService.findAllByResident(resident);
+            permissions = permissionService.findAllByResident(resident, pageable);
         }
-        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
+        Page<PermissionSimpleDto> permissionSimpleDtos = permissions.map(PermissionSimpleDto::from);
 
         return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
@@ -84,47 +84,42 @@ public class PermissionRestController {
 
     @GetMapping("/own-residence")
     @PreAuthorize("hasRole('ROLE_RESIDENT_SUDO')")
-    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getOwnResidencePermissions() {
+    public ResponseEntity<GeneralResponse<Page<PermissionSimpleDto>>> getOwnResidencePermissions(Pageable pageable) {
         Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error401("Registered user not found");
         }
         Resident resident = (Resident) registeredUser.get();
-        List<Permission> permissions = permissionService.findAllByResident(resident);
-        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
+        Page<Permission> permissions = permissionService.findAllByResident(resident, pageable);
+        Page<PermissionSimpleDto> permissionSimpleDtos = permissions.map(PermissionSimpleDto::from);
 
         return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
-    @GetMapping(value = "/residence/{residence}")
+    @GetMapping(value = "/residence/{uuid}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getResidencePermissions(@PathVariable String residence) {
-        Optional<UUID> uuid = UUIDUtils.fromString(residence);
-        if (uuid.isEmpty()) {
-            return GeneralResponse.error400("Incorrect UUID");
-        }
-
-        Optional<Residence> residenceOptional = residenceService.findById(uuid.get());
+    public ResponseEntity<GeneralResponse<Page<PermissionSimpleDto>>> getResidencePermissions(@PathVariable UUID uuid, Pageable pageable) {
+        Optional<Residence> residenceOptional = residenceService.findById(uuid);
         if (residenceOptional.isEmpty()) {
             return GeneralResponse.error404("Residence not found");
         }
 
-        List<Permission> permissions = permissionService.findAllByResidence(residenceOptional.get());
-        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
+        Page<Permission> permissions = permissionService.findAllByResidence(residenceOptional.get(), pageable);
+        Page<PermissionSimpleDto> permissionSimpleDtos = permissions.map(PermissionSimpleDto::from);
 
         return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
     @GetMapping("/invited/{identifier}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getUserPermissions(@PathVariable String identifier) {
+    public ResponseEntity<GeneralResponse<Page<PermissionSimpleDto>>> getUserPermissions(@PathVariable String identifier, Pageable pageable) {
         Optional<InvitedUser> invitedUser = invitedUserService.findByIdentifier(identifier);
         if (invitedUser.isEmpty()) {
             return GeneralResponse.error404("Invited User not found");
         }
 
-        List<Permission> permissions = permissionService.findAllByInvitedUser(invitedUser.get());
-        List<PermissionSimpleDto> permissionSimpleDtos = permissions.stream().map(PermissionSimpleDto::from).toList();
+        Page<Permission> permissions = permissionService.findAllByInvitedUser(invitedUser.get(), pageable);
+        Page<PermissionSimpleDto> permissionSimpleDtos = permissions.map(PermissionSimpleDto::from);
 
         return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }

@@ -6,10 +6,11 @@ import ni.factorizacion.server.repositories.PermissionRepository;
 import ni.factorizacion.server.services.ConfigurationService;
 import ni.factorizacion.server.services.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,8 +23,8 @@ public class PermissionServiceImpl implements PermissionService {
     ConfigurationService configurationService;
 
     @Override
-    public List<Permission> findAll() {
-        return permissionRepository.findAll();
+    public Page<Permission> findAll(Pageable pageable) {
+        return permissionRepository.findAll(pageable);
     }
 
     @Override
@@ -32,18 +33,18 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> findAllByResidence(Residence residence) {
-        return permissionRepository.findAllByResidence(residence);
+    public Page<Permission> findAllByResidence(Residence residence, Pageable pageable) {
+        return permissionRepository.findAllByResidence(residence, pageable);
     }
 
     @Override
-    public List<Permission> findAllByResident(Resident resident) {
-        return permissionRepository.findAllByResident(resident);
+    public Page<Permission> findAllByResident(Resident resident, Pageable pageable) {
+        return permissionRepository.findAllByResident(resident, pageable);
     }
 
     @Override
-    public List<Permission> findAllByInvitedUser(InvitedUser user) {
-        return permissionRepository.findAllByInvitedUser(user);
+    public Page<Permission> findAllByInvitedUser(InvitedUser user, Pageable pageable) {
+        return permissionRepository.findAllByInvitedUser(user, pageable);
     }
 
     @Override

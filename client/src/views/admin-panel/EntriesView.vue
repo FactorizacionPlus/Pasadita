@@ -4,8 +4,12 @@ import SearchBar from "@/components/SearchBar.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { matchSearch } from "@/utils/matchSearch";
+import { useAuthenticatedFetch } from "@/composables/useBaseFetch";
+import type GeneralResponse from "@/types/GeneralResponse";
+import type Page from "@/types/Page";
+import type Pagination from "@/types/utils/Pagination";
 
 enum Message {
   TITLE = "Entradas",
@@ -18,7 +22,21 @@ const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = ["description", "user.firstName", "user.lastName", "user.identifier"];
 
-const entryList: EntryType[] = [];
+const entryList = ref<EntryType[]>([]);
+
+const pagination = ref<Partial<Pagination>>({
+  page: 0,
+});
+const page = ref<Page>();
+
+onMounted(async () => {
+  const { data } =
+    await useAuthenticatedFetch("/api/entry/all").json<GeneralResponse<EntryType[]>>();
+  const response = data.value;
+  if (Array.isArray(response?.data)) {
+    entryList.value = response.data as EntryType[];
+  }
+});
 </script>
 
 <template>
@@ -40,6 +58,6 @@ const entryList: EntryType[] = [];
         :key="index"
       />
     </ul>
-    <PaginationItem :total-pages="6" />
+    <PaginationItem v-bind="page" v-model="pagination.page" v-if="page" />
   </article>
 </template>

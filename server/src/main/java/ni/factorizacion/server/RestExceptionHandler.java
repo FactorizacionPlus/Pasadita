@@ -10,10 +10,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -31,6 +33,17 @@ public class RestExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<GeneralResponse<Object>> handleAuthException(AuthenticationException ex) {
         return GeneralResponse.getResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<GeneralResponse<Object>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        if (ex.getRequiredType() == null) {
+            return GeneralResponse.getResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+        }
+        if (ex.getRequiredType().isAssignableFrom(UUID.class)) {
+            return GeneralResponse.getResponse(HttpStatus.BAD_REQUEST, "Invalid UUID", null);
+        }
+        return GeneralResponse.getResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

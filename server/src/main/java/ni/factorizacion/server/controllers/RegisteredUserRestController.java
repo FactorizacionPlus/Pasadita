@@ -2,20 +2,19 @@ package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.FinishRegisterDto;
+import ni.factorizacion.server.domain.dtos.input.SetUserStatusDto;
 import ni.factorizacion.server.domain.dtos.output.RegisteredUserSimpleDto;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Resident;
+import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.services.InvitedUserService;
 import ni.factorizacion.server.services.RegisteredUserService;
 import ni.factorizacion.server.services.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -31,8 +30,32 @@ public class RegisteredUserRestController {
     @Autowired
     ResidentService residentService;
 
-    @PostMapping("/migrate/invited")
-    public ResponseEntity<GeneralResponse<String>> migrateUserToInvited(@RequestBody String identifier) {
+    @Autowired
+    AuthenticationService authenticationService;
+
+    @PostMapping("/status")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<GeneralResponse<String>> setUserStatus(@RequestBody SetUserStatusDto dto) {
+        Optional<RegisteredUser> currentUser = authenticationService.getCurrentAuthenticatedUser();
+        if (currentUser.isPresent() && currentUser.get().getIdentifier().equals(dto.getIdentifier())) {
+            return GeneralResponse.error418("Cannot change current user status");
+        }
+
+        Optional<RegisteredUser> registeredUser = registeredUserService.findByIdentifier(dto.getIdentifier());
+        if (registeredUser.isEmpty()) {
+            return GeneralResponse.error404("User not found");
+        }
+        RegisteredUser user = registeredUser.get();
+
+        user.setStatus(dto.getStatus());
+        registeredUserService.save(user);
+
+        return GeneralResponse.ok("Set status", null);
+    }
+
+    @PostMapping("/migrate/invited/{identifier}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<GeneralResponse<String>> migrateUserToInvited(@PathVariable String identifier) {
         Optional<RegisteredUser> registeredUser = registeredUserService.findByIdentifier(identifier);
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error404("User not found");
@@ -49,8 +72,9 @@ public class RegisteredUserRestController {
         return GeneralResponse.ok("Migrated to Invited", null);
     }
 
-    @PostMapping("/migrate/resident")
-    public ResponseEntity<GeneralResponse<String>> migrateUserToResident(@RequestBody String identifier) {
+    @PostMapping("/migrate/resident/{identifier}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<GeneralResponse<String>> migrateUserToResident(@PathVariable String identifier) {
         Optional<RegisteredUser> registeredUser = registeredUserService.findByIdentifier(identifier);
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error404("User not found");
