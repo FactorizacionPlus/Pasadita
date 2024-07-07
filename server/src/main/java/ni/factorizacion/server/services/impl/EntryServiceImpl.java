@@ -43,4 +43,9 @@ public class EntryServiceImpl implements EntryService {
     public List<Entry> getEntriesByResidence(Residence residence) {
         return entryRepository.getEntriesByResidence(residence);
     }
+
+    @Override
+    public List<Entry> findAll() {
+        return entryRepository.findAll();
+    }
 }

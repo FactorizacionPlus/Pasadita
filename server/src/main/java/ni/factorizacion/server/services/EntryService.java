@@ -14,4 +14,6 @@ public interface EntryService {
     List<Entry> getEntriesByUser(User user);
 
     List<Entry> getEntriesByResidence(Residence residence);
+
+    List<Entry> findAll();
 }

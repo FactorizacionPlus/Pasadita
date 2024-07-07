@@ -8,4 +8,5 @@ export type SquareButtonIconsType =
   | "custom-days-clock"
   | "custom-tablet-touch"
   | "custom-history-paper"
-  | "custom-entry";
+  | "custom-entry"
+  | "custom-phone-qr";

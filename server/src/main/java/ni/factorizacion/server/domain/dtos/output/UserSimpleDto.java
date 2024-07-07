@@ -3,6 +3,7 @@ package ni.factorizacion.server.domain.dtos.output;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import ni.factorizacion.server.domain.entities.User;
+import org.hibernate.Hibernate;
 
 import java.util.UUID;
 
@@ -15,6 +16,8 @@ public class UserSimpleDto {
     private String identifier;
     private String identifierType;
 
+    private int entryCount;
+
     static public UserSimpleDto from(User user) {
         return UserSimpleDto.builder()
                 .uuid(user.getUuid())
@@ -22,6 +25,7 @@ public class UserSimpleDto {
                 .lastName(user.getLastName())
                 .identifier(user.getIdentifier())
                 .identifierType(user.getIdentifierType() != null ? user.getIdentifierType().name() : null)
+                .entryCount(Hibernate.size(user.getEntries()))
                 .build();
     }
 }

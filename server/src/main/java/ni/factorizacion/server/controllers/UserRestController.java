@@ -3,7 +3,9 @@ package ni.factorizacion.server.controllers;
 import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.SaveUserDto;
+import ni.factorizacion.server.domain.dtos.output.RegisteredUserSimpleDto;
 import ni.factorizacion.server.domain.dtos.output.UserSimpleDto;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,21 @@ public class UserRestController {
         }
         UserSimpleDto userSimpleDto = UserSimpleDto.from(user.get());
         return GeneralResponse.ok("User found", userSimpleDto);
+    }
+
+    @GetMapping(value = "/everything/everywhere/all-at-once")
+    public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllEverythingUsers() {
+        List<User> users = service.findAllNoRole();
+        if (users.isEmpty()) {
+            return GeneralResponse.ok("No users found", List.of());
+        }
+        List<UserSimpleDto> userSimpleDtos = users.stream().map((v) -> {
+            if (v instanceof RegisteredUser) {
+                return RegisteredUserSimpleDto.from((RegisteredUser) v);
+            }
+            return UserSimpleDto.from(v);
+        }).toList();
+        return GeneralResponse.ok("Users found", userSimpleDtos);
     }
 
     @PostMapping(consumes = "application/json")

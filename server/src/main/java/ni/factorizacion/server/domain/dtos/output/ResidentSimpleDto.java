@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import ni.factorizacion.server.domain.entities.Resident;
+import org.hibernate.Hibernate;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -18,6 +19,7 @@ public class ResidentSimpleDto extends RegisteredUserSimpleDto {
                 .lastName(resident.getLastName())
                 .identifier(resident.getIdentifier())
                 .identifierType(resident.getIdentifierType().name())
+                .entryCount(Hibernate.size(resident.getEntries()))
 
                 .email(resident.getEmail())
                 .imageUrl(resident.getImageUrl())

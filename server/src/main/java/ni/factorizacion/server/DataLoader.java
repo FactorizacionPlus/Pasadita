@@ -13,8 +13,8 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     ConfigurationService configurationService;
 
-    public void populateConfiguration(){
-        if(configurationService.getConfiguration() == null){
+    public void populateConfiguration() {
+        if (configurationService.getConfiguration() == null) {
             Configuration configuration = new Configuration();
             configuration.setTimeframe(1800L);
             configuration.setQrExpiration(600L);
