@@ -67,7 +67,11 @@ const closeToast = () => {
   <li
     ref="li"
     class="my-2 flex flex-row items-center justify-between gap-2 rounded-md border-2 border-b-4"
-    :class="[toastBackground[props.toast.type], toastBorder[props.toast.type], isClosing ? 'animate-slide-right' : 'animate-slide-left']"
+    :class="[
+      toastBackground[props.toast.type],
+      toastBorder[props.toast.type],
+      isClosing ? 'animate-slide-right' : 'animate-slide-left',
+    ]"
   >
     <div class="flex flex-row items-center gap-1 p-2" :class="toastColor[props.toast.type]">
       <VueFeather

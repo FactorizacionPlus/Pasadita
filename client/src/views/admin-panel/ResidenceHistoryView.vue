@@ -33,16 +33,15 @@ const code = ref<number | null>();
 const { addToast } = useToast();
 
 onMounted(async () => {
-  refreshEntries()
+  refreshEntries();
 });
 
-async function refreshEntries(){
+async function refreshEntries() {
   await fetchResidence();
   const response = await getEntryByResident(residenceIdentifier);
-  const {data} = response;
+  const { data } = response;
   residenceEntry.value = data.value?.data ?? [];
   code.value = response.statusCode.value;
-
 
   rows.value = [
     {
@@ -78,7 +77,6 @@ function handleClick() {
   addToast({ message: "Recargando las entradas por Usuario...", type: ToastType.LOADING });
   refreshEntries();
 }
-
 
 async function fetchResidence() {
   const { data } = await getResidenceByUUID(residenceIdentifier as string);
