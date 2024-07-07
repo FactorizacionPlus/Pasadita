@@ -1,7 +1,7 @@
-import type {IdentifierType} from "../User/IdentifierType";
+import type { IdentifierType } from "../User/IdentifierType";
 
-export default interface SaveIdentification{
-    email:string;
-    identifier:string
-    identifierType: IdentifierType;
+export default interface SaveIdentification {
+  email: string;
+  identifier: string;
+  identifierType: IdentifierType;
 }

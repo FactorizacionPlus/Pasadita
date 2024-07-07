@@ -1,3 +1,3 @@
-export default interface QrToken{
-    data:string;
+export default interface QrToken {
+  data: string;
 }

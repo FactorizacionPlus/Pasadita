@@ -31,9 +31,9 @@ const qrCode = new QRCodeStyling({
   imageOptions: {
     crossOrigin: "anonymous",
     margin: 5,
-    imageSize: 0.5
+    imageSize: 0.5,
   },
-  image: "/identity/pasaditaLogoMin.svg"
+  image: "/identity/pasaditaLogoMin.svg",
 });
 
 watch(

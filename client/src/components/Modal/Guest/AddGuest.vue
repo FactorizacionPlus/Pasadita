@@ -28,16 +28,16 @@ const user = useUser();
 const { addToast } = useToast();
 
 const data = ref<{
-  registeredUser: RegisteredUser,
-  identifierType: IdentifierType,
-  identifier: string,
+  registeredUser: RegisteredUser;
+  identifierType: IdentifierType;
+  identifier: string;
 }>({
   registeredUser: user.user as RegisteredUser,
   identifierType: "DUI",
   identifier: "",
 });
 
-const emit = defineEmits(['toggle-menu']);
+const emit = defineEmits(["toggle-menu"]);
 
 const formData = ref<SaveIdentification>({
   identifier: "",
@@ -115,7 +115,7 @@ async function handleSubmit(event: Event) {
   }
 
   modal.value?.close();
-  emit('toggle-menu');
+  emit("toggle-menu");
 }
 
 function resetValues() {
@@ -131,24 +131,52 @@ function resetValues() {
       <BodyModal>
         <UserImage :image="data.registeredUser.imageUrl" class="size-36 self-center" />
         <div class="flex w-full items-center gap-3 text-xl text-pasadita-blue-1">
-          <InputForm :disabled="true" :model-value="data.registeredUser.firstName" name="firstName" title="Nombre"
-            type="text" class="flex-1" />
-          <InputForm :disabled="true" :model-value="data.registeredUser.lastName" name="lastName" title="Apellido"
-            type="text" class="flex-1" />
+          <InputForm
+            :disabled="true"
+            :model-value="data.registeredUser.firstName"
+            name="firstName"
+            title="Nombre"
+            type="text"
+            class="flex-1"
+          />
+          <InputForm
+            :disabled="true"
+            :model-value="data.registeredUser.lastName"
+            name="lastName"
+            title="Apellido"
+            type="text"
+            class="flex-1"
+          />
         </div>
         <SimpleAlert :alert="alertFillData" />
-        <IdentityTypeSelection :identity-type="data.identifierType" @identity-type="data.identifierType = $event" />
-        <InputForm ref="identificationInput" :modelValue="data.identifier" :alert="alertForIdentifier" name="identifier"
-          @update:value="data.identifier = $event" v-model="formData.identifier" title="Identificación" type="text" />
+        <IdentityTypeSelection
+          :identity-type="data.identifierType"
+          @identity-type="data.identifierType = $event"
+        />
+        <InputForm
+          ref="identificationInput"
+          :modelValue="data.identifier"
+          :alert="alertForIdentifier"
+          name="identifier"
+          @update:value="data.identifier = $event"
+          v-model="formData.identifier"
+          title="Identificación"
+          type="text"
+        />
       </BodyModal>
       <ControlsModal>
-        <button type="submit"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
+        <button
+          type="submit"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
+        >
           <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_ACCEPT }}</span>
         </button>
-        <button type="button" @click="modal?.close()"
-          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
+        <button
+          type="button"
+          @click="modal?.close()"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
+        >
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_CANCEL }}</span>
         </button>
