@@ -4,10 +4,11 @@ import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.repositories.EntryRepository;
 import ni.factorizacion.server.services.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,17 +36,17 @@ public class EntryServiceImpl implements EntryService {
     }
 
     @Override
-    public List<Entry> getEntriesByUser(User user) {
-        return entryRepository.getEntriesByUser(user);
+    public Page<Entry> getEntriesByUser(User user, Pageable pageable) {
+        return entryRepository.getEntriesByUser(user, pageable);
     }
 
     @Override
-    public List<Entry> getEntriesByResidence(Residence residence) {
-        return entryRepository.getEntriesByResidence(residence);
+    public Page<Entry> getEntriesByResidence(Residence residence, Pageable pageable) {
+        return entryRepository.getEntriesByResidence(residence, pageable);
     }
 
     @Override
-    public List<Entry> findAll() {
-        return entryRepository.findAll();
+    public Page<Entry> findAll(Pageable pageable) {
+        return entryRepository.findAll(pageable);
     }
 }

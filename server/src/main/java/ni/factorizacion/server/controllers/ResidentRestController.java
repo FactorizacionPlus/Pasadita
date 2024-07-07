@@ -10,12 +10,12 @@ import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.services.ResidentService;
-import ni.factorizacion.server.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,31 +29,27 @@ public class ResidentRestController {
     private ResidenceService residenceService;
 
     @GetMapping
-    public ResponseEntity<GeneralResponse<List<ResidentSimpleDto>>> getAllResidents() {
-        List<Resident> residents = residentService.findAll();
+    public ResponseEntity<GeneralResponse<Page<ResidentSimpleDto>>> getAllResidents(Pageable pageable) {
+        Page<Resident> residents = residentService.findAll(pageable);
         if (residents.isEmpty()) {
-            return GeneralResponse.ok("No residents found", List.of());
+            return GeneralResponse.ok("No residents found", Page.empty());
         }
-        List<ResidentSimpleDto> residenceSimpleDtos = residents.stream().map(ResidentSimpleDto::from).toList();
+        Page<ResidentSimpleDto> residenceSimpleDtos = residents.map(ResidentSimpleDto::from);
         return GeneralResponse.ok("Found residents", residenceSimpleDtos);
     }
 
-    @GetMapping("/residence/{residence}")
-    public ResponseEntity<GeneralResponse<List<ResidentSimpleDto>>> getAllResidentsByResidence(@PathVariable("residence") String residenceString) {
-        Optional<UUID> uuid = UUIDUtils.fromString(residenceString);
-        if (uuid.isEmpty()) {
-            return GeneralResponse.error400("Invalid residence code");
-        }
-        Optional<Residence> residence = residenceService.findById(uuid.get());
+    @GetMapping("/residence/{uuid}")
+    public ResponseEntity<GeneralResponse<Page<ResidentSimpleDto>>> getAllResidentsByResidence(@PathVariable UUID uuid, Pageable pageable) {
+        Optional<Residence> residence = residenceService.findById(uuid);
         if (residence.isEmpty()) {
             return GeneralResponse.error404("No residence found");
         }
 
-        List<Resident> residents = residentService.findAllByResidence(residence.get());
+        Page<Resident> residents = residentService.findAllByResidence(residence.get(), pageable);
         if (residents.isEmpty()) {
-            return GeneralResponse.ok("No residents found", List.of());
+            return GeneralResponse.ok("No residents found", Page.empty());
         }
-        List<ResidentSimpleDto> residenceSimpleDtos = residents.stream().map(ResidentSimpleDto::from).toList();
+        Page<ResidentSimpleDto> residenceSimpleDtos = residents.map(ResidentSimpleDto::from);
         return GeneralResponse.ok("Found residents", residenceSimpleDtos);
     }
 

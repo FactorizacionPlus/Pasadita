@@ -6,10 +6,11 @@ import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidentService;
 import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,13 +19,13 @@ public class ResidentServiceImpl implements ResidentService {
     private ResidentRepository repository;
 
     @Override
-    public List<Resident> findAll() {
-        return repository.findAll();
+    public Page<Resident> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
-    public List<Resident> findAllByResidence(Residence residence) {
-        return repository.findAllByResidence(residence);
+    public Page<Resident> findAllByResidence(Residence residence, Pageable pageable) {
+        return repository.findAllByResidence(residence, pageable);
     }
 
     @Override
