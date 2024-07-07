@@ -53,7 +53,7 @@ defineExpose({
           <div class="flex items-center gap-1">
             <VueFeather type="home" size="35" stroke-width="1.5" />
             <p class="text-base font-normal">
-              {{ props.activePermission.residence.maxHabitants }} / 5 Habitantes
+               5 / {{ props.activePermission.residence.maxHabitants }} Habitantes
             </p>
           </div>
         </div>

@@ -101,7 +101,7 @@ async function handleSubmit(event: Event) {
 
   if (!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as IdentifierType)) {
     const alert: Alert = {
-      message: "Formato invalido",
+      message: "Formato inválido",
       type: AlertType.WARNING,
     };
     alertForIdentifier.value = alert;
