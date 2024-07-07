@@ -25,6 +25,11 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
     }
 
     @Override
+    public void save(RegisteredUser registeredUser) {
+        repository.save(registeredUser);
+    }
+
+    @Override
     public void delete(RegisteredUser registeredUser) {
         repository.delete(registeredUser);
     }
