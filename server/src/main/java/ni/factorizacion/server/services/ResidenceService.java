@@ -4,6 +4,8 @@ import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.types.ControlException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +13,7 @@ import java.util.UUID;
 
 public interface ResidenceService {
 
-    List<Residence> findAll();
+    Page<Residence> findAll(Pageable pageable);
 
     Optional<Residence> findByDescription(String description);
 
@@ -19,9 +21,9 @@ public interface ResidenceService {
 
     void saveResidence(SaveResidenceDto dto) throws ControlException;
 
-    void updateResidence(String uuid, SaveResidenceDto dto) throws ControlException;
+    void updateResidence(UUID uuid, SaveResidenceDto dto) throws ControlException;
 
-    void removeResidence(String uuid) throws ControlException;
+    void removeResidence(UUID uuid) throws ControlException;
 
     void assignResidenteToResidencia(Resident resident, Residence residence) throws ControlException;
 }
