@@ -74,7 +74,7 @@ async function refreshEntries() {
 }
 
 function handleClick() {
-  addToast({ message: "Recargando las entradas por Usuario...", type: ToastType.LOADING });
+  addToast({ message: "Recargando a los Usuarios por Residencia", type: ToastType.LOADING });
   refreshEntries();
 }
 
