@@ -25,8 +25,6 @@ enum Message {
   RELOAD_TEXT = "Recargar",
 }
 
-console.log("UUID", residenceIdentifier);
-
 const residenceEntry = ref<Entry[]>([]);
 const rows = ref<GenericTableType[]>([]);
 const code = ref<number | null>();
@@ -82,9 +80,7 @@ async function fetchResidence() {
   const { data } = await getResidenceByUUID(residenceIdentifier as string);
   const record = data.value;
   residenceMinimal.value = record?.data;
-  console.log("ResidenceByUUID", residenceMinimal.value);
 }
-console.log(rows);
 </script>
 <template>
   <CurrentPageInfo :title="Message.TITLE" icon="home" action="history" />
