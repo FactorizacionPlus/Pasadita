@@ -45,7 +45,6 @@ function handleInput(event: Event) {
 }
 
 defineExpose({ setAlert, props });
-
 </script>
 
 <template>
@@ -66,14 +65,9 @@ defineExpose({ setAlert, props });
         class="pointer-events-none absolute -top-3 left-0 mx-1 cursor-text bg-inherit px-1 text-xs font-medium text-blue-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:text-shades-400 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-500 peer-disabled:opacity-40"
       >
         {{ props.title }}
- 
       </span>
     </div>
-    <SimpleAlert
-      v-if="props.alert"
-      class="mt-2"
-      :alert="props.alert"
-    />
+    <SimpleAlert v-if="props.alert" class="mt-2" :alert="props.alert" />
     <SimpleAlert v-if="alertRef" class="mt-2" :alert="alertRef" />
   </div>
 </template>
