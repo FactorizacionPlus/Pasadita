@@ -11,16 +11,16 @@ const props = defineProps<{
 }>();
 
 const qrCode = new QRCodeStyling({
-  width: 500,
-  height: 500,
+  width: 240,
+  height: 240,
   type: "svg",
   data: props.data,
   dotsOptions: {
-    color: "#004f82",
-    type: "dots",
+    color: "#003474",
+    type: "rounded",
   },
   cornersSquareOptions: {
-    type: "dot",
+    type: "extra-rounded",
   },
   cornersDotOptions: {
     type: "dot",
@@ -30,8 +30,10 @@ const qrCode = new QRCodeStyling({
   },
   imageOptions: {
     crossOrigin: "anonymous",
-    margin: 20,
+    margin: 5,
+    imageSize: 0.5
   },
+  image: "/identity/pasaditaLogoMin.svg"
 });
 
 watch(
