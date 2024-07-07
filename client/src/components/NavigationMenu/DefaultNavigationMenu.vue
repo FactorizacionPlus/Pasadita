@@ -2,7 +2,7 @@
   <header
     class="sticky top-0 z-10 mx-auto flex w-full max-w-screen-2xl items-center justify-between bg-white px-4 py-2 shadow-header 2xl:top-4 2xl:rounded-xl"
   >
-    <RouterLink :to="root">
+    <RouterLink :to="rootPath">
       <img class="hidden h-8 w-auto md:block" src="/identity/pasaditaLogo.svg" />
       <img class="block h-8 w-auto md:hidden" src="/identity/pasaditaLogoMin.svg" />
     </RouterLink>
@@ -39,7 +39,7 @@
           <ul>
             <RouterLink
               class="block cursor-pointer px-4 py-2 transition-all hover:bg-gray-100 active:scale-95"
-              :to="`${root}/configuraciones`"
+              :to="`${rootPath}/configuraciones`"
             >
               <VueFeather type="edit-2" size="14" stroke="#004f82" stroke-width="1.5"></VueFeather>
               Modificar
@@ -47,7 +47,7 @@
 
             <RouterLink
               class="block cursor-pointer px-4 py-2 transition-all hover:bg-gray-100 active:scale-95"
-              :to="`${root}/configuraciones`"
+              :to="`${rootPath}/configuraciones`"
             >
               <VueFeather
                 VueFeather
@@ -72,7 +72,7 @@
 
       <RouterLink
         class="grid size-10 place-items-center gap-2 rounded-md text-blue-400 transition-all hover:bg-shades-100 active:scale-95"
-        to="x"
+        :to="`${rootPath}/configuraciones`"
       >
         <VueFeather type="settings" size="25" stroke-width="1.5"></VueFeather>
       </RouterLink>
@@ -81,14 +81,14 @@
 </template>
 
 <script setup lang="ts">
+import { getRootPath } from "@/utils/viewRole";
 import { useUser } from "@/stores/user";
 import { ref } from "vue";
 import VueFeather from "vue-feather";
 
-const props = defineProps<{ role: string; root: string }>();
+const rootPath = getRootPath();
 
 const user = useUser().user;
-
 const showMenu = ref(false);
 
 const toggleMenu = () => {

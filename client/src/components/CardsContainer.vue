@@ -2,7 +2,7 @@
 import VueFeather from "vue-feather";
 
 const props = defineProps<{
-  icon: "grid" | "user" | "tablet" | "file-text" | "house" | "home" | "user";
+  icon: "grid" | "user" | "tablet" | "file-text" | "house" | "home" | "user" | "settings";
   title: string;
 }>();
 </script>
@@ -13,13 +13,14 @@ const props = defineProps<{
     <div
       class="flex flex-col gap-2 rounded-t-lg border border-pasadita-shade-2 bg-pasadita-shade-3 p-4"
     >
-      <div class="flex flex-row items-center gap-1 text-pasadita-shade-0">
+      <div class="flex flex-row items-center gap-2 text-pasadita-shade-0">
         <div class="flex shrink-0 items-center justify-center">
           <VueFeather :type="props.icon" class="size-6 md:size-10" stroke-width="2"></VueFeather>
         </div>
-        <p class="flex items-center justify-center text-2xl font-medium md:text-4xl">Residencia</p>
+        <p class="flex items-center justify-center text-2xl font-medium md:text-4xl">
+          {{ props.title }}
+        </p>
       </div>
-      <p class="text-xl md:text-2xl">{{ props.title }}</p>
     </div>
     <!--Description-->
     <div class="flex w-full flex-col rounded-b-lg border border-t-0 border-pasadita-shade-2 p-5">
