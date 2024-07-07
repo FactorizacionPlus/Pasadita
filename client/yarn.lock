@@ -256,6 +256,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/opendyslexic@npm:^5.0.11":
+  version: 5.0.11
+  resolution: "@fontsource/opendyslexic@npm:5.0.11"
+  checksum: 10c0/158e2b1015ae2b087d40ba5e27cbf937a023e302279e0be33bf0219ab53f95fdfd098b3f2a9182adec77f60a44a9d4ec0a31c9212e7b5378fbd1983bb4c26f14
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -1259,6 +1266,7 @@ __metadata:
   resolution: "client@workspace:."
   dependencies:
     "@fontsource-variable/rubik": "npm:^5.0.22"
+    "@fontsource/opendyslexic": "npm:^5.0.11"
     "@rushstack/eslint-patch": "npm:^1.8.0"
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/feather-icons": "npm:^4"

@@ -16,6 +16,7 @@ import SimpleAlert from "@/components/SimpleAlert.vue";
 import { useRouter } from "vue-router";
 import type { TerminalType } from "@/types/TerminalType";
 import InputForm from "@/components/Forms/InputForm.vue";
+import SelectForm from "@/components/Forms/SelectForm.vue";
 
 interface TerminalOptions extends Options {
   value: TerminalType;
@@ -140,7 +141,6 @@ async function handleSubmit() {
       <InputForm
         ref="passwordInput"
         name="password"
-        :alert="{ type: AlertType.INFO, message: 'Juan' }"
         title="Contraseña"
         type="password"
         placeholder="Contraseña"

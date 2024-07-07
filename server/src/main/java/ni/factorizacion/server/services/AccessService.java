@@ -2,7 +2,6 @@ package ni.factorizacion.server.services;
 
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
-import org.javatuples.Triplet;
 
 import java.util.Optional;
 import java.util.UUID;
