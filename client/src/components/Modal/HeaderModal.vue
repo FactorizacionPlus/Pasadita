@@ -28,12 +28,16 @@ const actions = {
     icon: "plus",
     name: "Agregar",
   },
+  enable: {
+    icon: "check",
+    name: "Habilitar"
+  }
 };
 
 interface Props {
   icon: "grid" | "user" | "tablet" | "file-text" | "home";
   title: string;
-  action?: "create" | "view" | "edit" | "delete" | "add";
+  action?: "create" | "view" | "edit" | "delete" | "add" | "enable";
 }
 
 const props = defineProps<Props>();
@@ -54,6 +58,9 @@ switch (props.action) {
     break;
   case "view":
     currentAction.value = actions.view;
+    break;
+  case "enable":
+    currentAction.value = actions.enable;
     break;
 }
 </script>

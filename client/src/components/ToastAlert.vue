@@ -6,20 +6,23 @@ import { ToastType } from "../types/Toast";
 
 const toastBackground: { [key in ToastType]: string } = {
   [ToastType.INFO]: "bg-white",
+  [ToastType.LOADING]: "bg-white",
   [ToastType.ERROR]: "bg-red-100",
   [ToastType.SUCCESS]: "bg-green-100",
   [ToastType.WARNING]: "bg-yellow-100",
 };
 
 const toastBackgroundDark: { [key in ToastType]: string } = {
-  [ToastType.INFO]: "group-hover:bg-blue-300",
-  [ToastType.ERROR]: "group-hover:bg-red-300",
-  [ToastType.SUCCESS]: "group-hover:bg-green-300",
-  [ToastType.WARNING]: "group-hover:bg-yellow-300",
+  [ToastType.INFO]: "group-hover:bg-blue-200",
+  [ToastType.LOADING]: "group-hover:bg-blue-200",
+  [ToastType.ERROR]: "group-hover:bg-red-200",
+  [ToastType.SUCCESS]: "group-hover:bg-green-200",
+  [ToastType.WARNING]: "group-hover:bg-yellow-200",
 };
 
 const toastBorder: { [key in ToastType]: string } = {
   [ToastType.INFO]: "border-blue-200",
+  [ToastType.LOADING]: "border-blue-200",
   [ToastType.ERROR]: "border-red-200",
   [ToastType.SUCCESS]: "border-green-200",
   [ToastType.WARNING]: "border-yellow-200",
@@ -27,6 +30,7 @@ const toastBorder: { [key in ToastType]: string } = {
 
 const toastIcons: { [key in ToastType]: string } = {
   [ToastType.INFO]: "info",
+  [ToastType.LOADING]: "loader",
   [ToastType.ERROR]: "x-circle",
   [ToastType.SUCCESS]: "check",
   [ToastType.WARNING]: "alert-triangle",
@@ -34,6 +38,7 @@ const toastIcons: { [key in ToastType]: string } = {
 
 const toastColor: { [key in ToastType]: string } = {
   [ToastType.INFO]: "text-blue-400",
+  [ToastType.LOADING]: "text-blue-400",
   [ToastType.ERROR]: "text-red-400",
   [ToastType.SUCCESS]: "text-green-400",
   [ToastType.WARNING]: "text-yellow-400",
@@ -59,6 +64,7 @@ onMounted(() => {
       <VueFeather
         :type="toastIcons[props.toast.type]"
         class="aspect-square size-5 min-w-5"
+        :class="props.toast.type == ToastType.LOADING && 'animate-spin'"
         stroke-width="1.5"
       >
       </VueFeather>
