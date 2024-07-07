@@ -14,6 +14,9 @@ export const useAuth = defineStore("auth", () => {
   const token = computed(() => tokenRef.value);
 
   function setToken(tokenContent: string) {
+    if (tokenContent == null || tokenContent == undefined) {
+      return;
+    }
     localStorage.setItem("authToken", tokenContent);
     tokenRef.value = tokenContent;
   }

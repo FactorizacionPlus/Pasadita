@@ -1,5 +1,6 @@
 package ni.factorizacion.server.services;
 
+import ni.factorizacion.server.domain.dtos.output.EntrySimpleDto;
 import ni.factorizacion.server.domain.entities.Entry;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Terminal;
@@ -14,4 +15,6 @@ public interface EntryService {
     List<Entry> getEntriesByUser(User user);
 
     List<Entry> getEntriesByResidence(Residence residence);
+
+    List<Entry> findAll();
 }

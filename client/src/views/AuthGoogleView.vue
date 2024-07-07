@@ -17,6 +17,7 @@ enum Message {
   LOADING_USER = "Cargando datos de usuario...",
   LOADING_REGISTER = "Registrando usuario...",
   NO_USER = "No existe un usuario para esta cuenta, ¿deseas crear una?",
+  USER_ALREADY_EXISTS = "Ya existe un usuario para esta cuenta, iniciando sesión...",
   ERROR_USER = "No se pudo obtener los datos de este usuario, por favor intente más tarde",
   ERROR = "Ocurrió un error en el sistema, por favor intente más tarde",
 }
@@ -35,8 +36,6 @@ if (!isLogin) {
 const registerUrl = useRegisterUrl("select_account");
 
 async function doUserData() {
-  message.value = Message.LOADING_USER;
-
   const { data } =
     await useAuthenticatedFetch("/auth/self").json<GeneralResponse<RegisteredUser>>();
   if (data.value == null) {
@@ -47,32 +46,40 @@ async function doUserData() {
 }
 
 async function doLogin(code: string) {
-  const response = await makeLoginRequest(code);
-  if (response == null) {
+  const { data, statusCode } = await makeLoginRequest(code);
+
+  if (!data.value) {
     message.value = Message.ERROR;
     return;
   }
-  if (!response.ok) {
-    if (response.message == "No user found") {
-      message.value = Message.NO_USER;
-    } else {
-      message.value = Message.ERROR;
-    }
+
+  if (statusCode.value == 401) {
+    message.value = Message.NO_USER;
     return;
   }
-  auth.setToken(response.data);
+
+  auth.setToken(data.value.data);
 }
+
 async function doRegister(code: string) {
-  const response = await makeRegisterRequest(code);
-  if (response == null) {
+  const { data, statusCode } = await makeRegisterRequest(code);
+
+  if (!data.value) {
     message.value = Message.ERROR;
     return;
   }
-  if (!response.ok) {
-    message.value = Message.ERROR;
+
+  if (statusCode.value == 401) {
+    message.value = Message.NO_USER;
     return;
   }
-  auth.setToken(response.data);
+  if (statusCode.value == 409) {
+    message.value = Message.USER_ALREADY_EXISTS;
+    auth.setToken(data.value.data);
+    return;
+  }
+
+  auth.setToken(data.value.data);
 }
 
 onMounted(async () => {
@@ -92,10 +99,17 @@ onMounted(async () => {
     await doRegister(code);
   }
 
-  if (auth.token != null) {
-    await doUserData();
-    router.push("/");
+  if (auth.token == null) {
+    return;
   }
+  if (message.value == Message.USER_ALREADY_EXISTS) {
+    await doUserData();
+  } else {
+    message.value = Message.LOADING_USER;
+    await doUserData();
+  }
+
+  router.push("/");
 });
 </script>
 

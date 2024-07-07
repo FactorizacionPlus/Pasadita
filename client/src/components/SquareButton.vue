@@ -50,7 +50,7 @@ const handleClick = () => {
     :href="props.href"
     @click="handleClick"
   >
-    <component v-if="isCustomIcon" :is="dynamicLoadComponent"></component>
+    <component class="h-[105px] w-auto" v-if="isCustomIcon" :is="dynamicLoadComponent"></component>
     <VueFeather v-else :type="props.icon" class="size-[7.5rem]" />
     <span class="text-2xl font-medium">{{ props.title }}</span>
   </component>

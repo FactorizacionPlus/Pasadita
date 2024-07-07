@@ -64,6 +64,24 @@ public class PermissionRestController {
         return GeneralResponse.ok("Permissions found", permissionSimpleDtos);
     }
 
+    @GetMapping("/own-active")
+    @PreAuthorize("hasRole('ROLE_INVITED')")
+    public ResponseEntity<GeneralResponse<PermissionSimpleDto>> getOwnActivePermission() {
+        Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
+        if (registeredUser.isEmpty()) {
+            return GeneralResponse.error401("Registered user not found");
+        }
+
+        InvitedUser invitedUser = (InvitedUser) registeredUser.get();
+        Optional<Permission> permission = permissionService.findByUserNow(invitedUser);
+        if (permission.isEmpty()) {
+            return GeneralResponse.error404("Permission not found");
+        }
+
+        PermissionSimpleDto permissionDto = PermissionSimpleDto.from(permission.get());
+        return GeneralResponse.ok("Permission found", permissionDto);
+    }
+
     @GetMapping("/own-residence")
     @PreAuthorize("hasRole('ROLE_RESIDENT_SUDO')")
     public ResponseEntity<GeneralResponse<List<PermissionSimpleDto>>> getOwnResidencePermissions() {
