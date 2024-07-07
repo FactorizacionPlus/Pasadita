@@ -95,7 +95,7 @@ defineExpose({
         <!-- QR Code Section -->
         <div class="flex items-center justify-center">
           <div class="flex flex-col items-center justify-center">
-            <QRCodeStyling :data="qrToken" />
+            <QRCodeStyling v-if="qrToken" :data="qrToken" />
             <div class="mt-4 flex justify-center">
               <button
                 @click.prevent="generateQr"
