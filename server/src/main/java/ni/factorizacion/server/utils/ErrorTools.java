@@ -17,6 +17,7 @@ public class ErrorTools {
 
         return errorMap;
     }
+
     static public Map<String, List<String>> mapConstraintErrors(Set<ConstraintViolation<?>> exceptions) {
         Map<String, List<String>> errorMap = new HashMap<>();
 

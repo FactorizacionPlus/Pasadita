@@ -9,7 +9,7 @@ import ni.factorizacion.server.domain.entities.ResidentRole;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SaveResidentDto extends SaveUserDto{
+public class SaveResidentDto extends SaveUserDto {
     @Email
     @NotEmpty
     private String email;

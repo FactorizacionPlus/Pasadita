@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.domain.entities.TokenType;
+import ni.factorizacion.server.repositories.RegisteredUserRepository;
 import ni.factorizacion.server.repositories.TokenRepository;
 import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.services.TokenService;
@@ -45,6 +46,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private RegisteredUserRepository registeredUserRepository;
 
     @Override
     public String getGoogleToken(String code, String redirectUri) throws ControlException {
@@ -110,7 +114,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return Optional.empty();
         }
         RegisteredUser user = (RegisteredUser) auth.getPrincipal();
-        return Optional.ofNullable(user);
+        return registeredUserRepository.findByEmail(user.getEmail());
     }
 
     @Override

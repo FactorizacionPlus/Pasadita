@@ -5,6 +5,8 @@ import { RouterLink } from "vue-router";
 const loginUrl = useLoginUrl();
 const registerUrl = useRegisterUrl();
 
+console.log(loginUrl);
+
 enum Message {
   APPLICATION = "PASADITA",
   LOGIN = "Continuar con Google",
