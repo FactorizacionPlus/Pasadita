@@ -15,7 +15,6 @@ import ControlsModal from "../ControlsModal.vue";
 import SimpleAlert from "@/components/SimpleAlert.vue";
 import type Alert from "@/types/Alert";
 import { AlertType } from "@/types/Alert";
-import checkIsValidIdentifier from "@/utils/checkIsValidIdentifier";
 import { useToast } from "@/stores/toast";
 import { ToastType } from "@/types/Toast";
 
@@ -30,26 +29,19 @@ const data = ref<{
   identifier: "",
 });
 
-enum Message {
-  BUTTON_ACCEPT = "Aceptar",
-  BUTTON_CANCEL = "Cancelar",
-  ACCOUNT = "Cuenta",
-}
-
 const modal = ref<typeof Modal>();
 const { createPermission, error, loading } = usePermission();
 const { addToast } = useToast();
 
 const startDate = ref("");
 const endDate = ref("");
-const identificacion = ref("");
+const identificacion = ref(data.value.identifier);
 const alertForDatetime = ref<Alert | undefined>();
 const alertForIdentifier = ref<Alert | undefined>();
 const alertFillData = ref<Alert | undefined>();
 
-
 function validateForm() {
-  if (!startDate.value || !endDate.value || !identificacion.value) {
+  if (!startDate.value || !endDate.value || !identificacion.value.trim()) {
     alertFillData.value = {
       message: "No se pueden dejar campos vacíos.",
       type: AlertType.WARNING,
@@ -63,17 +55,8 @@ function validateForm() {
     };
     return false;
   }
-  if (!checkIsValidIdentifier(identificacion.value, data.value.identifierType)) {
-    alertForIdentifier.value = {
-      message: "Formato de identificación inválido.",
-      type: AlertType.WARNING,
-    };
-    return false;
-  }
-  
   alertFillData.value = undefined;
   alertForDatetime.value = undefined;
-  alertForIdentifier.value = undefined;
   return true;
 }
 
@@ -85,7 +68,7 @@ async function submitForm() {
   const dto: SavePermissionDto = {
     startDate: new Date(startDate.value),
     endDate: new Date(endDate.value),
-    invitedUser: identificacion.value,
+    invitedUser: identificacion.value.trim(),
   };
 
   await createPermission(dto);
@@ -99,6 +82,12 @@ async function submitForm() {
       type: AlertType.ERROR,
     };
   }
+}
+
+enum Message {
+  BUTTON_ACCEPT = "Aceptar",
+  BUTTON_CANCEL = "Cancelar",
+  ACCOUNT = "Cuenta",
 }
 
 defineExpose({
@@ -115,8 +104,8 @@ defineExpose({
     >
       <HeaderModal title="Solicitud" icon="file-text" action="add" />
       <div class="flex flex-col gap-4 px-4 py-6">
-        <SimpleAlert v-if="alertFillData" :alert="alertFillData" /> 
-        <SimpleAlert v-if="alertForDatetime" :alert="alertForDatetime" /> 
+        <SimpleAlert v-if="alertFillData" :alert="alertFillData" />
+        <SimpleAlert v-if="alertForDatetime" :alert="alertForDatetime" />
         <div class="flex max-h-[80vh] flex-row gap-2">
           <DateTimeForm
             class="flex-1"
@@ -141,7 +130,6 @@ defineExpose({
           @identity-type="data.identifierType = $event"
         />
 
-        <SimpleAlert v-if="alertForIdentifier" :alert="alertForIdentifier" />
         <InputForm
           v-model="identificacion"
           name="identificacion"
@@ -149,14 +137,23 @@ defineExpose({
           type="text"
           placeholder="Identificación"
         />
+
       </div>
 
       <ControlsModal>
         <button
           type="submit"
+          :disabled="loading"
           class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
         >
-          <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
+          <VueFeather
+            v-if="loading"
+            type="loader"
+            class="animate-spin"
+            stroke-width="2.5"
+            size="16"
+          ></VueFeather>
+          <VueFeather v-else type="check" stroke-width="2.5" size="16"></VueFeather>
           <span>{{ Message.BUTTON_ACCEPT }}</span>
         </button>
         <button
