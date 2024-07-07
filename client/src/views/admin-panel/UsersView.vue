@@ -21,7 +21,10 @@ onMounted(async () => {
   const { data } = await getEverythingEverywhereAllAtOnce()
   const response = data.value;
   users.value = response?.data || []
+
+  console.log(matchSearch(users.value[0],"Juan", fieldsToSearch))
 })
+
 
 </script>
 

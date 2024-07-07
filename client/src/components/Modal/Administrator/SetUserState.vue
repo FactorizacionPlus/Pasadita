@@ -17,7 +17,6 @@ const { addToast } = useToast();
 
 const props = defineProps<{user: RegisteredUser}>()
 
-
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
   BUTTON_CANCEL = "Cancelar",
@@ -31,16 +30,21 @@ defineExpose({
 
 const userState : UserStatus = {
   identifier: props.user.identifier,
-  status: 'INACTIVE'
+  status: props.user.status == "ACTIVE" ? "INACTIVE" : "ACTIVE"
 }
 
 async function handleSubmit(event: Event){
   event.preventDefault();
-  
-  const response = await setUserStatus(userState)
-  console.log(response.data.value, response.statusCode)
-  console.log(props.user.status)
-  addToast({message: "Grande", type: ToastType.SUCCESS}) 
+  const { data } = await setUserStatus(userState)
+  if(data.value?.ok){
+    addToast({message: "Se ha cambiado el estado del usuario, la página se reiniciará para mostrar los cambios.", type: ToastType.SUCCESS}) 
+    modal.value?.close();
+    setTimeout(()=>{
+      window.location.reload();
+    }, 2000)
+  } else {
+    addToast({message: "Algo salió mal... por favor intente más tarde", type: ToastType.ERROR}) 
+  }
 }
 
 </script>
@@ -48,9 +52,10 @@ async function handleSubmit(event: Event){
 <template>
   <Modal ref="modal">
     <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
-      <HeaderModal :title="Message.ACCOUNT" icon="user" action="delete" />
+      <HeaderModal :title="Message.ACCOUNT" icon="user" :action="props.user.status == 'ACTIVE' ? 'delete' : 'enable'" />
       <BodyModal>
-        <p>¿Deseas eliminar a {{ props.user.firstName }} {{ props.user.lastName }}? Esta acción expulsará al residente del sistema y perderá acceso de forma irrevocable a la plataforma.</p>
+        <p v-if="props.user.status == 'ACTIVE'">¿Deseas eliminar a {{ props.user.firstName }} {{ props.user.lastName }}? Esta acción expulsará al residente del sistema y perderá acceso de forma irrevocable a la plataforma.</p>
+        <p v-else>¿Deseas habilitar a {{ props.user.firstName }} {{ props.user.lastName }}?</p>
       </BodyModal>
       <ControlsModal>
         <button
