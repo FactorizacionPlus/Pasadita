@@ -3,6 +3,8 @@ import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
+import BodyModal from "../BodyModal.vue";
+import ControlsModal from "../ControlsModal.vue";
 const props = defineProps<{ name: string; lastname: string }>();
 
 const modal = ref<typeof Modal>();
@@ -15,15 +17,12 @@ defineExpose({
 
 <template>
   <Modal ref="modal">
-    <form class="overflow-hidden rounded-md bg-white">
+    <form class="w-full max-w-xl overflow-hidden rounded-md bg-white">
       <HeaderModal title="Residente" icon="user" action="delete" />
-
-      <div class="flex max-h-[80vh] flex-col gap-4 p-4 text-xl text-pasadita-blue-1">
-        ¿Deseas expulsar a {{ props.name }} {{ props.lastname }} de la residencia y del sistema?
-      </div>
-
-      <!-- Botones -->
-      <div class="flex justify-end gap-2 border-t border-t-pasadita-shade-2 p-2">
+      <BodyModal>
+        <p>¿Deseas expulsar a {{ props.name }} {{ props.lastname }} de la residencia y del sistema?</p>
+      </BodyModal>
+      <ControlsModal>
         <button
           class="inline-flex items-center rounded-lg bg-pasadita-green-2 p-2 text-center text-sm font-normal text-pasadita-green-1 transition-all hover:rounded-xl hover:bg-pasadita-green-1 hover:text-white active:scale-95"
         >
@@ -38,7 +37,7 @@ defineExpose({
           <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
           <span>Cancelar</span>
         </button>
-      </div>
+      </ControlsModal>
     </form>
   </Modal>
 </template>

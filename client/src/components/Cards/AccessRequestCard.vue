@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import {ref} from "vue";
 import VueFeather from "vue-feather";
 import UserImage from "@/components/UserImage.vue";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
 import type Permission from "@/types/Permission";
+import DeleteAccessRequest from "../Modal/Resident/DeleteAccessRequest.vue";
+
+const modalDel = ref<typeof DeleteAccessRequest>();
 
 enum Message {
   TITLE = "Solicitud de Acceso",
@@ -31,9 +35,11 @@ const currentState =
       : Message.PERMISSION_REJECTED
     : Message.PERMISSION_PENDING;
 
+
 const handleDeleteClick = () => {
   emit('delete-permission', props.permission);
 };
+
 </script>
 
 <template>
@@ -109,7 +115,7 @@ const handleDeleteClick = () => {
       <button
         type="button"
         v-if="!props.showControls"
-        @click="handleDeleteClick"
+        @click="modalDel?.show()"
         class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
@@ -122,5 +128,6 @@ const handleDeleteClick = () => {
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
+    <DeleteAccessRequest ref="modalDel"/>
   </li>
 </template>
