@@ -10,4 +10,6 @@ public interface RegisteredUserService {
     Optional<RegisteredUser> findByEmail(String email);
 
     void delete(RegisteredUser registeredUser);
+
+    long getCount();
 }

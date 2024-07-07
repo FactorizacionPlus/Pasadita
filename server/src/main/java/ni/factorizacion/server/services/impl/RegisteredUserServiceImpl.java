@@ -28,4 +28,9 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
     public void delete(RegisteredUser registeredUser) {
         repository.delete(registeredUser);
     }
+
+    @Override
+    public long getCount() {
+        return repository.count();
+    }
 }

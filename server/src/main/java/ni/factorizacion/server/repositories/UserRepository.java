@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("from User where class = User")
     List<User> findAllAnonymous();
+
+    @Query("SELECT COUNT(*) FROM User WHERE class = User")
+    long countAnonymous();
 }

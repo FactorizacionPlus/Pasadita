@@ -17,6 +17,8 @@ public interface ResidentService {
 
     Optional<Resident> findByIdentifier(String identifier);
 
+    long getCount();
+
     void saveUser(SaveResidentDto dto) throws ControlException;
 
     void updateUser(SaveResidentDto dto) throws ControlException;

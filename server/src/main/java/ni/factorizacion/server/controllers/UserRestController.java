@@ -25,7 +25,7 @@ public class UserRestController {
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllUsers() {
-        List<User> users = service.findAll();
+        List<User> users = service.findAllAnonymous();
         if (users.isEmpty()) {
             return GeneralResponse.ok("No anonymous users found", List.of());
         }
@@ -45,7 +45,7 @@ public class UserRestController {
 
     @GetMapping(value = "/everything/everywhere/all-at-once")
     public ResponseEntity<GeneralResponse<List<UserSimpleDto>>> getAllEverythingUsers() {
-        List<User> users = service.findAllNoRole();
+        List<User> users = service.findAll();
         if (users.isEmpty()) {
             return GeneralResponse.ok("No users found", List.of());
         }

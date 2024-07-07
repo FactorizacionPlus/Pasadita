@@ -24,4 +24,9 @@ public class TerminalServiceImpl implements TerminalService {
     public List<Terminal> findAll() {
         return terminalRepository.findAll();
     }
+
+    @Override
+    public long getCount() {
+        return terminalRepository.count();
+    }
 }
