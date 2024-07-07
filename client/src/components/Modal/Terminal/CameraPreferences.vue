@@ -4,7 +4,7 @@ import Modal from "@/components/Modal/ModalComponent.vue";
 import type { CameraDevice } from "html5-qrcode";
 import HeaderModal from "../HeaderModal.vue";
 import VueFeather from "vue-feather";
-import { useCameraPreferences } from "@/stores/prefferedCamera";
+import { useCameraPreferences } from "@/stores/cameraPreferences";
 import SelectForm from "@/components/Forms/SelectForm.vue";
 import type Option from "@/types/Option";
 import SwitchForm from "@/components/Forms/SwitchForm.vue";

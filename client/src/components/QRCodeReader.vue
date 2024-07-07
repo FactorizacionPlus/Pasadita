@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCameraPreferences } from "@/stores/prefferedCamera";
+import { useCameraPreferences } from "@/stores/cameraPreferences";
 import {
   Html5Qrcode,
   Html5QrcodeSupportedFormats,
