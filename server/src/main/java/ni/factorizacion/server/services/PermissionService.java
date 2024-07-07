@@ -27,4 +27,6 @@ public interface PermissionService {
     Optional<Permission> createFrom(SavePermissionDto dto, Resident resident, InvitedUser user);
 
     Permission save(Permission permission);
+
+    void delete(Permission permission);
 }
