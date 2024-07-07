@@ -54,7 +54,7 @@ const fieldsToSearch = ["firstName", "lastName", "identifier", "residence.descri
     <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
 
     <ul class="grid w-full gap-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-      <ResidentCard
+      <!--<ResidentCard
         :resident="resident"
         :class="{
           'animate-scale-up border-2 border-blue-400':
@@ -65,8 +65,8 @@ const fieldsToSearch = ["firstName", "lastName", "identifier", "residence.descri
             searchText.length > 2,
         }"
         v-for="(resident, index) in residents"
-        :key="index"
-      />
+        :key="index" 
+      /> -->
     </ul>
   </article>
   <ModalAdd ref="modalAdd">Hola</ModalAdd>
