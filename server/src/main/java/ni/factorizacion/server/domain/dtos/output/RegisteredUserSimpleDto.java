@@ -14,6 +14,8 @@ public class RegisteredUserSimpleDto extends UserSimpleDto {
     private String imageUrl;
     private String role;
 
+    private String status;
+
     static public RegisteredUserSimpleDto from(RegisteredUser user) {
         return RegisteredUserSimpleDto.builder()
                 .uuid(user.getUuid())
@@ -24,8 +26,9 @@ public class RegisteredUserSimpleDto extends UserSimpleDto {
                 .entryCount(Hibernate.size(user.getEntries()))
 
                 .email(user.getEmail())
-                .role(user.getAuthorities().iterator().next().getAuthority())
                 .imageUrl(user.getImageUrl())
+                .role(user.getAuthorities().iterator().next().getAuthority())
+                .status(user.getStatus().name())
                 .build();
     }
 }
