@@ -5,6 +5,7 @@ import { ref, watch } from "vue";
 import { useBaseFetch } from "@/composables/useBaseFetch";
 import type TerminalLogin from "@/types/TerminalLogin";
 import { useTerminal } from "@/stores/terminal";
+import CameraPreferences from "@/components/Modal/Terminal/CameraPreferences.vue";
 
 enum Message {
   NOT_ALLOWED = "No se han habilitado los permisos de acceso a cámara, por favor habilite los permisos.",
@@ -23,6 +24,9 @@ const message = ref<Message>(Message.WAITING);
 const token = ref("");
 
 const terminal = useTerminal();
+
+const qrCodeReader = ref<InstanceType<typeof QRCodeReader>>();
+const preferencesModal = ref<InstanceType<typeof CameraPreferences>>();
 
 const messageIcon: { [key in Message | "DEFAULT"]?: string } = {
   [Message.NOT_ALLOWED]: "alert-triangle",
@@ -50,7 +54,7 @@ async function validateToken(tokenContent: string) {
   message.value = Message.VALIDATING;
 
   const validateToken: ValidateToken = {
-    type: login.type,
+    terminalType: login.terminalType,
     password: login.password,
     tokenContent,
   };
@@ -87,7 +91,7 @@ function handleQrException(exception: DOMException) {
 }
 
 watch(token, (value) => {
-  if (message.value == Message.WAITING) {
+  if (message.value == Message.WAITING && value != "") {
     validateToken(value);
   }
 });
@@ -95,8 +99,27 @@ watch(token, (value) => {
 
 <template>
   <main class="flex size-full flex-col items-center justify-center gap-4">
-    <div class="relative size-[512px] overflow-hidden rounded-lg bg-blue-200">
-      <QRCodeReader @update="(v) => (token = v)" @exception="handleQrException" />
+    <div
+      class="relative aspect-square w-full overflow-hidden rounded-lg bg-blue-200 md:size-[512px]"
+    >
+      <QRCodeReader
+        ref="qrCodeReader"
+        @update="(v) => (token = v)"
+        @exception="handleQrException"
+        @init="message = Message.WAITING"
+      />
+
+      <button
+        class="group absolute bottom-0 right-0 m-2 size-16 rounded-md bg-blue-300 p-2 text-blue-400 opacity-70 transition-opacity hover:opacity-100"
+        @click="preferencesModal?.show()"
+        v-if="message == Message.WAITING"
+      >
+        <VueFeather
+          type="settings"
+          class="size-full transition-transform duration-300 group-hover:rotate-90 group-hover:scale-105"
+          stroke-width="1.5"
+        />
+      </button>
 
       <div
         class="absolute left-0 top-0 size-full bg-gray-600/50"
@@ -104,12 +127,13 @@ watch(token, (value) => {
       ></div>
 
       <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-300">
-        <VueFeather
-          type="video-off"
-          class="size-32"
-          stroke-width="2"
+        <button
+          class="p-8 transition-transform hover:scale-105"
+          @click="qrCodeReader?.requestAccess()"
           v-if="message == Message.NOT_ALLOWED"
-        />
+        >
+          <VueFeather type="video-off" class="size-32" stroke-width="2" />
+        </button>
         <VueFeather
           type="loader"
           animation="spin"
@@ -133,5 +157,11 @@ watch(token, (value) => {
         {{ message }}
       </span>
     </h1>
+
+    <CameraPreferences
+      ref="preferencesModal"
+      :cameras="qrCodeReader?.cameras ?? []"
+      :can-use-torch="qrCodeReader?.canUseTorch ?? false"
+    />
   </main>
 </template>

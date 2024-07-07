@@ -23,6 +23,7 @@ public class ConfigurationController {
         Configuration configuration = service.getConfiguration();
         return GeneralResponse.ok("Configuration found", configuration);
     }
+
     @PatchMapping(consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<String>> updateConfiguration(Long timeFrame, Long qrExpiration) {
@@ -32,6 +33,7 @@ public class ConfigurationController {
         service.updateConfiguration(configuration);
         return GeneralResponse.ok("Configuration updated", null);
     }
+
     @GetMapping("/reset")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GeneralResponse<String>> resetConfiguration() {

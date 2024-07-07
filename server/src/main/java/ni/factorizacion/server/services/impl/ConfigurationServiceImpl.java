@@ -29,6 +29,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         configuration.setQrExpiration(600L);
         configurationRepository.save(configuration);
     }
+
     @Override
     public void saveConfiguration(Configuration configuration) {
         configurationRepository.save(configuration);

@@ -7,7 +7,6 @@ import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.ResidentRole;
 import ni.factorizacion.server.types.ControlException;
 
-import javax.management.relation.Role;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +16,8 @@ public interface ResidentService {
     List<Resident> findAllByResidence(Residence residence);
 
     Optional<Resident> findByIdentifier(String identifier);
+
+    long getCount();
 
     void saveUser(SaveResidentDto dto) throws ControlException;
 

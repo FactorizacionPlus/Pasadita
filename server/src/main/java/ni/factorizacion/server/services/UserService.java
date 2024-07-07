@@ -1,16 +1,19 @@
 package ni.factorizacion.server.services;
 
 import ni.factorizacion.server.domain.dtos.input.SaveUserDto;
-import ni.factorizacion.server.domain.dtos.input.TerminalCreateEntryDto;
 import ni.factorizacion.server.domain.entities.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
+    List<User> findAllAnonymous();
+
     List<User> findAll();
 
-    List<User> findAllNoRole();
+    long getCountAnonymous();
+
+    long getCount();
 
     Optional<User> findByIdentifier(String identifier);
 

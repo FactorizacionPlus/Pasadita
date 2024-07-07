@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@fontsource-variable/rubik": "^5.0.22",
+    "@fontsource/opendyslexic": "^5.0.11",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vueuse/core": "^10.11.0",
     "feather-icons": "4",

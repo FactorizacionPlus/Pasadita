@@ -1,6 +1,7 @@
 import { RoleRootPath, type ViewRole } from "@/router";
 import { useTerminal } from "@/stores/terminal";
 import { useUser } from "@/stores/user";
+import type { RouteLocationRaw } from "vue-router";
 
 export function getViewRole(): ViewRole | null {
   const user = useUser();
@@ -10,7 +11,7 @@ export function getViewRole(): ViewRole | null {
   if (user.user) {
     role = user.user.role;
   } else if (terminal.terminalLogin) {
-    if (terminal.terminalLogin.type == "MANUAL") {
+    if (terminal.terminalLogin.terminalType == "MANUAL") {
       role = "TERMINAL_MANUAL";
     } else {
       role = "TERMINAL";
@@ -19,10 +20,10 @@ export function getViewRole(): ViewRole | null {
   return role;
 }
 
-export function getRootPath(): string | null {
+export function getRootPath(): RouteLocationRaw {
   const viewRole = getViewRole();
   if (viewRole == null) {
-    return null;
+    return "";
   }
   return RoleRootPath[viewRole];
 }

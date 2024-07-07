@@ -33,6 +33,11 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
+    public long getCount() {
+        return repository.count();
+    }
+
+    @Override
     public void saveUser(SaveResidentDto dto) throws ControlException {
         Optional<Resident> found = repository.findByIdentifier(dto.getIdentifier());
         if (found.isPresent()) {
