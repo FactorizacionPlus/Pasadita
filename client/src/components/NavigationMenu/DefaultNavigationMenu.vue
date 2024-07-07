@@ -9,7 +9,8 @@
 
     <div class="flex items-center gap-1">
       <div
-        class="relative flex cursor-pointer items-center gap-1 rounded-lg p-2 text-blue-400 transition-all hover:bg-shades-100 active:scale-95"
+        class="relative flex cursor-pointer items-center gap-1 rounded-lg p-2 text-blue-400 transition-all hover:bg-shades-100"
+        :class="showMenu ? '' : 'active:scale-95'"
         @click="toggleMenu"
       >
         <div
@@ -34,13 +35,10 @@
           ></VueFeather>
         </div>
 
-        <div
-          v-if="showMenu"
-          class="absolute right-0 mt-48 w-48 rounded-b-lg border bg-white shadow-lg"
-        >
-          <ul class="py-1">
+        <div v-if="showMenu" class="absolute right-0 mt-48 w-48 rounded-b-lg bg-white shadow-xl">
+          <ul>
             <RouterLink
-              class="block cursor-pointer px-4 py-2 hover:bg-gray-100"
+              class="block cursor-pointer px-4 py-2 transition-all hover:bg-gray-100 active:scale-95"
               :to="`${root}/configuraciones`"
             >
               <VueFeather type="edit-2" size="14" stroke="#004f82" stroke-width="1.5"></VueFeather>
@@ -48,10 +46,11 @@
             </RouterLink>
 
             <RouterLink
-              class="block cursor-pointer px-4 py-2 hover:bg-gray-100"
+              class="block cursor-pointer px-4 py-2 transition-all hover:bg-gray-100 active:scale-95"
               :to="`${root}/configuraciones`"
             >
               <VueFeather
+                VueFeather
                 type="settings"
                 size="14"
                 stroke="#004f82"
@@ -60,7 +59,10 @@
               Configuraciones
             </RouterLink>
 
-            <RouterLink class="block cursor-pointer px-4 py-2 hover:bg-gray-100" to="/auth/logout">
+            <RouterLink
+              class="block cursor-pointer px-4 py-2 transition-all hover:bg-gray-100 active:scale-95"
+              to="/auth/logout"
+            >
               <VueFeather type="log-out" size="14" stroke="#004f82" stroke-width="1.5"></VueFeather>
               Cerrar Sesión
             </RouterLink>

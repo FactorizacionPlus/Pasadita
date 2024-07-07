@@ -61,7 +61,7 @@ AdminNavigationMenu:
           />
 
           <div class="text-left" :class="!isFullNav && 'md:hidden'">
-            <span>Administrador del sistema</span>
+            <span>Administrador del Sistema</span>
             <p class="font-semibold">{{ user?.firstName }}</p>
           </div>
           <div :class="!isFullNav && 'md:hidden'" type="button" class="ml-auto">

@@ -10,7 +10,7 @@ const props = defineProps<{
 <template>
   <li class="flex items-center gap-1 rounded-lg border border-blue-200 bg-blue-100 p-4">
     <VueFeather type="tablet" class="size-5" stroke="#01193F" stroke-width="2"></VueFeather>
-    <p class="text-lg font-medium lowercase leading-none text-blue-400">
+    <p class="text-lg font-medium uppercase leading-none text-blue-400">
       {{ props.terminal.type }}
     </p>
   </li>
