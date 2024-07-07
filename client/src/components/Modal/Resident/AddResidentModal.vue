@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { IdentifierType } from "@/types/User/IdentifierType";
 import { usePermission } from "@/composables/usePermission";
-import type { SavePermissionDto } from "@/types/Permission";
 import { useUser } from "@/stores/user";
+import type { IdentifierType } from "@/types/User/IdentifierType";
+import type { SavePermissionDto } from "@/types/Permission";
+import type RegisteredUser from "@/types/User/RegisteredUser";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import DateTimeForm from "@/components/Forms/DateTimeForm.vue";
-import VueFeather from "vue-feather";
 import InputForm from "@/components/Forms/InputForm.vue";
-import type RegisteredUser from "@/types/User/RegisteredUser";
+import VueFeather from "vue-feather";
 import IdentityTypeSelection from "../IdentityTypeSelection.vue";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import ControlsModal from "../ControlsModal.vue";
+import SimpleAlert from "@/components/SimpleAlert.vue";
+import type Alert from "@/types/Alert";
+import { AlertType } from "@/types/Alert";
+import checkIsValidIdentifier from "@/utils/checkIsValidIdentifier";
+import { useToast } from "@/stores/toast";
+import { ToastType } from "@/types/Toast";
 
 const user = useUser();
 const data = ref<{
@@ -32,12 +38,50 @@ enum Message {
 
 const modal = ref<typeof Modal>();
 const { createPermission, error, loading } = usePermission();
+const { addToast } = useToast();
 
 const startDate = ref("");
 const endDate = ref("");
 const identificacion = ref("");
+const alertForDatetime = ref<Alert | undefined>();
+const alertForIdentifier = ref<Alert | undefined>();
+const alertFillData = ref<Alert | undefined>();
+
+
+function validateForm() {
+  if (!startDate.value || !endDate.value || !identificacion.value) {
+    alertFillData.value = {
+      message: "No se pueden dejar campos vacíos.",
+      type: AlertType.WARNING,
+    };
+    return false;
+  }
+  if (new Date(startDate.value) >= new Date(endDate.value)) {
+    alertForDatetime.value = {
+      message: "La fecha de inicio debe ser anterior a la fecha de fin.",
+      type: AlertType.WARNING,
+    };
+    return false;
+  }
+  if (!checkIsValidIdentifier(identificacion.value, data.value.identifierType)) {
+    alertForIdentifier.value = {
+      message: "Formato de identificación inválido.",
+      type: AlertType.WARNING,
+    };
+    return false;
+  }
+  
+  alertFillData.value = undefined;
+  alertForDatetime.value = undefined;
+  alertForIdentifier.value = undefined;
+  return true;
+}
 
 async function submitForm() {
+  if (!validateForm()) {
+    return;
+  }
+
   const dto: SavePermissionDto = {
     startDate: new Date(startDate.value),
     endDate: new Date(endDate.value),
@@ -47,9 +91,13 @@ async function submitForm() {
   await createPermission(dto);
 
   if (!error.value) {
+    addToast({ message: "Permiso creado correctamente", type: ToastType.SUCCESS });
     modal.value?.close();
   } else {
-    alert(error.value); // Maneja el error según sea necesario
+    alertForIdentifier.value = {
+      message: error.value,
+      type: AlertType.ERROR,
+    };
   }
 }
 
@@ -67,6 +115,8 @@ defineExpose({
     >
       <HeaderModal title="Solicitud" icon="file-text" action="add" />
       <div class="flex flex-col gap-4 px-4 py-6">
+        <SimpleAlert v-if="alertFillData" :alert="alertFillData" /> 
+        <SimpleAlert v-if="alertForDatetime" :alert="alertForDatetime" /> 
         <div class="flex max-h-[80vh] flex-row gap-2">
           <DateTimeForm
             class="flex-1"
@@ -91,6 +141,7 @@ defineExpose({
           @identity-type="data.identifierType = $event"
         />
 
+        <SimpleAlert v-if="alertForIdentifier" :alert="alertForIdentifier" />
         <InputForm
           v-model="identificacion"
           name="identificacion"
