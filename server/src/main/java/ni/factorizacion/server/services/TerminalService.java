@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface TerminalService {
     Optional<Terminal> findTerminalByType(TerminalType terminalType, String password);
     List<Terminal> findAll();
+
+    long getCount();
 }

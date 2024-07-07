@@ -3,7 +3,7 @@ import type User from "./User/User";
 
 export default interface Entry {
   uuid: string;
-  accessDate: Date;
+  accessDate: string;
   description: string;
   terminal: Terminal;
   user: User;

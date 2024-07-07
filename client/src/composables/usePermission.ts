@@ -1,6 +1,9 @@
 import { ref } from "vue";
 import { useAuthenticatedFetch } from "./useBaseFetch";
 import type { SavePermissionDto } from "@/types/Permission";
+import type GeneralResponse from "@/types/GeneralResponse";
+import type Permission from "@/types/Permission";
+
 
 export function usePermission() {
   const error = ref<string | null>(null);
@@ -30,4 +33,8 @@ export function usePermission() {
     error,
     loading,
   };
+}
+
+export async function getOwnEntry() {
+  return useAuthenticatedFetch("/api/permission/own-active").json<GeneralResponse<Permission>>();
 }

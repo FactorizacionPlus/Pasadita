@@ -4,8 +4,10 @@ import SearchBar from "@/components/SearchBar.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { matchSearch } from "@/utils/matchSearch";
+import { useAuthenticatedFetch } from "@/composables/useBaseFetch";
+import type GeneralResponse from "@/types/GeneralResponse";
 
 enum Message {
   TITLE = "Entradas",
@@ -18,7 +20,16 @@ const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = ["description", "user.firstName", "user.lastName", "user.identifier"];
 
-const entryList: EntryType[] = [];
+const entryList = ref<EntryType[]>([]);
+
+onMounted(async () => {
+  const { data } =
+    await useAuthenticatedFetch("/api/entry/all").json<GeneralResponse<EntryType[]>>();
+  const response = data.value;
+  if (Array.isArray(response?.data)) {
+    entryList.value = response.data as EntryType[];
+  }
+});
 </script>
 
 <template>

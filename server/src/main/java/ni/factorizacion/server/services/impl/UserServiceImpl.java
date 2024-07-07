@@ -16,13 +16,23 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAllAnonymous() {
         return repository.findAllAnonymous();
     }
 
     @Override
-    public List<User> findAllNoRole() {
+    public List<User> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public long getCountAnonymous() {
+        return repository.countAnonymous();
+    }
+
+    @Override
+    public long getCount() {
+        return repository.count();
     }
 
     @Override

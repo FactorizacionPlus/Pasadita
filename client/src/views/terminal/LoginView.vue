@@ -74,18 +74,13 @@ onMounted(() => {
 
 async function doLogin() {
   message.value = Message.LOADING_LOGIN;
-  const { data, statusCode } = await useBaseFetch("/auth/login/terminal")
+  const { data, error, statusCode } = await useBaseFetch("/auth/login/terminal")
     .json<GeneralResponse<string>>()
     .post(formData.value);
 
-  if (!data.value) {
-    message.value = Message.ERROR;
-    return;
-  }
-
   if (statusCode.value == 400) {
     message.value = Message.EMPTY;
-    const errorMap = data.value.data as unknown as ErrorMap;
+    const errorMap = data.value?.data as unknown as ErrorMap;
     setValidationErrorForm(inputMap, errorMap);
     return;
   }
@@ -94,13 +89,13 @@ async function doLogin() {
     message.value = Message.ERROR_AUTH;
     return;
   }
-  if (!data.value.ok) {
+  if (!data.value?.ok) {
     message.value = Message.ERROR;
     return;
   }
 
   terminal.setTerminalLogin({
-    type: formData.value.terminalType!,
+    terminalType: formData.value.terminalType!,
     password: formData.value.password,
   });
 }
