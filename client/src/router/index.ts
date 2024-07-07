@@ -119,6 +119,11 @@ const router = createRouter({
           name: "guest-home",
           component: () => import("../views/guest/HomeView.vue"),
         },
+        {
+          path: "configuraciones",
+          name: "guest-configurations",
+          component: () => import("../views/ConfigurationsView.vue"),
+        },
       ],
     },
     {
@@ -136,6 +141,11 @@ const router = createRouter({
           path: "historial-solicitudes",
           name: "resident-requests-history",
           component: () => import("../views/resident-panel/AccessRequestsView.vue"),
+        },
+        {
+          path: "configuraciones",
+          name: "resident-configurations",
+          component: () => import("../views/ConfigurationsView.vue"),
         },
       ],
     },
@@ -159,6 +169,11 @@ const router = createRouter({
           path: "residentes",
           name: "resident-chief-residents",
           component: () => import("../views/resident-manager-panel/ResidentsView.vue"),
+        },
+        {
+          path: "configuraciones",
+          name: "resident-chief-configurations",
+          component: () => import("../views/ConfigurationsView.vue"),
         },
       ],
     },

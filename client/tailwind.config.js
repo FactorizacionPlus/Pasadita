@@ -5,8 +5,9 @@ export default {
     'animate-slide-from-left'
   ],
   theme: {
-    fontFamily:{
-      'rubik': ['Rubik Variable', 'sans-serif']
+    fontFamily: {
+      'rubik': ['Rubik Variable', 'sans-serif'],
+      'openDyslexic': ['OpenDyslexic', 'sans-serif']
     },
     extend: {
       boxShadow: {
@@ -19,8 +20,8 @@ export default {
       },
       keyframes: {
         scale_up: {
-          '0%': { transform: 'scale(1.10)'},
-          '100%': { transform: 'scale(1)'}
+          '0%': { transform: 'scale(1.10)' },
+          '100%': { transform: 'scale(1)' }
         },
         slide_from_left: {
           '0%': { trasform: 'translateX(110%)' },
