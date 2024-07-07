@@ -22,12 +22,18 @@ const props = defineProps<{
   showRequestedBy?: boolean;
 }>();
 
+const emit = defineEmits(['delete-permission']);
+
 const currentState =
   props.permission.authorized != undefined
     ? props.permission.authorized
       ? Message.PERMISSION_APPROVED
       : Message.PERMISSION_REJECTED
     : Message.PERMISSION_PENDING;
+
+const handleDeleteClick = () => {
+  emit('delete-permission', props.permission);
+};
 </script>
 
 <template>
@@ -103,6 +109,7 @@ const currentState =
       <button
         type="button"
         v-if="!props.showControls"
+        @click="handleDeleteClick"
         class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>

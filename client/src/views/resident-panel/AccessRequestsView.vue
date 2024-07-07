@@ -36,6 +36,7 @@ async function loadPermissions() {
   if (!permissionData || !permissionData.ok) return;
   permissions.value = permissionData.data ?? [];
 }
+
 </script>
 
 <template>
