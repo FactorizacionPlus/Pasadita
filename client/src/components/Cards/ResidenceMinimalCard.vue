@@ -20,14 +20,15 @@ enum Message {
       <h2 class="text-base font-medium text-blue-500">{{ Message.SINGULAR }}</h2>
       <div class="flex flex-col items-center gap-2">
         <div class="flex items-center gap-2 text-blue-400">
-        <VueFeather type="home" class="size-8 min-w-8" stroke-width="1.5"></VueFeather>
-        <p class="text-base font-normal">
-          {{ props.residence.habitants }} / {{  props.residence.maxHabitants }} {{ Message.PEOPLE }}
+          <VueFeather type="home" class="size-8 min-w-8" stroke-width="1.5"></VueFeather>
+          <p class="text-base font-normal">
+            {{ props.residence.habitants }} / {{ props.residence.maxHabitants }}
+            {{ Message.PEOPLE }}
+          </p>
+        </div>
+        <p>
+          {{ props.residence.description }}
         </p>
-      </div>
-      <p>
-        {{ props.residence.description }}
-      </p>
       </div>
     </div>
   </div>

@@ -21,7 +21,6 @@ const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = ["description"];
 
-
 onMounted(async () => {
   await fetchResidence();
 });
@@ -56,7 +55,8 @@ async function fetchResidence() {
   <CurrentPageInfo :title="Message.TITLE" icon="home">
     <button
       class="flex justify-center rounded-lg bg-white p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-shades-100 active:scale-95"
-      @click="modalAdd?.show()">
+      @click="modalAdd?.show()"
+    >
       <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
       <span>{{ Message.CREATE_RESIDENCE }}</span>
     </button>
@@ -64,14 +64,19 @@ async function fetchResidence() {
   <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
     <ul class="grid w-full gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-      <Residences :class="{
+      <Residences
+        :class="{
           'animate-scale-up border-2 border-blue-400':
             matchSearch(residence, searchText, fieldsToSearch) && searchText.length > 2,
           hidden:
             !matchSearch(residence, searchText, fieldsToSearch) &&
             hideNoResults &&
             searchText.length > 2,
-        }" :residence="residence" v-for="(residence, index) in residence" :key="index"  />
+        }"
+        :residence="residence"
+        v-for="(residence, index) in residence"
+        :key="index"
+      />
     </ul>
     <!--<PaginationItem v-bind="page" v-model="pagination.page" v-if="page" />-->
     <ModalAdd ref="modalAdd" />

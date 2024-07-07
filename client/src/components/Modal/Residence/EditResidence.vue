@@ -29,8 +29,8 @@ const message = ref<Message>(Message.EMPTY);
 const modal = ref<typeof Modal>();
 const alertForIdentifier = ref<Alert | undefined>();
 
-  const formData = ref({
-  description:"",
+const formData = ref({
+  description: "",
   identification: "",
 });
 
@@ -41,7 +41,6 @@ const inputMap = new Map<string, Ref<InputFormType | undefined>>();
 onMounted(async () => {
   inputMap.set(identificationInput.value!.props.name, identificationInput);
 });
-
 
 /*const people: Option[] = [
   {
@@ -75,7 +74,6 @@ defineExpose({
   show: () => modal.value?.show(),
   close: () => modal.value?.close(),
 });
-
 </script>
 
 <template>
@@ -83,32 +81,52 @@ defineExpose({
     <form class="overflow-hidden rounded-md bg-white">
       <HeaderModal title="Residencia" icon="home" action="edit" />
       <BodyModal>
-          <TextAreaForm ref="description" v-model="formData.description" name="description" title="Descripcion de la residencia"
-            placeholder="Inserte la cantidad de habitantes" />
-          <BoxContainerForm :items="boxItems" title="Residentes Encargados" />
-          <div class="flex gap-2">
-            <InputForm name="quantity" title="Cantidad de habitantes" type="number"
-              placeholder="Inserte la cantidad de habitantes" />
-            <InputForm ref="identificacion" v-model="formData.identification" name="quantity" title="Identificacion" type="text"
-              placeholder="Inserte la cantidad de habitantes" />
-            <button
-              class="inline-flex items-center gap-1  rounded-lg bg-blue-100 p-2 text-center text-base font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95">
-              <VueFeather type="search" stroke-width="2.5" size="15"></VueFeather>
-              <span>Agregar</span>
-            </button>
-          </div>
+        <TextAreaForm
+          ref="description"
+          v-model="formData.description"
+          name="description"
+          title="Descripcion de la residencia"
+          placeholder="Inserte la cantidad de habitantes"
+        />
+        <BoxContainerForm :items="boxItems" title="Residentes Encargados" />
+        <div class="flex gap-2">
+          <InputForm
+            name="quantity"
+            title="Cantidad de habitantes"
+            type="number"
+            placeholder="Inserte la cantidad de habitantes"
+          />
+          <InputForm
+            ref="identificacion"
+            v-model="formData.identification"
+            name="quantity"
+            title="Identificacion"
+            type="text"
+            placeholder="Inserte la cantidad de habitantes"
+          />
+          <button
+            class="inline-flex items-center gap-1 rounded-lg bg-blue-100 p-2 text-center text-base font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
+          >
+            <VueFeather type="search" stroke-width="2.5" size="15"></VueFeather>
+            <span>Agregar</span>
+          </button>
+        </div>
       </BodyModal>
       <ControlsModal>
         <button
-            class="inline-flex items-center rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
-            <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
-            <span>Aceptar</span>
-          </button>
-          <button @click="modal?.close()" type="button"
-            class="inline-flex items-center rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
-            <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
-            <span>Cancelar</span>
-          </button>
+          class="inline-flex items-center rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95"
+        >
+          <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
+          <span>Aceptar</span>
+        </button>
+        <button
+          @click="modal?.close()"
+          type="button"
+          class="inline-flex items-center rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
+        >
+          <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
+          <span>Cancelar</span>
+        </button>
       </ControlsModal>
     </form>
   </Modal>
