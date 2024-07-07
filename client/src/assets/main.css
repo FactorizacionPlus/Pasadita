@@ -1,6 +1,6 @@
 @import "@fontsource-variable/rubik";
-@import '@fontsource/opendyslexic/400.css';
-@import '@fontsource/opendyslexic/700.css';
+@import "@fontsource/opendyslexic/400.css";
+@import "@fontsource/opendyslexic/700.css";
 
 @tailwind base;
 @tailwind components;

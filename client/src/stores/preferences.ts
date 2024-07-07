@@ -7,7 +7,7 @@ function createInitialData(): Preference {
     highContrast: false,
     dyslexicFont: false,
     fontSize: "NORMAL",
-  }
+  };
   return initialData;
 }
 
@@ -25,7 +25,7 @@ export const usePreferences = defineStore("preferences", () => {
   }
 
   function resetData() {
-    const initialData = createInitialData()
+    const initialData = createInitialData();
     setPreferences(initialData);
   }
 
@@ -34,7 +34,7 @@ export const usePreferences = defineStore("preferences", () => {
   function setPreferences(preferences: Preference) {
     preferencesRef.value = preferences;
     localStorage.setItem("preferences", JSON.stringify(preferences));
-  };
+  }
 
   return { preferences, setPreferences, resetData };
 });

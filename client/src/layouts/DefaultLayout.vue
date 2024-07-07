@@ -34,6 +34,8 @@ const fontSizeClass = computed(() => {
       return "text-[24px]";
     case "SMALL":
       return "text-[12px]";
+    default:
+      return "";
   }
 })
 
