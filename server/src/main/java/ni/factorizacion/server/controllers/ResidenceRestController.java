@@ -38,6 +38,16 @@ public class ResidenceRestController {
         return GeneralResponse.ok("Found residences", residenceSimpleDtos);
     }
 
+    @GetMapping("/{uuid}")
+    public ResponseEntity<GeneralResponse<ResidenceSimpleDto>> getResidence(@PathVariable UUID uuid) {
+        Optional<Residence> residence = service.findById(uuid);
+        if (residence.isEmpty()) {
+            return GeneralResponse.error404("Residence not found");
+        }
+        ResidenceSimpleDto residenceSimpleDto = ResidenceSimpleDto.from(residence.get());
+        return GeneralResponse.ok("Found residence", residenceSimpleDto);
+    }
+
     @PostMapping(consumes = "application/json")
     public ResponseEntity<GeneralResponse<Residence>> saveResidence(@Valid @RequestBody SaveResidenceDto residenceDto) throws Exception {
         service.saveResidence(residenceDto);
