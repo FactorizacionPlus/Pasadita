@@ -5,7 +5,6 @@ import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.InvitedUserRepository;
 import ni.factorizacion.server.services.InvitedUserService;
-import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
