@@ -8,12 +8,15 @@ import ControlsModal from "../ControlsModal.vue";
 import { useToast } from "@/stores/toast";
 import type RegisteredUser from "@/types/User/RegisteredUser";
 import { ToastType } from "@/types/Toast";
+import type UserStatus from "@/types/User/UserStatus";
+import { setUserStatus } from "@/composables/useRegisteredUser";
 
 const modal = ref<typeof Modal>();
 
 const { addToast } = useToast();
 
 const props = defineProps<{user: RegisteredUser}>()
+
 
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
@@ -26,8 +29,17 @@ defineExpose({
   close: () => modal.value?.close(),
 });
 
-function handleSubmit(){
+const userState : UserStatus = {
+  identifier: props.user.identifier,
+  status: 'INACTIVE'
+}
 
+async function handleSubmit(event: Event){
+  event.preventDefault();
+  
+  const response = await setUserStatus(userState)
+  console.log(response.data.value, response.statusCode)
+  console.log(props.user.status)
   addToast({message: "Grande", type: ToastType.SUCCESS}) 
 }
 

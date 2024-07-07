@@ -6,10 +6,10 @@ import Passport from "@/passport-solid.svg?component";
 import VueFeather from "vue-feather";
 import { RouterLink } from "vue-router";
 import getUserRole from "@/utils/getUserRole";
-import KickUser from "../Modal/Administrator/KickUser.vue";
+import SetUserState from "../Modal/Administrator/SetUserState.vue";
 import { ref } from "vue";
 
-const kickUser = ref<typeof KickUser>();
+const setUserState = ref<typeof SetUserState>();
 
 
 enum MESSAGE {
@@ -57,7 +57,7 @@ const ADMIN_ROUTE = "/admin/usuario/";
       </RouterLink>
       <button
         type="button"
-        @click="kickUser?.show()"
+        @click="setUserState?.show()"
         v-if="props.user.role != 'ROLE_ADMIN'"
         class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
@@ -65,5 +65,5 @@ const ADMIN_ROUTE = "/admin/usuario/";
       </button>
     </div>
   </li>
-  <KickUser :user="props.user" ref="kickUser" />
+  <SetUserState :user="props.user" ref="setUserState" />
 </template>
