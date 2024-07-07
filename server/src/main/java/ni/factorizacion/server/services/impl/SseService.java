@@ -36,11 +36,16 @@ public class SseService {
 
     public <T> void sendEvent(T payload, String eventName) {
         var event = createEvent(payload, "");
+        var namedEvent = createEvent(payload, eventName);
 
         for (CustomSseEmitter emitter : emitters) {
             try {
                 if (emitter.getEventName().equals(eventName)) {
-                    emitter.send(event);
+                    if (eventName.equals("entry-added")) {
+                        emitter.send(namedEvent);
+                    } else {
+                        emitter.send(event);
+                    }
                 }
             } catch (IOException exception) {
                 emitter.completeWithError(exception);
