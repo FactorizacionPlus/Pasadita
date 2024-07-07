@@ -2,6 +2,7 @@ package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.FinishRegisterDto;
+import ni.factorizacion.server.domain.dtos.output.RegisteredUserSimpleDto;
 import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Resident;
@@ -66,21 +67,22 @@ public class RegisteredUserRestController {
         return GeneralResponse.ok("Migrated to resident", null);
     }
 
-    @PreAuthorize("hasRole('ROLE_INVITED')")
     @PostMapping("/finish-register")
-    public ResponseEntity<GeneralResponse<String>> finishRegister(@RequestBody FinishRegisterDto finishRegisterDto) {
+    @PreAuthorize("hasRole('ROLE_INVITED')")
+    public ResponseEntity<GeneralResponse<RegisteredUserSimpleDto>> finishRegister(@RequestBody FinishRegisterDto finishRegisterDto) {
         Optional<RegisteredUser> registeredUser = registeredUserService.findByEmail(finishRegisterDto.getEmail());
 
         if (registeredUser.isEmpty()) {
             return GeneralResponse.error404("User not found.");
         }
+        InvitedUser invitedUser = (InvitedUser) registeredUser.get();
 
-        registeredUser.get().setIdentifier(finishRegisterDto.getIdentifier());
-        registeredUser.get().setIdentifierType(finishRegisterDto.getIdentifierType());
+        invitedUser.setIdentifier(finishRegisterDto.getIdentifier());
+        invitedUser.setIdentifierType(finishRegisterDto.getIdentifierType());
 
-        Optional<InvitedUser> invitedUser = invitedUserService.createFrom(registeredUser.get());
+        var simpleDto = RegisteredUserSimpleDto.from(invitedUser);
 
-        invitedUserService.save(invitedUser.orElse(null));
-        return GeneralResponse.ok("Finished Register", null);
+        invitedUserService.save(invitedUser);
+        return GeneralResponse.ok("Finished Register", simpleDto);
     }
 }

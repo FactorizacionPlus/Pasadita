@@ -3,7 +3,7 @@ import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
-import Pasadita from "@/assets/PasaditaLogo.svg?component";
+import Pasadita from "@/assets/PasaditaLogo.svg?url";
 
 const modal = ref<typeof Modal>();
 
@@ -19,9 +19,9 @@ defineExpose({
       <HeaderModal title="Permiso Activo" icon="grid" action="view" />
 
       <div class="flex max-h-[80vh] items-center gap-4 px-4 py-6">
-        <Pasadita />
+        <img :src="Pasadita" alt="pasadita" />
         <p class="text-3xl font-semibold text-pasadita-blue-1">
-          No Hay Ningun <br />
+          No Hay Ningún <br />
           Permiso Activo
         </p>
       </div>
