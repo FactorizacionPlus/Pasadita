@@ -19,28 +19,31 @@ import type SaveIdentification from "@/types/Guest/SaveIdentification";
 import { requestIdentification } from "@/composables/requestIdentification";
 import type { ErrorMap } from "@/types/ErrorMap";
 import { setValidationErrorForm, type InputFormType } from "@/utils/formValidation";
+import { useToast } from "@/stores/toast";
+import { ToastType } from "@/types/Toast";
 
 const modal = ref<typeof Modal>();
 const alertForIdentifier = ref<Alert | undefined>();
 const user = useUser();
+const { addToast } = useToast();
 
 const data = ref<{
   registeredUser: RegisteredUser,
   identifierType: IdentifierType,
   identifier: string,
-}>({registeredUser: user.user as RegisteredUser , identifierType: "DUI", identifier: "" });
+}>({
+  registeredUser: user.user as RegisteredUser,
+  identifierType: "DUI",
+  identifier: "",
+});
 
 const emit = defineEmits(['toggle-menu']);
 
 const formData = ref<SaveIdentification>({
-  indentifier:"",
-  email:data.value.registeredUser.email,
-  indentifierType: data.value.identifierType,
+  identifier: "",
+  email: data.value.registeredUser.email,
+  identifierType: data.value.identifierType,
 });
-
-
-console.log(data.value.registeredUser)
-console.log(data.value.identifierType)
 
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
@@ -56,9 +59,9 @@ defineExpose({
 const identificationInput = ref<InputFormType>();
 const inputMap = new Map<string, Ref<InputFormType | undefined>>();
 
-onMounted(() => {
-  modal.value?.show();
+onMounted(async () => {
   inputMap.set(identificationInput.value!.props.name, identificationInput);
+  console.log(data.value);
 });
 
 const alertFillData: Alert = {
@@ -67,33 +70,29 @@ const alertFillData: Alert = {
 };
 
 async function request(): Promise<boolean> {
-  console.log(formData.value)
+  console.log(formData.value);
   const { data, statusCode } = await requestIdentification(formData.value);
 
   if (!data.value) {
     return false;
   }
 
-  if (statusCode.value == 400) {
+  if (statusCode.value === 400) {
     const errorMap = data.value?.data as unknown as ErrorMap;
     setValidationErrorForm(inputMap, errorMap);
   }
 
+  user.setUser(data.value.data);
+  addToast({ message: "Identificación agregada", type: ToastType.SUCCESS });
   return data.value?.ok;
 }
 
 async function handleSubmit(event: Event) {
   event.preventDefault();
 
-  const valid = await request();
-
-  if (valid) {
-    formData.value.indentifier = "";
-  }
-
   if (!data.value.identifier) {
     const alert: Alert = {
-      message: "Llena esta mierda hpta",
+      message: "No puede dejar campos vacios",
       type: AlertType.WARNING,
     };
     alertForIdentifier.value = alert;
@@ -102,13 +101,19 @@ async function handleSubmit(event: Event) {
 
   if (!checkIsValidIdentifier(data.value.identifier, data.value.identifierType as IdentifierType)) {
     const alert: Alert = {
-      message: "Esta mierda no calza con el formato de la turca que se usa hpta",
+      message: "Formato invalido",
       type: AlertType.WARNING,
     };
     alertForIdentifier.value = alert;
     return;
   }
-  resetValues();
+
+  const valid = await request();
+
+  if (valid) {
+    resetValues();
+  }
+
   modal.value?.close();
   emit('toggle-menu');
 }
@@ -118,21 +123,23 @@ function resetValues() {
   alertForIdentifier.value = undefined;
 }
 </script>
+
 <template>
   <Modal ref="modal">
     <form class="w-full max-w-xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
       <HeaderModal :title="Message.ACCOUNT" icon="user" action="create" />
       <BodyModal>
         <UserImage :image="data.registeredUser.imageUrl" class="size-36 self-center" />
-
         <div class="flex w-full items-center gap-3 text-xl text-pasadita-blue-1">
-          <InputForm :disabled="true" :model-value="data.registeredUser.firstName" name="firstName" title="Nombre" type="text" class="flex-1" />
-          <InputForm :disabled="true" :model-value="data.registeredUser.lastName" name="lastName" title="Apellido" type="text" class="flex-1" />
+          <InputForm :disabled="true" :model-value="data.registeredUser.firstName" name="firstName" title="Nombre"
+            type="text" class="flex-1" />
+          <InputForm :disabled="true" :model-value="data.registeredUser.lastName" name="lastName" title="Apellido"
+            type="text" class="flex-1" />
         </div>
         <SimpleAlert :alert="alertFillData" />
         <IdentityTypeSelection :identity-type="data.identifierType" @identity-type="data.identifierType = $event" />
         <InputForm ref="identificationInput" :modelValue="data.identifier" :alert="alertForIdentifier" name="identifier"
-          @update:value="data.identifier = $event" v-model="formData.indentifier" title="Identificación" type="text" />
+          @update:value="data.identifier = $event" v-model="formData.identifier" title="Identificación" type="text" />
       </BodyModal>
       <ControlsModal>
         <button type="submit"
