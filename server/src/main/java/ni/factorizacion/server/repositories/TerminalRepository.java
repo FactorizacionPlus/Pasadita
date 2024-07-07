@@ -8,5 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TerminalRepository extends JpaRepository<Terminal, UUID> {
+    Optional<Terminal> findByType(TerminalType type);
+
     Optional<Terminal> findByTypeAndPassword(TerminalType type, String password);
 }
