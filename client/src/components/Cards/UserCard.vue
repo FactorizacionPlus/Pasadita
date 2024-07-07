@@ -5,6 +5,7 @@ import IdentityCard from "@/IdentityCard.svg?component";
 import Passport from "@/passport-solid.svg?component";
 import VueFeather from "vue-feather";
 import type { UserRole } from "@/types/User/UserRole";
+import { RouterLink } from "vue-router";
 
 enum MESSAGE {
  ENTRY_QUANTITY = "Cantidad de Entradas: "
@@ -14,6 +15,7 @@ const props = defineProps<{
   user: RegisteredUser;
 }>();
 
+const ADMIN_ROUTE = "/admin/usuario/";
 
 const role: { [key in UserRole]: string } = {
   ROLE_INVITED: "Invitado",
@@ -21,7 +23,6 @@ const role: { [key in UserRole]: string } = {
   ROLE_RESIDENT_SUDO: "Residente Encargado",
   ROLE_ADMIN: "Administrador"
 };
-
 
 </script>
 
@@ -48,12 +49,12 @@ const role: { [key in UserRole]: string } = {
       </div>
     </div>
     <div class="flex justify-end gap-2 p-2">
-      <a
-        href=""
+      <RouterLink
+        :to="ADMIN_ROUTE + props.user.uuid"
         class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
       >
         <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather>
-      </a>
+      </RouterLink>
       <button
         type="button"
         v-if="props.user.role != 'ROLE_ADMIN'"
