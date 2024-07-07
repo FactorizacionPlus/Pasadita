@@ -92,7 +92,7 @@ async function handleSubmit(event: Event) {
 
   if (!data.value.identifier) {
     const alert: Alert = {
-      message: "No puede dejar campos vacios",
+      message: "No se pueden dejar campos vacíos.",
       type: AlertType.WARNING,
     };
     alertForIdentifier.value = alert;
