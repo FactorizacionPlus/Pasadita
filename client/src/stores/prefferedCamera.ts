@@ -1,17 +1,34 @@
+import { reactive, watch } from "vue";
 import { defineStore } from "pinia";
-import { ref } from "vue";
 
-export const usePrefferedCamera = defineStore("prefferedCamera", () => {
-  const initialData = localStorage.getItem("prefferedCamera");
-  const prefferedCamera = ref<string>();
+export interface CameraPreference {
+  cameraId: string | null;
+  useTorch: boolean;
+}
+
+function createInitialData(): CameraPreference {
+  return {
+    cameraId: null,
+    useTorch: false,
+  };
+}
+
+export const useCameraPreferences = defineStore("preferredCamera", () => {
+  const initialData = localStorage.getItem("preferredCamera");
+  let data = createInitialData();
   if (initialData) {
-    prefferedCamera.value = initialData;
+    try {
+      data = JSON.parse(initialData);
+    } catch (e) {
+      localStorage.removeItem("preferredCamera");
+    }
   }
 
-  const setPrefferedCamera = (id: string) => {
-    prefferedCamera.value = id;
-    localStorage.setItem("prefferedCamera", id);
-  };
+  const preferencesRef = reactive<CameraPreference>(data);
 
-  return { id: prefferedCamera, setId: setPrefferedCamera };
+  watch(preferencesRef, (v) => {
+    localStorage.setItem("preferredCamera", JSON.stringify(v));
+  });
+
+  return { preferences: preferencesRef };
 });
