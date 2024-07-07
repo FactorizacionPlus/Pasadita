@@ -28,6 +28,7 @@ const user = useUser();
 const { addToast } = useToast();
 
 const data = ref<{
+<<<<<<< HEAD
   registeredUser: RegisteredUser;
   identifierType: IdentifierType;
   identifier: string;
@@ -44,6 +45,11 @@ const formData = ref<SaveIdentification>({
   email: data.value.registeredUser.email,
   identifierType: data.value.identifierType,
 });
+=======
+  identifierType: IdentifierType;
+  identifier: string;
+}>({ identifierType: "DUI", identifier: "" });
+>>>>>>> origin/master
 
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
@@ -154,12 +160,18 @@ function resetValues() {
           @identity-type="data.identifierType = $event"
         />
         <InputForm
+<<<<<<< HEAD
           ref="identificationInput"
+=======
+>>>>>>> origin/master
           :modelValue="data.identifier"
           :alert="alertForIdentifier"
           name="identifier"
           @update:value="data.identifier = $event"
+<<<<<<< HEAD
           v-model="formData.identifier"
+=======
+>>>>>>> origin/master
           title="Identificación"
           type="text"
         />
