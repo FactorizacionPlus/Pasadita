@@ -7,12 +7,19 @@ import type Residence from "@/types/Residence";
 import SearchBar from "@/components/SearchBar.vue";
 import ModalAdd from "@/components/Modal/Residence/ManageResidence.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
+import type Pagination from "@/types/utils/Pagination";
+import type Page from "@/types/Page";
 const modalAdd = ref<typeof ModalAdd>();
 
 enum Message {
   TITLE = "Residencias",
   CREATE_RESIDENCE = "Crear Residencia",
 }
+
+const pagination = ref<Partial<Pagination>>({
+  page: 0,
+});
+const page = ref<Page>();
 
 const residenceList: Residence[] = [
   {
@@ -52,7 +59,7 @@ const residenceList: Residence[] = [
         :key="residence.description"
       />
     </ul>
-    <PaginationItem class="pt-4" :total-pages="6" />
+    <PaginationItem v-bind="page" v-model="pagination.page" v-if="page" />
     <ModalAdd ref="modalAdd" />
   </article>
 </template>

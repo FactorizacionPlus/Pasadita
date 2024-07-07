@@ -5,10 +5,18 @@ import PaginationItem from "@/components/PaginationItem.vue";
 import type EntryType from "@/types/Entry";
 import EntryCard from "@/components/Cards/EntryCard.vue";
 import type RegisteredUser from "@/types/User/RegisteredUser";
+import type Pagination from "@/types/utils/Pagination";
+import type Page from "@/types/Page";
+import { ref } from "vue";
 
 enum Message {
   TITLE = "Usuarios",
 }
+
+const pagination = ref<Partial<Pagination>>({
+  page: 0,
+});
+const page = ref<Page>();
 
 /*const entryList: EntryType[] = [
   {
@@ -56,6 +64,6 @@ enum Message {
     <ul class="grid gap-4 lg:grid-cols-2">
       <!--<EntryCard :entry="entry" v-for="(entry, index) in entryList" :key="index" />-->
     </ul>
-    <PaginationItem :total-pages="6" />
+    <PaginationItem v-bind="page" v-model="pagination.page" v-if="page" />
   </article>
 </template>
