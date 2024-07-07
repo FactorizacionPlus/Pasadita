@@ -20,9 +20,7 @@ const fieldsToSearch = ["firstName", "lastName", "identifier", "email"];
 onMounted(async () => {
   const { data } = await getEverythingEverywhereAllAtOnce()
   const response = data.value;
-  if (Array.isArray(response?.data)) {
-    users.value = response.data as RegisteredUser[];
-  }
+  users.value = response?.data || []
 })
 
 </script>
@@ -42,4 +40,5 @@ onMounted(async () => {
       }" :user="user" v-for="(user, index) in users" :key="index" />
     </ul>
   </article>
+
 </template>
