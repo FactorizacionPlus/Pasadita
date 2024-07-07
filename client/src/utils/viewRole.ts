@@ -11,7 +11,7 @@ export function getViewRole(): ViewRole | null {
   if (user.user) {
     role = user.user.role;
   } else if (terminal.terminalLogin) {
-    if (terminal.terminalLogin.type == "MANUAL") {
+    if (terminal.terminalLogin.terminalType == "MANUAL") {
       role = "TERMINAL_MANUAL";
     } else {
       role = "TERMINAL";

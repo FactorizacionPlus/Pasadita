@@ -1,6 +1,6 @@
 import type { TerminalType } from "./TerminalType";
 
 export default interface TerminalLogin {
-  type: TerminalType;
+  terminalType: TerminalType;
   password: string;
 }
