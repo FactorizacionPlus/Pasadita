@@ -2,7 +2,7 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   safelist: [
-    'animate-slide-from-left'
+    'animate-slide-left', 'animate-slide-right'
   ],
   theme: {
     fontFamily: {
@@ -16,7 +16,8 @@ export default {
       },
       animation: {
         'scale-up': 'scale_up 0.3s',
-        'slide-left': 'slide_from_left 1s'
+        'slide-left': 'slide_from_left 1s',
+        'slide-right': 'slide_from_right 1s'
       },
       keyframes: {
         scale_up: {
@@ -24,8 +25,12 @@ export default {
           '100%': { transform: 'scale(1)' }
         },
         slide_from_left: {
-          '0%': { trasform: 'translateX(110%)' },
-          '100%': { trasform: 'translateX(0)' },
+          '0%': { transform: 'translateX(110%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slide_from_right: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(110%)' },
         }
       },
       colors: {

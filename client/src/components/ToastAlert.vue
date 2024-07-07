@@ -47,18 +47,27 @@ const toastColor: { [key in ToastType]: string } = {
 const props = defineProps<{ toast: Toast }>();
 
 const li = ref<HTMLLIElement | undefined>();
+const isClosing = ref(false);
+
 onMounted(() => {
   setTimeout(() => {
-    li.value?.remove();
+    closeToast();
   }, 10000);
 });
+
+const closeToast = () => {
+  isClosing.value = true;
+  setTimeout(() => {
+    li.value?.remove();
+  }, 1000);
+};
 </script>
 
 <template>
   <li
     ref="li"
-    class="my-2 flex animate-slide-left flex-row items-center justify-between gap-2 rounded-md border-2 border-b-4"
-    :class="[toastBackground[props.toast.type], toastBorder[props.toast.type]]"
+    class="my-2 flex flex-row items-center justify-between gap-2 rounded-md border-2 border-b-4"
+    :class="[toastBackground[props.toast.type], toastBorder[props.toast.type], isClosing ? 'animate-slide-right' : 'animate-slide-left']"
   >
     <div class="flex flex-row items-center gap-1 p-2" :class="toastColor[props.toast.type]">
       <VueFeather
@@ -72,11 +81,7 @@ onMounted(() => {
     </div>
 
     <button
-      @click="
-        () => {
-          li?.remove();
-        }
-      "
+      @click="closeToast"
       class="group relative flex flex-row items-center justify-center border-l-2 px-3"
       :class="[toastColor[props.toast.type], toastBorder[props.toast.type]]"
     >
