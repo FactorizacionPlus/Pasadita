@@ -17,7 +17,7 @@ export const RoleRootPath: { [key in ViewRole]: string } = {
 
 export interface CustomRouteMeta extends RouteMeta {
   rootPath?: string;
-  role: ViewRole;
+  roles: ViewRole[];
 }
 
 const router = createRouter({
@@ -64,7 +64,7 @@ const router = createRouter({
       path: "/admin",
       name: "admin",
       component: AdminLayout,
-      meta: { rootPath: "/admin", role: "ROLE_ADMIN" } as CustomRouteMeta,
+      meta: { rootPath: "/admin", roles: ["ROLE_ADMIN"] } as CustomRouteMeta,
       children: [
         {
           path: "",
@@ -122,7 +122,7 @@ const router = createRouter({
       path: "/invitado",
       name: "guest",
       component: DefaultLayout,
-      meta: { rootPath: "/invitado", role: "ROLE_INVITED" } as CustomRouteMeta,
+      meta: { rootPath: "/invitado", roles: ["ROLE_INVITED"] } as CustomRouteMeta,
       children: [
         {
           path: "",
@@ -140,7 +140,7 @@ const router = createRouter({
       path: "/residente",
       name: "resident",
       component: DefaultLayout,
-      meta: { rootPath: "/residente", role: "ROLE_RESIDENT" } as CustomRouteMeta,
+      meta: { rootPath: "/residente", roles: ["ROLE_RESIDENT"] } as CustomRouteMeta,
       children: [
         {
           path: "",
@@ -163,7 +163,7 @@ const router = createRouter({
       path: "/residente-encargado",
       name: "resident-chief",
       component: DefaultLayout,
-      meta: { rootPath: "/residente-encargado", role: "ROLE_RESIDENT_SUDO" } as CustomRouteMeta,
+      meta: { rootPath: "/residente-encargado", roles: ["ROLE_RESIDENT_SUDO"] } as CustomRouteMeta,
       children: [
         {
           path: "",
@@ -191,18 +191,18 @@ const router = createRouter({
       path: "/terminal",
       name: "terminal",
       component: DefaultLayout,
-      meta: { rootPath: "/terminal", role: "TERMINAL" } as CustomRouteMeta,
+      meta: { rootPath: "/terminal", roles: ["TERMINAL"] } as CustomRouteMeta,
       children: [
         {
           path: "",
           name: "terminal-home",
-          meta: { role: "TERMINAL_MANUAL" } as CustomRouteMeta,
+          meta: { roles: ["TERMINAL_MANUAL"] } as CustomRouteMeta,
           component: () => import("../views/terminal/HomeView.vue"),
         },
         {
           path: "camera",
           name: "terminal-camera",
-          meta: { role: "TERMINAL" } as CustomRouteMeta,
+          meta: { roles: ["TERMINAL", "TERMINAL_MANUAL"] } as CustomRouteMeta,
           component: () => import("../views/terminal/CameraView.vue"),
         },
       ],
