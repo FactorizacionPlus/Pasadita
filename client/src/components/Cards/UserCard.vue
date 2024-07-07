@@ -4,8 +4,8 @@ import UserImage from "../UserImage.vue";
 import IdentityCard from "@/IdentityCard.svg?component";
 import Passport from "@/passport-solid.svg?component";
 import VueFeather from "vue-feather";
-import type { UserRole } from "@/types/User/UserRole";
 import { RouterLink } from "vue-router";
+import getUserRole from "@/utils/getUserRole";
 
 enum MESSAGE {
  ENTRY_QUANTITY = "Cantidad de Entradas: "
@@ -17,19 +17,12 @@ const props = defineProps<{
 
 const ADMIN_ROUTE = "/admin/usuario/";
 
-const role: { [key in UserRole]: string } = {
-  ROLE_INVITED: "Invitado",
-  ROLE_RESIDENT: "Residente",
-  ROLE_RESIDENT_SUDO: "Residente Encargado",
-  ROLE_ADMIN: "Administrador"
-};
-
 </script>
 
 <template>
   <li class="flex flex-col rounded-lg border border-blue-200">
     <div class="flex flex-col gap-2 rounded-t-lg bg-shades-100 p-2">
-      <h2 class="font-bold">{{ role[props.user.role] }}</h2>
+      <h2 class="font-bold">{{ getUserRole(user.role) }}</h2>
       <div class="flex items-center gap-2">
         <UserImage class="size-[84px]" :image="user.imageUrl" />
         <div class="text-blue-400">
