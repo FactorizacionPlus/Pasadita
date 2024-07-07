@@ -5,6 +5,8 @@ import ni.factorizacion.server.domain.dtos.output.EntrySimpleDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,32 +36,32 @@ public class EntryController {
     ResidenceService residenceService;
 
     @GetMapping("/own")
-    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getOwnEntries() {
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getOwnEntries(Pageable pageable) {
         Optional<RegisteredUser> user = authenticationService.getCurrentAuthenticatedUser();
         if (user.isEmpty()) {
             return GeneralResponse.error404("User not found");
         }
-        List<Entry> entries = entryService.getEntriesByUser(user.get());
-        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+        Page<Entry> entries = entryService.getEntriesByUser(user.get(), pageable);
+        Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
 
         return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/user/{identifier}")
-    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getUserEntries(@PathVariable String identifier) {
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getUserEntries(@PathVariable String identifier, Pageable pageable) {
         Optional<User> user = userService.findByIdentifier(identifier);
         if (user.isEmpty()) {
             return GeneralResponse.error404("User not found");
         }
-        List<Entry> entries = entryService.getEntriesByUser(user.get());
-        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+        Page<Entry> entries = entryService.getEntriesByUser(user.get(), pageable);
+        Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
 
         return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/own-residence")
     @PreAuthorize("hasRole('ROLE_RESIDENT')")
-    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getOwnResidenceEntries() {
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getOwnResidenceEntries(Pageable pageable) {
         Optional<RegisteredUser> user = authenticationService.getCurrentAuthenticatedUser();
         if (user.isEmpty()) {
             return GeneralResponse.error404("User not found");
@@ -74,14 +75,14 @@ public class EntryController {
             return GeneralResponse.error404("Resident does not have a Residence");
         }
 
-        List<Entry> entries = entryService.getEntriesByResidence(resident.getResidence());
-        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+        Page<Entry> entries = entryService.getEntriesByResidence(resident.getResidence(), pageable);
+        Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
 
         return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/residence/{residenceS}")
-    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getResidenceEntries(@PathVariable String residenceS) {
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getResidenceEntries(@PathVariable String residenceS, Pageable pageable) {
         UUID uuid = UUID.fromString(residenceS);
 
         Optional<Residence> residence = residenceService.findById(uuid);
@@ -89,19 +90,19 @@ public class EntryController {
             return GeneralResponse.error404("Residence not found");
         }
 
-        List<Entry> entries = entryService.getEntriesByResidence(residence.get());
-        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+        Page<Entry> entries = entryService.getEntriesByResidence(residence.get(), pageable);
+        Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
 
         return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<GeneralResponse<List<EntrySimpleDto>>> getAllEntries() {
-        List<Entry> entries = entryService.findAll();
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getAllEntries(Pageable pageable) {
+        Page<Entry> entries = entryService.findAll(pageable);
         if (entries.isEmpty()) {
-            return GeneralResponse.ok("No entries found", List.of());
+            return GeneralResponse.ok("No entries found", Page.empty());
         }
-        List<EntrySimpleDto> entrySimpleDtos = entries.stream().map(EntrySimpleDto::from).toList();
+        Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
         return GeneralResponse.ok("Found entries", entrySimpleDtos);
     }
 

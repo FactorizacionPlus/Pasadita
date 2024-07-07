@@ -6,14 +6,15 @@ import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.ResidentRole;
 import ni.factorizacion.server.types.ControlException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ResidentService {
-    List<Resident> findAll();
+    Page<Resident> findAll(Pageable pageable);
 
-    List<Resident> findAllByResidence(Residence residence);
+    Page<Resident> findAllByResidence(Residence residence, Pageable pageable);
 
     Optional<Resident> findByIdentifier(String identifier);
 

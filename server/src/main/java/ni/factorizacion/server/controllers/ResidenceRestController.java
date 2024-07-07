@@ -11,10 +11,11 @@ import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.services.ResidentService;
 import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,12 +30,12 @@ public class ResidenceRestController {
     private ResidentService residentService;
 
     @GetMapping
-    public ResponseEntity<GeneralResponse<List<ResidenceSimpleDto>>> getAllResidences() {
-        List<Residence> residences = service.findAll();
+    public ResponseEntity<GeneralResponse<Page<ResidenceSimpleDto>>> getAllResidences(Pageable pageable) {
+        Page<Residence> residences = service.findAll(pageable);
         if (residences.isEmpty()) {
-            return GeneralResponse.ok("No residences found", List.of());
+            return GeneralResponse.ok("No residences found", Page.empty());
         }
-        List<ResidenceSimpleDto> residenceSimpleDtos = residences.stream().map(ResidenceSimpleDto::from).toList();
+        Page<ResidenceSimpleDto> residenceSimpleDtos = residences.map(ResidenceSimpleDto::from);
         return GeneralResponse.ok("Found residences", residenceSimpleDtos);
     }
 

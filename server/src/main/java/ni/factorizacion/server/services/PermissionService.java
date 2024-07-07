@@ -5,21 +5,22 @@ import ni.factorizacion.server.domain.entities.InvitedUser;
 import ni.factorizacion.server.domain.entities.Permission;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Resident;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface PermissionService {
-    List<Permission> findAll();
+    Page<Permission> findAll(Pageable pageable);
 
     Optional<Permission> findById(UUID uuid);
 
-    List<Permission> findAllByResidence(Residence residence);
+    Page<Permission> findAllByResidence(Residence residence, Pageable pageable);
 
-    List<Permission> findAllByResident(Resident resident);
+    Page<Permission> findAllByResident(Resident resident, Pageable pageable);
 
-    List<Permission> findAllByInvitedUser(InvitedUser user);
+    Page<Permission> findAllByInvitedUser(InvitedUser user, Pageable pageable);
 
     Optional<Permission> findByUserNow(InvitedUser user);
 
