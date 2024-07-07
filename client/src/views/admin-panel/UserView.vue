@@ -10,7 +10,7 @@ enum Message {
   TITLE = "Usuarios",
 }
 
-const entryList: EntryType[] = [
+/*const entryList: EntryType[] = [
   {
     uuid: "",
     user: {
@@ -46,7 +46,7 @@ const entryList: EntryType[] = [
       uuid: "",
     },
   },
-];
+];*/
 </script>
 
 <template>
@@ -54,7 +54,7 @@ const entryList: EntryType[] = [
   <article class="flex w-full flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar />
     <ul class="grid gap-4 lg:grid-cols-2">
-      <EntryCard :entry="entry" v-for="(entry, index) in entryList" :key="index" />
+      <!--<EntryCard :entry="entry" v-for="(entry, index) in entryList" :key="index" />-->
     </ul>
     <PaginationItem :total-pages="6" />
   </article>

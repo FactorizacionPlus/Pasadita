@@ -5,9 +5,9 @@ import type Resident from "./User/Resident";
 export default interface Permission {
   uuid: string;
   authorized: boolean | undefined;
-  creationDate: Date;
-  endDate: Date;
-  startDate: Date;
+  creationDate: string;
+  endDate: string;
+  startDate: string;
   invitedUser: RegisteredUser;
   residence: Residence;
   resident: Resident;

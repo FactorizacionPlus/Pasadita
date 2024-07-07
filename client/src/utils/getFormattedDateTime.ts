@@ -1,4 +1,5 @@
-export default function getFormattedDateTime(date: Date): string {
+export default function getFormattedDateTime(dateString: string): string {
+  const date = new Date(dateString);
   const formattedDate = date.toLocaleString("es-MX", {
     year: "numeric",
     month: "long",
