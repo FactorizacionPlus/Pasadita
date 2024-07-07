@@ -39,7 +39,12 @@ public class UserRestController {
         if (user.isEmpty()) {
             return GeneralResponse.error404("Anonymous user not found");
         }
-        UserSimpleDto userSimpleDto = UserSimpleDto.from(user.get());
+        UserSimpleDto userSimpleDto;
+        if (user.get() instanceof RegisteredUser) {
+            userSimpleDto = RegisteredUserSimpleDto.from((RegisteredUser) user.get());
+        } else {
+            userSimpleDto = UserSimpleDto.from(user.get());
+        }
         return GeneralResponse.ok("User found", userSimpleDto);
     }
 
