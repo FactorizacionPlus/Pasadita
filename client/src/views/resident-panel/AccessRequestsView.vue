@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import VueFeather from "vue-feather";
 import SearchBar from "@/components/SearchBar.vue";
 import ModalAdd from "@/components/Modal/Resident/AddResidentModal.vue";
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
+import { getOwnPermissions } from "@/composables/useListPermissions";
 import type Permission from "@/types/Permission";
 import { matchSearch } from "@/utils/matchSearch";
 
@@ -22,7 +23,19 @@ const fieldsToSearch = [
   "residence.description",
 ];
 
-const permissions: Permission[] = [];
+const permissions = ref<Permission[]>([]);
+
+onMounted(async () => {
+  await loadPermissions();
+});
+
+async function loadPermissions() {
+  const { data } = await getOwnPermissions();
+  const permissionData = data.value;
+
+  if (!permissionData || !permissionData.ok) return;
+  permissions.value = permissionData.data ?? [];
+}
 </script>
 
 <template>
