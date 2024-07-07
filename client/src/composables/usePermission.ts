@@ -4,7 +4,6 @@ import type { SavePermissionDto } from "@/types/Permission";
 import type GeneralResponse from "@/types/GeneralResponse";
 import type Permission from "@/types/Permission";
 
-
 export function usePermission() {
   const error = ref<string | null>(null);
   const loading = ref(false);
