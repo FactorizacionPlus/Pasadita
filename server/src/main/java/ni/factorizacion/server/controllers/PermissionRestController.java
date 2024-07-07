@@ -2,6 +2,7 @@ package ni.factorizacion.server.controllers;
 
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.AuthorizePermissionDto;
+import ni.factorizacion.server.domain.dtos.input.EditPermissionDto;
 import ni.factorizacion.server.domain.dtos.input.SavePermissionDto;
 import ni.factorizacion.server.domain.dtos.output.PermissionSimpleDto;
 import ni.factorizacion.server.domain.entities.*;
@@ -148,6 +149,64 @@ public class PermissionRestController {
         permissionService.save(permission.get());
 
         return GeneralResponse.ok("Permission created", null);
+    }
+
+    @PutMapping("/{uuid}")
+    @PreAuthorize("hasRole('ROLE_RESIDENT')")
+    public ResponseEntity<GeneralResponse<String>> modifyPermission(@PathVariable UUID uuid, @RequestBody EditPermissionDto dto) {
+        Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
+        if (registeredUser.isEmpty()) {
+            return GeneralResponse.error401("Registered user not found");
+        }
+        Resident resident = (Resident) registeredUser.get();
+        if (resident.getResidence() == null) {
+            return GeneralResponse.error404("Resident does not have a Residence");
+        }
+
+        Optional<Permission> permission = permissionService.findById(uuid);
+        if (permission.isEmpty()) {
+            return GeneralResponse.error404("Permission not found");
+        }
+        Permission permissionToModify = permission.get();
+        // Si el Residente es NORMAL y el permiso ya fue autorizado/denegado, no se podrá modificar
+        if (resident.getRole() == ResidentRole.NORMAL && permissionToModify.getAuthorized() != null) {
+            return GeneralResponse.error409("Permission cannot be modified");
+        }
+
+        permissionToModify.setStartDate(dto.getStartDate());
+        permissionToModify.setEndDate(dto.getEndDate());
+
+        permissionService.save(permission.get());
+
+        return GeneralResponse.ok("Permission modified", null);
+    }
+
+    @DeleteMapping("/{uuid}")
+    @PreAuthorize("hasRole('ROLE_RESIDENT')")
+    public ResponseEntity<GeneralResponse<String>> deletePermission(@PathVariable UUID uuid) {
+        Optional<RegisteredUser> registeredUser = authenticationService.getCurrentAuthenticatedUser();
+        if (registeredUser.isEmpty()) {
+            return GeneralResponse.error401("Registered user not found");
+        }
+        Resident resident = (Resident) registeredUser.get();
+        if (resident.getResidence() == null) {
+            return GeneralResponse.error404("Resident does not have a Residence");
+        }
+
+        Optional<Permission> permission = permissionService.findById(uuid);
+        if (permission.isEmpty()) {
+            return GeneralResponse.error404("Permission not found");
+        }
+        Permission permissionToDelete = permission.get();
+
+        // Si el Residente es NORMAL y el permiso ya fue autorizado/denegado, no se podrá eliminar
+        if (resident.getRole() == ResidentRole.NORMAL && permissionToDelete.getAuthorized() != null) {
+            return GeneralResponse.error409("Permission cannot be deleted");
+        }
+
+        permissionService.delete(permissionToDelete);
+
+        return GeneralResponse.ok("Permission removed", null);
     }
 
     @PostMapping("/authorize")

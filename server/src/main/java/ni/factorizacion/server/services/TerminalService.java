@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TerminalService {
+    Optional<Terminal> findTerminal(TerminalType terminalType);
+
     Optional<Terminal> findTerminalByType(TerminalType terminalType, String password);
     List<Terminal> findAll();
 

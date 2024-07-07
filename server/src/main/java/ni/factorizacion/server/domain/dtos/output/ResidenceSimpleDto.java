@@ -15,12 +15,15 @@ public class ResidenceSimpleDto {
     private int habitants;
     private int maxHabitants;
 
+    private int entryCount;
+
     static public ResidenceSimpleDto from(Residence residence) {
         return ResidenceSimpleDto.builder()
                 .uuid(residence.getUuid())
                 .description(residence.getDescription())
                 .habitants(Hibernate.size(residence.getResidents()))
                 .maxHabitants(residence.getMaxHabitants())
+                .entryCount(Hibernate.size(residence.getEntries()))
                 .build();
     }
 }

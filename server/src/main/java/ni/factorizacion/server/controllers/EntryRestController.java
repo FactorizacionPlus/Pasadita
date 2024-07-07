@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/entry")
-public class EntryController {
+public class EntryRestController {
     @Autowired
     EntryService entryService;
 
@@ -35,6 +35,9 @@ public class EntryController {
 
     @Autowired
     ResidenceService residenceService;
+
+    @Autowired
+    TerminalService terminalService;
 
     @GetMapping("/own")
     public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getOwnEntries(Pageable pageable) {
@@ -90,6 +93,19 @@ public class EntryController {
         }
 
         Page<Entry> entries = entryService.getEntriesByResidence(residence.get(), pageable);
+        Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
+
+        return GeneralResponse.ok("Entries found", entrySimpleDtos);
+    }
+
+    @GetMapping("/terminal/{terminalType}")
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getTerminalEntries(@PathVariable TerminalType terminalType, Pageable pageable) {
+        Optional<Terminal> terminal = terminalService.findTerminal(terminalType);
+        if (terminal.isEmpty()) {
+            return GeneralResponse.error404("Terminal not found");
+        }
+
+        Page<Entry> entries = entryService.getEntriesByTerminal(terminal.get(), pageable);
         Page<EntrySimpleDto> entrySimpleDtos = entries.map(EntrySimpleDto::from);
 
         return GeneralResponse.ok("Entries found", entrySimpleDtos);

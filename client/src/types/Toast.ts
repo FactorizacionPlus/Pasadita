@@ -3,6 +3,7 @@ export enum ToastType {
   ERROR,
   SUCCESS,
   WARNING,
+  LOADING,
 }
 export default interface Toast {
   id?: number;

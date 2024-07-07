@@ -17,5 +17,7 @@ public interface EntryService {
 
     Page<Entry> getEntriesByResidence(Residence residence, Pageable pageable);
 
+    Page<Entry> getEntriesByTerminal(Terminal terminal, Pageable pageable);
+
     Page<Entry> findAll(Pageable pageable);
 }

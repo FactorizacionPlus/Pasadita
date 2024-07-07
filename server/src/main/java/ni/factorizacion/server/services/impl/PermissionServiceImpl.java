@@ -79,4 +79,9 @@ public class PermissionServiceImpl implements PermissionService {
     public Permission save(Permission permission) {
         return permissionRepository.save(permission);
     }
+
+    @Override
+    public void delete(Permission permission) {
+        permissionRepository.delete(permission);
+    }
 }
