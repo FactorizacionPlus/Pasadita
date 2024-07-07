@@ -5,6 +5,7 @@ import type Residence from "../../types/Residence";
 import ModalDelete from "@/components/Modal/DeleteTemplate.vue";
 import ModalSee from "@/components/Modal/Administrator/SeeResidence.vue";
 import ModalEdit from "@/components/Modal/Residence/EditResidence.vue";
+import { RouterLink } from "vue-router";
 const modalDel = ref<typeof ModalDelete>();
 const modalSee = ref<typeof ModalSee>();
 const modalEdit = ref<typeof ModalEdit>();
@@ -13,13 +14,13 @@ const props = defineProps<{
   residence: Residence;
 }>();
 
+const RESIDENCE_ROUTE = "/admin/residencia/";
+
 enum Message {
   SINGULAR = "Residencia",
   PEOPLE = "Habitantes",
   DESCRIPTION = "Descripción",
 }
-
-const currentResidents = 0;
 </script>
 
 <template>
@@ -29,7 +30,7 @@ const currentResidents = 0;
       <div class="flex items-center gap-2 text-blue-400">
         <VueFeather type="home" size="24" stroke-width="1.5"></VueFeather>
         <p class="text-base font-normal">
-          {{ currentResidents }} / {{ props.residence.maxHabitants }} {{ Message.PEOPLE }}
+          {{ props.residence.habitants }} / {{ props.residence.maxHabitants }} {{ Message.PEOPLE }}
         </p>
       </div>
     </div>
@@ -60,15 +61,15 @@ const currentResidents = 0;
       >
         <VueFeather type="eye" stroke-width="2.5" size="16"></VueFeather>
       </button>
-      <a
-        href=""
+      <RouterLink
+        :to="RESIDENCE_ROUTE + props.residence.uuid"
         class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
       >
         <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather>
-      </a>
+      </RouterLink>
     </div>
+    <ModalDelete reason="¿Desea eliminar esta residencia?" ref="modalDel"> Hola </ModalDelete>
+    <ModalSee :residence="residence" ref="modalSee" />
+    <ModalEdit ref="modalEdit" />
   </li>
-  <ModalDelete reason="¿Desea eliminar esta residencia?" ref="modalDel"> Hola </ModalDelete>
-  <ModalSee ref="modalSee" />
-  <ModalEdit ref="modalEdit" />
 </template>

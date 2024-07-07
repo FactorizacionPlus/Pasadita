@@ -18,7 +18,7 @@ const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = ["firstName", "lastName", "identifier", "residence.description"];
 
-const residents: Resident[] = [
+/*const residents: Resident[] = [
   {
     imageUrl: "https://www.github.com/davidquintr.png",
     firstName: "David",
@@ -36,7 +36,7 @@ const residents: Resident[] = [
     entryCount: 0,
     status: "ACTIVE",
   },
-];
+];*/
 </script>
 
 <template>
@@ -54,7 +54,7 @@ const residents: Resident[] = [
     <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
 
     <ul class="grid w-full gap-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-      <ResidentCard
+      <!--<ResidentCard
         :resident="resident"
         :class="{
           'animate-scale-up border-2 border-blue-400':
@@ -65,8 +65,8 @@ const residents: Resident[] = [
             searchText.length > 2,
         }"
         v-for="(resident, index) in residents"
-        :key="index"
-      />
+        :key="index" 
+      /> -->
     </ul>
   </article>
   <ModalAdd ref="modalAdd">Hola</ModalAdd>
