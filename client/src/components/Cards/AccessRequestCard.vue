@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 import VueFeather from "vue-feather";
 import UserImage from "@/components/UserImage.vue";
 import getFormattedDateTime from "@/utils/getFormattedDateTime";
@@ -35,9 +35,12 @@ const currentState =
       : Message.PERMISSION_REJECTED
     : Message.PERMISSION_PENDING;
 
-
 const handleDeleteClick = () => {
-  emit('delete-permission', props.permission);
+  modalDel.value?.show();
+};
+
+const handlePermissionDeleted = () => {
+  emit('delete-permission', props.permission.uuid);
 };
 
 </script>
@@ -115,7 +118,7 @@ const handleDeleteClick = () => {
       <button
         type="button"
         v-if="!props.showControls"
-        @click="modalDel?.show()"
+        @click="handleDeleteClick"
         class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
       >
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
@@ -128,6 +131,9 @@ const handleDeleteClick = () => {
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
-    <DeleteAccessRequest ref="modalDel"/>
+    <DeleteAccessRequest ref="modalDel" 
+      :permissionId="props.permission.uuid"
+      @permission-deleted="handlePermissionDeleted"
+    />
   </li>
 </template>

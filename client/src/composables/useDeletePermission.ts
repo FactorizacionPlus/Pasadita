@@ -3,7 +3,7 @@ import { useAuthenticatedFetch } from "./useBaseFetch";
 import type GeneralResponse from "@/types/GeneralResponse";
 
 export async function deletePermission(permissionId: string) {
-  const { data, error } = await useAuthenticatedFetch(`/api/entry/${permissionId}`, {
+  const { data, error } = await useAuthenticatedFetch(`/api/permission/${permissionId}`, {
     method: "DELETE",
   }).json<GeneralResponse<Permission>>();
 
