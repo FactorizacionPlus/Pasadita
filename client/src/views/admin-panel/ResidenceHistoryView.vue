@@ -11,6 +11,9 @@ import { useRoute } from "vue-router";
 import type Residence from "@/types/Residence";
 import type { GenericTableType } from "@/types/GenericTableType";
 import { getResidenceByUUID } from "@/composables/useResidence";
+import EventsWarning from "@/components/EventsWarning.vue";
+import { useToast } from "@/stores/toast";
+import { ToastType } from "@/types/Toast";
 
 const searchText = ref("");
 const hideNoResults = ref(false);
@@ -26,12 +29,20 @@ console.log("UUID", residenceIdentifier);
 
 const residenceEntry = ref<Entry[]>([]);
 const rows = ref<GenericTableType[]>([]);
+const code = ref<number | null>();
+const { addToast } = useToast();
 
 onMounted(async () => {
+  refreshEntries()
+});
+
+async function refreshEntries(){
   await fetchResidence();
-  const { data } = await getEntryByResident(residenceIdentifier);
-  console.log("Get Resident Data", data);
+  const response = await getEntryByResident(residenceIdentifier);
+  const {data} = response;
   residenceEntry.value = data.value?.data ?? [];
+  code.value = response.statusCode.value;
+
 
   rows.value = [
     {
@@ -61,7 +72,13 @@ onMounted(async () => {
       items: [...residenceEntry.value.map((item) => item.accessDate)],
     },
   ];
-});
+}
+
+function handleClick() {
+  addToast({ message: "Recargando las entradas por Usuario...", type: ToastType.LOADING });
+  refreshEntries();
+}
+
 
 async function fetchResidence() {
   const { data } = await getResidenceByUUID(residenceIdentifier as string);
@@ -73,6 +90,7 @@ console.log(rows);
 </script>
 <template>
   <CurrentPageInfo :title="Message.TITLE" icon="home" action="history" />
+  <EventsWarning v-if="code != 200 && code != undefined" :code="code" />
   <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @toggle-no-results="hideNoResults = $event" @search="searchText = $event" />
     <section class="overflow-x-auto rounded-xl pb-1">
@@ -80,6 +98,7 @@ console.log(rows);
         <div class="flex items-center justify-between p-2">
           <ResidenceMinimalCard v-if="residenceMinimal" :residence="residenceMinimal" />
           <button
+            @click="handleClick"
             class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95"
           >
             <VueFeather type="loader" stroke-width="2.5" size="16" />
