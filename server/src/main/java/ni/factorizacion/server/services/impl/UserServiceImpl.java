@@ -5,9 +5,10 @@ import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.repositories.UserRepository;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,13 +17,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public List<User> findAllAnonymous() {
-        return repository.findAllAnonymous();
+    public Page<User> findAllAnonymous(Pageable pageable) {
+        return repository.findAllAnonymous(pageable);
     }
 
     @Override
-    public List<User> findAll() {
-        return repository.findAll();
+    public Page<User> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
