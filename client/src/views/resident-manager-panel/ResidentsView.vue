@@ -18,7 +18,7 @@ const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = ["firstName", "lastName", "identifier", "residence.description"];
 
-const residents: Resident[] = [
+/*const residents: Resident[] = [
   {
     imageUrl: "https://www.github.com/davidquintr.png",
     firstName: "David",
@@ -36,7 +36,7 @@ const residents: Resident[] = [
     entryCount: 0,
     status: "ACTIVE",
   },
-];
+];*/
 </script>
 
 <template>
