@@ -85,7 +85,7 @@ async function fetchResidence() {
 <template>
   <CurrentPageInfo :title="Message.TITLE" icon="home" action="history" />
   <EventsWarning v-if="code != 200 && code != undefined" :code="code" />
-  <article class="flex flex-col gap-8 rounded-lg bg-white p-4">
+  <article v-if="code == 200" class="flex flex-col gap-8 rounded-lg bg-white p-4">
     <SearchBar @toggle-no-results="hideNoResults = $event" @search="searchText = $event" />
     <section class="overflow-x-auto rounded-xl pb-1">
       <GenericTable :hide-no-results="hideNoResults" :table="rows" :search-term="searchText">
