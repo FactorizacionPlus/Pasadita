@@ -37,7 +37,7 @@ const props = defineProps<{ alert: Alert }>();
 
 <template>
   <div
-    class="flex items-center gap-1 rounded-md border p-1 text-sm"
+    class="flex animate-scale-up items-center gap-1 rounded-md border p-1 text-sm"
     :class="[
       toastBackground[props.alert.type],
       toastBorder[props.alert.type],

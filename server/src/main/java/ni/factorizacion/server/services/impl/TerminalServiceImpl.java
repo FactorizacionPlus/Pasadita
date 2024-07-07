@@ -16,6 +16,11 @@ public class TerminalServiceImpl implements TerminalService {
     TerminalRepository terminalRepository;
 
     @Override
+    public Optional<Terminal> findTerminal(TerminalType terminalType) {
+        return terminalRepository.findByType(terminalType);
+    }
+
+    @Override
     public Optional<Terminal> findTerminalByType(TerminalType terminalType, String password) {
         return terminalRepository.findByTypeAndPassword(terminalType, password);
     }

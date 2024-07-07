@@ -53,7 +53,7 @@ public class DataLoader implements ApplicationRunner {
         dto.setEmail("00543824@uca.edu.sv");
         dto.setFirstName("David");
         dto.setLastName("Ponce");
-        dto.setIdentifier("C0120001");
+        dto.setIdentifier("C0120003");
         dto.setIdentifierType(IdentifierType.PASSPORT);
         dto.setRole(ResidentRole.NORMAL);
         residentService.saveUser(dto);
@@ -61,7 +61,7 @@ public class DataLoader implements ApplicationRunner {
         dto.setEmail("00542724@uca.edu.sv");
         dto.setFirstName("Leo");
         dto.setLastName("Corea");
-        dto.setIdentifier("C0120001");
+        dto.setIdentifier("C0120004");
         dto.setIdentifierType(IdentifierType.PASSPORT);
         dto.setRole(ResidentRole.NORMAL);
         residentService.saveUser(dto);

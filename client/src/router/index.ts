@@ -109,7 +109,12 @@ const router = createRouter({
         {
           path: "usuarios",
           name: "admin-users",
-          component: () => import("../views/admin-panel/UserView.vue"),
+          component: () => import("../views/admin-panel/UsersView.vue"),
+        },
+        {
+          path: "usuario/:usuario",
+          name: "admin-user-history",
+          component: () => import("../views/admin-panel/UserHistoryView.vue"),
         },
       ],
     },

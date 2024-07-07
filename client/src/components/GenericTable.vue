@@ -23,12 +23,10 @@ const catchFormat = (entry: any) => {
 
 const rowMatchesSearch = (rowIndex: number): boolean => {
   if (!props.searchTerm || props.searchTerm.length < 2) {
-    console.log("entry and false");
     return false;
   }
   return props.table.some((column) => {
     const entry = column.items[rowIndex];
-    console.log("entry and yes", entry);
     return (
       typeof entry === "string" &&
       entry.toLocaleLowerCase().includes(props.searchTerm?.toLocaleLowerCase()!)

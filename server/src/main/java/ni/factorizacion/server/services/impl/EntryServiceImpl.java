@@ -46,6 +46,11 @@ public class EntryServiceImpl implements EntryService {
     }
 
     @Override
+    public Page<Entry> getEntriesByTerminal(Terminal terminal, Pageable pageable) {
+        return entryRepository.getEntriesByTerminal(terminal, pageable);
+    }
+
+    @Override
     public Page<Entry> findAll(Pageable pageable) {
         return entryRepository.findAll(pageable);
     }
