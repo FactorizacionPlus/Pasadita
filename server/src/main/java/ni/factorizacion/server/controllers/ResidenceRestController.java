@@ -56,12 +56,12 @@ public class ResidenceRestController {
     }
 
     @DeleteMapping(value = "/{uuid}")
-    public void removeResidence(@PathVariable("uuid") String uuid) throws Exception {
+    public void removeResidence(@PathVariable UUID uuid) throws Exception {
         service.removeResidence(uuid);
     }
 
     @PutMapping(value = "/{uuid}")
-    public void updateUser(@PathVariable("uuid") String uuid, @RequestBody @Valid SaveResidenceDto dto) throws Exception {
+    public void updateUser(@PathVariable UUID uuid, @RequestBody @Valid SaveResidenceDto dto) throws Exception {
         service.updateResidence(uuid, dto);
     }
 
@@ -72,7 +72,7 @@ public class ResidenceRestController {
             return GeneralResponse.error404("Resident does not exist");
         }
 
-        Optional<Residence> optionalResidencia = service.findById(UUID.fromString(request.getUuid()));
+        Optional<Residence> optionalResidencia = service.findById(request.getUuid());
         if (optionalResidencia.isEmpty()) {
             return GeneralResponse.error404("Residence does not exist");
         }

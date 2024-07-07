@@ -81,10 +81,8 @@ public class EntryController {
         return GeneralResponse.ok("Entries found", entrySimpleDtos);
     }
 
-    @GetMapping("/residence/{residenceS}")
-    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getResidenceEntries(@PathVariable String residenceS, Pageable pageable) {
-        UUID uuid = UUID.fromString(residenceS);
-
+    @GetMapping("/residence/{uuid}")
+    public ResponseEntity<GeneralResponse<Page<EntrySimpleDto>>> getResidenceEntries(@PathVariable UUID uuid, Pageable pageable) {
         Optional<Residence> residence = residenceService.findById(uuid);
         if (residence.isEmpty()) {
             return GeneralResponse.error404("Residence not found");

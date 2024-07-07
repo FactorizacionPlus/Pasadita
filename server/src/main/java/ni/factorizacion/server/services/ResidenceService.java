@@ -21,9 +21,9 @@ public interface ResidenceService {
 
     void saveResidence(SaveResidenceDto dto) throws ControlException;
 
-    void updateResidence(String uuid, SaveResidenceDto dto) throws ControlException;
+    void updateResidence(UUID uuid, SaveResidenceDto dto) throws ControlException;
 
-    void removeResidence(String uuid) throws ControlException;
+    void removeResidence(UUID uuid) throws ControlException;
 
     void assignResidenteToResidencia(Resident resident, Residence residence) throws ControlException;
 }

@@ -10,7 +10,6 @@ import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.services.ResidentService;
-import ni.factorizacion.server.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,13 +38,9 @@ public class ResidentRestController {
         return GeneralResponse.ok("Found residents", residenceSimpleDtos);
     }
 
-    @GetMapping("/residence/{residence}")
-    public ResponseEntity<GeneralResponse<Page<ResidentSimpleDto>>> getAllResidentsByResidence(@PathVariable("residence") String residenceString, Pageable pageable) {
-        Optional<UUID> uuid = UUIDUtils.fromString(residenceString);
-        if (uuid.isEmpty()) {
-            return GeneralResponse.error400("Invalid residence code");
-        }
-        Optional<Residence> residence = residenceService.findById(uuid.get());
+    @GetMapping("/residence/{uuid}")
+    public ResponseEntity<GeneralResponse<Page<ResidentSimpleDto>>> getAllResidentsByResidence(@PathVariable UUID uuid, Pageable pageable) {
+        Optional<Residence> residence = residenceService.findById(uuid);
         if (residence.isEmpty()) {
             return GeneralResponse.error404("No residence found");
         }

@@ -52,8 +52,8 @@ public class ResidenceServiceImpl implements ResidenceService {
     }
 
     @Override
-    public void updateResidence(String uuid, SaveResidenceDto dto) throws ControlException {
-        Optional<Residence> found = repository.findById(UUID.fromString(uuid));
+    public void updateResidence(UUID uuid, SaveResidenceDto dto) throws ControlException {
+        Optional<Residence> found = repository.findById(uuid);
         if (found.isEmpty()) {
             throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
         }
@@ -64,13 +64,12 @@ public class ResidenceServiceImpl implements ResidenceService {
     }
 
     @Override
-    public void removeResidence(String uuid) throws ControlException {
-        boolean exist = repository.existsById(UUID.fromString(uuid));
+    public void removeResidence(UUID uuid) throws ControlException {
+        boolean exist = repository.existsById(uuid);
         if (!exist) {
-            throw new IllegalStateException(
-                    "Residence with the id +" + uuid + " does not exist");
+            throw new ControlException(HttpStatus.CONFLICT, "Residence does not exist");
         }
-        repository.deleteById(UUID.fromString(uuid));
+        repository.deleteById(uuid);
     }
 
     @Override
