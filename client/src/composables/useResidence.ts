@@ -33,3 +33,7 @@ export async function saveResidence(residence: SaveResidence) {
 export async function asignResidentToResidence(asignResident: AsignResident) {
   return useAuthenticatedFetch("/api/residence/assign").json<GeneralResponse<string>>().post(asignResident);
 }
+
+export async function getOwnResidence() {
+  return useAuthenticatedFetch("/api/residence/own").json<GeneralResponse<Residence>>();
+}

@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import SquareButton from "@/components/SquareButton.vue";
+import ModalQR from "@/components/Modal/Resident/LlaveQR.vue";
 import type { SquareButtonIconsType } from "@/types/SquareButtonIconsType";
+import { onMounted, ref } from "vue";
+import type Residence from "@/types/Residence";
+import { getOwnResidence } from "@/composables/useResidence";
+import NoResidence from "@/components/Modal/Resident/NoResidence.vue";
+
+const residence = ref<Residence>();
+const modalQR = ref<InstanceType<typeof ModalQR>>();
 
 const RESIDENT_ROOT = "/residente-encargado/";
 
@@ -8,6 +16,12 @@ interface RouteProp {
   title: string;
   icon: SquareButtonIconsType;
   href: string;
+}
+
+async function fetchResidence() {
+  const { data } = await getOwnResidence();
+  const record = data.value;
+  residence.value = record?.data;
 }
 
 const routes: RouteProp[] = [
@@ -22,6 +36,17 @@ const routes: RouteProp[] = [
     href: "residentes",
   },
 ];
+
+async function handleClick() {
+  if (!residence.value) {
+    await fetchResidence();
+  }
+  modalQR.value?.show();
+}
+
+onMounted(async () => {
+  await fetchResidence();
+});
 </script>
 
 <template>
@@ -34,5 +59,13 @@ const routes: RouteProp[] = [
       :key="index"
       v-for="(item, index) in routes"
     />
+    <SquareButton
+      type="button"
+      icon="custom-phone-qr"
+      title="Generar llave QR"
+      @click="handleClick"
+    />
   </section>
+  <ModalQR v-if="residence" :residence="residence" ref="modalQR" />
+  <NoResidence v-else ref="modalQR" />
 </template>

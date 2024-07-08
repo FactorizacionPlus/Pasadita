@@ -130,7 +130,7 @@ const userPresets = [
   },
   {
     text: "Cerrar Sesión",
-    link: "",
+    link: "/auth/logout",
     icon: "log-out",
   },
 ];

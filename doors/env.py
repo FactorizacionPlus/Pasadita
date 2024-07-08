@@ -6,7 +6,7 @@ WIFI_CONNECTIONS: List[Tuple[str, str]] = [
 
 SERVER_CONNECTIONS: List[Tuple[str, int]] = [
     ( "LOCALHOST", 8080 ),
-    ( "pasadita-production.up.railway.app", 80 ),
+    ( "pasadita.up.railway.app", 443 ),
 ]
 
 TERMINAL = b"BARRIER"
