@@ -4,18 +4,15 @@ import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.SaveUserDto;
 import ni.factorizacion.server.domain.dtos.input.TerminalCreateEntryDto;
-import ni.factorizacion.server.domain.dtos.input.TerminalValidateQRDto;
 import ni.factorizacion.server.domain.entities.*;
 import ni.factorizacion.server.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/access")
@@ -33,7 +30,8 @@ public class AccessRestController {
     private UserService userService;
 
     @Autowired
-    private TerminalService terminalService;
+    private PermissionService permissionService;
+
     @Autowired
     private UserRestController userRestController;
 
@@ -50,14 +48,15 @@ public class AccessRestController {
     }
 
 
-    @PostMapping(value = "/validate", consumes = "application/json")
-    public ResponseEntity<GeneralResponse<String>> validateQrToken(@RequestBody @Valid TerminalValidateQRDto actionDto) {
-        Optional<Terminal> terminal = terminalService.findTerminalByType(actionDto.getTerminalType(), actionDto.getPassword());
+    @GetMapping(value = "/validate/{uuid}")
+    @PreAuthorize("hasRole('ROLE_TERMINAL')")
+    public ResponseEntity<GeneralResponse<String>> validateQrToken(@PathVariable UUID uuid) {
+        Optional<Terminal> terminal = authService.getCurrentAuthenticatedTerminal();
         if (terminal.isEmpty()) {
             return GeneralResponse.error404("Incorrect terminal data");
         }
 
-        Optional<Token> token = accessService.findQrToken(actionDto.getTokenContent());
+        Optional<Token> token = accessService.findQrToken(uuid);
         if (token.isEmpty()) {
             return GeneralResponse.error404("Invalid QR token");
         }
@@ -69,10 +68,15 @@ public class AccessRestController {
 
         RegisteredUser user = token.get().getUser();
 
-        // TODO: Obtener la residencia del permiso actual para el Usuario Invitado
         Residence residence = null;
         if (user.getClass().equals(Resident.class)) {
             residence = ((Resident) user).getResidence();
+        } else if (user.getClass().equals(InvitedUser.class)) {
+            Optional<Permission> permission = permissionService.findByUserNow((InvitedUser) user);
+            if (permission.isEmpty()) {
+                return GeneralResponse.error401("User doesn't have permission");
+            }
+            residence = permission.get().getResidence();
         }
 
         Optional<Entry> entry = entryService.createEntry(user, terminal.get(), "", residence);
@@ -84,14 +88,16 @@ public class AccessRestController {
     }
 
     @PostMapping("/anonymous/entry")
+    @PreAuthorize("hasRole('ROLE_TERMINAL')")
     public ResponseEntity<GeneralResponse<String>> createEntry(@RequestBody @Valid TerminalCreateEntryDto actionDto) {
-        if (actionDto.getTerminalType() != TerminalType.MANUAL) {
-            return GeneralResponse.error401("Not allowed to create an entry");
+        Optional<Terminal> currentTerminal = authService.getCurrentAuthenticatedTerminal();
+        if (currentTerminal.isEmpty()) {
+            return GeneralResponse.error404("Incorrect terminal data");
         }
 
-        Optional<Terminal> terminal = terminalService.findTerminalByType(actionDto.getTerminalType(), actionDto.getPassword());
-        if (terminal.isEmpty()) {
-            return GeneralResponse.error404("Incorrect terminal data");
+        Terminal terminal = currentTerminal.get();
+        if (terminal.getType() != TerminalType.MANUAL) {
+            return GeneralResponse.error401("Not allowed to create an entry");
         }
 
         Optional<User> user = userService.findByIdentifier(actionDto.getIdentifier());
@@ -100,7 +106,7 @@ public class AccessRestController {
         }
 
         // Ya que un Usuario Anónimo no posee residencia, la entrada no tiene relación con ninguna residencia
-        Optional<Entry> entry = entryService.createEntry(user.get(), terminal.get(), actionDto.getDescription(), null);
+        Optional<Entry> entry = entryService.createEntry(user.get(), terminal, actionDto.getDescription(), null);
         if (entry.isEmpty()) {
             return GeneralResponse.error500("Could not create entry");
         }
@@ -109,6 +115,7 @@ public class AccessRestController {
     }
 
     @PostMapping("/anonymous/user")
+    @PreAuthorize("hasRole('ROLE_TERMINAL')")
     public ResponseEntity<GeneralResponse<String>> createUser(@RequestBody @Valid SaveUserDto saveUserDto) {
         return userRestController.saveUser(saveUserDto);
     }

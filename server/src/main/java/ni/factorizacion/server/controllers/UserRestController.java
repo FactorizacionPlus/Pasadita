@@ -34,6 +34,16 @@ public class UserRestController {
         return GeneralResponse.ok("Anonymous users found", userSimpleDtos);
     }
 
+    @GetMapping(value = "/anonymous/{identifier}")
+    public ResponseEntity<GeneralResponse<UserSimpleDto>> getAnonymousUser(@PathVariable String identifier) {
+        Optional<User> user = service.findAnonymousByIdentifier(identifier);
+        if (user.isEmpty()) {
+            return GeneralResponse.error404("Anonymous user not found");
+        }
+        UserSimpleDto userSimpleDto = UserSimpleDto.from(user.get());
+        return GeneralResponse.ok("User found", userSimpleDto);
+    }
+
     @GetMapping(value = "/{identifier}")
     public ResponseEntity<GeneralResponse<UserSimpleDto>> getUser(@PathVariable String identifier) {
         Optional<User> user = service.findByIdentifier(identifier);

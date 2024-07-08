@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
@@ -7,21 +7,75 @@ import InputForm from "@/components/Forms/InputForm.vue";
 import Passport from "@/Passport.svg?component";
 import Identity from "@/Identity.svg?component";
 import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
+import type User from "@/types/User/User";
+import { createAnonymousEntry, createAnonymousUser } from "@/composables/useEntry";
+import { useToast } from "@/stores/toast";
+import { ToastType } from "@/types/Toast";
 
-const modal = ref<typeof Modal>();
-const passportSelected = ref(false);
-const identitySelected = ref(false);
-// Computed property to determine if the input should be enabled
-const isIdentificationEnabled = computed(() => passportSelected.value || identitySelected.value);
+const toast = useToast();
 
-function passportSelection() {
-  identitySelected.value = false;
-  passportSelected.value = true;
+const modal = ref<InstanceType<typeof Modal>>();
+
+const props = defineProps<{ user?: User }>();
+
+const foundUser = computed(() => props.user != undefined);
+
+const formData = ref({
+  firstName: props.user?.firstName ?? "",
+  lastName: props.user?.lastName ?? "",
+  identifier: props.user?.identifier ?? "",
+  identifierType: props.user?.identifierType,
+  description: "",
+});
+
+watch(props, () => {
+  formData.value.firstName = props.user?.firstName ?? "";
+  formData.value.lastName = props.user?.lastName ?? "";
+  formData.value.identifier = props.user?.identifier ?? "";
+  formData.value.identifierType = props.user?.identifierType;
+  formData.value.description = "";
+});
+
+const isIdentificationEnabled = computed(() => formData.value.identifierType != undefined);
+
+async function createUser(): Promise<boolean> {
+  const { firstName, lastName, identifier, identifierType } = formData.value;
+  const { error } = await createAnonymousUser({
+    firstName,
+    lastName,
+    identifier,
+    identifierType: identifierType!,
+  });
+
+  if (error.value) {
+    toast.addToast({ type: ToastType.ERROR, message: "No se pudo crear el usuario" });
+    return false;
+  }
+  return true;
 }
 
-function identitySelection() {
-  passportSelected.value = false;
-  identitySelected.value = true;
+async function createEntry() {
+  const { description, identifier } = formData.value;
+  const { error } = await createAnonymousEntry({ description, identifier });
+
+  if (error.value) {
+    toast.addToast({ type: ToastType.ERROR, message: "No se pudo crear la entrada" });
+  } else {
+    toast.addToast({ type: ToastType.SUCCESS, message: "Entrada creada" });
+  }
+}
+
+async function handleSubmit() {
+  if (!foundUser.value) {
+    // Create user
+    const created = await createUser();
+    if (!created) {
+      return;
+    }
+  }
+  await createEntry();
+
+  modal.value?.close();
 }
 
 defineExpose({
@@ -32,12 +86,26 @@ defineExpose({
 
 <template>
   <Modal ref="modal">
-    <form class="overflow-hidden rounded-md bg-white">
-      <HeaderModal title="Perfil Anonimo" icon="user" action="add" />
+    <form class="overflow-hidden rounded-md bg-white" @submit.prevent="handleSubmit">
+      <HeaderModal title="Añadir Entrada" icon="user" action="add" />
       <div class="flex flex-col gap-4 p-4">
         <div class="flex items-center gap-5 text-xl text-pasadita-blue-1">
-          <InputForm name="nombre" title="Nombre" type="text" placeholder="Nombre" />
-          <InputForm name="apellido" title="Apellido" type="text" placeholder="Apellido" />
+          <InputForm
+            :disabled="foundUser"
+            name="nombre"
+            title="Nombre"
+            type="text"
+            placeholder="Nombre"
+            v-model="formData.firstName"
+          />
+          <InputForm
+            :disabled="foundUser"
+            name="apellido"
+            title="Apellido"
+            type="text"
+            placeholder="Apellido"
+            v-model="formData.lastName"
+          />
         </div>
         <div class="flex flex-col gap-1">
           <p class="text-sm leading-none text-pasadita-blue-3">
@@ -45,31 +113,39 @@ defineExpose({
           </p>
           <div class="grid w-full grid-cols-2 gap-2">
             <button
+              :disabled="foundUser"
               type="button"
-              :data-state="identitySelected"
+              :data-state="formData.identifierType == 'DUI'"
               class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-              @click="identitySelection()"
+              @click="formData.identifierType = 'DUI'"
             >
               <Identity class="inline" />
             </button>
             <button
+              :disabled="foundUser"
               type="button"
-              :data-state="passportSelected"
+              :data-state="formData.identifierType == 'PASSPORT'"
               class="h-32 rounded-lg border-[1.5px] border-pasadita-shade-2 bg-pasadita-blue-4 text-pasadita-blue-2 transition-all hover:bg-pasadita-blue-6 data-[state=true]:bg-pasadita-blue-2 data-[state=true]:text-pasadita-blue-5"
-              @click="passportSelection()"
+              @click="formData.identifierType = 'PASSPORT'"
             >
               <Passport class="inline" />
             </button>
           </div>
         </div>
         <InputForm
-          :disabled="!isIdentificationEnabled"
+          :disabled="!isIdentificationEnabled || foundUser"
           name="identificacion"
           title="Identificación"
           type="text"
           placeholder="Identificación"
+          v-model="formData.identifier"
         />
-        <TextAreaForm name="description" title="Descripcion" placeholder="Descripcion" />
+        <TextAreaForm
+          name="description"
+          title="Descripcion"
+          placeholder="Descripcion"
+          v-model="formData.description"
+        />
       </div>
 
       <!-- Botones -->

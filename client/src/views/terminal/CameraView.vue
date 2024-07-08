@@ -2,8 +2,7 @@
 import VueFeather from "vue-feather";
 import QRCodeReader from "@/components/QRCodeReader.vue";
 import { ref, watch } from "vue";
-import { useBaseFetch } from "@/composables/useBaseFetch";
-import type TerminalLogin from "@/types/TerminalLogin";
+import { useAuthenticatedFetch, useBaseFetch } from "@/composables/useBaseFetch";
 import { useTerminal } from "@/stores/terminal";
 import CameraPreferences from "@/components/Modal/Terminal/CameraPreferences.vue";
 
@@ -43,22 +42,12 @@ const messageColor: { [key in Message | "DEFAULT"]?: string } = {
   DEFAULT: "bg-white border-blue-300 text-blue-400",
 };
 
-interface ValidateToken extends TerminalLogin {
-  tokenContent: string;
-}
-
 async function validateToken(tokenContent: string) {
   if (!terminal.terminalLogin) return;
-  const login = terminal.terminalLogin;
 
   message.value = Message.VALIDATING;
 
-  const validateToken: ValidateToken = {
-    terminalType: login.terminalType,
-    password: login.password,
-    tokenContent,
-  };
-  const { response, error } = await useBaseFetch("/api/access/validate").post(validateToken);
+  const { response, error } = await useAuthenticatedFetch("/api/access/validate/" + tokenContent);
 
   if (error.value) {
     message.value = Message.ERROR;
@@ -98,9 +87,9 @@ watch(token, (value) => {
 </script>
 
 <template>
-  <main class="flex size-full flex-col items-center justify-center gap-4">
+  <main class="flex size-full flex-col items-center justify-center gap-4 p-3">
     <div
-      class="relative aspect-square w-full overflow-hidden rounded-lg bg-blue-200 md:size-[512px]"
+      class="relative aspect-square h-auto w-full overflow-hidden rounded-lg bg-blue-200 sm:size-[512px]"
     >
       <QRCodeReader
         ref="qrCodeReader"
@@ -145,7 +134,7 @@ watch(token, (value) => {
     </div>
 
     <h1
-      class="flex w-[512px] flex-row items-center gap-1.5 rounded border p-2 font-rubik text-xl"
+      class="flex flex-row items-center gap-1.5 rounded border p-2 font-rubik text-xl sm:w-[512px]"
       :class="messageColor[message] ?? messageColor['DEFAULT']"
     >
       <VueFeather
