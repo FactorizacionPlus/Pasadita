@@ -3,12 +3,22 @@ import AdminTerminal from "@/components/Cards/TerminalCard.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import type Terminal from "@/types/Terminal";
+import { onMounted, ref } from "vue";
+import { getAllTerminals } from "@/composables/useTerminals";
 
 enum Message {
   TITLE = "Terminales",
 }
 
-const terminalList: Terminal[] = [];
+const terminalList = ref<Terminal[]>([]);
+onMounted(async () => {
+  const { data } = await getAllTerminals();
+  const response = data.value;
+  if (Array.isArray(response?.data)) {
+    terminalList.value = response.data as Terminal[];
+  }
+
+})
 </script>
 
 <template>
