@@ -14,7 +14,7 @@ enum Message {
   DESCRIPTION = "Descripción",
 }
 
-const TERMINAL_DETAIL = `/admin/terminal/${props.terminal.uuid}`;
+const TERMINAL_DETAIL = `/admin/terminal/${props.terminal.type}`;
 </script>
 
 <template>
@@ -33,7 +33,8 @@ const TERMINAL_DETAIL = `/admin/terminal/${props.terminal.uuid}`;
             {{ props.terminal.type }}
           </p>
           <p>
-            <span class="font-medium">{{ Message.ENTRIES_QUANTITY }}</span> {{ entriesQuantity }}
+            <span class="font-medium">{{ Message.ENTRIES_QUANTITY }}</span>
+            {{ props.terminal.entryCount }}
           </p>
         </div>
       </div>
