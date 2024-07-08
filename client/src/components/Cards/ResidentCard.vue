@@ -8,7 +8,6 @@ enum Message {
   TITLE = "Residente",
   ACCESS_QUANTITY = "Cantidad de Entradas: ",
 }
-const accessCount = 0;
 const props = defineProps<{ resident: Resident }>();
 </script>
 
@@ -28,7 +27,7 @@ const props = defineProps<{ resident: Resident }>();
           </p>
           <p class="text-xs font-medium text-blue-500">
             {{ Message.ACCESS_QUANTITY }}
-            <span class="font-normal text-blue-400">{{ accessCount }}</span>
+            <span class="font-normal text-blue-400">{{ props.resident.entryCount }}</span>
           </p>
         </div>
       </div>
@@ -38,19 +37,19 @@ const props = defineProps<{ resident: Resident }>();
       <p class="leading-tight">{{ props.resident.residence.description }}</p>
     </div>
     <div class="flex flex-row justify-end gap-2 p-2">
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95"
-      >
-        <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
-      </button>
+      <!-- <button -->
+      <!--   type="button" -->
+      <!--   class="inline-flex items-center rounded-lg bg-red-100 p-2.5 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95" -->
+      <!-- > -->
+      <!--   <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather> -->
+      <!-- </button> -->
 
-      <button
-        type="button"
-        class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
-      >
-        <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather>
-      </button>
+      <!-- <button -->
+      <!--   type="button" -->
+      <!--   class="inline-flex items-center rounded-lg bg-blue-100 p-2.5 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95" -->
+      <!-- > -->
+      <!--   <VueFeather type="file-text" stroke-width="2.5" size="16"></VueFeather> -->
+      <!-- </button> -->
     </div>
   </li>
 </template>

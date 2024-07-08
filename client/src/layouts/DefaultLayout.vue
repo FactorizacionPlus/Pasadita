@@ -21,12 +21,13 @@ import DefaultNavigationMenu from "@/components/NavigationMenu/DefaultNavigation
 import ToastAlert from "@/components/ToastAlert.vue";
 import { usePreferences } from "@/stores/preferences";
 import { useToast } from "@/stores/toast";
+import { getViewRole } from "@/utils/viewRole";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const { toasts } = useToast();
 const route = useRoute();
-const role = route.meta.roleToShow;
+const role = getViewRole();
 const root = route.meta.rootPath;
 
 const preferences = usePreferences();
