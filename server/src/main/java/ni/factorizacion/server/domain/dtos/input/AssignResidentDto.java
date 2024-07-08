@@ -1,6 +1,7 @@
 package ni.factorizacion.server.domain.dtos.input;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 public class AssignResidentDto {
     @NotEmpty
     private String identifier;
-    @NotEmpty
+    @NotNull
     private UUID uuid;
 
 }

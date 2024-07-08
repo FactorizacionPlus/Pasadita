@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.SaveUserDto;
 import ni.factorizacion.server.domain.dtos.output.RegisteredUserSimpleDto;
+import ni.factorizacion.server.domain.dtos.output.ResidentSimpleDto;
 import ni.factorizacion.server.domain.dtos.output.UserSimpleDto;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
+import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.User;
 import ni.factorizacion.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,9 @@ public class UserRestController {
             return GeneralResponse.error404("Anonymous user not found");
         }
         UserSimpleDto userSimpleDto;
-        if (user.get() instanceof RegisteredUser) {
+        if (user.get() instanceof Resident) {
+            userSimpleDto = ResidentSimpleDto.from((Resident) user.get());
+        } else if (user.get() instanceof RegisteredUser) {
             userSimpleDto = RegisteredUserSimpleDto.from((RegisteredUser) user.get());
         } else {
             userSimpleDto = UserSimpleDto.from(user.get());

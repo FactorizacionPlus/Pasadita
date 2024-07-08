@@ -5,6 +5,7 @@ import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Resident;
 import ni.factorizacion.server.domain.entities.Status;
 import ni.factorizacion.server.repositories.ResidenceRepository;
+import ni.factorizacion.server.repositories.ResidentRepository;
 import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.types.ControlException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ResidenceServiceImpl implements ResidenceService {
 
     @Autowired
     private ResidenceRepository repository;
+
+    @Autowired
+    private ResidentRepository residentRepository;
 
     @Override
     public Page<Residence> findAll(Pageable pageable) {
@@ -78,7 +82,7 @@ public class ResidenceServiceImpl implements ResidenceService {
             throw new ControlException(HttpStatus.CONFLICT, "The residence reached the maximum number of residents allowed");
         }
 
-        residence.getResidents().add(resident);
-        repository.save(residence);
+        resident.setResidence(residence);
+        residentRepository.save(resident);
     }
 }
