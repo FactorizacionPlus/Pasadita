@@ -7,8 +7,10 @@ from typing import Tuple
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
+wlan.config(pm = 0xa11140)
 
 def wifi_init(ssid: str, password: str):
+    print(f"Connecting to {ssid}")
     wlan.connect(ssid, password)
 
     for _ in range(10):
