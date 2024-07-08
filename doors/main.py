@@ -10,6 +10,7 @@ for ssid, password in env.WIFI_CONNECTIONS:
         wifi_init(ssid, password)
         break
     except Exception as e:
+        print(e)
         continue
 
 if wlan.status() != 3:
