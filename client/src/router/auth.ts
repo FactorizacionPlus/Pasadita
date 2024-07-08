@@ -37,7 +37,7 @@ export function applyAuthRouting(router: Router) {
       }
 
       const meta = to.meta as CustomRouteMeta;
-      if (meta && meta.roles.includes(role)) {
+      if (meta.roles && meta.roles.includes(role)) {
         return next();
       }
 
