@@ -19,7 +19,6 @@ interface RouteProp {
   href: string;
 }
 
-
 async function fetchResidence() {
   const { data } = await getOwnResidence();
   const record = data.value;
@@ -38,9 +37,20 @@ const routes: RouteProp[] = [
 
 <template>
   <section class="flex size-full items-center justify-center gap-4">
-    <SquareButton type="link" :icon="item.icon" :title="item.title" :href="RESIDENT_ROOT + item.href" :key="index"
-      v-for="(item, index) in routes" />
-    <SquareButton type="button" icon="custom-phone-qr" title="Generar llave QR" @click="modalQR?.show()" />
+    <SquareButton
+      type="link"
+      :icon="item.icon"
+      :title="item.title"
+      :href="RESIDENT_ROOT + item.href"
+      :key="index"
+      v-for="(item, index) in routes"
+    />
+    <SquareButton
+      type="button"
+      icon="custom-phone-qr"
+      title="Generar llave QR"
+      @click="modalQR?.show()"
+    />
   </section>
   <ModalQR v-if="residence" :residence="residence" ref="modalQR" />
 </template>
