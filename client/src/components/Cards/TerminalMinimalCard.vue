@@ -31,7 +31,8 @@ enum Message {
             {{ props.terminal.type }}
           </p>
           <p>
-            <span class="font-medium">{{ Message.ENTRIES_QUANTITY }}</span> {{ entriesQuantity }}
+            <span class="font-medium">{{ Message.ENTRIES_QUANTITY }}</span>
+            {{ props.terminal.entryCount }}
           </p>
         </div>
       </div>
