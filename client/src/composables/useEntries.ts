@@ -9,7 +9,9 @@ export async function getAllEntries() {
 }
 
 export async function getEntriesByTerminalType(terminalType: TerminalType) {
-  return useAuthenticatedFetch(`/api/entry/terminal/${terminalType}`).json<GeneralResponse<Entry[]>>();
+  return useAuthenticatedFetch(`/api/entry/terminal/${terminalType}`).json<
+    GeneralResponse<Entry[]>
+  >();
 }
 
 export function createEntrySSEByTerminal(terminalType: TerminalType) {

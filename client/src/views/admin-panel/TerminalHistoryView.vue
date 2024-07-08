@@ -14,7 +14,7 @@ import type { GenericTableType } from "@/types/GenericTableType";
 
 const searchText = ref("");
 const hideNoResults = ref(false);
-const route = useRoute()
+const route = useRoute();
 const param = route.params.terminal;
 
 const terminalList = ref<Terminal[]>([]);
@@ -23,13 +23,12 @@ const terminalDef: Terminal = {
   type: "DOOR",
   uuid: "xdd",
   entryCount: 10,
-}
+};
 
 const terminalRef = ref<Terminal>(terminalDef);
 const entries = ref<Entry[]>([]);
 
 onMounted(async () => {
-
   const { data } = await getAllTerminals();
   const response = data.value;
   if (Array.isArray(response?.data)) {
@@ -38,15 +37,15 @@ onMounted(async () => {
 
   terminalRef.value = terminalList.value.find((terminal) => terminal.type == param) || terminalDef;
   fetchEntries();
-})
+});
 
 createEntrySSEByTerminal(terminalRef.value.type).onmessage = (e) => {
   fetchEntries();
-}
+};
 async function fetchEntries() {
   const { data } = await getEntriesByTerminalType(terminalRef.value.type);
   const response = data.value;
-  console.log(response, terminalRef.value.type)
+  console.log(response, terminalRef.value.type);
   if (Array.isArray(response?.data)) {
     entries.value = response.data as Entry[];
   }
@@ -58,9 +57,9 @@ enum Message {
 }
 
 watch(entries, (v) => {
-  const a = [...entries.value.map((item) => item.user.firstName + " " + item.user.lastName)]
-  console.log(a)
-})
+  const a = [...entries.value.map((item) => item.user.firstName + " " + item.user.lastName)];
+  console.log(a);
+});
 
 const rows = computed(() => [
   {
@@ -99,7 +98,8 @@ const rows = computed(() => [
         <div class="flex items-center justify-between p-2">
           <TerminalMinimalCard :terminal="terminalRef" />
           <button
-            class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95">
+            class="inline-flex items-center gap-1 rounded-lg bg-green-200 p-2.5 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-300 active:scale-95"
+          >
             <VueFeather type="loader" stroke-width="2.5" size="16" />
             <span>{{ Message.RELOAD_TEXT }}</span>
           </button>

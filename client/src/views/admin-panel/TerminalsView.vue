@@ -17,8 +17,7 @@ onMounted(async () => {
   if (Array.isArray(response?.data)) {
     terminalList.value = response.data as Terminal[];
   }
-
-})
+});
 </script>
 
 <template>
