@@ -26,7 +26,7 @@ interface Props extends InputProps {
 }
 
 const props = defineProps<Props>();
-const model = defineModel<string>();
+const model = defineModel<any>();
 
 const titleSlug = toSlug(props.title || "");
 
