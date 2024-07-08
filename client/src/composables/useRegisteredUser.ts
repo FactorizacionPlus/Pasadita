@@ -2,11 +2,16 @@ import type GeneralResponse from "@/types/GeneralResponse";
 import { useAuthenticatedFetch } from "./useBaseFetch";
 import type RegisteredUser from "@/types/User/RegisteredUser";
 import type UserStatus from "@/types/User/UserStatus";
+import type User from "@/types/User/User";
 
 export async function getEverythingEverywhereAllAtOnce() {
   return useAuthenticatedFetch("/api/users/everything/everywhere/all-at-once").json<
     GeneralResponse<RegisteredUser[]>
   >();
+}
+
+export async function getAnonymousUser(identifier: string) {
+  return useAuthenticatedFetch("/api/users/anonymous/" + identifier).json<GeneralResponse<User>>();
 }
 
 export async function getUserByIdentifier(identifier: string) {
