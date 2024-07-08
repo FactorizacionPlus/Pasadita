@@ -17,17 +17,17 @@ enum Message {
 
 <template>
   <main class="flex size-full flex-col items-center justify-center">
-    <div class="flex flex-col gap-10 bg-white py-5">
+    <div class="flex flex-col gap-4 rounded-md bg-white py-5 md:gap-10">
       <div class="flex flex-col items-center">
         <img
           src="/identity/pasaditaLogoMin.svg"
           alt="Pasadita logo"
-          class="w-[360px] object-contain text-blue-400"
+          class="w-[240px] object-contain text-blue-400 md:w-[360px]"
         />
         <h1 class="text-[70px] font-bold uppercase text-blue-400">{{ Message.APPLICATION }}</h1>
       </div>
       <div class="flex flex-col gap-4">
-        <div class="mx-4 flex gap-3">
+        <div class="mx-4 flex flex-col gap-3 md:flex-row">
           <a
             :href="loginUrl.toString()"
             class="flex flex-row items-center gap-2 rounded-lg bg-blue-100 px-6 py-4 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95"
