@@ -122,6 +122,7 @@ const handlePermissionDeleted = () => {
       >
         <VueFeather type="trash-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
+    <!--
       <button
         type="button"
         v-if="!props.showControls"
@@ -129,6 +130,7 @@ const handlePermissionDeleted = () => {
       >
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
+      -->
     </div>
     <DeleteAccessRequest
       ref="modalDel"
