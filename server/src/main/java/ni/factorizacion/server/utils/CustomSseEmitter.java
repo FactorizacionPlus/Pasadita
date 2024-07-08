@@ -17,6 +17,7 @@ import java.util.Set;
 public class CustomSseEmitter extends SseEmitter {
     private static final MediaType UTF8_TEXT_STREAM = new MediaType("text", "event-stream", StandardCharsets.UTF_8);
     private String eventName;
+    private boolean useUtf8Text = true;
 
     public CustomSseEmitter(Long timeout, String eventName) {
         super(timeout);
@@ -37,6 +38,10 @@ public class CustomSseEmitter extends SseEmitter {
 
     @Override
     protected void extendResponse(ServerHttpResponse outputMessage) {
+        if (!useUtf8Text) {
+            super.extendResponse(outputMessage);
+            return;
+        }
         HttpHeaders headers = outputMessage.getHeaders();
         if (headers.getContentType() == null) {
             headers.setContentType(UTF8_TEXT_STREAM);

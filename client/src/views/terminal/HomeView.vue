@@ -1,22 +1,30 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import ModalEntry from "@/components/Modal/Terminal/CreateEntry.vue";
-import CreateEntry from "@/assets/Crear-Entrada.svg";
-const modalEntry = ref<typeof ModalEntry>();
+import SquareButton from "@/components/SquareButton.vue";
+import { getRootPath } from "@/utils/viewRole";
+
+const modalEntry = ref<InstanceType<typeof ModalEntry>>();
+
+const rootPath = getRootPath();
 </script>
 
 <template>
-  <div class="flex h-screen items-center justify-center">
-    <button
+  <div class="flex size-full items-center justify-center gap-4">
+    <SquareButton
       type="button"
-      class="inline-flex items-center rounded-lg bg-pasadita-blue-4 p-2.5 text-center text-sm font-semibold text-pasadita-blue-2 transition-all hover:rounded-xl hover:bg-pasadita-blue-2 hover:text-white active:scale-95"
+      icon="custom-entry"
+      title="Añadir Entrada Anónima"
       @click="modalEntry?.show()"
-    >
-      <div class="flex flex-col items-center justify-center gap-2 p-5">
-        <CreateEntry class="hover:text-white" />
-        <span class="text-xl">Ver Permiso Activo</span>
-      </div>
-    </button>
+    />
+
+    <SquareButton
+      type="link"
+      icon="custom-phone-qr"
+      title="Leer Llaves QR"
+      :href="rootPath + '/camera'"
+    />
   </div>
-  <ModalEntry ref="modalEntry">Hola</ModalEntry>
+
+  <ModalEntry ref="modalEntry" />
 </template>
