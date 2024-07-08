@@ -18,8 +18,6 @@ import Modal from "@/components/Modal/ModalComponent.vue";
 import ControlsModal from "../ControlsModal.vue";
 import SimpleAlert from "@/components/SimpleAlert.vue";
 
-
-
 const user = useUser();
 const data = ref<{
   registeredUser: RegisteredUser;

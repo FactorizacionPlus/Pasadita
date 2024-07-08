@@ -38,9 +38,8 @@ async function loadPermissions() {
 }
 
 const handlePermissionDeleted = (permissionId: string) => {
-  permissions.value = permissions.value.filter(p => p.uuid !== permissionId);
+  permissions.value = permissions.value.filter((p) => p.uuid !== permissionId);
 };
-
 </script>
 
 <template>

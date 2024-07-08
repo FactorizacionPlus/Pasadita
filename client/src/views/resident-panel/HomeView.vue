@@ -34,11 +34,6 @@ const routes: RouteProp[] = [
     icon: "custom-eye-watch",
     href: "historial-solicitudes",
   },
-  {
-    title: "Generar llave qr",
-    icon: "custom-phone-qr",
-    href: "historial-solicitudes",
-  },
 ];
 </script>
 
@@ -68,3 +63,4 @@ const routes: RouteProp[] = [
     />
   </section>
   <ModalQR v-if="residence" :residence="residence" ref="modalQR" />
+</template>

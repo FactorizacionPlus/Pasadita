@@ -15,7 +15,7 @@ const isLoading = ref(false);
 const errorMessage = ref<string | null>(null);
 const { addToast } = useToast();
 
-const emit = defineEmits(['permission-deleted']);
+const emit = defineEmits(["permission-deleted"]);
 
 async function handleDelete() {
   isLoading.value = true;
@@ -26,7 +26,7 @@ async function handleDelete() {
 
   if (success) {
     addToast({ message: "Permiso creado correctamente", type: ToastType.SUCCESS });
-    emit('permission-deleted', props.permissionId);
+    emit("permission-deleted", props.permissionId);
     modal.value?.close();
   } else {
     errorMessage.value = error;
