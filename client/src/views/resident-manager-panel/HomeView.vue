@@ -37,6 +37,13 @@ const routes: RouteProp[] = [
   },
 ];
 
+async function handleClick() {
+  if (!residence.value) {
+    await fetchResidence();
+  }
+  modalQR.value?.show();
+}
+
 onMounted(async () => {
   await fetchResidence();
 });
@@ -56,7 +63,7 @@ onMounted(async () => {
       type="button"
       icon="custom-phone-qr"
       title="Generar llave QR"
-      @click="modalQR?.show()"
+      @click="handleClick"
     />
   </section>
   <ModalQR v-if="residence" :residence="residence" ref="modalQR" />

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import Pasadita from "@/assets/PasaditaLogo.svg?url";
 import { ref } from "vue";
