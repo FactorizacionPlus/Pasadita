@@ -12,7 +12,7 @@ const modal = ref<typeof Modal>();
 const isLoading = ref(false);
 const errorMessage = ref<string | null>(null);
 
-const emit = defineEmits(['permission-deleted']);
+const emit = defineEmits(["permission-deleted"]);
 
 async function handleDelete() {
   isLoading.value = true;
@@ -22,7 +22,7 @@ async function handleDelete() {
   isLoading.value = false;
 
   if (success) {
-    emit('permission-deleted', props.permissionId);
+    emit("permission-deleted", props.permissionId);
     modal.value?.close();
   } else {
     errorMessage.value = error;

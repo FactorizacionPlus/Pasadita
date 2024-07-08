@@ -137,7 +137,6 @@ defineExpose({
           type="text"
           placeholder="Identificación"
         />
-
       </div>
 
       <ControlsModal>
