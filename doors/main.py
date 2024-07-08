@@ -33,7 +33,11 @@ for address, port in env.SERVER_CONNECTIONS:
     addr = ai[0][-1]
     try:
         print(f"Connecting to {addr}...")
-        my_socket = connect_to(addr)
+        my_socket = connect_to(addr, address)
+
+        request = b"GET /sse/terminal/entry HTTP/1.1\r\nHost: %s\r\nAccept: text/event-stream\r\n\r\n" % address
+        my_socket.write(request)
+
         print(f"Connected to {addr}")
         break
     except OSError as e:
@@ -51,29 +55,60 @@ else:
 # Event management
 
 def parse_event(event: bytes):
+    pos = event.find(b"data:")
+    if (pos == -1):
+        return None
+    event = event[pos:].replace(b"\n\n", b"").replace(b"\r", b"")
     split = event.split(b"\n")
 
     if (len(split) < 2):
         return None
 
-    data = split[0].split(b":")[1]
-    event = split[1].split(b":")[1]
+    new_split = []
+    for text in split:
+        if (len(text) <= 1):
+            continue
+        new_split.append(text)
+
+    split = new_split
+    if (len(split) < 2):
+        return None
+
+    joined = b"".join(split)
+    event_pos = joined.find(b"event:")
+    if (event_pos == -1):
+        return None
+
+    data_part = joined[:event_pos]
+    event_part = joined[event_pos:]
+
+    data_split = data_part.split(b":")
+    if (len(data_split) != 2):
+        return None
+    event_split = event_part.split(b":")
+    if (len(event_split) != 2):
+        return None
+
+    data = data_split[1]
+    event = event_split[1]
 
     return (data, event)
 
 def main():
     buffer = b""
     if my_socket is None:
+        print("No socket")
         return
 
+    print("Reading responses...")
     while (True):
         char = my_socket.read(1)
-        if (char is None or char is b""):
+        if (char is None or char == b"" or char.isdigit()):
             continue
         buffer += char
 
         # Event sent
-        if (buffer.endswith(b"\n\n")):
+        if (buffer.endswith(b"\n\n\r\n")):
             if (buffer.startswith(b"HTTP")):
                 buffer = b""
                 continue
@@ -81,6 +116,7 @@ def main():
             parsed = parse_event(buffer)
             buffer = b""
             if (parsed is None):
+                buffer = b""
                 continue
             (data, event) = parsed
 

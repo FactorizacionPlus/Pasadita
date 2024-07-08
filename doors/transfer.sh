@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-files=("env.py" "led.py" "wifi.py" "servo.py" "main.py")
+files=("env.py" "led.py" "wifi.py" "servo.py" "main.py" "cert.py")
 
 source ./.venv/bin/activate
 
@@ -11,5 +11,6 @@ for file in "${files[@]}"; do
 done
 
 mpremote cp -r lib/ :
+mpremote cp -r certs/ :
 
 mpremote disconnect + reset
