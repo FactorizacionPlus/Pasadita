@@ -7,7 +7,9 @@ export async function getConfigurations() {
 }
 
 export async function updateConfigurations(configuration: Configuration) {
-  return useAuthenticatedFetch("/api/configuration/").json<GeneralResponse<string>>().patch(configuration);
+  return useAuthenticatedFetch("/api/configuration/")
+    .json<GeneralResponse<string>>()
+    .patch(configuration);
 }
 export async function resetConfigurations() {
   return useAuthenticatedFetch("/api/configuration/reset").json<GeneralResponse<string>>();

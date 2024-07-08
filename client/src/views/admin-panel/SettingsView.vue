@@ -8,7 +8,11 @@ import type Option from "@/types/Option";
 import type Configuration from "@/types/Configuration";
 import SelectForm from "@/components/Forms/SelectForm.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
-import { getConfigurations, resetConfigurations, updateConfigurations } from "@/composables/useConfigurations";
+import {
+  getConfigurations,
+  resetConfigurations,
+  updateConfigurations,
+} from "@/composables/useConfigurations";
 
 enum Message {
   TITLE = "Configuraciones",
@@ -27,7 +31,7 @@ onMounted(async () => {
   if (response?.data != null) {
     config.value = response.data;
   }
-})
+});
 const rest = ref<string>("");
 async function saveConfigurations() {
   if (config.value != undefined) {
@@ -37,7 +41,7 @@ async function saveConfigurations() {
       rest.value = response.message;
     }
   }
-  console.log(rest.value)
+  console.log(rest.value);
 }
 
 async function resetConfigurationsF() {
@@ -70,16 +74,28 @@ const optionsSelect: Option[] = [
       <div class="grid grid-cols-2 gap-4 p-4">
         <div class="flex w-full justify-between">
           <p>Alto contraste</p>
-          <SwitchForm name="highContrast" :disabled="false" v-model="preferences.preferences.highContrast" />
+          <SwitchForm
+            name="highContrast"
+            :disabled="false"
+            v-model="preferences.preferences.highContrast"
+          />
         </div>
         <div class="flex w-full justify-between">
           <p>Fuente para dislexia</p>
-          <SwitchForm name="dyslexicFont" :disabled="false" v-model="preferences.preferences.dyslexicFont" />
+          <SwitchForm
+            name="dyslexicFont"
+            :disabled="false"
+            v-model="preferences.preferences.dyslexicFont"
+          />
         </div>
         <div class="flex w-full justify-between">
           <p>Tamaño de fuente</p>
-          <SelectForm name="fontSize" default-option="Selecciona una opcion" :options="optionsSelect"
-            v-model="preferences.preferences.fontSize" />
+          <SelectForm
+            name="fontSize"
+            default-option="Selecciona una opcion"
+            :options="optionsSelect"
+            v-model="preferences.preferences.fontSize"
+          />
         </div>
       </div>
     </div>
@@ -89,17 +105,20 @@ const optionsSelect: Option[] = [
           <VueFeather type="clock" stroke-width="2" class="size-[18px] text-blue-400"></VueFeather>
           <p class="text-xl text-blue-400">Tiempo</p>
         </div>
-        <div class="flex items-center gap-1 my-2">
-          <button @click="saveConfigurations"
-            class="bg-green-300 text-green-400 rounded-lg p-1 text-sm active:scale-95 transition-all">
+        <div class="my-2 flex items-center gap-1">
+          <button
+            @click="saveConfigurations"
+            class="rounded-lg bg-green-300 p-1 text-sm text-green-400 transition-all active:scale-95"
+          >
             <span>Guardar cambios</span>
           </button>
-          <button @click="resetConfigurationsF"
-            class="flex items-center gap-1 bg-yellow-300 text-yellow-400 rounded-lg py-1 px-4 text-sm active:scale-95 transition-all">
+          <button
+            @click="resetConfigurationsF"
+            class="flex items-center gap-1 rounded-lg bg-yellow-300 px-4 py-1 text-sm text-yellow-400 transition-all active:scale-95"
+          >
             <VueFeather type="repeat" stroke-width="3" class="size-3 text-yellow-400" />
             <span>Reset</span>
           </button>
-
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4 p-4">
