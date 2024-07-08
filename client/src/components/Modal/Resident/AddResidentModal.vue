@@ -76,6 +76,7 @@ async function submitForm() {
   if (!error.value) {
     addToast({ message: "Permiso creado correctamente", type: ToastType.SUCCESS });
     modal.value?.close();
+    modal.value?.$emit("permission-added");
   } else {
     alertForIdentifier.value = {
       message: error.value,

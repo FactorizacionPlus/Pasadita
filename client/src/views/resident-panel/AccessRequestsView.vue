@@ -40,6 +40,10 @@ async function loadPermissions() {
 const handlePermissionDeleted = (permissionId: string) => {
   permissions.value = permissions.value.filter((p) => p.uuid !== permissionId);
 };
+
+const handlePermissionAdded = () => {
+  loadPermissions();
+};
 </script>
 
 <template>
@@ -73,5 +77,5 @@ const handlePermissionDeleted = (permissionId: string) => {
       />
     </ul>
   </article>
-  <ModalAdd ref="modalAdd">Hola</ModalAdd>
+  <ModalAdd ref="modalAdd" @permission-added="handlePermissionAdded">Hola</ModalAdd>
 </template>
