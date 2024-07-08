@@ -86,9 +86,12 @@ import { useUser } from "@/stores/user";
 import { ref } from "vue";
 import VueFeather from "vue-feather";
 
-const rootPath = getRootPath();
+const props = defineProps<{ role: string; root: string }>();
 
 const user = useUser().user;
+
+const rootPath = getRootPath();
+
 const showMenu = ref(false);
 
 const toggleMenu = () => {
