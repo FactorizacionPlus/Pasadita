@@ -45,3 +45,11 @@ Siendo el `ISSUE_NUMBER` el número del issue, y `TITLE` una descripción corta 
 ### Pull Requests
 
 Se debe crear un PR para poder implementar un feature.
+
+## Usuarios de prueba
+
+Debido a que la autenticación es realizada con Google, no existen usuarios de prueba. Por defecto se añaden los integrantes de Team Factorización como Residentes.
+
+### Terminales
+
+Las Terminales tienen por defecto la contraseña como `Usuario123.`
