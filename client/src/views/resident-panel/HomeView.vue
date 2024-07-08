@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SquareButton from "@/components/SquareButton.vue";
+import ModalAdd from "@/components/Modal/Resident/AddResidentModal.vue";
 import ModalQR from "@/components/Modal/Resident/LlaveQR.vue";
 import { ref, onMounted } from "vue";
 import type Residence from "@/types/Residence";
@@ -17,6 +18,7 @@ interface RouteProp {
   href: string;
 }
 
+const modalAdd = ref<typeof ModalAdd>();
 async function fetchResidence() {
   const { data } = await getOwnResidence();
   const record = data.value;
@@ -46,6 +48,12 @@ onMounted(async () => {
 <template>
   <section class="flex size-full items-center justify-center gap-4">
     <SquareButton
+      type="button"
+      icon="custom-tablet-touch"
+      title="Solicitar un permiso"
+      @click="modalAdd?.show()"
+    />
+    <SquareButton
       type="link"
       :icon="item.icon"
       :title="item.title"
@@ -53,6 +61,8 @@ onMounted(async () => {
       :key="index"
       v-for="(item, index) in routes"
     />
+
+    <ModalAdd ref="modalAdd" />
     <SquareButton
       type="button"
       icon="custom-phone-qr"

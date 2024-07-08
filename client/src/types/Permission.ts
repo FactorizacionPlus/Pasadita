@@ -12,3 +12,9 @@ export default interface Permission {
   residence: Residence;
   resident: Resident;
 }
+
+export interface SavePermissionDto {
+  startDate: Date;
+  endDate: Date;
+  invitedUser: string;
+}

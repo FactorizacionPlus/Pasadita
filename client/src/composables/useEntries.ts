@@ -1,4 +1,3 @@
-// src/services/terminalService.ts
 import type Entry from "@/types/Entry";
 import { useAuthenticatedFetch } from "./useBaseFetch";
 import type GeneralResponse from "@/types/GeneralResponse";

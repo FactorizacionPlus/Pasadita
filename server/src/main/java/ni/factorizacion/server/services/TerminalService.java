@@ -10,7 +10,6 @@ public interface TerminalService {
     Optional<Terminal> findTerminal(TerminalType terminalType);
 
     Optional<Terminal> findTerminalByType(TerminalType terminalType, String password);
-
     List<Terminal> findAll();
 
     long getCount();
