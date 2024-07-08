@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import VueFeather from "vue-feather";
 import SearchBar from "@/components/SearchBar.vue";
 import ModalAdd from "@/components/Modal/Resident/AddResidentModal.vue";
 import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import AccessRequestCard from "@/components/Cards/AccessRequestCard.vue";
+import { getOwnPermissions } from "@/composables/useListPermissions";
 import type Permission from "@/types/Permission";
 import { matchSearch } from "@/utils/matchSearch";
 
-const modalAdd = ref<typeof ModalAdd>();
+enum Message {
+  TITLE = "Mis Solicitudes",
+}
 
+const modalAdd = ref<typeof ModalAdd>();
 const searchText = ref("");
 const hideNoResults = ref(false);
 const fieldsToSearch = [
@@ -19,11 +23,27 @@ const fieldsToSearch = [
   "residence.description",
 ];
 
-enum Message {
-  TITLE = "Solicitudes de Permiso",
+const permissions = ref<Permission[]>([]);
+
+onMounted(async () => {
+  await loadPermissions();
+});
+
+async function loadPermissions() {
+  const { data } = await getOwnPermissions();
+  const permissionData = data.value;
+
+  if (!permissionData || !permissionData.ok) return;
+  permissions.value = permissionData.data ?? [];
 }
 
-const permissions: Permission[] = [];
+const handlePermissionDeleted = (permissionId: string) => {
+  permissions.value = permissions.value.filter((p) => p.uuid !== permissionId);
+};
+
+const handlePermissionAdded = () => {
+  loadPermissions();
+};
 </script>
 
 <template>
@@ -34,15 +54,14 @@ const permissions: Permission[] = [];
         @click="modalAdd?.show()"
       >
         <VueFeather type="plus" stroke-width="2.5" size="16"></VueFeather>
-        <span>Emitir un permiso</span>
+        <span>Solicitar un permiso</span>
       </button>
     </CurrentPageInfo>
 
     <SearchBar @search="searchText = $event" @toggle-no-results="hideNoResults = $event" />
+
     <ul class="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <AccessRequestCard
-        :show-requested-by="true"
-        :show-controls="true"
         :class="{
           'animate-scale-up border-2 border-blue-400':
             matchSearch(item, searchText, fieldsToSearch) && searchText.length > 2,
@@ -54,8 +73,9 @@ const permissions: Permission[] = [];
         :permission="item"
         :key="index"
         v-for="(item, index) in permissions"
+        @delete-permission="handlePermissionDeleted"
       />
     </ul>
   </article>
-  <ModalAdd ref="modalAdd">Hola</ModalAdd>
+  <ModalAdd ref="modalAdd" @permission-added="handlePermissionAdded">Hola</ModalAdd>
 </template>
