@@ -5,8 +5,10 @@ import ni.factorizacion.server.domain.dtos.GeneralResponse;
 import ni.factorizacion.server.domain.dtos.input.AssignResidentDto;
 import ni.factorizacion.server.domain.dtos.input.SaveResidenceDto;
 import ni.factorizacion.server.domain.dtos.output.ResidenceSimpleDto;
+import ni.factorizacion.server.domain.entities.RegisteredUser;
 import ni.factorizacion.server.domain.entities.Residence;
 import ni.factorizacion.server.domain.entities.Resident;
+import ni.factorizacion.server.services.AuthenticationService;
 import ni.factorizacion.server.services.ResidenceService;
 import ni.factorizacion.server.services.ResidentService;
 import ni.factorizacion.server.types.ControlException;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -28,6 +31,9 @@ public class ResidenceRestController {
 
     @Autowired
     private ResidentService residentService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @GetMapping
     public ResponseEntity<GeneralResponse<Page<ResidenceSimpleDto>>> getAllResidences(Pageable pageable) {
@@ -46,6 +52,28 @@ public class ResidenceRestController {
             return GeneralResponse.error404("Residence not found");
         }
         ResidenceSimpleDto residenceSimpleDto = ResidenceSimpleDto.from(residence.get());
+        return GeneralResponse.ok("Found residence", residenceSimpleDto);
+    }
+
+    @GetMapping("/own")
+    @PreAuthorize("hasRole('ROLE_RESIDENT')")
+    public ResponseEntity<GeneralResponse<ResidenceSimpleDto>> getOwnResidence() {
+        Optional<RegisteredUser> user = authenticationService.getCurrentAuthenticatedUser();
+        if (user.isEmpty()) {
+            return GeneralResponse.error404("User not found");
+        }
+        if (!user.get().getClass().equals(Resident.class)) {
+            return GeneralResponse.error418("User is not a resident");
+        }
+
+        Resident resident = (Resident) user.get();
+        Residence residence = resident.getResidence();
+
+        if (residence == null) {
+            return GeneralResponse.error404("Resident does not have a Residence");
+        }
+
+        ResidenceSimpleDto residenceSimpleDto = ResidenceSimpleDto.from(residence);
         return GeneralResponse.ok("Found residence", residenceSimpleDto);
     }
 

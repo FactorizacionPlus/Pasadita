@@ -23,3 +23,7 @@ export async function getEntryByResident(residence: string) {
 export async function getResidenceByUUID(uuid: string) {
   return useAuthenticatedFetch("/api/residence/" + uuid).json<GeneralResponse<Residence>>();
 }
+
+export async function getOwnResidence() {
+  return useAuthenticatedFetch("/api/residence/own").json<GeneralResponse<Residence>>();
+}
