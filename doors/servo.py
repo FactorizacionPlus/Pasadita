@@ -3,7 +3,7 @@ from led import led
 import math
 import time
 
-MIN = 260000
+MIN = 270000
 MAX = 2240000
 
 PERIOD = 300 # per ms

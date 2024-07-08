@@ -1,13 +1,16 @@
 import network
 import time
 import socket
+from cert import context
 
 from typing import Tuple
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
+wlan.config(pm = 0xa11140)
 
 def wifi_init(ssid: str, password: str):
+    print(f"Connecting to {ssid}")
     wlan.connect(ssid, password)
 
     for _ in range(10):
@@ -22,12 +25,18 @@ def wifi_init(ssid: str, password: str):
     print(wlan.ifconfig())
     print(wlan.status())
 
-def connect_to(addr: Tuple[str, int] | Tuple[str, int, int, int]) -> socket.socket:
-    local_s = socket.socket()
+    import ntptime
+    ntptime.settime()
+
+def connect_to(addr: Tuple[str, int] | Tuple[str, int, int, int], address: str) -> socket.socket:
+    local_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     local_s.settimeout(5)
     local_s.connect(addr)
 
-    local_s.setblocking(False)
-    local_s.send(b"GET /sse/terminal/entry HTTP/1.0\r\n\r\n")
+    if (addr[1] == 443):
+        local_ss = context.wrap_socket(local_s, server_side=False, server_hostname=address)
+        local_ss.setblocking(False)
+        return local_ss
 
+    local_s.setblocking(False)
     return local_s

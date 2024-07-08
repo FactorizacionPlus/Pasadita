@@ -23,8 +23,9 @@ public class ResidentSimpleDto extends RegisteredUserSimpleDto {
 
                 .email(resident.getEmail())
                 .imageUrl(resident.getImageUrl())
-
                 .role(resident.getAuthorities().iterator().next().getAuthority())
+                .status(resident.getStatus().name())
+
                 .residence(resident.getResidence() != null ? ResidenceSimpleDto.from(resident.getResidence()) : null)
                 .build();
     }

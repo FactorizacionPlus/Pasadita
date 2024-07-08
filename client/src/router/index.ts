@@ -102,9 +102,19 @@ const router = createRouter({
           component: () => import("../views/admin-panel/ResidencyView.vue"),
         },
         {
+          path: "residencia/:residencia",
+          name: "admin-residence-history",
+          component: () => import("../views/admin-panel/ResidenceHistoryView.vue"),
+        },
+        {
           path: "usuarios",
           name: "admin-users",
-          component: () => import("../views/admin-panel/UserView.vue"),
+          component: () => import("../views/admin-panel/UsersView.vue"),
+        },
+        {
+          path: "usuario/:usuario",
+          name: "admin-user-history",
+          component: () => import("../views/admin-panel/UserHistoryView.vue"),
         },
       ],
     },

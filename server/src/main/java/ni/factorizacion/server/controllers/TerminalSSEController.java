@@ -18,6 +18,7 @@ public class TerminalSSEController {
     @GetMapping(path = "/entry", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public CustomSseEmitter getEntry() {
         CustomSseEmitter emitter = sseService.createEmiter("entry-added");
+        emitter.setUseUtf8Text(false);
         var initEvent = sseService.createEvent("init", "init");
         emitter.sendEvent(initEvent);
         return emitter;
