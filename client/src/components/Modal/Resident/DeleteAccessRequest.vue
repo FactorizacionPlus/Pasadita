@@ -6,13 +6,16 @@ import Modal from "@/components/Modal/ModalComponent.vue";
 import BodyModal from "../BodyModal.vue";
 import ControlsModal from "../ControlsModal.vue";
 import { deletePermission } from "@/composables/useDeletePermission";
+import { useToast } from "@/stores/toast";
+import { ToastType } from "@/types/Toast";
 
 const props = defineProps<{ permissionId: string }>();
 const modal = ref<typeof Modal>();
 const isLoading = ref(false);
 const errorMessage = ref<string | null>(null);
+const { addToast } = useToast();
 
-const emit = defineEmits(["permission-deleted"]);
+const emit = defineEmits(['permission-deleted']);
 
 async function handleDelete() {
   isLoading.value = true;
@@ -22,7 +25,8 @@ async function handleDelete() {
   isLoading.value = false;
 
   if (success) {
-    emit("permission-deleted", props.permissionId);
+    addToast({ message: "Permiso creado correctamente", type: ToastType.SUCCESS });
+    emit('permission-deleted', props.permissionId);
     modal.value?.close();
   } else {
     errorMessage.value = error;

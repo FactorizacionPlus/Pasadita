@@ -26,7 +26,7 @@ const props = defineProps<{
   showRequestedBy?: boolean;
 }>();
 
-const emit = defineEmits(["delete-permission"]);
+const emit = defineEmits(['delete-permission']);
 
 const currentState =
   props.permission.authorized != undefined
@@ -40,8 +40,9 @@ const handleDeleteClick = () => {
 };
 
 const handlePermissionDeleted = () => {
-  emit("delete-permission", props.permission.uuid);
+  emit('delete-permission', props.permission.uuid);
 };
+
 </script>
 
 <template>
@@ -130,8 +131,7 @@ const handlePermissionDeleted = () => {
         <VueFeather type="edit-2" stroke-width="2.5" size="16"></VueFeather>
       </button>
     </div>
-    <DeleteAccessRequest
-      ref="modalDel"
+    <DeleteAccessRequest ref="modalDel" 
       :permissionId="props.permission.uuid"
       @permission-deleted="handlePermissionDeleted"
     />

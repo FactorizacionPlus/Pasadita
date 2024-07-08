@@ -36,6 +36,11 @@ async function loadPermissions() {
   if (!permissionData || !permissionData.ok) return;
   permissions.value = permissionData.data ?? [];
 }
+
+const handlePermissionDeleted = (permissionId: string) => {
+  permissions.value = permissions.value.filter(p => p.uuid !== permissionId);
+};
+
 </script>
 
 <template>
@@ -65,6 +70,7 @@ async function loadPermissions() {
         :permission="item"
         :key="index"
         v-for="(item, index) in permissions"
+        @delete-permission="handlePermissionDeleted"
       />
     </ul>
   </article>

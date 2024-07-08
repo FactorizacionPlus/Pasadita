@@ -2,9 +2,13 @@
 import { ref } from "vue";
 import { usePermission } from "@/composables/usePermission";
 import { useUser } from "@/stores/user";
+import { AlertType } from "@/types/Alert";
+import { useToast } from "@/stores/toast";
+import { ToastType } from "@/types/Toast";
 import type { IdentifierType } from "@/types/User/IdentifierType";
 import type { SavePermissionDto } from "@/types/Permission";
 import type RegisteredUser from "@/types/User/RegisteredUser";
+import type Alert from "@/types/Alert";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import DateTimeForm from "@/components/Forms/DateTimeForm.vue";
 import InputForm from "@/components/Forms/InputForm.vue";
@@ -13,10 +17,8 @@ import IdentityTypeSelection from "../IdentityTypeSelection.vue";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import ControlsModal from "../ControlsModal.vue";
 import SimpleAlert from "@/components/SimpleAlert.vue";
-import type Alert from "@/types/Alert";
-import { AlertType } from "@/types/Alert";
-import { useToast } from "@/stores/toast";
-import { ToastType } from "@/types/Toast";
+
+
 
 const user = useUser();
 const data = ref<{
