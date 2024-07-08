@@ -4,7 +4,7 @@ import VueFeather from "vue-feather";
 import type Residence from "../../types/Residence";
 import ModalDelete from "@/components/Modal/DeleteTemplate.vue";
 import ModalSee from "@/components/Modal/Administrator/SeeResidence.vue";
-import ModalEdit from "@/components/Modal/Residence/EditResidence.vue";
+import ModalEdit from "@/components/Modal/Administrator/EditResidence.vue"
 import { RouterLink } from "vue-router";
 const modalDel = ref<typeof ModalDelete>();
 const modalSee = ref<typeof ModalSee>();
@@ -70,6 +70,6 @@ enum Message {
     </div>
     <ModalDelete reason="¿Desea eliminar esta residencia?" ref="modalDel"> Hola </ModalDelete>
     <ModalSee :residence="residence" ref="modalSee" />
-    <ModalEdit ref="modalEdit" />
+    <ModalEdit :residence="props.residence" ref="modalEdit" />
   </li>
 </template>
