@@ -5,12 +5,11 @@ import CurrentPageInfo from "@/components/CurrentPageInfo.vue";
 import Residences from "@/components/Cards/ResidenceCard.vue";
 import type Residence from "@/types/Residence";
 import SearchBar from "@/components/SearchBar.vue";
-import ModalAdd from "@/components/Modal/Residence/ManageResidence.vue";
-import PaginationItem from "@/components/PaginationItem.vue";
+import AddResidence from "@/components/Modal/Administrator/AddResidence.vue";
 import { getResidence } from "@/composables/useResidence";
 import { matchSearch } from "@/utils/matchSearch";
 const residence = ref<Residence[]>([]);
-const modalAdd = ref<typeof ModalAdd>();
+const modalAdd = ref<typeof AddResidence>();
 
 enum Message {
   TITLE = "Residencias",
@@ -32,23 +31,6 @@ async function fetchResidence() {
   residence.value = record.data ?? [];
 }
 
-/*const residenceList: Residence[] = [
-  {
-    maxHabitants: 2,
-    description: "Palacio de Miraflores, República de Venezuela",
-    status: "ACTIVE",
-  },
-  {
-    maxHabitants: 2,
-    description: "Casa Presidencial, Team Factorización, Mejicanos, San Salvador",
-    status: "ACTIVE",
-  },
-  {
-    maxHabitants: ,
-    description: "Universidad Centroamericana, Managua, Nicaragua",
-    status: "ACTIVE",
-  },
-];*/
 </script>
 
 <template>
@@ -79,6 +61,6 @@ async function fetchResidence() {
       />
     </ul>
     <!--<PaginationItem v-bind="page" v-model="pagination.page" v-if="page" />-->
-    <ModalAdd ref="modalAdd" />
+    <AddResidence ref="modalAdd" />
   </article>
 </template>
