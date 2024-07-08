@@ -2,11 +2,9 @@ package ni.factorizacion.server.domain.dtos.input;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class TerminalCreateEntryDto extends TerminalLoginDto {
+public class TerminalCreateEntryDto {
     // Entry related stuff
     @NotEmpty
     private String description;

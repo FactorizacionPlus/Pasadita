@@ -2,8 +2,7 @@
 import VueFeather from "vue-feather";
 import QRCodeReader from "@/components/QRCodeReader.vue";
 import { ref, watch } from "vue";
-import { useBaseFetch } from "@/composables/useBaseFetch";
-import type TerminalLogin from "@/types/TerminalLogin";
+import { useAuthenticatedFetch, useBaseFetch } from "@/composables/useBaseFetch";
 import { useTerminal } from "@/stores/terminal";
 import CameraPreferences from "@/components/Modal/Terminal/CameraPreferences.vue";
 
@@ -43,22 +42,12 @@ const messageColor: { [key in Message | "DEFAULT"]?: string } = {
   DEFAULT: "bg-white border-blue-300 text-blue-400",
 };
 
-interface ValidateToken extends TerminalLogin {
-  tokenContent: string;
-}
-
 async function validateToken(tokenContent: string) {
   if (!terminal.terminalLogin) return;
-  const login = terminal.terminalLogin;
 
   message.value = Message.VALIDATING;
 
-  const validateToken: ValidateToken = {
-    terminalType: login.terminalType,
-    password: login.password,
-    tokenContent,
-  };
-  const { response, error } = await useBaseFetch("/api/access/validate").post(validateToken);
+  const { response, error } = await useAuthenticatedFetch("/api/access/validate/" + tokenContent);
 
   if (error.value) {
     message.value = Message.ERROR;

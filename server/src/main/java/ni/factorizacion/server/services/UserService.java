@@ -18,6 +18,8 @@ public interface UserService {
 
     Optional<User> findByIdentifier(String identifier);
 
+    Optional<User> findAnonymousByIdentifier(String identifier);
+
     Optional<User> createFrom(SaveUserDto dto);
 
     User save(User user);
