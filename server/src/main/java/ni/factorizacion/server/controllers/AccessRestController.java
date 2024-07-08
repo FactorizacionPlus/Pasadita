@@ -84,14 +84,16 @@ public class AccessRestController {
     }
 
     @PostMapping("/anonymous/entry")
+    @PreAuthorize("hasRole('ROLE_TERMINAL')")
     public ResponseEntity<GeneralResponse<String>> createEntry(@RequestBody @Valid TerminalCreateEntryDto actionDto) {
-        if (actionDto.getTerminalType() != TerminalType.MANUAL) {
-            return GeneralResponse.error401("Not allowed to create an entry");
+        Optional<Terminal> currentTerminal = authService.getCurrentAuthenticatedTerminal();
+        if (currentTerminal.isEmpty()) {
+            return GeneralResponse.error404("Incorrect terminal data");
         }
 
-        Optional<Terminal> terminal = terminalService.findTerminalByType(actionDto.getTerminalType(), actionDto.getPassword());
-        if (terminal.isEmpty()) {
-            return GeneralResponse.error404("Incorrect terminal data");
+        Terminal terminal = currentTerminal.get();
+        if (terminal.getType() != TerminalType.MANUAL) {
+            return GeneralResponse.error401("Not allowed to create an entry");
         }
 
         Optional<User> user = userService.findByIdentifier(actionDto.getIdentifier());
@@ -100,7 +102,7 @@ public class AccessRestController {
         }
 
         // Ya que un Usuario Anónimo no posee residencia, la entrada no tiene relación con ninguna residencia
-        Optional<Entry> entry = entryService.createEntry(user.get(), terminal.get(), actionDto.getDescription(), null);
+        Optional<Entry> entry = entryService.createEntry(user.get(), terminal, actionDto.getDescription(), null);
         if (entry.isEmpty()) {
             return GeneralResponse.error500("Could not create entry");
         }
@@ -109,6 +111,7 @@ public class AccessRestController {
     }
 
     @PostMapping("/anonymous/user")
+    @PreAuthorize("hasRole('ROLE_TERMINAL')")
     public ResponseEntity<GeneralResponse<String>> createUser(@RequestBody @Valid SaveUserDto saveUserDto) {
         return userRestController.saveUser(saveUserDto);
     }

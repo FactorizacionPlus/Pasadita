@@ -2,11 +2,13 @@ package ni.factorizacion.server.services.impl;
 
 import jakarta.transaction.Transactional;
 import ni.factorizacion.server.domain.entities.RegisteredUser;
+import ni.factorizacion.server.domain.entities.Terminal;
 import ni.factorizacion.server.domain.entities.Token;
 import ni.factorizacion.server.domain.entities.TokenType;
 import ni.factorizacion.server.repositories.RegisteredUserRepository;
 import ni.factorizacion.server.repositories.TokenRepository;
 import ni.factorizacion.server.services.AuthenticationService;
+import ni.factorizacion.server.services.TerminalService;
 import ni.factorizacion.server.services.TokenService;
 import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.types.GoogleAccessToken;
@@ -49,6 +51,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private RegisteredUserRepository registeredUserRepository;
+
+    @Autowired
+    private TerminalService terminalService;
 
     @Override
     public String getGoogleToken(String code, String redirectUri) throws ControlException {
@@ -110,11 +115,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
 
-        if (!(principal instanceof RegisteredUser)) {
-            return Optional.empty();
+        if (principal instanceof RegisteredUser user) {
+            return registeredUserRepository.findByEmail(user.getEmail());
         }
-        RegisteredUser user = (RegisteredUser) auth.getPrincipal();
-        return registeredUserRepository.findByEmail(user.getEmail());
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Terminal> getCurrentAuthenticatedTerminal() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+
+        if (principal instanceof Terminal terminal) {
+            return terminalService.findTerminal(terminal.getType());
+        }
+        return Optional.empty();
     }
 
     @Override

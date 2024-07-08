@@ -38,6 +38,8 @@ public class WebSecurityConfiguration {
     @Autowired
     private JWTTokenFilter jwtTokenFilter;
     @Autowired
+    private BasicAuthFilter basicAuthFilter;
+    @Autowired
     private AuthExceptionFilter authExceptionFilter;
 
     @Bean
@@ -97,6 +99,7 @@ public class WebSecurityConfiguration {
         http.addFilterBefore(authExceptionFilter, UsernamePasswordAuthenticationFilter.class);
         //JWT filter
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(basicAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -6,6 +6,7 @@ import ni.factorizacion.server.types.ControlException;
 import ni.factorizacion.server.utils.ErrorTools;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,6 +33,11 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<GeneralResponse<Object>> handleAuthException(AuthenticationException ex) {
+        return GeneralResponse.getResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity<GeneralResponse<Object>> handleAccessDeniedException(AccessDeniedException ex) {
         return GeneralResponse.getResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
     }
 
@@ -65,6 +71,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<GeneralResponse<Object>> handleException(Exception ex) {
+        ex.printStackTrace();
         return GeneralResponse.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 }

@@ -42,6 +42,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findAnonymousByIdentifier(String identifier) {
+        return repository.findAnonymousByIdentifier(identifier);
+    }
+
+    @Override
     public Optional<User> createFrom(SaveUserDto dto) {
         User user = new User();
 

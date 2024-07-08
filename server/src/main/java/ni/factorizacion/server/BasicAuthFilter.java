@@ -5,74 +5,77 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import ni.factorizacion.server.domain.entities.RegisteredUser;
+import ni.factorizacion.server.domain.entities.Terminal;
+import ni.factorizacion.server.domain.entities.TerminalType;
 import ni.factorizacion.server.services.AuthenticationService;
-import ni.factorizacion.server.services.RegisteredUserService;
-import ni.factorizacion.server.utils.JWTTools;
+import ni.factorizacion.server.services.TerminalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @Component
 @NonNullApi
-public class JWTTokenFilter extends OncePerRequestFilter {
+public class BasicAuthFilter extends OncePerRequestFilter {
     @Autowired
-    RegisteredUserService userService;
+    TerminalService terminalService;
 
     @Autowired
     AuthenticationService authService;
 
-    @Autowired
-    JWTTools jwtTools;
 
     @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         String tokenHeader = request.getHeader("Authorization");
 
-        if (tokenHeader == null || !tokenHeader.startsWith("Bearer ")) {
+        if (tokenHeader == null || !tokenHeader.startsWith("Basic ")) {
 //            throw new ControlException(HttpStatus.BAD_REQUEST, "Bearer string not found");
-            System.out.println("Bearer string not found");
+            System.out.println("Basic string not found");
             filterChain.doFilter(request, response);
             return;
         }
-        String token = tokenHeader.substring(7);
+        String token = tokenHeader.substring(6);
 
-        String email = jwtTools.getEmailFrom(token);
-        if (email == null) {
-//            throw new ControlException(HttpStatus.UNAUTHORIZED, "Invalid token");
+        byte[] decodedBytes = Base64.getDecoder().decode(token);
+        String decodedString = new String(decodedBytes);
+        String[] split = decodedString.split(":");
+        if (split.length != 2) {
             System.out.println("Invalid token");
             filterChain.doFilter(request, response);
             return;
         }
+        String username = split[0];
+        String password = split[1];
 
-        Optional<RegisteredUser> user = userService.findByEmail(email);
-        if (user.isEmpty()) {
-            // throw new ControlException(HttpStatus.UNAUTHORIZED, "No user found");
-            System.out.println("No user found");
+        TerminalType terminalType;
+        try {
+            terminalType = TerminalType.valueOf(username);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid TerminalType");
             filterChain.doFilter(request, response);
             return;
         }
 
-        boolean tokenValidity = authService.isTokenValid(user.get(), token);
-
-        if (!tokenValidity) {
-//            throw new ControlException(HttpStatus.UNAUTHORIZED, "Invalid token");
-            System.out.println("Invalid token");
+        Optional<Terminal> terminal = terminalService.findTerminalByType(terminalType, password);
+        if (terminal.isEmpty()) {
+            System.out.println("Invalid terminal credentials");
             filterChain.doFilter(request, response);
             return;
         }
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    user.get(),
+                    terminal.get(),
                     null,
-                    user.get().getAuthorities()
+                    List.of(new SimpleGrantedAuthority("ROLE_TERMINAL"))
             );
 
             authToken.setDetails(

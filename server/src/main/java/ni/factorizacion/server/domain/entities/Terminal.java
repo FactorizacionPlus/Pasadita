@@ -26,4 +26,9 @@ public class Terminal {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "terminal")
     @JsonIgnore
     private List<Entry> entries;
+
+    @Override
+    public String toString() {
+        return type.name();
+    }
 }
