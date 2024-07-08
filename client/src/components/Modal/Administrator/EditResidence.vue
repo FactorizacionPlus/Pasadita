@@ -1,0 +1,187 @@
+<script setup lang="ts">
+import { ref, onMounted, defineEmits, type Ref } from "vue";
+import HeaderModal from "@/components/Modal/HeaderModal.vue";
+import VueFeather from "vue-feather";
+import Modal from "@/components/Modal/ModalComponent.vue";
+import BodyModal from "@/components/Modal/BodyModal.vue";
+import ControlsModal from "../ControlsModal.vue";
+import { useToast } from "@/stores/toast";
+import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
+import SimpleAlert from "@/components/SimpleAlert.vue";
+import { AlertType } from "@/types/Alert";
+import InputForm from "@/components/Forms/InputForm.vue";
+import { getUserByIdentifier, migrateUserToResident } from "@/composables/useRegisteredUser";
+import { ToastType } from "@/types/Toast";
+import UserImage from "@/components/UserImage.vue";
+import type SaveResidence from "@/types/Residence/SaveResidence";
+import { asignResidentToResidence, getResidence, getResidentByResidence, saveResidence } from "@/composables/useResidence";
+import type AsignResident from "@/types/Residence/AsignResident";
+import type Residence from "@/types/Residence";
+import type Alert from "@/types/Alert";
+import type Resident from "@/types/User/Resident";
+import type ChangeRole from "@/types/Residence/ChangeRole";
+import { updateResidentRole } from "@/composables/useResident";
+
+const modal = ref<typeof Modal>();
+const { addToast } = useToast();
+
+const residents = ref<Resident[]>([])
+const currentIdentifier = ref("")
+
+const lastResidence = ref<Residence>();
+const data = ref<SaveResidence>({
+  description: "",
+  maxHabitants: 0,
+})
+
+const props = defineProps<{ residence: Residence }>()
+
+const alertForMaxHabitants = ref<Alert | undefined>()
+const alertForDescription = ref<Alert | undefined>()
+
+enum Message {
+  BUTTON_ACCEPT = "Aceptar",
+  BUTTON_CANCEL = "Cancelar",
+  RESIDENCE = "Residencia",
+  RESIDENTS = "Residentes Encargados",
+  NO_RESIDENTS = "No hay residentes asignados",
+  SEARCH = "Buscar"
+}
+
+async function fetchResidence(uuid: string) {
+  const { data } = await getResidentByResidence(uuid);
+  if(data.value?.data  == null) return;
+  residents.value = data.value?.data.filter((r) => r.role != "ROLE_RESIDENT_SUDO") ?? [];
+}
+
+
+onMounted(async () => {
+  data.value.description = props.residence.description
+  data.value.maxHabitants = props.residence.maxHabitants
+  await fetchResidence(props.residence.uuid);
+})
+
+defineExpose({
+  show: () => modal.value?.show(),
+  close: () => modal.value?.close(),
+});
+
+async function searchUser() {
+
+  if (currentIdentifier.value.length < 4) return;
+
+  if (residents.value.some((u) => u.identifier == currentIdentifier.value)) {
+    addToast({ message: "Este usuario ya ha sido agregado a la lista de Residentes Encargados.", type: ToastType.WARNING });
+    return;
+  }
+
+  const { data, statusCode } = await getUserByIdentifier(currentIdentifier.value)
+
+  if (data.value?.data.role != 'ROLE_INVITED') {
+    addToast({
+      message: "Este usuario no está autorizado para pertenecer a una residencia, ya pertenece a una o posee otros roles dentro del sistema.",
+      type: ToastType.WARNING
+    });
+    return;
+  }
+
+  if (!data.value?.ok) {
+    addToast({
+      message: "Ha ocurrido un error al tratar de encontrar el usuario, si el error persiste, contacte al soporte técnico.",
+      type: ToastType.ERROR
+    });
+    return;
+  }
+
+  if (statusCode.value !== 200) {
+    addToast({
+      message: "No se ha encontrado un usuario con esta identificación, por favor, verifique sus datos.",
+      type: ToastType.ERROR
+    });
+    return;
+  }
+
+  if (Array.isArray(data.value.data)) {
+    residents.value.push((data.value.data as Resident[])[0]);
+  }
+  else {
+    residents.value.push(data.value.data as Resident);
+  }
+
+  addToast({ message: "Se ha encontrado al usuario con la identificación, ha sido agregado como Residente Encargado de la residencia.", type: ToastType.SUCCESS })
+}
+
+async function handleSubmit(event: Event) {
+  event.preventDefault();
+  
+  residents.value.filter(r => r.role != 'ROLE_RESIDENT_SUDO').forEach(async (resident) => {
+    const { data } = await migrateUserToResident(resident.identifier)
+    const asignResident: AsignResident = {
+      identifier: resident.identifier,
+      uuid: props.residence.uuid
+    }
+
+    const roleChange: ChangeRole = {
+      identifier: resident.identifier,
+      residentRole: "SUDO"
+    }
+
+    const asignation = await asignResidentToResidence(asignResident);
+    const role = await updateResidentRole(roleChange);
+  })
+
+}
+
+</script>
+
+<template>
+  <Modal ref="modal">
+    <form class="w-full max-w-2xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
+      <HeaderModal :title="Message.RESIDENCE" icon="home" action="create" />
+      <BodyModal>
+        <TextAreaForm :disabled="true" :model-value="data.description" :alert="alertForDescription"
+          @update:value="data.description = $event" title="Descripción" name="description" />
+        <div class="flex flex-col gap-1">
+          <span class="text-sm font-medium">{{ Message.RESIDENTS }}</span>
+          <ul v-if="residents.length > 0" class="flex flex-wrap gap-2 border border-blue-200 bg-shades-100 p-2">
+            <li :key="index" class="flex items-center gap-1 rounded-lg bg-white p-2 text-blue-500"
+              v-for="(user, index) in residents">
+              <UserImage :image="user.imageUrl" class="size-8" />
+              <div class="flex flex-col">
+                <span class="text-xs">{{ user.identifier }}</span>
+                <p>{{ user.firstName }} {{ user.lastName }}</p>
+              </div>
+            </li>
+          </ul>
+          <SimpleAlert v-else :alert="{ message: Message.NO_RESIDENTS, type: AlertType.INFO }" />
+        </div>
+        <div class="flex flex-row gap-2">
+          <InputForm :disabled="true" :alert="alertForMaxHabitants" :model-value="data.maxHabitants.toString()"
+            @update:value="data.maxHabitants = $event" class="max-w-56" title="Cantidad de Residentes"
+            name="resident_quantity" type="number" />
+          <div class="flex flex-1 gap-2">
+            <InputForm @update:value="currentIdentifier = $event" class="flex-1" title="Identificación"
+              name="identity" />
+            <button type="button" @click="searchUser"
+              class="inline-flex items-center gap-0.5 rounded-lg bg-blue-100 p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95">
+              <VueFeather type="search" stroke-width="2.5" size="16"></VueFeather>
+              <span>{{ Message.SEARCH }}</span>
+            </button>
+          </div>
+        </div>
+      </BodyModal>
+      <ControlsModal>
+        <button type="submit"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-green-100 p-2 text-center text-sm font-normal text-green-400 transition-all hover:rounded-xl hover:bg-green-200 active:scale-95">
+          <VueFeather type="check" stroke-width="2.5" size="16"></VueFeather>
+          <span>{{ Message.BUTTON_ACCEPT }}</span>
+        </button>
+        <button type="button" @click="modal?.close()"
+          class="inline-flex items-center gap-0.5 rounded-lg bg-red-100 p-2 text-center text-sm font-normal text-red-400 transition-all hover:rounded-xl hover:bg-red-200 active:scale-95">
+          <VueFeather type="x" stroke-width="2.5" size="16"></VueFeather>
+          <span>{{ Message.BUTTON_CANCEL }}</span>
+        </button>
+      </ControlsModal>
+    </form>
+  </Modal>
+</template>

@@ -18,3 +18,8 @@ export async function setUserStatus(userStatus: UserStatus) {
     .json<GeneralResponse<RegisteredUser>>()
     .post(userStatus);
 }
+
+export async function migrateUserToResident(identifier: string) {
+  return useAuthenticatedFetch("/api/registered/migrate/resident/" + identifier)
+    .json<GeneralResponse<string>>().post()
+}
