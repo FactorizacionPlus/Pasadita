@@ -5,13 +5,11 @@ import { ref, onMounted } from "vue";
 import type Residence from "@/types/Residence";
 import type { SquareButtonIconsType } from "@/types/SquareButtonIconsType";
 import { getOwnResidence } from "@/composables/useResidence";
+import NoResidence from "@/components/Modal/Resident/NoResidence.vue";
+
 const residence = ref<Residence>();
 const RESIDENT_ROOT = "/residente/";
 const modalQR = ref<InstanceType<typeof ModalQR>>();
-
-onMounted(async () => {
-  await fetchResidence();
-});
 
 interface RouteProp {
   title: string;
@@ -23,7 +21,6 @@ async function fetchResidence() {
   const { data } = await getOwnResidence();
   const record = data.value;
   residence.value = record?.data;
-  console.log(record);
 }
 
 const routes: RouteProp[] = [
@@ -33,6 +30,17 @@ const routes: RouteProp[] = [
     href: "historial-solicitudes",
   },
 ];
+
+async function handleClick() {
+  if (!residence.value) {
+    await fetchResidence();
+  }
+  modalQR.value?.show();
+}
+
+onMounted(async () => {
+  await fetchResidence();
+});
 </script>
 
 <template>
@@ -49,8 +57,9 @@ const routes: RouteProp[] = [
       type="button"
       icon="custom-phone-qr"
       title="Generar llave QR"
-      @click="modalQR?.show()"
+      @click="handleClick"
     />
   </section>
   <ModalQR v-if="residence" :residence="residence" ref="modalQR" />
+  <NoResidence v-else ref="modalQR" />
 </template>
