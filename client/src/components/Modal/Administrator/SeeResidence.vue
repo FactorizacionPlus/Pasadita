@@ -31,6 +31,7 @@ const par = props.residence.uuid;
 async function fetchResidence() {
   const { data } = await getResidentByResidence(par as string);
   residents.value = data.value?.data ?? [];
+  console.log(data.value)
 }
 
 // Fetch de los residentes al montar el componente

@@ -1,35 +1,29 @@
 <script setup lang="ts">
-import { ref, onMounted, defineEmits, type Ref } from "vue";
+import { ref } from "vue";
 import HeaderModal from "@/components/Modal/HeaderModal.vue";
 import VueFeather from "vue-feather";
 import Modal from "@/components/Modal/ModalComponent.vue";
 import BodyModal from "@/components/Modal/BodyModal.vue";
 import ControlsModal from "../ControlsModal.vue";
-import type Alert from "@/types/Alert";
-import type { IdentifierType } from "@/types/User/IdentifierType";
-import { useUser } from "@/stores/user";
-import type RegisteredUser from "@/types/User/RegisteredUser";
 import { useToast } from "@/stores/toast";
 import TextAreaForm from "@/components/Forms/TextAreaForm.vue";
-import SimpleAlert from "@/components/SimpleAlert.vue";
 import { AlertType } from "@/types/Alert";
 import InputForm from "@/components/Forms/InputForm.vue";
-import { getUserByIdentifier } from "@/composables/useRegisteredUser";
 import { ToastType } from "@/types/Toast";
-import UserImage from "@/components/UserImage.vue";
 import type SaveResidence from "@/types/Residence/SaveResidence";
+import { saveResidence } from "@/composables/useResidence";
+import type Alert from "@/types/Alert";
 
 const modal = ref<typeof Modal>();
 const { addToast } = useToast();
 
-const users = ref<RegisteredUser[]>([])
-const foundUser = ref<RegisteredUser>()
-const currentIdentifier = ref("")
 const data = ref<SaveResidence>({
   description: "",
   maxHabitants: 0,
 })
 
+const alertForMaxHabitants = ref<Alert | undefined>()
+const alertForDescription = ref<Alert | undefined>()
 
 enum Message {
   BUTTON_ACCEPT = "Aceptar",
@@ -45,76 +39,56 @@ defineExpose({
   close: () => modal.value?.close(),
 });
 
-async function searchUser() {
+async function handleSubmit(event: Event) {
+  event.preventDefault();
 
-  if (currentIdentifier.value.length < 8) return;
-
-  if(users.value.some((u) => u.identifier == currentIdentifier.value)){
-    addToast({message: "Este usuario ya ha sido agregado a la lista de Residentes Encargados.", type: ToastType.WARNING});
+  if(data.value.description.length < 5){
+    alertForDescription.value = {
+      message: "La descripción debe ser mayor a cinco carácteres.",
+      type: AlertType.WARNING
+    }
     return;
   }
 
-  const { data, statusCode } = await getUserByIdentifier(currentIdentifier.value)
+  if(data.value.maxHabitants < 1){
+    alertForMaxHabitants.value = {
+      message: "El máximo de habitantes debe ser al menos uno.",
+      type: AlertType.WARNING
+    }
+    return;
+  }
 
-  if (!data.value?.ok) {
+  const response = await saveResidence(data?.value);
+
+  if (response.statusCode.value !== 200 || !response.data.value?.ok) {
     addToast({
-      message: "Ha ocurrido un error al tratar de encontrar el usuario, si el error persiste, contacte al soporte técnico.",
+      message: "No se ha podido guardar la residencia, por favor, verifique sus datos.",
       type: ToastType.ERROR
     });
     return;
   }
 
-  if (statusCode.value !== 200) {
-    addToast({
-      message: "No se ha encontrado un usuario con esta identificación, por favor, verifique sus datos.",
-      type: ToastType.ERROR
+  addToast({
+      message: "La residencia ha sido guardada correctamente, se recargará la página en unos segundos para reflejar los cambios.",
+      type: ToastType.SUCCESS
     });
-    return;
-  }
 
-  if (Array.isArray(data.value.data)) { 
-    users.value.push((data.value.data as RegisteredUser[])[0]); 
-  }
-  else { 
-    users.value.push(data.value.data); 
-  }
-
-  addToast({ message: "Se ha encontrado al usuario con la identificación, ha sido agregado como Residente Encargado de la residencia.", type: ToastType.SUCCESS })
+    modal?.value?.close();
+    
+    setTimeout(()=> {
+      window.location.reload();
+    },5000)
 }
 
 </script>
 
 <template>
   <Modal ref="modal">
-    <form class="w-full max-w-2xl overflow-hidden rounded-md bg-white">
+    <form class="w-full max-w-2xl overflow-hidden rounded-md bg-white" @submit="handleSubmit">
       <HeaderModal :title="Message.RESIDENCE" icon="home" action="create" />
       <BodyModal>
-        <TextAreaForm @update:value="data.description = $event" title="Descripción" name="description" />
-        <div class="flex flex-col gap-1">
-          <span class="text-sm font-medium">{{ Message.RESIDENTS }}</span>
-          <ul v-if="users.length > 0" class="flex flex-wrap gap-2 border border-blue-200 bg-shades-100 p-2">
-            <li :key="index" class="flex items-center gap-1 rounded-lg bg-white p-2 text-blue-500" v-for="(user, index) in users">
-              <UserImage :image="user.imageUrl" class="size-8" />
-              <div class="flex flex-col">
-                <span class="text-xs">{{ user.identifier }}</span>
-                <p>{{ user.firstName }} {{ user.lastName }}</p>
-              </div>
-            </li>
-          </ul>
-          <SimpleAlert v-else :alert="{ message: Message.NO_RESIDENTS, type: AlertType.INFO }" />
-        </div>
-        <div class="flex flex-row gap-2">
-          <InputForm @update:value="data.maxHabitants = $event" class="max-w-56" title="Cantidad de Residentes" name="resident_quantity" type="number" />
-          <div class="flex flex-1 gap-2">
-            <InputForm @update:value="currentIdentifier = $event" class="flex-1" title="Identificación"
-              name="identity" />
-            <button type="button" @click="searchUser"
-              class="inline-flex items-center gap-0.5 rounded-lg bg-blue-100 p-2 text-center text-sm font-normal text-blue-400 transition-all hover:rounded-xl hover:bg-blue-200 active:scale-95">
-              <VueFeather type="search" stroke-width="2.5" size="16"></VueFeather>
-              <span>{{ Message.SEARCH }}</span>
-            </button>
-          </div>
-        </div>
+        <InputForm :alert="alertForMaxHabitants" @update:value="data.maxHabitants = $event" title="Cantidad de Residentes" name="resident_quantity" type="number" />
+        <TextAreaForm :alert="alertForDescription" @update:value="data.description = $event" title="Descripción" name="description" />
       </BodyModal>
       <ControlsModal>
         <button type="submit"
